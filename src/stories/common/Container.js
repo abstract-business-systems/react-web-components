@@ -4,6 +4,7 @@ import { Box } from '@mui/material';
 import shortcut from './helper/shortcut';
 import { identity } from '@laufire/utils/fn';
 import { map } from '@laufire/utils/collection';
+import buildEvent from './helper/buildEvent';
 
 const Container = ({
 	onChange = identity, children,
@@ -15,7 +16,7 @@ const Container = ({
 	useEffect(() => {
 		const orientation = width > height ? 'portrait' : 'landscape';
 
-		onChange({ width, height, orientation });
+		onChange(buildEvent({ width, height, orientation }));
 	}, [width, height]);
 
 	useEffect(() => {

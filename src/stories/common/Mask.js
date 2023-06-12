@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState, Fragment } from 'react';
 import color from '../../helper/color';
 import Container from './Container';
 import { identity } from '@laufire/utils/fn';
+import buildEvent from './helper/buildEvent';
 
 const setCanvasImage = ({ canvasRef, src, image, state }) => {
 	const canvas = canvasRef.current;
@@ -31,14 +32,10 @@ const getColor = (evt, canvasRef) => {
 	return color.rgbToHex(data);
 };
 
-const setValue = ({ canvasRef, setState, onChange }) => (evt) => {
+const setValue = ({ canvasRef, onChange }) => (evt) => {
 	const value = getColor(evt, canvasRef);
 
-	setState((preState) => {
-		onChange({ ...preState, value });
-
-		return { ...preState, value };
-	});
+	onChange(buildEvent(value));
 };
 
 const MaskContainer = (props) => {
@@ -70,10 +67,7 @@ const Mask = (props) => {
 
 	const enhancedProps = { ...props, state, setState, image };
 
-	const containerOnChange = (data) => setState((preState) => ({
-		...preState,
-		...data,
-	}));
+	const containerOnChange = ({ target: { value }}) => setState(value);
 
 	return (
 		<Container { ...{
