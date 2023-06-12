@@ -32,16 +32,10 @@ const getColor = (evt, canvasRef) => {
 	return color.rgbToHex(data);
 };
 
-const setValue = ({ canvasRef, onChange }) => (evt) => {
-	const value = getColor(evt, canvasRef);
-
-	onChange(buildEvent(value));
-};
-
 const MaskContainer = (props) => {
 	const {
 		onChange = identity,
-		state: { width, height }, setState, children,
+		state: { width, height }, children,
 	} = props;
 	const canvasRef = useRef(null);
 
@@ -54,7 +48,7 @@ const MaskContainer = (props) => {
 		<canvas
 			ref={ canvasRef }
 			className="mask"
-			onClick={ setValue({ canvasRef, setState, onChange }) }
+			onClick={ (evt) => onChange(buildEvent(getColor(evt, canvasRef))) }
 		/>
 	</Fragment>;
 };
