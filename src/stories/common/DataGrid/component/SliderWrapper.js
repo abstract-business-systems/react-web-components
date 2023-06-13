@@ -8,7 +8,7 @@ const updateValue = (value, {
 	context: { onChange = nothing },
 }) => {
 	setUserInput(value);
-	onChange(buildEvent(value));
+	onChange(buildEvent({ newValue: value }));
 };
 
 const handleValidInput = (props) =>

@@ -8,10 +8,9 @@ const CheckBoxWrapper = (context) => {
 
 	return (
 		<CheckBox { ...{
-			onChange: ({ target: { value: newValue }}) => {
-				onChange(buildEvent(newValue));
-			},
 			value: initialValue,
+			onChange: (evt) =>
+				onChange(buildEvent({ newValue: evt.target.checked })),
 		} }
 		/>);
 };

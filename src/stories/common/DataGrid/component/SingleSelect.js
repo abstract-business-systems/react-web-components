@@ -1,14 +1,10 @@
-import { useState, React } from 'react';
-import handleChange from '../../helper/handleChange';
+import { React } from 'react';
 import SingleSelectWrapper from './SingleSelectWrapper';
 
 const SingleSelect = (context) => {
-	const { schema, value: initialValue = '' } = context;
-	const [value, setValue] = useState(initialValue);
+	const { schema, value } = context;
 	const options = schema.enum;
-	const onChange = ({ target: { value: newValue }}) =>
-		handleChange(newValue, { context, setValue });
-	const props = { options, onChange, value };
+	const props = { options, value };
 
 	return (
 		<SingleSelectWrapper { ...{ ...props, ...context } }/>);

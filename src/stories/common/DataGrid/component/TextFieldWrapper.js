@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { React, useEffect, useState } from 'react';
 import { identity, nothing } from '@laufire/utils/fn';
 import buildEvent from '../../helper/buildEvent';
@@ -10,13 +9,19 @@ import { everything } from '@laufire/utils/predicates';
 
 const handleValidInput = (props, newValue) => {
 	const {
-		setUserInput, context: { validate, onChange = nothing },
+		setUserInput, userInput, context: {
+			validate,
+			onChange = nothing,
+		},
 		transform,
 	} = props;
+	const isValid = validate(transform(newValue));
 
-	setUserInput(newValue);
-	validate(transform(newValue))
-			&& onChange(buildEvent(transform(newValue)));
+	setUserInput((prev) => ({
+		...prev, value: newValue,
+		...isValid && { valid: newValue },
+	}));
+	onChange(buildEvent({ isValid, userInput, newValue }));
 };
 
 const getClassName = (props) => {
@@ -25,7 +30,7 @@ const getClassName = (props) => {
 		context: { validate },
 	} = props;
 
-	return validate(transform(userInput))
+	return validate(transform(userInput.value))
 		? ''
 		: 'error';
 };
@@ -51,23 +56,23 @@ const handleChange = (props) =>
 
 const TextFieldWrapper = (context) => {
 	const { value, component, schemaType, schema } = context;
-	const [userInput, setUserInput] = useState(value);
+	const [userInput, setUserInput] = useState({ value: value, valid: value });
 	const transform = transformValue[component] || identity;
 	const props = { setUserInput, userInput, transform, context };
 	const buildInputProps = inputProps[component] || nothing;
 	const extendedProps = { inputProps: buildInputProps(context) };
 
 	useEffect(() => {
-		setUserInput(value);
+		setUserInput({ value: value, valid: value });
 	}, [value]);
+
 	return (
 		<TextField { ...{
 			...TextFieldProps(schema),
 			type: schemaType,
 			className: getClassName(props),
-			value: userInput,
-			onChange: handleChange(props),
-			...extendedProps,
+			value: userInput.value,
+			onChange: handleChange(props), ...extendedProps,
 		} }
 		/>);
 };

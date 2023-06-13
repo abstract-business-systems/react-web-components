@@ -14,7 +14,7 @@ const getValidValue = (newValue, {
 	context: { onChange = nothing },
 }) => {
 	setUserInput(newValue);
-	onChange(buildEvent(newValue));
+	onChange(buildEvent({ newValue }));
 };
 
 const handleValidInput = (props) =>

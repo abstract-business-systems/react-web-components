@@ -8,7 +8,8 @@ const SwitchWrapper = (context) => {
 
 	return (
 		<MuiSwitch { ...{
-			onChange: (evt) => onChange(buildEvent(evt.target.value)),
+			onChange: (evt) =>
+				onChange(buildEvent({ newValue: evt.target.checked })),
 			checked: initialValue,
 		} }
 		/>);

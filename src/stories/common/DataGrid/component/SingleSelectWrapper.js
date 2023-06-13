@@ -14,7 +14,7 @@ const handleValidInput = (props) =>
 		const { setUserInput, context: { onChange = nothing }} = props;
 
 		setUserInput(value);
-		onChange(buildEvent(value));
+		onChange(buildEvent({ newValue: value }));
 	};
 const selectProps = {
 	sx: { width: '150px' },

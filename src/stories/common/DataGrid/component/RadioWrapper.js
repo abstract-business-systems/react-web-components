@@ -12,7 +12,7 @@ const RadioWrapper = (context) => {
 			options: schema.enum,
 			onChange: (evt) => {
 				setValue(evt.target.value);
-				onChange(buildEvent(evt.target.value));
+				onChange(buildEvent({ newValue: evt.target.value }));
 			},
 			value: value,
 			schema: schema,

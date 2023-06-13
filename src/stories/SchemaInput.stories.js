@@ -1,7 +1,7 @@
-/* eslint-disable no-console */
 import * as React from 'react';
 import SchemaInputComponent from './common/DataGrid/SchemaInput';
 import schema from './schema';
+import { peek } from '@laufire/utils/debug';
 
 const defaultValue = {
 	singleSelect: 'US',
@@ -68,6 +68,7 @@ const Template = (args) => {
 		<SchemaInputComponent { ...{
 			schema: jsonSchema,
 			value: value,
+			onChange: (evt) => peek(evt),
 		} }
 		/>);
 };
