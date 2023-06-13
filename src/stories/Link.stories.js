@@ -77,7 +77,6 @@ const selectArgs = {
 };
 
 CustomLink.args = {
-	// eslint-disable-next-line react/display-name
-	component: React.forwardRef(() => <Select { ...selectArgs }/>),
+	component: () => <Select { ...selectArgs }/>,
 	href: '/select',
 };
