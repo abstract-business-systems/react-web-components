@@ -13,6 +13,7 @@ export default {
 	},
 };
 
+// Todo: Change the constraints in the implementation.
 const Template = ({ facingMode, ...args }) =>
 	<QrCodeScan { ...{ ...args, constraints: { facingMode }} }/>;
 

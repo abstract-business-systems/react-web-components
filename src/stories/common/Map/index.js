@@ -29,7 +29,7 @@ const Map = ({ value, currentLocation, ...args }) =>
 ;
 
 export default Map;
-
+// Todo: Locator should be above the Map function.
 const Locator = ({ value, currentLocation }) =>
 	<>
 		<Circle

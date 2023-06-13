@@ -23,7 +23,7 @@ const component = {
 export default component;
 
 export const Tab = (args) => <MuiTab { ...args }/>;
-
+// Todo: Doubt in orientation and direction.
 Tab.args = {
 	orientation: 'vertical',
 	color: 'secondary', variant: 'scrollable',
@@ -41,6 +41,7 @@ Tab.args = {
 			icon: 'Star',
 		},
 	},
+	// Todo: It should be type not style.
 	style: 'iconAndText',
 	value: 'todoPane',
 	dir: 'rtl',

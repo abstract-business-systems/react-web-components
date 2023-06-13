@@ -20,6 +20,7 @@ export const Select = (args) => {
 		/>);
 };
 
+// Todo: When we toggle multiselect to true, it works; when we toggle multiselect to false, it doesn't.
 Select.args = {
 	options: ['Ten', 'Twenty', 'Thirty'],
 	label: 'Number',

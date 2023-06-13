@@ -8,6 +8,7 @@ const component = {
 	component: MuiSplashScreen,
 	argTypes: {
 		child: {
+			// Todo: Child is empty, no option to select.
 			control: {
 				type: 'select',
 				options: ['SplashImage', 'SplashText'],
@@ -33,6 +34,7 @@ const Template = ({ child, text, ...rest }) => {
 
 export const SplashScreen = Template.bind({});
 
+// Todo: Text only dynamic not a image.
 SplashScreen.args = {
 	textColor: 'white',
 	backgroundColor: 'black',

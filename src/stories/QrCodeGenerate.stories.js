@@ -20,17 +20,13 @@ export default {
 			type: 'select',
 			options: ['canvas', 'svg'],
 		},
+		// Todo: ImageSettings value should be added.
 		imageSettings: { type: 'object' },
 	},
 };
 
 const Template = ({ onChange, value, ...args }) =>
-	<QrCodeGenerator { ...{
-		value,
-		onChange,
-		...args,
-	} }
-	/>;
+	<QrCodeGenerator { ...{ value, onChange, ...args } }/>;
 
 export const GenerateQR = Template.bind({});
 

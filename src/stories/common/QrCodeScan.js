@@ -29,6 +29,7 @@ const ScanQrReader = ({ setState, state, onChange, ...args }) => {
 			onResult={ (...data) => {
 				const result = getResult(...data);
 
+				// Todo: Check where the isScanning is necessary for onChange.
 				onChange({ target: { value: result }});
 				setState(result);
 			} }

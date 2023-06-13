@@ -13,10 +13,12 @@ const getIcon = ({ emptyIcon, selectedIcon }) => {
 	};
 };
 
+// Todo: Fix the console error
 const MuiRating = (args) => {
 	const { value: initialValue, ...rest } = args;
 	const [value, setValue] = useState(initialValue);
 
+	// Todo: Fix the onChange.
 	return (
 		<Rating { ...{
 			value: value,

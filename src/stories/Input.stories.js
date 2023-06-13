@@ -22,6 +22,7 @@ const Template = (args) => {
 
 export const Input = Template.bind({});
 
+// Todo: On toggle select control the end adornments top of dropdown icon.
 Input.args = {
 	variant: 'filled',
 	label: 'Required',

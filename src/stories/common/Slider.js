@@ -9,6 +9,7 @@ const Slider = (context) => {
 		<MuiSlider { ...{
 			sx: sx,
 			value: value,
+			// Todo: Fix the onChange value.
 			onChange: (evt) => onChange(evt),
 			...args,
 		} }
