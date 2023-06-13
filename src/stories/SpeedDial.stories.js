@@ -4,6 +4,7 @@ import MuiSpeedDial from '../stories/common/SpeedDial';
 const component = {
 	title: 'Navigation/SpeedDial',
 	component: MuiSpeedDial,
+	// Todo: Give default value for control type, https://storybook.js.org/docs/react/writing-stories/args#component-args.
 	argTypes: {
 		direction: {
 			type: 'select',

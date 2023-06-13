@@ -8,6 +8,7 @@ import Button from '../Button';
 
 const Menu = (args) => {
 	const { trigger: { children: { text }}} = args;
+	// Todo: why it require two state.
 	const [content, setContent] = useState('');
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const handleClick = (event) => {

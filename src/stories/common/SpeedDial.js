@@ -5,6 +5,7 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 import * as Icons from '@mui/icons-material';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 
+// Todo: Rename getItemIcon.
 const itemIcon = (ele) => {
 	const Icon = Icons[ele.icon];
 
@@ -14,6 +15,7 @@ const itemIcon = (ele) => {
 	};
 };
 
+// Todo: Rename getOpenIcon.
 const openIcon = (icon) => {
 	const Icon = Icons[icon];
 
@@ -40,12 +42,12 @@ const SpeedDial = (args) => {
 				direction={ direction }
 				icon={ <SpeedDialIcon { ...openIcon(icon) }/> }
 			>
+				{ /* // Todo: Call by Component syntax. */ }
 				{ MuiSpeedDialAction({ setValue, data, ...rest }) }
 			</MuiSpeedDial>
 			<Box>{ value }</Box>
 		</Box>
 	);
-}
-	;
+};
 
 export default SpeedDial;

@@ -14,6 +14,7 @@ export const Pagination = Template.bind({});
 
 Pagination.args = {
 	count: 5,
+	// Todo: Color control not working properly, which ever require select change that.
 	color: 'secondary',
 	disabled: false,
 	variant: 'outlined',

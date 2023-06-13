@@ -6,6 +6,7 @@ import DrawerButton from './DrawerButton';
 import DrawerList from './DrawerList';
 
 const Drawer = ({ direction, lists }) => {
+	// Todo: Does all the direction require in state.
 	const [anchor, setAnchor] = useState({
 		left: false,
 		right: false,

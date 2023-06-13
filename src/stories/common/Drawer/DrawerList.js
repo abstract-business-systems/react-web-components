@@ -13,6 +13,7 @@ const DrawerItemList = (lists) =>
 		const Icon = Icons[icon];
 		const itemIcon = icon && <Icon/>;
 
+		// Todo: Style should not static.
 		return <ListItem key={ text } sx={ { width: '200px' } }>
 			<ListItemButton>
 				<ListItemIcon>{ itemIcon }</ListItemIcon>
