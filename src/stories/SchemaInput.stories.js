@@ -17,6 +17,7 @@ const defaultValue = {
 	date: '2022-07-07',
 	number: 10,
 	switch: false,
+	custom: '',
 };
 
 const component = {
@@ -43,11 +44,11 @@ const component = {
 			],
 		},
 		schema: {
-			control: { type: 'object', value: {}},
+			control: { type: 'object', value: schema.custom },
 			if: { arg: 'schemaType', eq: 'custom' },
 		},
 		value: {
-			control: { type: 'object', value: '' },
+			control: { type: 'object', value: defaultValue.custom },
 			if: { arg: 'schemaType', eq: 'custom' },
 		},
 	},

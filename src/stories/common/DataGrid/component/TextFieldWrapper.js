@@ -1,4 +1,5 @@
-import { React, useState } from 'react';
+/* eslint-disable max-lines-per-function */
+import { React, useEffect, useState } from 'react';
 import { identity, nothing } from '@laufire/utils/fn';
 import buildEvent from '../../helper/buildEvent';
 import TextField from '../../Input';
@@ -56,6 +57,9 @@ const TextFieldWrapper = (context) => {
 	const buildInputProps = inputProps[component] || nothing;
 	const extendedProps = { inputProps: buildInputProps(context) };
 
+	useEffect(() => {
+		setUserInput(value);
+	}, [value]);
 	return (
 		<TextField { ...{
 			...TextFieldProps(schema),

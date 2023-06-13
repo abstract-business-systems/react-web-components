@@ -100,6 +100,7 @@ const schema = {
 		maximum: 10,
 		multipleOf: 0.2,
 	},
+	custom: { type: 'string' },
 };
 
 export default schema;
