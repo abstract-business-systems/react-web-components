@@ -23,7 +23,7 @@ const TimePicker = (context) => {
 			value={ time }
 			onChange={ (value) => {
 				setTime(value);
-				return onChange(buildEvent(value));
+				return onChange(buildEvent({ newValue: value }));
 			} }
 			slotProps={ slotProps(context) }
 		/></LocalizationProvider>;

@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import React from 'react';
 import { map, values } from '@laufire/utils/collection';
 import inputType from './inputType';
@@ -25,6 +24,26 @@ const getRenderCellProp = (
 
 const widgetMap = { password: 'password' };
 
+const SchemaInputComponent = (
+	params, ele, onChange
+) => {
+	const { row, field, value } = params;
+
+	return (
+		<SchemaInput { ...{
+			value: value, schema: ele,
+			onChange: (evt) => {
+				onChange(buildEvent({
+					newValue: {
+						...row,
+						[field]: evt.target.value,
+					},
+				}));
+			},
+		} }
+		/>);
+};
+
 const getColumns = (props) => {
 	const { columns: { data }, columns, onChange = nothing } = props;
 
@@ -37,17 +56,9 @@ const getColumns = (props) => {
 			...getRenderCellProp(
 				ele, key, columns
 			),
-			renderCell: (params) =>
-				<SchemaInput { ...{
-					value: params.value, schema: ele,
-					onChange: (evt) => {
-						onChange(buildEvent({
-							...params.row,
-							[params.field]: evt.target.value,
-						}));
-					},
-				} }
-				/>,
+			renderCell: (params) => SchemaInputComponent(
+				params, ele, onChange
+			),
 			...getColumnProps(),
 		};
 	}));

@@ -15,12 +15,12 @@ const Actions = {
 const getActionItems = (props) => {
 	const {
 		columns: { actions = [] }, rows,
-		userInput, onChange = nothing, setRows,
+		userInput: { target: { value }}, onChange = nothing, setRows,
 	} = props;
-	const { target: { value }} = userInput;
 
 	return actions.map(({ icon, action }, key) => {
 		const Icon = Icons[icon];
+		const UserAction = Actions[action](rows, value);
 
 		return (
 			<GridActionsCellItem
@@ -28,8 +28,8 @@ const getActionItems = (props) => {
 				icon={ <Icon/> }
 				label={ icon }
 				onClick={ () => {
-					setRows(Actions[action](rows, value));
-					onChange(buildEvent(Actions[action](rows, value)));
+					setRows(UserAction);
+					onChange(buildEvent({ newValue: UserAction }));
 				} }
 			/>);
 	});

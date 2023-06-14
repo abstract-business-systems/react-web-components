@@ -20,7 +20,7 @@ const ImageCarousel = ({ onChange = nothing, count, value: initialValue }) => {
 			style: { ...slideStyle },
 			onSlideChange: () => {
 				setValue(value);
-				onChange(buildEvent(value));
+				onChange(buildEvent({ newValue: value }));
 			},
 		} }
 		>{
