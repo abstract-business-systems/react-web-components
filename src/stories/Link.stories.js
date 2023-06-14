@@ -3,7 +3,7 @@ import Link from './common/Link';
 import Select from './common/Select';
 
 export default {
-	title: 'Components/Link',
+	title: 'Navigation/Link',
 	component: Link,
 	argTypes: {
 		color: {

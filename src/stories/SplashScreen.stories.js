@@ -4,7 +4,7 @@ import SplashText from '../stories/common/SplashScreen/SplashText';
 import MuiSplashScreen from '../stories/common/SplashScreen/index';
 
 const component = {
-	title: 'Components/SplashScreen',
+	title: 'Display/SplashScreen',
 	component: MuiSplashScreen,
 	argTypes: {
 		child: {

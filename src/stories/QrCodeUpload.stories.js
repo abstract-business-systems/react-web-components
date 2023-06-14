@@ -3,7 +3,7 @@ import QrCodeUpload from './common/QrCodeUpload';
 import { peek } from '@laufire/utils/debug';
 
 export default {
-	title: 'Components/QRCode',
+	title: 'Display/QRCode',
 	component: QrCodeUpload,
 };
 

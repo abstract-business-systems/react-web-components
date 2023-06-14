@@ -21,7 +21,7 @@ const defaultValue = {
 };
 
 const component = {
-	title: 'Components/SchemaInput',
+	title: 'Inputs/SchemaInput',
 	component: SchemaInputComponent,
 	argTypes: {
 		schemaType: {

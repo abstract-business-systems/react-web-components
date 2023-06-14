@@ -3,7 +3,7 @@ import { peek } from '@laufire/utils/debug';
 import QrCodeGenerator from './common/QrCodeGenerate';
 
 export default {
-	title: 'Components/QRCode',
+	title: 'Display/QRCode',
 	component: QrCodeGenerator,
 	argTypes: {
 		value: { type: 'string' },

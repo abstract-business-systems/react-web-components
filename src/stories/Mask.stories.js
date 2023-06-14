@@ -5,7 +5,7 @@ import child from './assets/colors.svg';
 import { peek } from '@laufire/utils/debug';
 
 const component = {
-	title: 'components/Mask',
+	title: 'Display/Mask',
 	component: MaskComponent,
 };
 

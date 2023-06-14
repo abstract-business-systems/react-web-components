@@ -3,7 +3,7 @@ import { peek } from '@laufire/utils/debug';
 import QrCodeScan from './common/QrCodeScan';
 
 export default {
-	title: 'Components/QRCode',
+	title: 'Display/QRCode',
 	component: QrCodeScan,
 	argTypes: {
 		facingMode: {
