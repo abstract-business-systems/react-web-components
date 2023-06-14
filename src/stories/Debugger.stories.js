@@ -2,7 +2,7 @@ import * as React from 'react';
 import Debugger from '../stories/common/Debugger';
 
 const component = {
-	title: 'stories/Debugger',
+	title: 'Display/DeBugger',
 	component: Debugger,
 };
 

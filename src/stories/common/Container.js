@@ -16,7 +16,7 @@ const Container = ({
 	useEffect(() => {
 		const orientation = width > height ? 'portrait' : 'landscape';
 
-		onChange(buildEvent({ width, height, orientation }));
+		onChange(buildEvent({ newValue: { width, height, orientation }}));
 	}, [width, height]);
 
 	useEffect(() => {
