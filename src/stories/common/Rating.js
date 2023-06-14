@@ -1,7 +1,8 @@
-import { React, useState } from 'react';
+import { React } from 'react';
 import Rating from '@mui/material/Rating';
 import buildEvent from './helper/buildEvent';
 import * as Icons from '@mui/icons-material';
+import { nothing } from '@laufire/utils/predicates';
 
 const getIcon = ({ emptyIcon, selectedIcon }) => {
 	const Icon = Icons[selectedIcon];
@@ -13,21 +14,20 @@ const getIcon = ({ emptyIcon, selectedIcon }) => {
 	};
 };
 
-// Todo: Fix the console error
 const MuiRating = (args) => {
-	const { value: initialValue, ...rest } = args;
-	const [value, setValue] = useState(initialValue);
+	const {
+		value, emptyIcon,
+		selectedIcon, onChange = nothing, ...rest
+	} = args;
 
-	// Todo: Fix the onChange.
 	return (
 		<Rating { ...{
 			value: value,
 			onChange: (dummy, newValue) => {
-				setValue(newValue);
-				buildEvent({ newValue });
+				onChange(buildEvent({ newValue }));
 			},
 			...rest,
-			...getIcon(rest),
+			...getIcon({ emptyIcon, selectedIcon }),
 		} }
 
 		/>);

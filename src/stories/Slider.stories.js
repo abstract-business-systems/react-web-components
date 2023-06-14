@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { React, useState } from 'react';
 import MuiSlider from './common/Slider';
 
 const component = {
@@ -8,14 +8,23 @@ const component = {
 
 export default component;
 
-const Template = (args) => <MuiSlider { ...args }/>;
+const Template = (args) => {
+	const [value, setValue] = useState(0);
+
+	return (
+		<MuiSlider { ...{
+			onChange: (evt) => setValue(evt.target.value),
+			value: value,
+			...args,
+		} }
+		/>);
+};
 
 export const Slider = Template.bind({});
 
 Slider.args = {
 	size: 'large',
 	color: 'success',
-	value: 20,
 	min: 0,
 	max: 100,
 	step: 10,

@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useState } from 'react';
 import MuiInput from '../stories/common/Input';
 
 const component = {
@@ -9,7 +9,7 @@ const component = {
 export default component;
 
 const Template = (args) => {
-	const [value, setValue] = React.useState(1);
+	const [value, setValue] = useState(1);
 
 	return (
 		<MuiInput { ...{
