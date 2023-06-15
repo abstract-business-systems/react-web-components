@@ -32,9 +32,14 @@ const getColor = (evt, canvasRef) => {
 	return color.rgbToHex(data);
 };
 
+const triggers = {
+	click: 'onClick',
+	hover: 'onMouseMove',
+};
+
 const MaskContainer = (props) => {
 	const {
-		onChange = identity,
+		onChange = identity, trigger,
 		state: { width, height }, children,
 	} = props;
 	const canvasRef = useRef(null);
@@ -48,14 +53,15 @@ const MaskContainer = (props) => {
 		<canvas
 			ref={ canvasRef }
 			className="mask"
-			onClick={ (evt) => onChange(buildEvent(getColor(evt, canvasRef))) }
-		/>
-	</Fragment>;
+			{ ...{
+				[triggers[trigger]]: (evt) =>
+					onChange(buildEvent(getColor(evt, canvasRef))),
+			} }
+		/></Fragment>;
 };
 
-const resize = { refreshRate: 250 };
-
 const Mask = (props) => {
+	const { resize } = props;
 	const image = new Image();
 	const [state, setState] = useState({ width: 0, height: 0 });
 
