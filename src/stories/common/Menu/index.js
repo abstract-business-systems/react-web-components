@@ -8,14 +8,12 @@ import Button from '../Button';
 
 const Menu = (args) => {
 	const { trigger: { children: { text }}} = args;
-	// Todo: why it require two state.
-	const [content, setContent] = useState('');
-	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [value, setValue] = useState({ content: '', anchorEl: null });
 	const handleClick = (event) => {
-		setAnchorEl(event.currentTarget);
+		setValue((prev) => ({ ...prev, anchorEl: event.currentTarget }));
 	};
 	const handleClose = () => {
-		setAnchorEl(null);
+		setValue((prev) => ({ ...prev, anchorEl: null }));
 	};
 
 	return <Box>
@@ -24,8 +22,8 @@ const Menu = (args) => {
 			onClick: handleClick,
 		} }
 		/>
-		<MuiMenu { ...{ args, handleClose, setContent, anchorEl } }/>
-		{ content && <Content { ...{ content } }/> }
+		<MuiMenu { ...{ args, handleClose, setValue, value } }/>
+		{ value.content && <Content { ...{ content: value.content } }/> }
 	</Box>;
 };
 

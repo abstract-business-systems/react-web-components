@@ -2,7 +2,7 @@ import { Menu } from '@mui/material';
 import * as React from 'react';
 import MenuItems from './MenuItems';
 
-const MuiMenu = ({ args, handleClose, setContent, anchorEl }) => {
+const MuiMenu = ({ args, handleClose, setValue, value: { anchorEl }}) => {
 	const {
 		transformHorizontal, transformVertical,
 		vertical, horizontal, data, sx,
@@ -21,7 +21,7 @@ const MuiMenu = ({ args, handleClose, setContent, anchorEl }) => {
 				vertical: transformVertical,
 				horizontal: transformHorizontal,
 			} }
-		><MenuItems { ...{ data, sx, setContent } }/></Menu>);
+		><MenuItems { ...{ data, sx, setValue } }/></Menu>);
 };
 
 export default MuiMenu;
