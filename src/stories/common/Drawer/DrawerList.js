@@ -8,13 +8,12 @@ import {
 	Typography,
 } from '@mui/material';
 
-const DrawerItemList = (lists) =>
+const DrawerItemList = ({ lists, sx }) =>
 	values(map(lists, ({ icon, text, typography }) => {
 		const Icon = Icons[icon];
 		const itemIcon = icon && <Icon/>;
 
-		// Todo: Style should not static.
-		return <ListItem key={ text } sx={ { width: '200px' } }>
+		return <ListItem key={ text } sx={ sx }>
 			<ListItemButton>
 				<ListItemIcon>{ itemIcon }</ListItemIcon>
 				<ListItemText primary={ text }/>
@@ -23,13 +22,10 @@ const DrawerItemList = (lists) =>
 		</ListItem>;
 	}));
 
-const DrawerList = ({ direction, lists, anchor, setAnchor }) =>
-	<Box
-		onClick={ () =>
-			setAnchor({ ...anchor, [direction]: false }) }
-	>
+const DrawerList = ({ lists, sx }) =>
+	<Box>
 		<List>
-			<DrawerItemList { ...lists }/>
+			<DrawerItemList { ...{ lists, sx } }/>
 		</List>
 	</Box>;
 
