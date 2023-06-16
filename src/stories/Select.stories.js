@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import MuiSelect from '../stories/common/Select';
-import { peek } from '@laufire/utils/debug';
 
 const component = {
 	title: 'Inputs/Select',
@@ -11,8 +10,6 @@ export default component;
 
 export const Select = (args) => {
 	const { value: initialValue, ...rest } = args;
-
-	peek(args);
 	const [userInput, setUserInput] = useState(initialValue);
 
 	return (

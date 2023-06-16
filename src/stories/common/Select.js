@@ -16,16 +16,18 @@ const MenuList = (options) =>
 const DropDown = (context) => {
 	const {
 		options, onChange = nothing,
-		value, ...rest
+		value, multiple, ...rest
 	} = context;
 
 	return (
 		<MuiSelect
 			{ ...{
 				value: value,
+				multiple: multiple,
 				onChange: (evt) =>
 					onChange(buildEvent({ newValue: evt.target.value })),
-				renderValue: (selected) => selected.join(', '),
+				...multiple
+				&& { renderValue: (selected) => selected.join(', ') },
 				...rest,
 			} }
 		>{ MenuList(options) }</MuiSelect>);
