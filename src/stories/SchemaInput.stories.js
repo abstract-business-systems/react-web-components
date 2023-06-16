@@ -57,16 +57,16 @@ const component = {
 export default component;
 
 const Template = (args) => {
-	const { schemaType = 'date' } = args;
+	const { schemaType = 'date', value: newValue } = args;
 	const jsonSchema = schema[schemaType];
-	const value = defaultValue[schemaType];
+	const value = defaultValue[schemaType] || newValue;
 
 	return (
 		<SchemaInputComponent { ...{
 			schema: jsonSchema,
 			value: value,
 			onChange: (evt) => peek(evt),
-			...args,
+			...(schemaType === 'custom') && args,
 		} }
 		/>);
 };
