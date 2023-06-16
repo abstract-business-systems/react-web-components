@@ -1,10 +1,9 @@
 import { React } from 'react';
-import image from '../../../assets/splash_icon/Splash_rotate.gif';
 
-const SplashImage = () =>
+const SplashImage = ({ imgSrc }) =>
 	<img
 		alt="SplashScreen"
-		src={ image }
+		src={ imgSrc }
 		style={ { width: '90vw' } }
 	/>;
 

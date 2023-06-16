@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { nothing } from '@laufire/utils/fn';
 import { React, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -25,10 +24,8 @@ const ImageCarousel = ({ onChange = nothing, count, value: initialValue }) => {
 		} }
 		>{
 				Array(count).fill(count)
-					.map((slide, index) =>
-						<SwiperSlide key={ index }>
-							Slide { index }
-						</SwiperSlide>)
+					.map((slide, i) =>
+						<SwiperSlide key={ i }>Slide { i }</SwiperSlide>)
 			}
 		</Swiper>
 	);

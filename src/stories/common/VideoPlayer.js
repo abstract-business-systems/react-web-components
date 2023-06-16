@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { map, omit } from '@laufire/utils/collection';
 import { nothing } from '@laufire/utils/fn';
 import React, { useState } from 'react';
@@ -18,11 +17,27 @@ const events = {
 	onEnablePIP: { pip: true },
 	onDisablePIP: { pip: false },
 };
+const reactPlayer = (
+	playerProps, light, playing, playerEvents, patchValue, value
+) =>
+	<ReactPlayer
+		{ ...{
+			...playerProps,
+			light: light,
+			playing: playing,
+			...playerEvents,
+			onSeek: () => patchValue({ played: value.played }),
+			onProgress: (state) => patchValue({
+				played: state.playedSeconds,
+				loaded: state.loadedSeconds,
+			}),
+			onDuration: (duration) => patchValue({ duration }),
+			onPlaybackRateChange: (speed) =>
+				patchValue({ playbackRate: parseFloat(speed) }),
+		} }
+	/>;
 
-const VideoPlayer = ({
-	onChange = nothing,
-	value: initialValue,
-}) => {
+const VideoPlayer = ({ onChange = nothing, value: initialValue }) => {
 	const { mode, status, ...rest } = initialValue;
 	const playerProps = omit(rest, { played: 'played', loaded: 'loaded' });
 	const light = mode === 'light';
@@ -39,23 +54,9 @@ const VideoPlayer = ({
 		() => patchValue(eventData));
 
 	return (
-		<ReactPlayer
-			{ ...{
-				...playerProps,
-				light: light,
-				playing: playing,
-				...playerEvents,
-				onSeek: () => patchValue({ played: value.played }),
-				onProgress: (state) => patchValue({
-					played: state.playedSeconds,
-					loaded: state.loadedSeconds,
-				}),
-				onDuration: (duration) => patchValue({ duration }),
-				onPlaybackRateChange: (speed) =>
-					patchValue({ playbackRate: parseFloat(speed) }),
-
-			} }
-		/>
+		reactPlayer(
+			playerProps, light, playing, playerEvents, patchValue, value
+		)
 	);
 };
 

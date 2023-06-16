@@ -15,21 +15,6 @@ const icon = new Leaflet.Icon({
 	shadowSize: [41, 41],
 });
 
-// eslint-disable-next-line max-lines-per-function
-const Map = ({ value, currentLocation, ...args }) =>
-
-	<MapContainer
-		{ ...args }
-		center={ value }
-		style={ { height: '100vh' } }
-	>
-		<Locator { ...{ value, currentLocation } }/>
-		<TileLayer { ...tileLayer }/>
-	</MapContainer>
-;
-
-export default Map;
-// Todo: Locator should be above the Map function.
 const Locator = ({ value, currentLocation }) =>
 	<>
 		<Circle
@@ -46,3 +31,17 @@ const Locator = ({ value, currentLocation }) =>
 		{ currentLocation && <Location/> }
 	</>
 	;
+
+const Map = ({ value, currentLocation, ...args }) =>
+
+	<MapContainer
+		{ ...args }
+		center={ value }
+		style={ { height: '100vh' } }
+	>
+		<Locator { ...{ value, currentLocation } }/>
+		<TileLayer { ...tileLayer }/>
+	</MapContainer>
+;
+
+export default Map;
