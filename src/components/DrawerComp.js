@@ -23,8 +23,10 @@ import { Typography } from '@mui/material';
 
 const drawerWidth = 240;
 
-const Main = styled('main', { shouldForwardProp:
-	(prop) => prop !== 'open' })(({ theme, open }) => ({
+const Main = styled('main', {
+	shouldForwardProp:
+	(prop) => prop !== 'open',
+})(({ theme, open }) => ({
 	flexGrow: 1,
 	padding: theme.spacing(3),
 	transition: theme.transitions.create('margin', {
@@ -42,7 +44,8 @@ const Main = styled('main', { shouldForwardProp:
 }),);
 
 const AppBar = styled(MuiAppBar, {
-	shouldForwardProp: (prop) => prop !== 'open',
+	shouldForwardProp:
+	(prop) => prop !== 'open',
 })(({ theme, open }) => ({
 	transition: theme.transitions.create(['margin', 'width'], {
 		easing: theme.transitions.easing.sharp,
@@ -115,14 +118,14 @@ const PersistentDrawerLeft = () => {
 			>
 				<DrawerHeader>
 					<IconButton onClick={ handleDrawerClose }>
-						{theme.direction === 'ltr'
+						{ theme.direction === 'ltr'
 							? <ChevronLeftIcon/>
-							: <ChevronRightIcon/>}
+							: <ChevronRightIcon/> }
 					</IconButton>
 				</DrawerHeader>
 				<Divider/>
 				<List>
-					{['Inbox', 'Starred', 'Send email', 'Drafts']
+					{ ['Inbox', 'Starred', 'Send email', 'Drafts']
 						.map((text, index) =>
 							<ListItem
 								key={ text }
@@ -131,18 +134,18 @@ const PersistentDrawerLeft = () => {
 							>
 								<ListItemButton>
 									<ListItemIcon>
-										{index % 2 === 0
+										{ index % 2 === 0
 											? <InboxIcon/>
-											: <MailIcon/>}
+											: <MailIcon/> }
 									</ListItemIcon>
 									<ListItemText primary={ text }/>
 								</ListItemButton>
-							</ListItem>)}
+							</ListItem>) }
 				</List>
 			</Drawer>
 			<Main open={ open }>
 				<DrawerHeader/>
-				<Typography>{content}</Typography>
+				<Typography>{ content }</Typography>
 			</Main>
 		</Box>
 	);

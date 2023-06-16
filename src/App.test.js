@@ -5,7 +5,7 @@ import context from './core/context';
 
 describe('App', () => {
 	test('renders the component appropriately', () => {
-		const component = render(App(context)).getByRole('App');
+		const component = render(App(context)).screen.getByRole('App');
 
 		expect(component).toBeInTheDocument();
 	});
