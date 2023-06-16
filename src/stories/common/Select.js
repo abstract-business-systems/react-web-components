@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { map } from '@laufire/utils/collection';
 import {
 	FormControl, FormHelperText, InputLabel,
@@ -7,6 +6,7 @@ import {
 } from '@mui/material';
 import { React } from 'react';
 import { nothing } from '@laufire/utils/fn';
+import buildEvent from '../common/helper/buildEvent';
 
 const MenuList = (options) =>
 	map(options, (option, index) =>
@@ -16,19 +16,16 @@ const MenuList = (options) =>
 const DropDown = (context) => {
 	const {
 		options, onChange = nothing,
-		multiple, value, ...rest
+		value, ...rest
 	} = context;
 
 	return (
 		<MuiSelect
 			{ ...{
 				value: value,
-				multiple: multiple,
-				onChange: (evt) => {
-					onChange(evt);
-				},
-				...multiple
-				&& { renderValue: (selectedValue) => selectedValue.join(', ') },
+				onChange: (evt) =>
+					onChange(buildEvent({ newValue: evt.target.value })),
+				renderValue: (selected) => selected.join(', '),
 				...rest,
 			} }
 		>{ MenuList(options) }</MuiSelect>);

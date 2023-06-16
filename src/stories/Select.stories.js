@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import MuiSelect from '../stories/common/Select';
+import { peek } from '@laufire/utils/debug';
 
 const component = {
 	title: 'Inputs/Select',
@@ -9,18 +10,23 @@ const component = {
 export default component;
 
 export const Select = (args) => {
-	const [value, setValue] = useState([]);
+	const { value: initialValue, ...rest } = args;
+
+	peek(args);
+	const [userInput, setUserInput] = useState(initialValue);
 
 	return (
 		<MuiSelect { ...{
-			onChange: (evt) => setValue(evt.target.value),
-			value: value,
-			...args,
+			onChange: ({ target: { value }}) =>
+				setUserInput(typeof value === 'string'
+					? value.split(',')
+					: value),
+			value: userInput,
+			...rest,
 		} }
 		/>);
 };
 
-// Todo: When we toggle multiselect to true, it works; when we toggle multiselect to false, it doesn't.
 Select.args = {
 	options: ['Ten', 'Twenty', 'Thirty'],
 	label: 'Number',
@@ -35,4 +41,5 @@ Select.args = {
 	multiple: true,
 	sx: { width: 300 },
 	disableUnderline: false,
+	value: [],
 };
