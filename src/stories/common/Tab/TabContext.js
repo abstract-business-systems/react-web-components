@@ -14,7 +14,7 @@ const TabContext = ({ props, onClick, value }) => {
 			const Child = Components[content.component];
 
 			return <TabPanel key={ key } value={ key }>
-				<Child { ...content.props }/>
+				<Child { ...content }/>
 			</TabPanel>;
 		})) }
 	</MuiTabContext>;

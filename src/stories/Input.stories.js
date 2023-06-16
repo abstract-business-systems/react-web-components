@@ -4,6 +4,17 @@ import MuiInput from '../stories/common/Input';
 const component = {
 	title: 'Inputs/Input',
 	component: MuiInput,
+	argTypes: {
+		variant: {
+			control: 'select',
+			options: ['filled', 'standard', 'outlined'],
+		},
+		color: {
+			control: 'select',
+			options: ['success', 'secondary', 'primary', 'error', 'warning'],
+		},
+	},
+	args: { color: 'primary', variant: 'filled' },
 };
 
 export default component;
@@ -23,14 +34,13 @@ const Template = (args) => {
 export const Input = Template.bind({});
 
 Input.args = {
-	variant: 'filled',
 	label: 'Required',
 	required: true,
 	disabled: false,
 	type: 'password',
 	helperText: 'Some important message',
 	error: false,
-	focused: false,
+	focused: true,
 	placeholder: 'Enter some value',
 	fullWidth: false,
 	margin: 'none',

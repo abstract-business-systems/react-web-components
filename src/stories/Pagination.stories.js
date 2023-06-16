@@ -4,6 +4,13 @@ import MuiPagination from '../stories/common/Pagination';
 const component = {
 	title: 'Navigation/Pagination',
 	component: MuiPagination,
+	argTypes: {
+		color: {
+			control: 'select',
+			options: ['success', 'secondary', 'primary', 'error', 'warning'],
+		},
+	},
+	args: { color: 'Primary' },
 };
 
 export default component;
@@ -14,7 +21,6 @@ export const Pagination = Template.bind({});
 
 Pagination.args = {
 	count: 5,
-	// Todo: Color control not working properly, which ever require select change that.
 	color: 'secondary',
 	disabled: false,
 	variant: 'outlined',

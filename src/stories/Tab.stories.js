@@ -5,28 +5,31 @@ const component = {
 	title: 'Navigation/Tab',
 	component: MuiTab,
 	argTypes: {
-		style: {
-			control: {
-				type: 'select',
-				options: ['iconOnly', 'textOnly', 'iconAndText'],
-			},
+		type: {
+			control: 'select',
+			options: ['iconOnly', 'textOnly', 'iconAndText'],
 		},
 		orientation: {
-			control: {
-				type: 'select',
-				options: ['vertical', 'horizontal'],
-			},
+			control: 'radio',
+			options: ['vertical', 'horizontal'],
 		},
+		color: {
+			control: 'select',
+			options: ['secondary', 'primary'],
+		},
+	},
+	args: {
+		type: 'iconAndText',
+		orientation: 'vertical',
+		color: 'Primary',
 	},
 };
 
 export default component;
 
 export const Tab = (args) => <MuiTab { ...args }/>;
-// Todo: Doubt in orientation and direction.
 Tab.args = {
-	orientation: 'vertical',
-	color: 'secondary', variant: 'scrollable',
+	color: 'secondary',
 	fullWidth: true,
 	centered: true,
 	contents: {
@@ -41,8 +44,6 @@ Tab.args = {
 			icon: 'Star',
 		},
 	},
-	// Todo: It should be type not style.
-	style: 'iconAndText',
 	value: 'todoPane',
-	dir: 'rtl',
+	direction: 'rtl',
 };

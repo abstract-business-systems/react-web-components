@@ -31,18 +31,19 @@ const getIcon = (tabButton, { icon }) => {
 
 const TabButtons = ({
 	color, contents,
-	onClick, orientation, style,
+	onClick, orientation, type, centered,
 }) =>
 	<TabList
 		orientation={ orientation }
 		textColor={ color }
 		indicatorColor={ color }
+		centered={ centered }
 	>
 		{ values(map(contents, (content, tabKey) =>
 			<MuiTab
 				key={ tabKey }
-				{ ...getLabel(styles[style], content) }
-				{ ...getIcon(styles[style], content) }
+				{ ...getLabel(styles[type], content) }
+				{ ...getIcon(styles[type], content) }
 				value={ tabKey }
 				onClick={ () => onClick(tabKey) }
 

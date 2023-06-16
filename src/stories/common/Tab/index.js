@@ -12,7 +12,7 @@ const tabStyle = {
 
 const Tab = (props) => {
 	const {
-		orientation, dir,
+		orientation, direction,
 		value: initialValue, onChange = nothing,
 	} = props;
 
@@ -21,6 +21,7 @@ const Tab = (props) => {
 		selectValue(tabKey);
 		onChange(buildEvent({ newValue: tabKey }));
 	};
+	const dir = direction === 'right' ? 'rtl' : 'ltr';
 
 	return (
 		<Box dir={ dir } className={ tabStyle[orientation] }>
