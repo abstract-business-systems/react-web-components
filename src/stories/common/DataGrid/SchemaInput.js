@@ -10,6 +10,7 @@ import RadioGroup from './component/RadioWrapper.js';
 import Slider from './component/SliderWrapper.js';
 import getValidator from './validate/getValidator.js';
 import { nothing } from '@laufire/utils/fn.js';
+import { peek } from '@laufire/utils/debug.js';
 
 const widgetList = {
 	slider: Slider,
@@ -43,6 +44,7 @@ const SchemaInput = (props) => {
 	const Component = find(componentType, (component) =>
 		component(schema))(schema);
 
+	peek(props);
 	return <Component { ...{ ...props, validate, onChange } }/>;
 };
 

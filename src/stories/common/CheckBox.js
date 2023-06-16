@@ -9,7 +9,7 @@ const CheckBox = (context) => {
 
 	return (
 		<MuiCheckBox { ...{
-			checked: { value },
+			checked: value,
 			onChange: (evt) =>
 				onChange(buildEvent({ newValue: evt.target.checked })),
 			...args,
