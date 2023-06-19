@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-const usePatchState = (initialState) => {
+const usePatch = (initialState) => {
 	const [state, setState] = useState(initialState);
 
 	const patchState = useCallback((patch) => {
@@ -13,4 +13,4 @@ const usePatchState = (initialState) => {
 	return [state, patchState];
 };
 
-export default usePatchState;
+export default usePatch;

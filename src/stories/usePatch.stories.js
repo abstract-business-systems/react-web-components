@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
 import Debugger from './common/Debugger';
-import usePatchState from './common/hook/usePatchState';
+import usePatch from './common/hook/usePatch';
 
 const component = {
-	title: 'Hook/UsePatchState',
+	title: 'Hook/UsePatch',
 	component: Debugger,
 
 };
 
 export default component;
 
-export const UsePatchState = ({ value, patch }) => {
-	const [state, patchState] = usePatchState(value);
+export const UsePatch = ({ value, patch }) => {
+	const [state, patchState] = usePatch(value);
 
 	useEffect(() => {
 		patchState(patch);
@@ -20,7 +20,7 @@ export const UsePatchState = ({ value, patch }) => {
 	return <Debugger { ...{ value: state } }/>;
 };
 
-UsePatchState.args = {
+UsePatch.args = {
 	value: { a: 1, b: 2, c: 3 },
 	patch: {},
 };
