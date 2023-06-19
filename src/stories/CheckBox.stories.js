@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import MuiCheckBox from '../stories/common/CheckBox';
 
 const component = {
@@ -9,13 +9,18 @@ const component = {
 export default component;
 
 const Template = (args) => {
-	const [value, setValue] = useState(true);
+	const { value: initialValue, ...rest } = args;
+	const [value, setValue] = useState(initialValue);
+
+	useEffect(() => {
+		setValue(initialValue);
+	}, [initialValue]);
 
 	return (
 		<MuiCheckBox { ...{
 			onChange: (evt) => setValue(evt.target.value),
 			checked: value,
-			...args,
+			...rest,
 		} }
 		/>);
 };
@@ -28,4 +33,5 @@ CheckBox.args = {
 	disableRipple: false,
 	size: 'small',
 	sx: {},
+	value: false,
 };
