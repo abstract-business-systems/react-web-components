@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import MuiSwitch from '../stories/common/Switch';
 
 const component = {
@@ -9,13 +9,18 @@ const component = {
 export default component;
 
 const Template = (args) => {
-	const [value, setValue] = useState(true);
+	const { value: initialValue, ...rest } = args;
+	const [value, setValue] = useState(initialValue);
+
+	useEffect(() => {
+		setValue(initialValue);
+	}, [initialValue]);
 
 	return (
 		<MuiSwitch { ...{
-			onChange: (evt) => setValue(evt.target.checked),
-			checked: value,
-			...args,
+			onChange: (evt) => setValue(evt.target.value),
+			value: value,
+			...rest,
 		} }
 		/>);
 };
@@ -26,4 +31,5 @@ Switch.args = {
 	size: 'large',
 	color: 'success',
 	disabled: false,
+	value: true,
 };
