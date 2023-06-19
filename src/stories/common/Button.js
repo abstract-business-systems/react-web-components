@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types';
 import { Button as MuiButton } from '@mui/material';
 import * as React from 'react';
-import * as Icons from '@mui/icons-material';
+import IconButton from './IconButton';
+import { reduce } from '@laufire/utils/collection';
 
-const Icon = ({ startIcon, endIcon }) => {
-	const StartIcon = Icons[startIcon];
-	const EndIcon = Icons[endIcon];
-
-	return {
-		startIcon: startIcon && <StartIcon/>,
-		endIcon: endIcon && <EndIcon/>,
-	};
-};
+const Icon = ({ startIcon, endIcon }) => reduce(
+	{ startIcon, endIcon }, (
+		acc, cur, key
+	) => ({
+		...acc,
+		...cur && { [key]: <IconButton icon={ cur }/> },
+	}), {}
+);
 
 const Button = ({ children = 'Button', ...rest }) =>
 	<MuiButton { ...{ ...rest, ...Icon(rest) } }>
