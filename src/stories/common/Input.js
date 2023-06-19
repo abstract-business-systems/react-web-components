@@ -3,6 +3,7 @@ import { React } from 'react';
 import * as Icons from '@mui/icons-material';
 import { reduce } from '@laufire/utils/collection';
 import { nothing } from '@laufire/utils/fn';
+import buildEvent from './helper/buildEvent';
 
 const InputAdornment = (cur, key) => {
 	const { text, icon } = cur;
@@ -37,7 +38,8 @@ const Input = (context) => {
 				InputProps: inputProps(adornments),
 				...MultilineProps, ...args,
 				value: initialValue,
-				onChange: (evt) => onChange(evt),
+				onChange: ({ target: { value }}) =>
+					onChange(buildEvent({ newValue: value })),
 			} }
 		/>);
 };
