@@ -12,6 +12,18 @@ const component = {
 			type: 'select',
 			options: ['SplashImage', 'SplashText'],
 		},
+		text: {
+			control: { type: 'object' },
+			if: { arg: 'child', eq: 'SplashText' },
+		},
+		imgSrc: {
+			control: { type: 'object' },
+			if: { arg: 'child', eq: 'SplashImage' },
+		},
+	},
+	args: {
+		text: 'hi',
+		imgSrc: image,
 	},
 };
 
@@ -32,12 +44,8 @@ const Template = ({ child, text, imgSrc, ...rest }) => {
 
 export const SplashScreen = Template.bind({});
 
-// Todo: when SplashImage is selected as a child then imgSrc arg should be visible but
-// text arg should not be visible and if SplashText is selected its viceverse.
 SplashScreen.args = {
 	textColor: 'white',
 	backgroundColor: 'black',
 	child: 'SplashImage',
-	imgSrc: image,
-	text: '',
 };

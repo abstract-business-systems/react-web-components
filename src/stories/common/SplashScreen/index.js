@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Container as MuiContainer } from '@mui/material';
 import * as React from 'react';
 
@@ -25,5 +24,3 @@ const SplashScreen = (context) => {
 };
 
 export default SplashScreen;
-
-SplashScreen.propTypes = { context: PropTypes.object };
