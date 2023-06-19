@@ -4,6 +4,13 @@ import MuiCheckBox from '../stories/common/CheckBox';
 const component = {
 	title: 'Inputs/CheckBox',
 	component: MuiCheckBox,
+	argTypes: {
+		variant: {
+			control: 'select',
+			options: ['filled', 'standard', 'outlined'],
+		},
+	},
+	args: { color: 'primary' },
 };
 
 export default component;
@@ -28,7 +35,6 @@ const Template = (args) => {
 export const CheckBox = Template.bind({});
 
 CheckBox.args = {
-	color: 'success',
 	disabled: false,
 	disableRipple: false,
 	size: 'small',

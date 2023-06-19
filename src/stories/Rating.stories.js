@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import MuiRating from './common/Rating';
 
 const component = {
@@ -9,13 +9,17 @@ const component = {
 export default component;
 
 const Template = (args) => {
-	const [value, setValue] = useState(1);
+	const { value: initialValue, ...rest } = args;
+	const [value, setValue] = useState(initialValue);
 
+	useEffect(() => {
+		setValue(initialValue);
+	}, [initialValue]);
 	return (
 		<MuiRating { ...{
-			onChange: (evt) => setValue(evt.target.checked),
-			checked: value,
-			...args,
+			onChange: (evt) => setValue(evt.target.value),
+			value: value,
+			...rest,
 		} }
 		/>);
 };
@@ -29,4 +33,5 @@ Rating.args = {
 	selectedIcon: 'Favorite',
 	sx: { color: 'green' },
 	max: 3,
+	value: 1,
 };

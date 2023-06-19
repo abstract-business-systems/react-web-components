@@ -9,6 +9,10 @@ const component = {
 			type: 'select',
 			options: ['up', 'down', 'left', 'right'],
 		},
+		type: {
+			type: 'select',
+			options: ['menu', 'speedDial'],
+		},
 		tooltipPlacement: {
 			type: 'select',
 			options: ['bottom-end',
@@ -29,6 +33,13 @@ const component = {
 			options: [true, false],
 		},
 		tooltipOpen: { type: Boolean, options: [true, false] },
+	},
+	args: {
+		hidden: false,
+		tooltipOpen: true,
+		type: 'menu',
+		tooltipPlacement: 'left',
+		direction: 'up',
 	},
 };
 

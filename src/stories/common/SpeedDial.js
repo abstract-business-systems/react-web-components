@@ -14,7 +14,7 @@ const getItemIcon = (ele) => {
 	};
 };
 
-const openIcon = (icon) => {
+const getOpenIcon = (icon) => {
 	const Icon = Icons[icon];
 
 	return { openIcon: Icon && <Icon/> };
@@ -38,7 +38,7 @@ const SpeedDial = (args) => {
 				ariaLabel="SpeedDial basic example"
 				hidden={ hidden }
 				direction={ direction }
-				icon={ <SpeedDialIcon { ...openIcon(icon) }/> }
+				icon={ <SpeedDialIcon { ...getOpenIcon(icon) }/> }
 			>
 				<MuiSpeedDialAction { ...{ setValue, data, ...rest } }/>
 			</MuiSpeedDial>

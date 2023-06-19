@@ -4,6 +4,13 @@ import MuiSwitch from '../stories/common/Switch';
 const component = {
 	title: 'Inputs/Switch',
 	component: MuiSwitch,
+	argTypes: {
+		color: {
+			control: 'select',
+			options: ['success', 'secondary', 'primary', 'error', 'warning'],
+		},
+	},
+	args: { color: 'primary' },
 };
 
 export default component;
@@ -29,7 +36,6 @@ export const Switch = Template.bind({});
 
 Switch.args = {
 	size: 'large',
-	color: 'success',
 	disabled: false,
 	value: true,
 };

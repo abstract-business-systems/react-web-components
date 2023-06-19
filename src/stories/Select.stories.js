@@ -4,6 +4,13 @@ import MuiSelect from '../stories/common/Select';
 const component = {
 	title: 'Inputs/Select',
 	component: MuiSelect,
+	argTypes: {
+		variant: {
+			control: 'select',
+			options: ['filled', 'standard', 'outlined'],
+		},
+	},
+	args: { variant: 'standard' },
 };
 
 export default component;
@@ -27,7 +34,6 @@ export const Select = (args) => {
 Select.args = {
 	options: ['Ten', 'Twenty', 'Thirty'],
 	label: 'Number',
-	variant: 'standard',
 	fullWidth: true,
 	helperText: 'welcome to selectBox',
 	autoWidth: true,

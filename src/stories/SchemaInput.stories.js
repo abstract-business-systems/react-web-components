@@ -52,12 +52,13 @@ const component = {
 			if: { arg: 'schemaType', eq: 'custom' },
 		},
 	},
+	args: { schemaType: 'date' },
 };
 
 export default component;
 
 const Template = (args) => {
-	const { schemaType = 'date', value: newValue } = args;
+	const { schemaType, value: newValue } = args;
 	const jsonSchema = schema[schemaType];
 	const value = defaultValue[schemaType] || newValue;
 
