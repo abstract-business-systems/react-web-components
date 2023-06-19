@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable no-console */
 import * as React from 'react';
 import { useState } from 'react';
 import { DataGrid as MuxDataGrid } from '@mui/x-data-grid';
@@ -14,13 +12,14 @@ const DataGrid = ({ value, columns, style, onChange = nothing }) => {
 	const props = { columns, rows, onChange };
 
 	return (
-		<Box
-			sx={ { ...style } }
-		>
+		<Box sx={ { ...style } }>
 			<MuxDataGrid
 				rows={ rows }
 				columns={ [
-					...getColumns({ ...props, onChange: (evt) => setUserInput(evt) }),
+					...getColumns({
+						...props, onChange: (evt) =>
+							setUserInput(evt),
+					}),
 					...getAction({ ...props, userInput, setRows }),
 				] }
 				hideFooterPagination={ true }
