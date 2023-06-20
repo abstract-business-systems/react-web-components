@@ -5,9 +5,14 @@ const component = {
 	title: 'Inputs/Checkbox',
 	component: MuiCheckbox,
 	argTypes: {
-		variant: {
-			control: 'select',
-			options: ['filled', 'standard', 'outlined'],
+		color: {
+			type: 'select', options: ['inherit',
+				'primary',
+				'secondary',
+				'success',
+				'error',
+				'info',
+				'warning'],
 		},
 	},
 	args: { color: 'primary' },
