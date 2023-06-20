@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from './Button';
 import { QrReader } from 'react-qr-reader';
 import { nothing } from '@laufire/utils/predicates';
+import buildEvent from './helper/buildEvent';
 
 const ScanQRButton = ({ setState, state, onChange }) =>
 	<Button { ...{
@@ -16,21 +17,22 @@ const ScanQRButton = ({ setState, state, onChange }) =>
 		{ state.isScanning ? 'stop scan' : 'start scan' }
 	</Button>;
 
-const ScanQrReader = ({ setState, state, onChange, ...args }) => {
+const ScanQrReader = ({ setState, state, onChange, facingMode, ...args }) => {
 	const getResult = (result, error) => ({
 		...state,
 		...result && { isScanning: false, data: result },
 		error,
 	});
+	const constraints = { facingMode };
 
 	return (
 		<QrReader
-			{ ...{ ...args } }
+			{ ...{ ...args, constraints } }
 			onResult={ (...data) => {
 				const result = getResult(...data);
 
 				// Todo: Check where the isScanning is necessary for onChange.
-				onChange({ target: { value: result }});
+				onChange(buildEvent({ newValue: result }));
 				setState(result);
 			} }
 		/>);

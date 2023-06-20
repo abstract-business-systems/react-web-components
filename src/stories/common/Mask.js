@@ -38,24 +38,24 @@ const triggers = {
 };
 
 const MaskContainer = (props) => {
-	const {
-		onChange = identity, trigger,
-		state: { width, height }, children,
-	} = props;
+	const { onChange = identity, trigger, state, children } = props;
+	const { width, height } = state;
 	const canvasRef = useRef(null);
 
 	useEffect(() => {
 		setCanvasImage({ ...props, canvasRef });
 	}, [width, height]);
 
-	return <Fragment>
-		{ children }
+	return <Fragment>{ children }
 		<canvas
 			ref={ canvasRef }
 			className="mask"
 			{ ...{
 				[triggers[trigger]]: (evt) =>
-					onChange(buildEvent(getColor(evt, canvasRef))),
+					onChange(buildEvent({
+						newValue:
+						getColor(evt, canvasRef),
+					})),
 			} }
 		/></Fragment>;
 };
