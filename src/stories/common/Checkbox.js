@@ -13,7 +13,6 @@ const Checkbox = (context) => {
 				onChange(buildEvent({ newValue: checked })),
 			...args,
 		} }
-
 		/>);
 };
 
