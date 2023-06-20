@@ -15,23 +15,22 @@ const component = {
 
 export default component;
 
-export const Select = (args) => {
+const Template = (args) => {
 	const { value: initialValue, ...rest } = args;
 	const [userInput, setUserInput] = useState(initialValue);
 
 	return (
 		<MuiSelect { ...{
 			onChange: ({ target: { value }}) =>
-				setUserInput(typeof value === 'string'
-					? value.split(',')
-					: value),
+				setUserInput(value),
 			value: userInput,
 			...rest,
 		} }
 		/>);
 };
 
-Select.args = {
+export const SingleSelect = Template.bind({});
+SingleSelect.args = {
 	options: ['Ten', 'Twenty', 'Thirty'],
 	label: 'Number',
 	fullWidth: true,
@@ -41,7 +40,24 @@ Select.args = {
 	required: false,
 	disabled: false,
 	error: false,
-	multiple: true,
+	sx: { width: 300 },
+	disableUnderline: false,
+	value: 'Ten',
+};
+
+export const MultiSelect = Template.bind({});
+
+MultiSelect.args = {
+	options: ['Ten', 'Twenty', 'Thirty'],
+	label: 'Number',
+	fullWidth: true,
+	helperText: 'welcome to selectBox',
+	autoWidth: true,
+	size: 'small',
+	required: false,
+	disabled: false,
+	error: false,
+	multiple: 'true',
 	sx: { width: 300 },
 	disableUnderline: false,
 	value: [],

@@ -1,3 +1,3 @@
-const updateRow = { dateTime: (value) => `${ value }.000Z` };
+const updateValue = { dateTime: (value) => `${ value }.000Z` };
 
-export default updateRow;
+export default updateValue;

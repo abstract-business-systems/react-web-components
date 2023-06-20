@@ -13,8 +13,18 @@ const component = {
 			control: 'select',
 			options: ['success', 'secondary', 'primary', 'error', 'warning'],
 		},
+		type: {
+			control: 'select',
+			options: ['date',
+				'time',
+				'password',
+				'number',
+				'string',
+				'datetime-local',
+				'color'],
+		},
 	},
-	args: { color: 'primary', variant: 'filled' },
+	args: { color: 'primary', variant: 'filled', type: 'password' },
 };
 
 export default component;
@@ -37,7 +47,6 @@ Input.args = {
 	label: 'Required',
 	required: true,
 	disabled: false,
-	type: 'password',
 	helperText: 'Some important message',
 	error: false,
 	focused: true,
