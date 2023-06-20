@@ -1,11 +1,11 @@
 import { React } from 'react';
 import { find } from '@laufire/utils/collection.js';
-import CheckBox from './CheckBoxWrapper';
+import Checkbox from './CheckboxWrapper';
 import TextFieldWrapper from './TextFieldWrapper';
 import { nothing } from '@laufire/utils/fn';
 
 const formatList = {};
-const typeList = { boolean: CheckBox };
+const typeList = { boolean: Checkbox };
 
 const componentType = {
 	format: ({ format }) => formatList[format],

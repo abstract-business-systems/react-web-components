@@ -40,7 +40,7 @@ Tab.args = {
 		},
 		taskPane: {
 			label: 'TaskPane',
-			component: 'CheckBox',
+			component: 'Checkbox',
 			prop: { value: true },
 			icon: 'Star',
 		},

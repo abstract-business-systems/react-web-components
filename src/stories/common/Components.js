@@ -1,5 +1,5 @@
 import Button from './Button';
-import CheckBox from './CheckBox';
+import Checkbox from './Checkbox';
 import Typography from './Typography';
 import Drawer from './Drawer/index';
 import Menu from './Menu/index';
@@ -7,7 +7,7 @@ import DataGrid from './DataGrid/index';
 
 const Components = {
 	Button,
-	CheckBox,
+	Checkbox,
 	Menu,
 	Typography,
 	Drawer,

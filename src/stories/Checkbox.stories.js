@@ -1,9 +1,9 @@
 import { React, useEffect, useState } from 'react';
-import MuiCheckBox from '../stories/common/CheckBox';
+import MuiCheckbox from './common/Checkbox';
 
 const component = {
-	title: 'Inputs/CheckBox',
-	component: MuiCheckBox,
+	title: 'Inputs/Checkbox',
+	component: MuiCheckbox,
 	argTypes: {
 		variant: {
 			control: 'select',
@@ -24,7 +24,7 @@ const Template = (args) => {
 	}, [initialValue]);
 
 	return (
-		<MuiCheckBox { ...{
+		<MuiCheckbox { ...{
 			onChange: (evt) => setValue(evt.target.value),
 			checked: value,
 			...rest,
@@ -32,9 +32,9 @@ const Template = (args) => {
 		/>);
 };
 
-export const CheckBox = Template.bind({});
+export const Checkbox = Template.bind({});
 
-CheckBox.args = {
+Checkbox.args = {
 	disabled: false,
 	disableRipple: false,
 	size: 'small',

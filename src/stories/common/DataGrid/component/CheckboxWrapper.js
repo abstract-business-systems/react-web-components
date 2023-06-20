@@ -1,16 +1,16 @@
 import { React } from 'react';
-import CheckBox from '../../CheckBox';
+import Checkbox from '../../Checkbox';
 import { nothing } from '@laufire/utils/fn';
 
-const CheckBoxWrapper = (context) => {
+const CheckboxWrapper = (context) => {
 	const { value, onChange = nothing } = context;
 
 	return (
-		<CheckBox { ...{
+		<Checkbox { ...{
 			value,
 			onChange,
 		} }
 		/>);
 };
 
-export default CheckBoxWrapper;
+export default CheckboxWrapper;
