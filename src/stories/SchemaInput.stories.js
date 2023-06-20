@@ -1,5 +1,5 @@
 import * as React from 'react';
-import SchemaInputComponent from './common/DataGrid/SchemaInput';
+import SchemaInputComponent from './common/SchemaInput';
 import schema from './schema';
 import { peek } from '@laufire/utils/debug';
 

@@ -2,8 +2,8 @@ import React from 'react';
 import { map, values } from '@laufire/utils/collection';
 import inputType from './inputType';
 import { nothing } from '@laufire/utils/fn';
-import SchemaInput from '../SchemaInput';
 import buildEvent from '../../helper/buildEvent';
+import SchemaInput from '../../SchemaInput';
 
 const formatMap = {
 	'date-time': 'dateTime',
