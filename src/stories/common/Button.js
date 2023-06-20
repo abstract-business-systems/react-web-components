@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Button as MuiButton } from '@mui/material';
 import * as React from 'react';
 import IconButton from './IconButton';
@@ -19,5 +18,3 @@ const Button = ({ children = 'Button', ...rest }) =>
 	</MuiButton>;
 
 export default Button;
-
-Button.propTypes = { children: PropTypes.node.isRequired };

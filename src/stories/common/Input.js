@@ -45,5 +45,3 @@ const Input = (context) => {
 };
 
 export default Input;
-
-Input.propTypes = {};

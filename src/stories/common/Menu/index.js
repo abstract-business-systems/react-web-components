@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 import MuiMenu from './MuiMenu';
 import Content from '../Content';
@@ -28,5 +27,3 @@ const Menu = (args) => {
 };
 
 export default Menu;
-
-Menu.prototype = { trigger: PropTypes.object };
