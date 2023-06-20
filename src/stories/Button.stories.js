@@ -1,9 +1,31 @@
 import React from 'react';
 import MuiButton from '../stories/common/Button';
+import * as icons from '@mui/icons-material';
+import { keys } from '@laufire/utils/lib';
 
 const component = {
 	title: 'Inputs/Button',
 	component: MuiButton,
+	argTypes: {
+		color: {
+			type: 'select', options: ['inherit',
+				'primary',
+				'secondary',
+				'success',
+				'error',
+				'info',
+				'warning'],
+		},
+		variant: {
+			control: 'select',
+			options: ['contained', 'outlined', 'text', 'filled'],
+		},
+		startIcon: {
+			control: 'select',
+			options: keys(icons),
+		},
+	},
+	args: { color: 'success', variant: 'contained', startIcon: 'Delete' },
 };
 
 export default component;
@@ -14,12 +36,9 @@ export const Button = Template.bind({});
 
 Button.args = {
 	children: 'HI',
-	variant: 'contained',
 	size: 'large',
-	color: 'success',
 	disabled: false,
 	disableElevation: true,
-	startIcon: 'Delete',
 	fullWidth: false,
 	href: 'https://mui.com/material-ui/react-button/',
 	disableFocusRipple: true,

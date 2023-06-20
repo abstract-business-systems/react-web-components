@@ -1,5 +1,7 @@
 import React from 'react';
 import MuiSpeedDial from '../stories/common/SpeedDial';
+import * as Icons from '@mui/icons-material';
+import { keys } from '@laufire/utils/lib';
 
 const component = {
 	title: 'Navigation/SpeedDial',
@@ -29,12 +31,14 @@ const component = {
 			options: [true, false],
 		},
 		tooltipOpen: { type: Boolean, options: [true, false] },
+		icon: { control: 'select', options: keys(Icons) },
 	},
 	args: {
 		hidden: false,
 		tooltipOpen: true,
 		direction: 'up',
-		tooltipPlacement: 'top',
+		tooltipPlacement: 'left',
+		icon: 'Delete',
 	},
 };
 
@@ -51,5 +55,4 @@ SpeedDial.args = {
 		{ icon: 'Print', children: 'Print' },
 		{ icon: 'Share', children: 'Share' },
 	],
-	icon: 'Delete',
 };

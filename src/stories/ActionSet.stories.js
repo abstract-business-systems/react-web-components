@@ -33,6 +33,22 @@ const component = {
 			options: [true, false],
 		},
 		tooltipOpen: { type: Boolean, options: [true, false] },
+		vertical: {
+			control: 'radio',
+			options: ['top', 'center', 'bottom'],
+		},
+		horizontal: {
+			control: 'radio',
+			options: ['left', 'center', 'right'],
+		},
+		transformVertical: {
+			control: 'radio',
+			options: ['top', 'center', 'bottom'],
+		},
+		transformHorizontal: {
+			control: 'radio',
+			options: ['left', 'center', 'right'],
+		},
 	},
 	args: {
 		hidden: false,
@@ -40,6 +56,10 @@ const component = {
 		type: 'menu',
 		tooltipPlacement: 'left',
 		direction: 'up',
+		vertical: 'top',
+		horizontal: 'center',
+		transformVertical: 'top',
+		transformHorizontal: 'left',
 	},
 };
 

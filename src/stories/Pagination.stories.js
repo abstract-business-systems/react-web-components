@@ -9,8 +9,16 @@ const component = {
 			control: 'select',
 			options: ['success', 'secondary', 'primary', 'error', 'warning'],
 		},
+		variant: {
+			control: 'radio',
+			options: ['standard', 'text', 'string', 'outlined'],
+		},
+		shape: {
+			control: 'radio',
+			options: ['rounded', 'circular'],
+		},
 	},
-	args: { color: 'Primary' },
+	args: { color: 'Primary', variant: 'standard' },
 };
 
 export default component;
@@ -23,9 +31,7 @@ Pagination.args = {
 	count: 5,
 	color: 'secondary',
 	disabled: false,
-	variant: 'outlined',
 	size: 'small',
-	shape: 'rounded',
 	showFirstButton: false,
 	showLastButton: false,
 	hidePrevButton: false,

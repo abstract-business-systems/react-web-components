@@ -21,7 +21,7 @@ const component = {
 	args: {
 		type: 'iconAndText',
 		orientation: 'vertical',
-		color: 'Primary',
+		color: 'secondary',
 	},
 };
 
@@ -29,18 +29,19 @@ export default component;
 
 export const Tab = (args) => <MuiTab { ...args }/>;
 Tab.args = {
-	color: 'secondary',
 	fullWidth: true,
 	centered: true,
 	contents: {
 		todoPane: {
 			label: 'TodoPane',
 			component: 'Button',
+			prop: { children: 'click me!' },
 			icon: 'Favorite',
 		},
 		taskPane: {
 			label: 'TaskPane',
 			component: 'CheckBox',
+			prop: { value: true },
 			icon: 'Star',
 		},
 	},

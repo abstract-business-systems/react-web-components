@@ -4,6 +4,30 @@ import MuiMenu from './common/Menu/index';
 const component = {
 	title: 'Navigation/Menu',
 	component: MuiMenu,
+	argTypes: {
+		vertical: {
+			control: 'radio',
+			options: ['top', 'center', 'bottom'],
+		},
+		horizontal: {
+			control: 'radio',
+			options: ['left', 'center', 'right'],
+		},
+		transformVertical: {
+			control: 'radio',
+			options: ['top', 'center', 'bottom'],
+		},
+		transformHorizontal: {
+			control: 'radio',
+			options: ['left', 'center', 'right'],
+		},
+	},
+	args: {
+		vertical: 'top',
+		horizontal: 'center',
+		transformVertical: 'top',
+		transformHorizontal: 'left',
+	},
 };
 
 export default component;
@@ -29,8 +53,4 @@ Menu.args = {
 		'&:active': { color: 'primary.main' },
 		'&:hover': { backgroundColor: '#e3f2fd' },
 	},
-	vertical: 'top',
-	horizontal: 'right',
-	transformVertical: 'top',
-	transformHorizontal: 'left',
 };

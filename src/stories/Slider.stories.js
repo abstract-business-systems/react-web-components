@@ -4,6 +4,28 @@ import MuiSlider from './common/Slider';
 const component = {
 	title: 'Inputs/Slider',
 	component: MuiSlider,
+	argTypes: {
+		color: {
+			control: 'select',
+			options: ['success', 'secondary', 'primary', 'error', 'warning'],
+		},
+		orientation: {
+			control: 'radio',
+			options: ['horizontal', 'vertical'],
+		},
+		size: {
+			control: 'radio',
+			options: ['medium', 'large', 'small'],
+		},
+		valueLabelDisplay: {
+			control: 'radio',
+			options: ['auto', 'on', 'off'],
+		},
+	},
+	args: {
+		color: 'success', orientation: 'horizontal',
+		size: 'medium', valueLabelDisplay: 'auto',
+	},
 };
 
 export default component;
@@ -27,8 +49,6 @@ const Template = (args) => {
 export const Slider = Template.bind({});
 
 Slider.args = {
-	size: 'large',
-	color: 'success',
 	min: 0,
 	max: 100,
 	step: 10,
