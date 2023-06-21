@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from './common/Link';
-import Select from './common/Select';
+import Typography from './common/Typography';
 
 export default {
 	title: 'Navigation/Link',
@@ -58,25 +58,19 @@ Default.args = {
 	sx: {},
 };
 
-export const CustomLink = Template.bind({});
+const selectArgs = { children: 'Hi' };
 
-const selectArgs = {
-	options: ['Ten', 'Twenty', 'Thirty'],
-	label: 'Number',
-	variant: 'standard',
-	fullWidth: true,
-	helperText: 'welcome to selectBox',
-	autoWidth: true,
-	size: 'small',
-	required: false,
-	disabled: false,
-	error: false,
-	multiple: false,
-	sx: { width: 300 },
-	disableUnderline: false,
+export const CustomLink
+= {
+	parameters: {
+		controls: {
+			exclude:
+	['color', 'variant', 'underline', 'target'],
+		},
+	},
 };
-
 CustomLink.args = {
-	component: () => <Select { ...selectArgs }/>,
+	// eslint-disable-next-line react/display-name
+	component: React.forwardRef(() => <Typography { ...selectArgs }/>),
 	href: '/select',
 };
