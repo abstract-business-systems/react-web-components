@@ -21,7 +21,10 @@ const handleValidInput = (props, newValue) => {
 		...prev, value: newValue,
 		...isValid && { valid: newValue },
 	}));
-	onChange(buildEvent({ isValid, userInput, newValue }));
+	const error = isValid ? null : { message: 'IncorrectEntry' };
+	const validValue = isValid ? newValue : userInput.valid;
+
+	onChange(buildEvent({ newValue: validValue, error: error }));
 };
 
 const getClassName = (props) => {

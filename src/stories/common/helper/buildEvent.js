@@ -1,11 +1,11 @@
 
 const buildEvent = ({
-	isValid = true, userInput,
+	error = null,
 	newValue, status = 'success',
 }) => ({
 	target: {
-		value: isValid ? newValue : userInput.valid,
-		error: isValid ? null : { message: 'IncorrectEntry!' },
+		value: newValue,
+		error: error,
 		meta: { status },
 	},
 });
