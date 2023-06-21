@@ -1,34 +1,59 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import MuiPagination from '@mui/material/Pagination';
 import Pagination from './Pagination';
-import { rndBetween, rndValue } from '@laufire/utils/random';
+import * as buildEvent from './helper/buildEvent';
+import { rndString } from '@laufire/utils/random';
+import { range } from '@laufire/utils/collection';
 
 jest.mock('@mui/material/Pagination', () => jest.fn());
+const collectionLength = 10;
 
-test('Pagination', () => {
-	const boolean = rndValue([true, false]);
+describe('Checkbox', () => {
 	const props = {
-		count: rndBetween(),
-		color: 'secondary',
-		disabled: boolean,
-		variant: 'outlined',
-		size: 'small',
-		shape: 'rounded',
-		showFirstButton: boolean,
-		showLastButton: boolean,
-		hidePrevButton: boolean,
-		hideNextButton: boolean,
-		defaultPage: rndBetween(),
+		...range(0, collectionLength).reduce((acc) => ({
+			...acc,
+			[rndString()]: Symbol(rndString()),
+		}), {}),
 	};
+	const buildValue = Symbol('buildValue');
+	const { ...rest } = props;
 
-	MuiPagination.mockReturnValue(<div/>);
+	test('Renders Checkbox component with props', () => {
+		MuiPagination.mockReturnValue(<div/>);
 
-	const {
-		container:
+		const {
+			container:
 		{ children: [rootElement] },
-	} = render(<Pagination { ...props }/>);
+		} = render(<Pagination { ...props }/>);
 
-	expect(rootElement).toBeInTheDocument();
-	expect(MuiPagination.mock.calls[0][0]).toEqual(props);
+		expect(rootElement).toBeInTheDocument();
+		expect(MuiPagination.mock.calls[0][0]).toEqual({
+			...rest,
+			onChange: expect.any(Function),
+		});
+	});
+
+	test('Fires onChange event when pagination element is clicked', () => {
+		const role = rndString();
+
+		MuiPagination.mockImplementation(({ onChange }) =>
+			<div
+				role={ role }
+				onClick={ onChange }
+			/>);
+		jest.spyOn(buildEvent, 'default').mockReturnValue(buildValue);
+
+		const onChange = jest.fn();
+		const innerText = rndString();
+
+		render(<Pagination { ...{ onChange } }/>);
+		const container = screen.getByRole(role);
+
+		fireEvent.click(container, { target: { innerText }});
+
+		expect(onChange).toHaveBeenCalledWith(buildValue);
+		expect(buildEvent.default)
+			.toHaveBeenCalledWith({ newValue: innerText });
+	});
 });
