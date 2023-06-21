@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react';
-import DefaultInput from './DataGrid/component/DefaultInput';
+import DefaultInput from './component/DefaultInput';
 import { find, omit } from '@laufire/utils/collection';
-import CheckBoxGroup from './DataGrid/component/CheckboxGroupWrapper.js';
-import SingleSelect from './DataGrid/component/SingleSelect.js';
-import MultiSelect from './DataGrid/component/MultiSelect.js';
-import FieldInput from './DataGrid/component/FieldInput.js';
-import Switch from './DataGrid/component/SwitchWrapper.js';
-import RadioGroup from './DataGrid/component/RadioWrapper.js';
-import Slider from './DataGrid/component/SliderWrapper.js';
-import getValidator from './DataGrid/validate/getValidator.js';
+import CheckBoxGroup from './component/CheckboxGroupWrapper.js';
+import SingleSelect from './component/SingleSelect.js';
+import MultiSelect from './component/MultiSelect.js';
+import FieldInput from './component/FieldInput.js';
+import Switch from './component/SwitchWrapper.js';
+import RadioGroup from './component/RadioWrapper.js';
+import Slider from './component/SliderWrapper.js';
+import getValidator from './validate/getValidator.js';
 import { nothing } from '@laufire/utils/fn.js';
 
 const widgetList = {
