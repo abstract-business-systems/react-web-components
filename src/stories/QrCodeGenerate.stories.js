@@ -20,13 +20,25 @@ export default {
 			type: 'select',
 			options: ['canvas', 'svg'],
 		},
-		// Todo: ImageSettings value should be added.
-		imageSettings: { type: 'object' },
+		src: { type: 'string' },
+		x: { type: 'number' },
+		y: { type: 'number' },
+		height: { type: 'number' },
+		width: { type: 'number' },
+		excavate: { type: 'boolean' },
 	},
+	args: { src: 'https://static.zpao.com/favicon.png' },
 };
 
-const Template = ({ onChange, value, ...args }) =>
-	<QrCodeGenerator { ...{ value, onChange, ...args } }/>;
+const Template = ({ onChange, value, ...args }) => {
+	const { src, x, y, width, height, excavate, ...rest } = args;
+	const imageSettings = { src, x, y, width, height, excavate };
+
+	return (
+		<QrCodeGenerator {
+			...{ value, onChange, imageSettings, ...rest } }
+		/>);
+};
 
 export const GenerateQR = Template.bind({});
 
