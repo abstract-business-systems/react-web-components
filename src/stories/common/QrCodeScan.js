@@ -4,13 +4,19 @@ import { QrReader } from 'react-qr-reader';
 import { nothing } from '@laufire/utils/predicates';
 import buildEvent from './helper/buildEvent';
 
+const eventProps = (result) => ({
+	newValue: result.data,
+	error: result.error,
+	status: result.isScanning ? 'scanning' : 'completed',
+});
+
 const ScanQRButton = ({ setState, state, onChange }) =>
 	<Button { ...{
 		onClick: () => {
 			const result = { isScanning: !state.isScanning };
 
-			setState(result);
-			onChange({ target: { value: { ...state, ...result }}});
+			setState((preState) => ({ ...preState, ...result }));
+			onChange(buildEvent(eventProps({ ...state, ...result })));
 		},
 	} }
 	>
@@ -31,8 +37,7 @@ const ScanQrReader = ({ setState, state, onChange, facingMode, ...args }) => {
 			onResult={ (...data) => {
 				const result = getResult(...data);
 
-				// Todo: Check where the isScanning is necessary for onChange.
-				onChange(buildEvent({ newValue: result }));
+				onChange(buildEvent(eventProps(result)));
 				setState(result);
 			} }
 		/>);
