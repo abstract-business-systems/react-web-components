@@ -10,7 +10,7 @@ const Slider = (context) => {
 		<MuiSlider { ...{
 			value: initialValue,
 			onChange: ({ target: { value }}) =>
-				onChange(buildEvent({ newValue: value })),
+				onChange(buildEvent({ value })),
 			...args,
 		} }
 		/>);

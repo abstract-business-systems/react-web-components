@@ -4,7 +4,7 @@ import buildEvent from '../../helper/buildEvent';
 import TextField from '../../Input';
 import inputProps from '../helper/inputProps';
 import transformValue from '../helper/transformValue';
-import checkInput from '../helper/checkInput';
+import inputValidators from '../helper/inputValidators';
 import { everything } from '@laufire/utils/predicates';
 
 const handleValidInput = (props, newValue) => {
@@ -22,9 +22,9 @@ const handleValidInput = (props, newValue) => {
 		...isValid && { valid: newValue },
 	}));
 	const error = isValid ? null : { message: 'IncorrectEntry' };
-	const validValue = isValid ? newValue : userInput.valid;
+	const value = isValid ? newValue : userInput.valid;
 
-	onChange(buildEvent({ newValue: validValue, error: error }));
+	onChange(buildEvent({ value, error }));
 };
 
 const getClassName = (props) => {
@@ -51,9 +51,9 @@ const TextFieldProps = ({ readOnly, disabled }) => ({
 const handleChange = (props) =>
 	({ target: { value: newValue }}) => {
 		const { context: { component }} = props;
-		const getValidInput = checkInput[component] || everything;
+		const isValid = inputValidators[component] || everything;
 
-		return getValidInput(newValue)
+		return isValid(newValue)
 			&& handleValidInput(props, newValue);
 	};
 

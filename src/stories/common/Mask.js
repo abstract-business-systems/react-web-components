@@ -53,7 +53,7 @@ const MaskContainer = (props) => {
 			{ ...{
 				[triggers[trigger]]: (evt) =>
 					onChange(buildEvent({
-						newValue:
+						value:
 						getColor(evt, canvasRef),
 					})),
 			} }

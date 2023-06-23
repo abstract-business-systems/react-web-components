@@ -37,7 +37,7 @@ const ScanQrReader = ({ setState, state, onChange, facingMode, ...args }) => {
 			onResult={ (...data) => {
 				const result = getResult(...data);
 
-				onChange(buildEvent(eventProps(result)));
+				onChange(buildEvent({ value: eventProps(result) }));
 				setState(result);
 			} }
 		/>);

@@ -16,15 +16,15 @@ const getIcon = ({ emptyIcon, selectedIcon }) => {
 
 const MuiRating = (args) => {
 	const {
-		value, emptyIcon,
+		value: initialValue, emptyIcon,
 		selectedIcon, onChange = nothing, ...rest
 	} = args;
 
 	return (
 		<Rating { ...{
-			value: value,
-			onChange: (dummy, newValue) => {
-				onChange(buildEvent({ newValue }));
+			value: initialValue,
+			onChange: (dummy, value) => {
+				onChange(buildEvent({ value }));
 			},
 			...rest,
 			...getIcon({ emptyIcon, selectedIcon }),

@@ -48,7 +48,7 @@ const VideoPlayer = ({ onChange = nothing, value: initialValue }) => {
 		const newValue = { ...value, ...data };
 
 		setValue(newValue);
-		onChange(buildEvent({ newValue }));
+		onChange(buildEvent({ value: newValue }));
 	};
 	const playerEvents = map(events, (eventData) =>
 		() => patchValue(eventData));

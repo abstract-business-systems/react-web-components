@@ -1,10 +1,10 @@
 
 const buildEvent = ({
 	error = null,
-	newValue, status = 'success',
+	value, status = 'success',
 }) => ({
 	target: {
-		value: newValue,
+		value: value,
 		error: error,
 		meta: { status },
 	},

@@ -17,7 +17,7 @@ const RadioGroup = (context) => {
 		<MuiRadioGroup
 			value={ initialValue }
 			onChange={ ({ target: { value }}) =>
-				onChange(buildEvent({ newValue: value })) }
+				onChange(buildEvent({ value })) }
 		>
 			{ map(options, (option, index) =>
 				<FormControlLabel

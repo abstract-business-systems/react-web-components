@@ -39,7 +39,7 @@ const Input = (context) => {
 				...MultilineProps, ...args,
 				value: initialValue,
 				onChange: ({ target: { value }}) =>
-					onChange(buildEvent({ newValue: value })),
+					onChange(buildEvent({ value })),
 			} }
 		/>);
 };

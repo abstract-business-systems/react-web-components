@@ -25,7 +25,7 @@ const DropDown = (context) => {
 				value: value,
 				multiple: multiple,
 				onChange: (evt) =>
-					onChange(buildEvent({ newValue: evt.target.value })),
+					onChange(buildEvent({ value: evt.target.value })),
 				...multiple
 				&& { renderValue: (selected) => selected.join(', ') },
 				...rest,
