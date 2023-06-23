@@ -1,19 +1,18 @@
 import { Button as MuiButton } from '@mui/material';
 import * as React from 'react';
 import IconButton from './IconButton';
-import { reduce } from '@laufire/utils/collection';
+import { filter, map } from '@laufire/utils/collection';
+import { isDefined } from '@laufire/utils/reflection';
 
-const Icon = ({ startIcon, endIcon }) => reduce(
-	{ startIcon, endIcon }, (
-		acc, cur, key
-	) => ({
-		...acc,
-		...cur && { [key]: <IconButton icon={ cur }/> },
-	}), {}
-);
+const Icon = (icons) => {
+	const Icons = filter(icons, isDefined);
 
-const Button = ({ children = 'Button', ...rest }) =>
-	<MuiButton { ...{ ...rest, ...Icon(rest) } }>
+	return map(Icons, (icon) =>
+		<IconButton icon={ icon }/>);
+};
+
+const Button = ({ children = 'Button', startIcon, endIcon, ...rest }) =>
+	<MuiButton { ...{ ...rest, ...Icon({ startIcon, endIcon }) } }>
 		{ children }
 	</MuiButton>;
 
