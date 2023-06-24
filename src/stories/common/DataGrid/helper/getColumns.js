@@ -38,6 +38,7 @@ const SchemaInputComponent = (
 						...row,
 						[field]: evt.target.value,
 					},
+					error: evt.target.error,
 				}));
 			},
 		} }
@@ -57,7 +58,7 @@ const getColumns = (props) => {
 				ele, key, columns
 			),
 			renderCell: (params) => SchemaInputComponent(
-				params, ele, onChange
+				params, ele, onChange,
 			),
 			...getColumnProps(),
 		};

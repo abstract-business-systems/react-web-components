@@ -1,5 +1,6 @@
 import React from 'react';
 import MuiDataGrid from './common/DataGrid/index';
+import { peek } from '@laufire/utils/debug';
 
 const component = {
 	title: 'Display/DataGrid',
@@ -133,6 +134,7 @@ Journal.args = {
 		width: '100%',
 		height: 300,
 	},
+	onChange: (evt) => peek(evt),
 };
 
 export const Ledger = Template.bind({});

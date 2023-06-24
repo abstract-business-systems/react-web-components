@@ -15,7 +15,7 @@ const Actions = {
 const getActionItems = (props) => {
 	const {
 		columns: { actions = [] }, rows,
-		userInput: { target: { value }}, onChange = nothing, setRows,
+		userInput: { target: { value, error }}, onChange = nothing, setRows,
 	} = props;
 
 	return actions.map(({ icon, action }, key) => {
@@ -29,7 +29,7 @@ const getActionItems = (props) => {
 				label={ icon }
 				onClick={ () => {
 					setRows(UserAction);
-					onChange(buildEvent({ value: UserAction }));
+					onChange(buildEvent({ value: UserAction, error: error }));
 				} }
 			/>);
 	});

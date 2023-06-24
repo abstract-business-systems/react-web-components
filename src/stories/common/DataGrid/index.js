@@ -5,9 +5,10 @@ import { Box } from '@mui/material';
 import { nothing } from '@laufire/utils/fn';
 import getAction from './helper/getAction';
 import getColumns from './helper/getColumns';
+import buildEvent from '../helper/buildEvent';
 
 const DataGrid = ({ value, columns, style, onChange = nothing }) => {
-	const [userInput, setUserInput] = useState({ target: { value: '' }});
+	const [userInput, setUserInput] = useState(buildEvent({ value: '' }));
 	const [rows, setRows] = useState(value);
 	const props = { columns, rows, onChange };
 
