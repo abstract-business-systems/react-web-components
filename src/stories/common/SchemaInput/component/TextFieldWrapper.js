@@ -21,7 +21,7 @@ const handleValidInput = (props, newValue) => {
 		...prev, value: newValue,
 		...isValid && { valid: newValue },
 	}));
-	const error = isValid ? null : { message: 'IncorrectEntry' };
+	const error = validate.errors && { message: validate.errors[0].message };
 	const value = isValid ? newValue : userInput.valid;
 
 	onChange(buildEvent({ value, error }));
