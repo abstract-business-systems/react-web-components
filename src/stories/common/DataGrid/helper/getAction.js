@@ -29,7 +29,7 @@ const getActionItems = (props) => {
 				label={ icon }
 				onClick={ () => {
 					setRows(UserAction);
-					onChange(buildEvent({ newValue: UserAction }));
+					onChange(buildEvent({ value: UserAction }));
 				} }
 			/>);
 	});

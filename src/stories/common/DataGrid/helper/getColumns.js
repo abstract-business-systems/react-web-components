@@ -34,7 +34,7 @@ const SchemaInputComponent = (
 			value: value, schema: ele,
 			onChange: (evt) => {
 				onChange(buildEvent({
-					newValue: {
+					value: {
 						...row,
 						[field]: evt.target.value,
 					},
