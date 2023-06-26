@@ -16,12 +16,12 @@ const getInputProps = (schema) => {
 	};
 };
 
-const getValidValue = (newValue, {
+const getValidValue = (value, {
 	setUserInput,
 	context: { onChange = nothing },
 }) => {
-	setUserInput(newValue);
-	onChange(buildEvent({ newValue }));
+	setUserInput(value);
+	onChange(buildEvent({ value }));
 };
 
 const handleValidInput = (props) =>

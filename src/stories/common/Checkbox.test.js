@@ -55,6 +55,6 @@ describe('Checkbox', () => {
 		fireEvent.click(container, { target: { checked }});
 
 		expect(onChange).toHaveBeenCalledWith(buildValue);
-		expect(buildEvent.default).toHaveBeenCalledWith({ newValue: checked });
+		expect(buildEvent.default).toHaveBeenCalledWith({ value: checked });
 	});
 });

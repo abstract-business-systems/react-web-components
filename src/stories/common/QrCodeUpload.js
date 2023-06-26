@@ -9,7 +9,7 @@ const setImageData = async (props) => {
 	const { onChange = identity } = props;
 	const value = await QrManager.getImageData(props);
 
-	onChange(buildEvent({ newValue: value }));
+	onChange(buildEvent({ value }));
 };
 
 const QrCodeUpload = (props) => {

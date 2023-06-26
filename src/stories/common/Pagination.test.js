@@ -54,6 +54,6 @@ describe('Checkbox', () => {
 
 		expect(onChange).toHaveBeenCalledWith(buildValue);
 		expect(buildEvent.default)
-			.toHaveBeenCalledWith({ newValue: innerText });
+			.toHaveBeenCalledWith({ value: innerText });
 	});
 });

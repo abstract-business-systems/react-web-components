@@ -19,7 +19,7 @@ const Tab = (props) => {
 	const [value, selectValue] = useState(initialValue);
 	const onClick = (tabKey) => {
 		selectValue(tabKey);
-		onChange(buildEvent({ newValue: tabKey }));
+		onChange(buildEvent({ value: tabKey }));
 	};
 	const dir = direction === 'right' ? 'rtl' : 'ltr';
 
