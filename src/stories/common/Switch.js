@@ -1,5 +1,5 @@
+import React from 'react';
 import { Switch as MuiSwitch } from '@mui/material';
-import { React } from 'react';
 import { nothing } from '@laufire/utils/fn';
 import buildEvent from './helper/buildEvent';
 

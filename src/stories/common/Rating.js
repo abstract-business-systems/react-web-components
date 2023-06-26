@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import Rating from '@mui/material/Rating';
 import buildEvent from './helper/buildEvent';
 import { nothing } from '@laufire/utils/predicates';

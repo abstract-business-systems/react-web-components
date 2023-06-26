@@ -1,7 +1,7 @@
+import React from 'react';
 import { Slider as MuiSlider } from '@mui/material';
-import { React } from 'react';
-import buildEvent from './helper/buildEvent';
 import { nothing } from '@laufire/utils/predicates';
+import buildEvent from './helper/buildEvent';
 
 const Slider = (context) => {
 	const { value: initialValue, onChange = nothing, ...args } = context;
