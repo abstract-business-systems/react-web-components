@@ -1,5 +1,5 @@
+import React from 'react';
 import { Button as MuiButton } from '@mui/material';
-import * as React from 'react';
 import getIcons from './getIcons';
 
 const Button = ({ children = 'Button', startIcon, endIcon, ...rest }) =>
