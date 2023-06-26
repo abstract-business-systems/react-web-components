@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Box } from '@mui/material';
 import MuiMenu from './MuiMenu';
-import Content from '../Content';
 import Button from '../Button';
 
 const Menu = (args) => {
@@ -22,7 +21,7 @@ const Menu = (args) => {
 		} }
 		/>
 		<MuiMenu { ...{ args, handleClose, setValue, value } }/>
-		{ value.content && <Content { ...{ content: value.content } }/> }
+		{ value.content && <Button { ...{ children: value.content } }/> }
 	</Box>;
 };
 

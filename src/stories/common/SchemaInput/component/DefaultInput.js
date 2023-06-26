@@ -1,20 +1,16 @@
-import { useState, React } from 'react';
+import { React } from 'react';
 import Input from '../../Input';
-import handleChange from '../../helper/handleChange';
+import buildEvent from '../../helper/buildEvent';
+import { nothing } from '@laufire/utils/fn';
 
-const DefaultInput = (context) => {
-	const [value, setValue] = useState('');
-	const props = { context, setValue };
-
-	return (
-		<Input { ...{
-			InputProps: { disableUnderline: true },
-			variant: 'standard',
-			onChange: ({ target: { value: newValue }}) =>
-				handleChange(newValue, props),
-			value: value,
-		} }
-		/>);
-};
+const DefaultInput = ({ value: initialValue, onChange = nothing }) =>
+	<Input { ...{
+		InputProps: { disableUnderline: true },
+		variant: 'standard',
+		onChange: ({ target: { value }}) =>
+			onChange(buildEvent({ value })),
+		value: initialValue,
+	} }
+	/>;
 
 export default DefaultInput;

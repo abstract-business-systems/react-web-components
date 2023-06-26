@@ -55,13 +55,15 @@ Input.args = {
 	margin: 'none',
 	size: 'small',
 	adornments: {
-		start: {
+		startAdornment: {
 			text: '',
 			icon: 'Delete',
+			position: 'start',
 		},
-		end: {
+		endAdornment: {
 			text: 'kg',
 			icon: '',
+			position: 'end',
 		},
 	},
 };

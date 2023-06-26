@@ -1,4 +1,3 @@
-/* eslint-disable object-shorthand */
 import { React } from 'react';
 import Rating from '@mui/material/Rating';
 import buildEvent from './helper/buildEvent';
@@ -17,7 +16,7 @@ const MuiRating = (args) => {
 			onChange: (dummy, value) => {
 				onChange(buildEvent({ value }));
 			},
-			...getIcons({ emptyIcon, icon: selectedIcon }, sx),
+			...getIcons({ emptyIcon: emptyIcon, icon: selectedIcon }, sx),
 			...rest,
 		} }
 
