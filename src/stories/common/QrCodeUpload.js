@@ -1,33 +1,21 @@
 import React from 'react';
 import QrManager from '../../services/QrManager';
-import { Box } from '@mui/material';
-import Input from './Input';
-import { identity } from '@laufire/utils/fn';
+import { TextField } from '@mui/material';
 import buildEvent from './helper/buildEvent';
+import { identity } from '@laufire/utils/fn';
 
-const setImageData = async (props) => {
-	const { onChange = identity } = props;
-	const value = await QrManager.getImageData(props);
+const QrCodeUpload = ({ onChange = identity, ...props }) =>
+	<TextField
+		{ ...{
+			type: 'file',
+			...props,
+			onChange: async ({ target: { files }}) => {
+				const { data: value, error } = await QrManager
+					.getImageData(files[0]);
 
-	onChange(buildEvent({ value }));
-};
-
-const QrCodeUpload = (props) => {
-	const { value } = props;
-
-	return (
-		<Box>
-			<Input
-				{ ...{
-					type: 'file',
-					...value,
-					onChange: (evt) => {
-						setImageData({ ...props, data: evt.target.files[0] });
-					},
-				} }
-			/>
-		</Box>
-	);
-};
+				onChange(buildEvent({ value, error }));
+			},
+		} }
+	/>;
 
 export default QrCodeUpload;

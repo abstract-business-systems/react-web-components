@@ -8,7 +8,7 @@ export default {
 };
 
 const Template = ({ accept, ...args }) =>
-	<QrCodeUpload { ...{ ...args, value: { inputProps: { accept }}} }/>;
+	<QrCodeUpload { ...{ ...args, inputProps: { accept }} }/>;
 
 export const UploadQr = Template.bind({});
 
