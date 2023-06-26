@@ -1,5 +1,7 @@
 import React from 'react';
 import MuiTab from './common/Tab/index';
+import Button from './common/Button';
+import Checkbox from './common/Checkbox';
 
 const component = {
 	title: 'Navigation/Tab',
@@ -34,14 +36,12 @@ Tab.args = {
 	contents: {
 		todoPane: {
 			label: 'TodoPane',
-			component: 'Button',
-			prop: { children: 'click me!' },
+			component: <Button { ...{ children: 'ClickMe!' } }/>,
 			icon: 'Favorite',
 		},
 		taskPane: {
 			label: 'TaskPane',
-			component: 'Checkbox',
-			prop: { value: true },
+			component: <Checkbox { ...{ value: true } }/>,
 			icon: 'Star',
 		},
 	},
