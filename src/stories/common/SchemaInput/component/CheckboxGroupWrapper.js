@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import React, { useState } from 'react';
 import dataFormatter from '../dataFormatter';
 import MuiSelect from './MultiSelectCheckbox';
 import { nothing } from '@laufire/utils/fn';

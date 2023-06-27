@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import DataTable from './common/dataGridVTwo';
 import config from '../core/config';
 import seed from '../core/seed';

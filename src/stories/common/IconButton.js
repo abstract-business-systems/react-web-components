@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import MuiIconButton from '@mui/material/IconButton';
 import * as icons from '@mui/icons-material';
 

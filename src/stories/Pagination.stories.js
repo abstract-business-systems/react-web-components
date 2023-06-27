@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import MuiPagination from '../stories/common/Pagination';
 
 const component = {

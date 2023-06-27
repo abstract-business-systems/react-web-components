@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { DataGrid as MuxDataGrid } from '@mui/x-data-grid';
 import { Box } from '@mui/material';
 import { nothing } from '@laufire/utils/fn';

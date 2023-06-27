@@ -1,4 +1,4 @@
-import { Fragment, React, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import MaskComponent from './common/Mask';
 import parent from './assets/direction.svg';
 import child from './assets/colors.svg';

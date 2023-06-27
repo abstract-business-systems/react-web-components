@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import { React } from 'react';
+import React from 'react';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import tileLayer from './tileLayer';

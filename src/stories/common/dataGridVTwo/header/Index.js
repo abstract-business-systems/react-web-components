@@ -1,5 +1,5 @@
-import { Box, TableHead, TableRow } from '@mui/material';
 import React from 'react';
+import { Box, TableHead, TableRow } from '@mui/material';
 import HeaderCell from './HeaderCell';
 
 const Header = (context) => {

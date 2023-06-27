@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import SingleSelectWrapper from './SingleSelectWrapper';
 
 const SingleSelect = (context) => {

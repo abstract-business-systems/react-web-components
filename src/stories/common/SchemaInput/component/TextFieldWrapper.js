@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { identity, nothing } from '@laufire/utils/fn';
 import buildEvent from '../../helper/buildEvent';
 import TextField from '../../Input';

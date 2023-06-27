@@ -1,5 +1,5 @@
 import { pretty } from '@laufire/utils/debug';
-import * as React from 'react';
+import React from 'react';
 
 const Debugger = (props) =>
 	<pre>

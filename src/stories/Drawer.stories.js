@@ -1,5 +1,4 @@
-/* eslint-disable object-shorthand */
-import { React } from 'react';
+import React from 'react';
 import MuiDrawer from './common/Drawer/index';
 
 const component = {
@@ -21,7 +20,7 @@ const Template = (args) => {
 
 	return (
 		<MuiDrawer { ...{
-			value: value,
+			value,
 			lists, sx, direction,
 		} }
 		/>);

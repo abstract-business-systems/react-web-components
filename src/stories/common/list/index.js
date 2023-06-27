@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import React, { useState } from 'react';
 import { useTable } from 'react-table';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend as HTMLBackend } from 'react-dnd-html5-backend';

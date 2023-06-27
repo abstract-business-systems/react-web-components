@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { map, values } from '@laufire/utils/collection';
 import {
 	Box, List, ListItem, ListItemButton,

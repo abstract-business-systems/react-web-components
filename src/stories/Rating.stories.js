@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MuiRating from './common/Rating';
 import * as icons from '@mui/icons-material';
 import { keys } from '@laufire/utils/lib';

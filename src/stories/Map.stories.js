@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import LeafletMap from './common/Map/index';
 
 const component = {

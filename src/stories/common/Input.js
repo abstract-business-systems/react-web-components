@@ -1,5 +1,5 @@
+import React from 'react';
 import { InputAdornment as MuiAdornment, TextField } from '@mui/material';
-import { React } from 'react';
 import { filter, map } from '@laufire/utils/collection';
 import { nothing } from '@laufire/utils/fn';
 import buildEvent from './helper/buildEvent';

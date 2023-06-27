@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import SplashImage from '../stories/common/SplashScreen/SplashImage';
 import SplashText from '../stories/common/SplashScreen/SplashText';
 import MuiSplashScreen from '../stories/common/SplashScreen/index';

@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import Radio from '@mui/material/Radio';
 import { RadioGroup as MuiRadioGroup } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';

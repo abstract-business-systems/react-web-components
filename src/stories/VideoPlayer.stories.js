@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import ReactVideoPlayer from '../stories/common/VideoPlayer';
 import video from '../../src/assets/video.mp4';
 

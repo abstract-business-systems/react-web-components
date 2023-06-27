@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import React, { useState } from 'react';
 import MuiInput from '../stories/common/Input';
 
 const component = {

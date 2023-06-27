@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import { SpeedDial as MuiSpeedDial } from '@mui/material';
 import SpeedDialAction from '@mui/material/SpeedDialAction';

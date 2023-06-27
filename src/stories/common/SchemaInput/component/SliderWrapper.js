@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import React, { useState } from 'react';
 import buildEvent from '../../helper/buildEvent';
 import { nothing } from '@laufire/utils/fn';
 import Slider from '../../Slider';

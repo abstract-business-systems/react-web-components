@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import { find } from '@laufire/utils/collection.js';
 import Checkbox from './CheckboxWrapper';
 import TextFieldWrapper from './TextFieldWrapper';

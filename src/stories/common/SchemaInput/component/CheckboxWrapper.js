@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import Checkbox from '../../Checkbox';
 import { nothing } from '@laufire/utils/fn';
 

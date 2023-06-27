@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import { TablePagination } from '@mui/material';
 
 const changePage = (setState, state) => (event, newPage) => {

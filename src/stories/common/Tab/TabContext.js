@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import TabPanel from '@mui/lab/TabPanel';
 import MuiTabContext from '@mui/lab/TabContext';
 import TabButtons from './TabButton';

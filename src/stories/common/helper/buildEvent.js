@@ -1,4 +1,3 @@
-
 const buildEvent = ({
 	error = null,
 	value, status = 'success',

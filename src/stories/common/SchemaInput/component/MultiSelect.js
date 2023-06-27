@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import dataFormatter from '../dataFormatter';
 import MultiSelectWrapper from './MultiSelectWrapper';
 

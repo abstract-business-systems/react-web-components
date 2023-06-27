@@ -1,6 +1,6 @@
+import React, { useState } from 'react';
 import { map, omit } from '@laufire/utils/collection';
 import { nothing } from '@laufire/utils/fn';
-import React, { useState } from 'react';
 import ReactPlayer from 'react-player/lazy';
 import buildEvent from './helper/buildEvent';
 

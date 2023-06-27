@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import Input from '../../Input';
 import buildEvent from '../../helper/buildEvent';
 import { nothing } from '@laufire/utils/fn';

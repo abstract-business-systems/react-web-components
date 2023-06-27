@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import MuiSwitch from '../../Switch';
 import { nothing } from '@laufire/utils/fn';
 

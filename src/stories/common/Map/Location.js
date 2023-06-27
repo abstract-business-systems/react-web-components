@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 /* eslint-disable no-magic-numbers */
-import { React, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMap, Marker, Popup, Circle } from 'react-leaflet';
 import Leaflet from 'leaflet';
 

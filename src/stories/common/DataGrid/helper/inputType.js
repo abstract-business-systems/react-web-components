@@ -1,4 +1,3 @@
-
 const inputType = {
 	date: () => ({
 		minWidth: 200,

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import TabList from '@mui/lab/TabList';
 import { Tab as MuiTab } from '@mui/material';
 import { map, values } from '@laufire/utils/collection';

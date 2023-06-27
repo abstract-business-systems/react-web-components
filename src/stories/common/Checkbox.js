@@ -1,6 +1,6 @@
+import React from 'react';
 import { nothing } from '@laufire/utils/fn';
 import { Checkbox as MuiCheckbox } from '@mui/material';
-import { React } from 'react';
 import buildEvent from './helper/buildEvent';
 
 const Checkbox = (context) => {

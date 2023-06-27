@@ -1,10 +1,10 @@
+import React from 'react';
 import { map } from '@laufire/utils/collection';
 import {
 	Checkbox, FormControl, FormHelperText, InputLabel,
 	ListItemText,
 	MenuItem, Select as MuiSelect,
 } from '@mui/material';
-import { React } from 'react';
 import { nothing } from '@laufire/utils/fn';
 
 const MenuList = ({	 options, value }) =>
