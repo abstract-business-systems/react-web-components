@@ -5,7 +5,7 @@ import { nothing } from '@laufire/utils/predicates';
 import buildEvent from './helper/buildEvent';
 
 const eventProps = (result) => ({
-	newValue: result.data,
+	value: result.data,
 	error: result.error,
 	status: result.isScanning ? 'scanning' : 'completed',
 });

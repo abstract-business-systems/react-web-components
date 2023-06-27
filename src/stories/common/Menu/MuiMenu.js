@@ -1,5 +1,5 @@
+import React from 'react';
 import { Menu } from '@mui/material';
-import * as React from 'react';
 import MenuItems from './MenuItems';
 
 const MuiMenu = ({ args, handleClose, setValue, value: { anchorEl }}) => {
