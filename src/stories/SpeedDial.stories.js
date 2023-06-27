@@ -2,6 +2,7 @@ import React from 'react';
 import MuiSpeedDial from '../stories/common/SpeedDial';
 import * as Icons from '@mui/icons-material';
 import { keys } from '@laufire/utils/lib';
+import { peek } from '@laufire/utils/debug';
 
 const component = {
 	title: 'Navigation/SpeedDial',
@@ -55,4 +56,5 @@ SpeedDial.args = {
 		{ icon: 'Print', children: 'Print' },
 		{ icon: 'Share', children: 'Share' },
 	],
+	onChange: peek,
 };

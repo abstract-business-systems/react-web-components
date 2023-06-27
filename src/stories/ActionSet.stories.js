@@ -42,12 +42,12 @@ const component = {
 			options: ['left', 'center', 'right'],
 		},
 		transformVertical: {
-			control: 'radio',
-			options: ['top', 'center', 'bottom'],
+			type: { control: 'radio', options: ['top', 'center', 'bottom'] },
+			if: { arg: 'type', eq: 'menu' },
 		},
 		transformHorizontal: {
-			control: 'radio',
-			options: ['left', 'center', 'right'],
+			type: { control: 'radio', options: ['left', 'center', 'right'] },
+			if: { arg: 'type', eq: 'menu' },
 		},
 	},
 	args: {

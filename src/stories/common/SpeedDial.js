@@ -4,6 +4,8 @@ import { SpeedDial as MuiSpeedDial } from '@mui/material';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import * as Icons from '@mui/icons-material';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import { nothing } from '@laufire/utils/predicates';
+import buildEvent from '../common/helper/buildEvent';
 
 const getItemIcon = (ele) => {
 	const Icon = Icons[ele.icon];
@@ -20,17 +22,16 @@ const getOpenIcon = (icon) => {
 	return { openIcon: Icon && <Icon/> };
 };
 
-const MuiSpeedDialAction = ({ setValue, data, ...rest }) =>
+const MuiSpeedDialAction = ({ onChange = nothing, data, ...rest }) =>
 	data.map((ele, key) =>
 		<SpeedDialAction
 			key={ key }
 			{ ...{ ...getItemIcon(ele), ...rest } }
-			onClick={ () => setValue(ele.children) }
+			onClick={ () => onChange(buildEvent({ value: ele.children })) }
 		/>);
 
 const SpeedDial = (args) => {
-	const { hidden, direction, icon, data, ...rest } = args;
-	const [value, setValue] = React.useState('');
+	const { hidden, direction, icon, value, data, ...rest } = args;
 
 	return (
 		<Box>
@@ -40,7 +41,7 @@ const SpeedDial = (args) => {
 				direction={ direction }
 				icon={ <SpeedDialIcon { ...getOpenIcon(icon) }/> }
 			>
-				<MuiSpeedDialAction { ...{ setValue, data, ...rest } }/>
+				<MuiSpeedDialAction { ...{ data, ...rest } }/>
 			</MuiSpeedDial>
 			<Box>{ value }</Box>
 		</Box>

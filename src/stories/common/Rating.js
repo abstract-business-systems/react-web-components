@@ -2,7 +2,7 @@ import React from 'react';
 import Rating from '@mui/material/Rating';
 import buildEvent from './helper/buildEvent';
 import { nothing } from '@laufire/utils/predicates';
-import getIcons from './getIcons';
+import getIcons from './helper/getIcons';
 
 const MuiRating = (args) => {
 	const {
