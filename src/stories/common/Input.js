@@ -1,39 +1,33 @@
 import React from 'react';
 import { InputAdornment as MuiAdornment, TextField } from '@mui/material';
-import { filter, map } from '@laufire/utils/collection';
+import { filter, map, pick } from '@laufire/utils/collection';
 import { nothing } from '@laufire/utils/fn';
 import buildEvent from './helper/buildEvent';
-import IconButton from './IconButton';
-import { isDefined } from '@laufire/utils/reflection';
+import getIcons from './helper/getIcons';
+import { truthy } from '@laufire/utils/predicates';
 
-const InputAdornment = (cur) => {
-	const { text, icon, position } = cur;
-
-	return (
-		<MuiAdornment position={ position }>
-			{ icon ? <IconButton icon={ icon }/> : text }
-		</MuiAdornment>
-	);
-};
-
-const getIcons = (icons) => {
-	const Icons = filter(icons, isDefined);
-
-	return map(Icons, InputAdornment);
-};
+const inputProps = (adornments, results) =>
+	map(results, (result, key) =>
+		<MuiAdornment position={ adornments[key].position }>
+			{ result }
+		</MuiAdornment>);
 
 const Input = (context) => {
 	const {
 		adornments = {}, multiline = false, onChange = nothing,
 		value: initialValue, ...args
 	} = context;
-	const MultilineProps = multiline && { ...multiline, multiline: true };
+	const multilineProps = multiline && { ...multiline, multiline: true };
+
+	const icons = getIcons(pick(adornments, 'icon'));
+	const texts = pick(filter(adornments, ({ text }) =>
+		truthy(text)), 'text');
 
 	return (
 		<TextField
 			{ ...{
-				InputProps: getIcons(adornments),
-				...MultilineProps, ...args,
+				InputProps: inputProps(adornments, { ...icons, ...texts }),
+				...multilineProps, ...args,
 				value: initialValue,
 				onChange: ({ target: { value }}) =>
 					onChange(buildEvent({ value })),

@@ -1,10 +1,10 @@
 import React from 'react';
 import IconButton from '../IconButton';
 import { filter, map } from '@laufire/utils/collection';
-import { isDefined } from '@laufire/utils/reflection';
+import { truthy } from '@laufire/utils/predicates';
 
 const getIcons = (icons, sx) => {
-	const Icons = filter(icons, isDefined);
+	const Icons = filter(icons, truthy);
 
 	return map(Icons, (icon) =>
 		<IconButton sx={ sx } icon={ icon }/>);
