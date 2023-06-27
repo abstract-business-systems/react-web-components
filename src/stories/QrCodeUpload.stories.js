@@ -7,12 +7,11 @@ export default {
 	component: QrCodeUpload,
 };
 
-const Template = ({ accept, ...args }) =>
-	<QrCodeUpload { ...{ ...args, inputProps: { accept }} }/>;
+const Template = (args) => <QrCodeUpload { ...args }/>;
 
 export const UploadQr = Template.bind({});
 
 UploadQr.args = {
-	accept: '.png, .jpeg',
+	inputProps: { accept: '.png, .jpeg' },
 	onChange: peek,
 };
