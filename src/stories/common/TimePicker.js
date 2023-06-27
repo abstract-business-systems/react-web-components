@@ -14,7 +14,7 @@ const slotProps = ({ variant, disableUnderline }) => ({
 });
 
 const TimePicker = (context) => {
-	const { params: { value: initialValue }, onChange = nothing }	= context;
+	const { value: initialValue, onChange = nothing }	= context;
 	const initialTime = initialValue ? dayjs(`1/1/2022 ${ initialValue }`) : null;
 	const [time, setTime] = useState(initialTime);
 
