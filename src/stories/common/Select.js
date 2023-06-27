@@ -6,7 +6,7 @@ import {
 	MenuItem, Select as MuiSelect,
 } from '@mui/material';
 import { nothing } from '@laufire/utils/fn';
-import buildEvent from '../common/helper/buildEvent';
+import buildEvent from './helper/buildEvent';
 
 const MenuList = (options) =>
 	map(options, (option, index) =>

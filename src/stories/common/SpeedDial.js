@@ -5,7 +5,7 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 import * as Icons from '@mui/icons-material';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import { nothing } from '@laufire/utils/predicates';
-import buildEvent from '../common/helper/buildEvent';
+import buildEvent from './helper/buildEvent';
 
 const getItemIcon = (ele) => {
 	const Icon = Icons[ele.icon];
