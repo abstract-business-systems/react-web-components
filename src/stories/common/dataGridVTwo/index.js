@@ -13,7 +13,7 @@ import {
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import Pagination from './Pagination';
-import dataTable from '../../../helper/dataTable';
+import dataTable from '../helper/dataTable';
 import Header from './header/Index';
 import Body from './body';
 

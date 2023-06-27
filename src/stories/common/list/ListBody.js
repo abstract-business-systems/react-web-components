@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import ReactTableReorder from '../../../helper/ReactTableReorder';
+import ReactTableReorder from '../helper/ReactTableReorder';
 import { Box } from '@mui/material';
 
 const Body = (context) => {

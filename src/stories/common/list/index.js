@@ -4,7 +4,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend as HTMLBackend } from 'react-dnd-html5-backend';
 import ListBody from './ListBody';
 import { Paper, TableContainer } from '@mui/material';
-import dataTable from '../../../helper/dataTable';
+import dataTable from '../helper/dataTable';
 
 const List = (args) => {
 	const { value: rows, Component } = args;

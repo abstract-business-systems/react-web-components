@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, Fragment } from 'react';
-import color from '../../helper/color';
+import color from './helper/color';
 import Container from './Container';
 import { identity } from '@laufire/utils/fn';
 import buildEvent from './helper/buildEvent';

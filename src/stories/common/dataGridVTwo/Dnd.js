@@ -1,5 +1,5 @@
 import { useDrag, useDrop } from 'react-dnd';
-import ReactTableReorder from '../../../helper/ReactTableReorder';
+import ReactTableReorder from '../helper/ReactTableReorder';
 
 const Dnd = ({ setState, index, position, ref }) => {
 	const [, drop] = useDrop(ReactTableReorder
