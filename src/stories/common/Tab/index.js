@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
+import '../../styles/global.scss';
+import clsx from 'clsx';
 import Box from '@mui/material/Box';
-import TabContext from './TabContext';
-import buildEvent from '../helper/buildEvent';
 import { nothing } from '@laufire/utils/fn';
+import buildEvent from '../helper/buildEvent';
+import TabContext from './TabContext';
 
-const tabStyle = {
-	vertical: 'vertical-tab',
-	horizontal: 'horizontal-tab',
-};
+const tabStyle = { vertical: 'absTab-vertical' };
 
 const Tab = (props) => {
 	const {
-		orientation, direction,
+		orientation, direction, className,
 		value: initialValue, onChange = nothing,
 	} = props;
 
@@ -23,7 +22,7 @@ const Tab = (props) => {
 	const dir = direction === 'right' ? 'rtl' : 'ltr';
 
 	return (
-		<Box dir={ dir } className={ tabStyle[orientation] }>
+		<Box dir={ dir } className={ clsx(tabStyle[orientation], className) }>
 			<TabContext { ...{ props, onClick, value } }/>
 		</Box>
 	);

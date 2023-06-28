@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import '../../../styles/global.scss';
+import clsx from 'clsx';
 import { identity, nothing } from '@laufire/utils/fn';
-import buildEvent from '../../helper/buildEvent';
-import TextField from '../../Input';
+import { everything } from '@laufire/utils/predicates';
 import inputProps from '../helper/inputProps';
 import transformValue from '../helper/transformValue';
 import inputValidators from '../helper/inputValidators';
-import { everything } from '@laufire/utils/predicates';
+import buildEvent from '../../helper/buildEvent';
+import Input from '../../Input';
 
 const handleValidInput = (props, newValue) => {
 	const {
@@ -33,12 +35,10 @@ const getClassName = (props) => {
 		context: { validate },
 	} = props;
 
-	return validate(transform(userInput.value))
-		? ''
-		: 'error';
+	return validate(transform(userInput.value)) && 'abs-error';
 };
 
-const TextFieldProps = ({ readOnly, disabled }) => ({
+const textFieldProps = ({ readOnly, disabled }) => ({
 	variant: 'standard',
 	InputProps: {
 		disableUnderline: true,
@@ -58,7 +58,7 @@ const handleChange = (props) =>
 	};
 
 const TextFieldWrapper = (context) => {
-	const { value, component, schemaType, schema } = context;
+	const { value, component, schemaType, schema, className } = context;
 	const [userInput, setUserInput] = useState({ value: value, valid: value });
 	const transform = transformValue[component] || identity;
 	const props = { setUserInput, userInput, transform, context };
@@ -70,10 +70,10 @@ const TextFieldWrapper = (context) => {
 	}, [value]);
 
 	return (
-		<TextField { ...{
-			...TextFieldProps(schema),
+		<Input { ...{
+			...textFieldProps(schema),
 			type: schemaType,
-			className: getClassName(props),
+			className: clsx(getClassName(props), className),
 			value: userInput.value,
 			onChange: handleChange(props), ...extendedProps,
 		} }

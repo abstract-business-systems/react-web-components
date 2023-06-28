@@ -1,8 +1,9 @@
 import React, { useRef, useEffect, useState, Fragment } from 'react';
-import color from './helper/color';
-import Container from './Container';
+import '../styles/global.scss';
 import { identity } from '@laufire/utils/fn';
+import color from './helper/color';
 import buildEvent from './helper/buildEvent';
+import Container from './Container';
 
 const setCanvasImage = ({ canvasRef, src, image, state }) => {
 	const canvas = canvasRef.current;
@@ -49,7 +50,7 @@ const MaskContainer = (props) => {
 	return <Fragment>{ children }
 		<canvas
 			ref={ canvasRef }
-			className="mask"
+			className="absMask-canvas"
 			{ ...{
 				[triggers[trigger]]: (evt) =>
 					onChange(buildEvent({
@@ -71,7 +72,7 @@ const Mask = (props) => {
 
 	return (
 		<Container { ...{
-			className: 'mask-container',
+			className: 'absMask-root',
 			onChange: containerOnChange,
 			resize: resize,
 		} }

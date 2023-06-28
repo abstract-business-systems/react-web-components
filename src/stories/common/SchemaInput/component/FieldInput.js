@@ -2,7 +2,6 @@ import React from 'react';
 import { find } from '@laufire/utils/collection.js';
 import Checkbox from './CheckboxWrapper';
 import TextFieldWrapper from './TextFieldWrapper';
-import { nothing } from '@laufire/utils/fn';
 
 const formatList = {};
 const typeList = { boolean: Checkbox };
@@ -36,15 +35,12 @@ const getType = ({ widget, format, type }) =>
 	widgetMap[widget] || formatMap[format] || typeMap[type];
 
 const FieldInput = (context) => {
-	const {
-		value, schema: { format, type },
-		schema, validate, onChange = nothing,
-	} = context;
+	const { schema: { format, type }, schema } = context;
 
 	const component = format || type;
 	const schemaType = getType(schema);
 
-	const props = { value, onChange, component, validate, schemaType, schema };
+	const props = { ...context, component, schemaType };
 	const Component = getComponent(schema);
 
 	return <Component { ...props }/>;
