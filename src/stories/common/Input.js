@@ -6,31 +6,42 @@ import buildEvent from './helper/buildEvent';
 import getIcons from './helper/getIcons';
 import { truthy } from '@laufire/utils/predicates';
 
-const inputProps = (adornments, results) =>
-	map(results, (result, key) =>
+const inputProps = (adornments) => {
+	const icons = getIcons(pick(adornments, 'icon'));
+	const texts = pick(filter(adornments, ({ text }) =>
+		truthy(text)), 'text');
+	const inputAdornments = { ...icons, ...texts };
+
+	return map(inputAdornments, (result, key) =>
 		<MuiAdornment position={ adornments[key].position }>
 			{ result }
 		</MuiAdornment>);
+};
+
+const getValue = (evt, type) => {
+	const { target: { value, files }} = evt;
+
+	return type === 'file'
+		? { value: { path: value, files: files }}
+		: { value };
+};
 
 const Input = (context) => {
 	const {
 		adornments = {}, multiline = false, onChange = nothing,
-		value: initialValue, ...args
+		value: initialValue, type, ...args
 	} = context;
 	const multilineProps = multiline && { ...multiline, multiline: true };
-
-	const icons = getIcons(pick(adornments, 'icon'));
-	const texts = pick(filter(adornments, ({ text }) =>
-		truthy(text)), 'text');
 
 	return (
 		<TextField
 			{ ...{
-				InputProps: inputProps(adornments, { ...icons, ...texts }),
+				type: type,
+				InputProps: inputProps(adornments),
 				...multilineProps, ...args,
 				value: initialValue,
-				onChange: ({ target: { value }}) =>
-					onChange(buildEvent({ value })),
+				onChange: (evt) =>
+					onChange(buildEvent(getValue(evt, type))),
 			} }
 		/>);
 };
