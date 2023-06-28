@@ -21,7 +21,8 @@ const component = {
 				'number',
 				'string',
 				'datetime-local',
-				'color'],
+				'color',
+				'file'],
 		},
 	},
 	args: { color: 'primary', variant: 'filled', type: 'password' },
@@ -30,7 +31,8 @@ const component = {
 export default component;
 
 const Template = (args) => {
-	const [value, setValue] = useState(1);
+	const { value: initialValue } = args;
+	const [value, setValue] = useState(initialValue);
 
 	return (
 		<MuiInput { ...{
@@ -66,4 +68,5 @@ Input.args = {
 			position: 'end',
 		},
 	},
+	value: '',
 };
