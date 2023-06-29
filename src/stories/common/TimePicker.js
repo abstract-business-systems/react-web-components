@@ -6,13 +6,6 @@ import dayjs from 'dayjs';
 import { nothing } from '@laufire/utils/fn';
 import buildEvent from './helper/buildEvent';
 
-const slotProps = ({ variant, disableUnderline }) => ({
-	textField: {
-		variant: variant,
-		InputProps: { disableUnderline },
-	},
-});
-
 const TimePicker = (context) => {
 	const { value: initialValue, onChange = nothing }	= context;
 	const initialTime = initialValue ? dayjs(`1/1/2022 ${ initialValue }`) : null;
@@ -25,7 +18,6 @@ const TimePicker = (context) => {
 				setTime(value);
 				return onChange(buildEvent({ value }));
 			} }
-			slotProps={ slotProps(context) }
 		/></LocalizationProvider>;
 };
 
