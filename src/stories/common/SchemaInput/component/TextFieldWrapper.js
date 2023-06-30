@@ -35,7 +35,7 @@ const getClassName = (props) => {
 		context: { validate },
 	} = props;
 
-	return validate(transform(userInput.value)) && 'abs-error';
+	return !validate(transform(userInput.value)) && 'abs-error';
 };
 
 const textFieldProps = ({ readOnly, disabled }) => ({
