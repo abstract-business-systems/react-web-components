@@ -9,7 +9,7 @@ import inputValidators from '../helper/inputValidators';
 import Input from '../../Input';
 import buildEvent from '../../helper/buildEvent';
 
-const getValidOnChange = (props, newValue) => {
+const genValidOnChange = (props, newValue) => {
 	const {
 		setUserInput, value: validValue,
 		validate,
@@ -50,7 +50,7 @@ const getOnChange = (props) =>
 		const isValid = inputValidators[component] || everything;
 
 		return isValid(newValue)
-			&& getValidOnChange(props, newValue);
+			&& genValidOnChange(props, newValue);
 	};
 
 const TextFieldWrapper = (context) => {
