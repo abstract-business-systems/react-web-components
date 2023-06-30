@@ -6,25 +6,21 @@ import { everything } from '@laufire/utils/predicates';
 import inputProps from '../helper/inputProps';
 import transformValue from '../helper/transformValue';
 import inputValidators from '../helper/inputValidators';
-import buildEvent from '../../helper/buildEvent';
 import Input from '../../Input';
+import buildEvent from '../../helper/buildEvent';
 
-const handleValidInput = (props, newValue) => {
+const getValidOnChange = (props, newValue) => {
 	const {
-		setUserInput, userInput, context: {
-			validate,
-			onChange = nothing,
-		},
+		setUserInput, value: validValue,
+		validate,
+		onChange = nothing,
 		transform,
 	} = props;
 	const isValid = validate(transform(newValue));
 
-	setUserInput((prev) => ({
-		...prev, value: newValue,
-		...isValid && { valid: newValue },
-	}));
+	setUserInput(newValue);
 	const error = validate.errors && { message: validate.errors[0].message };
-	const value = isValid ? newValue : userInput.valid;
+	const value = isValid ? newValue : validValue;
 
 	onChange(buildEvent({ value, error }));
 };
@@ -32,10 +28,10 @@ const handleValidInput = (props, newValue) => {
 const getClassName = (props) => {
 	const {
 		userInput, transform,
-		context: { validate },
+		validate,
 	} = props;
 
-	return !validate(transform(userInput.value)) && 'abs-error';
+	return validate(transform(userInput)) ? '' : 'abs-error';
 };
 
 const textFieldProps = ({ readOnly, disabled }) => ({
@@ -48,25 +44,24 @@ const textFieldProps = ({ readOnly, disabled }) => ({
 	sx: { width: '200px' },
 });
 
-const handleChange = (props) =>
+const getOnChange = (props) =>
 	({ target: { value: newValue }}) => {
-		const { context: { component }} = props;
+		const { component } = props;
 		const isValid = inputValidators[component] || everything;
 
 		return isValid(newValue)
-			&& handleValidInput(props, newValue);
+			&& getValidOnChange(props, newValue);
 	};
 
 const TextFieldWrapper = (context) => {
 	const { value, component, schemaType, schema, className } = context;
-	const [userInput, setUserInput] = useState({ value: value, valid: value });
+	const [userInput, setUserInput] = useState(value);
 	const transform = transformValue[component] || identity;
-	const props = { setUserInput, userInput, transform, context };
+	const props = { setUserInput, userInput, transform, ...context };
 	const buildInputProps = inputProps[component] || nothing;
-	const extendedProps = { inputProps: buildInputProps(context) };
 
 	useEffect(() => {
-		setUserInput({ value: value, valid: value });
+		setUserInput(value);
 	}, [value]);
 
 	return (
@@ -74,8 +69,9 @@ const TextFieldWrapper = (context) => {
 			...textFieldProps(schema),
 			type: schemaType,
 			className: clsx(getClassName(props), className),
-			value: userInput.value,
-			onChange: handleChange(props), ...extendedProps,
+			value: userInput,
+			onChange: getOnChange(props),
+			inputProps: buildInputProps(context),
 		} }
 		/>);
 };

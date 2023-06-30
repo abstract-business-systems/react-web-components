@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SchemaInputComponent from './common/SchemaInput';
 import schema from './schema';
-import { peek } from '@laufire/utils/debug';
 
 const defaultValue = {
 	singleSelect: 'US',
@@ -58,15 +57,17 @@ const component = {
 export default component;
 
 const Template = (args) => {
-	const { schemaType, value: newValue } = args;
+	const { schemaType, value: initialValue } = args;
 	const jsonSchema = schema[schemaType];
-	const value = defaultValue[schemaType] || newValue;
+	const newValue = defaultValue[schemaType] || initialValue;
+	const [value, setValue] = useState(newValue);
 
 	return (
 		<SchemaInputComponent { ...{
 			schema: jsonSchema,
 			value: value,
-			onChange: (evt) => peek(evt),
+			onChange: (evt) =>
+				setValue(evt.target.value),
 			...(schemaType === 'custom') && args,
 		} }
 		/>);
