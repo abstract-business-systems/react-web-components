@@ -1,14 +1,16 @@
 import { useCallback, useState } from 'react';
 import { identity } from '@laufire/utils/fn';
 
-const useFollowState = (value, fn = identity) => {
-	const [state, setState] = useState(value);
+const useFollowState = (preValue, fn = identity) => {
+	const [state, setState] = useState(preValue);
 
-	const executeFn = useCallback(() => fn, [fn]);
+	const executeFn = useCallback((data) => fn(data), [fn]);
+	const set = (curValue) => {
+		setState(curValue);
+		executeFn({ preValue, curValue });
+	};
 
-	executeFn();
-
-	return [state, setState];
+	return [state, set];
 };
 
 export default useFollowState;
