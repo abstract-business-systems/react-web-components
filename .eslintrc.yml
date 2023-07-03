@@ -344,7 +344,12 @@ rules:
   no-shadow-restricted-names: error
   no-unused-vars:
   - "error"
-  no-use-before-define: error
+  no-use-before-define:
+    - error
+    - functions: true
+      classes: true
+      variables: true
+      allowNamedExports: false
   no-undef: error
   no-undef-init: error
   no-var: error
