@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { find } from '@laufire/utils/collection.js';
 import Checkbox from './CheckboxWrapper';
 import TextFieldWrapper from './TextFieldWrapper';
+import transformValue from '../helper/transformValue';
+import { identity } from '@laufire/utils/fn';
 
 const formatList = {};
 const typeList = { boolean: Checkbox };
@@ -35,12 +37,17 @@ const getType = ({ widget, format, type }) =>
 	widgetMap[widget] || formatMap[format] || typeMap[type];
 
 const FieldInput = (context) => {
-	const { schema: { format, type }, schema } = context;
+	const { schema: { format, type }, schema, validate: validator } = context;
 
 	const component = format || type;
 	const schemaType = getType(schema);
+	const transform = transformValue[component] || identity;
+	const validate = useMemo(() => ({
+		isValid: (value) => validator(transform(value)),
+		errors: validator.errors,
+	}), [transform]);
 
-	const props = { ...context, component, schemaType };
+	const props = { ...context, component, schemaType, validate };
 	const Component = getComponent(schema);
 
 	return <Component { ...props }/>;

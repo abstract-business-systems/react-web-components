@@ -1,37 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import '../../../styles/global.scss';
 import clsx from 'clsx';
-import { identity, nothing } from '@laufire/utils/fn';
+import { nothing } from '@laufire/utils/fn';
 import { everything } from '@laufire/utils/predicates';
 import inputProps from '../helper/inputProps';
-import transformValue from '../helper/transformValue';
 import inputValidators from '../helper/inputValidators';
 import Input from '../../Input';
 import buildEvent from '../../helper/buildEvent';
-
-const genValidOnChange = (props, newValue) => {
-	const {
-		setUserInput, value: validValue,
-		validate,
-		onChange = nothing,
-		transform,
-	} = props;
-	const isValid = validate(transform(newValue));
-
-	setUserInput(newValue);
-	const error = validate.errors && { message: validate.errors[0].message };
-	const value = isValid ? newValue : validValue;
-
-	onChange(buildEvent({ value, error }));
-};
+import useFollowState from '../../hook/useFollowState';
 
 const getClassName = (props) => {
-	const {
-		userInput, transform,
-		validate,
-	} = props;
+	const { userInput, validate: { isValid }} = props;
 
-	return validate(transform(userInput)) ? '' : 'abs-error';
+	return !isValid(userInput) && 'abs-error';
 };
 
 const textFieldProps = ({ readOnly, disabled }) => ({
@@ -44,34 +25,36 @@ const textFieldProps = ({ readOnly, disabled }) => ({
 	sx: { width: '200px' },
 });
 
-const getOnChange = (props) =>
-	({ target: { value: newValue }}) => {
-		const { component } = props;
-		const isValid = inputValidators[component] || everything;
+const getValue = ({ curValue, isValid, component }) => {
+	const isInputValid = inputValidators[component] || everything;
 
-		return isValid(newValue)
-			&& genValidOnChange(props, newValue);
-	};
+	return (isInputValid(curValue) && isValid(curValue)) && { value: curValue };
+};
 
-const TextFieldWrapper = (context) => {
-	const { value, component, schemaType, schema, className } = context;
-	const [userInput, setUserInput] = useState(value);
-	const transform = transformValue[component] || identity;
-	const props = { setUserInput, userInput, transform, ...context };
+const getHandleChange = (props) => ({ curValue, preValue }) => {
+	const { validate: { isValid, errors }, onChange } = props;
+	const error = errors && { message: errors[0].message };
+
+	const { value = preValue } = getValue({ ...props, curValue, isValid });
+
+	onChange(buildEvent({ value, error }));
+};
+
+const TextFieldWrapper = (props) => {
+	const { value, component, schemaType, schema, className } = props;
+
+	const handleChange = getHandleChange(props);
+	const [userInput, setUserInput] = useFollowState(value, handleChange);
 	const buildInputProps = inputProps[component] || nothing;
-
-	useEffect(() => {
-		setUserInput(value);
-	}, [value]);
 
 	return (
 		<Input { ...{
 			...textFieldProps(schema),
 			type: schemaType,
-			className: clsx(getClassName(props), className),
+			className: clsx(getClassName({ ...props, userInput }), className),
 			value: userInput,
-			onChange: getOnChange(props),
-			inputProps: buildInputProps(context),
+			onChange: ({ data }) => setUserInput(data),
+			inputProps: buildInputProps(props),
 		} }
 		/>);
 };
