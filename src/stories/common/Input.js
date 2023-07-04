@@ -26,11 +26,11 @@ const getValue = (evt, type) => {
 		: { value };
 };
 
-const Input = (context) => {
+const Input = (args) => {
 	const {
 		adornments = {}, multiline = false, onChange = nothing,
-		value: initialValue, type, ...args
-	} = context;
+		type, ...rest
+	} = args;
 	const multilineProps = multiline && { ...multiline, multiline: true };
 
 	return (
@@ -38,10 +38,10 @@ const Input = (context) => {
 			{ ...{
 				type: type,
 				InputProps: inputProps(adornments),
-				...multilineProps, ...args,
-				value: initialValue,
+				...multilineProps,
 				onChange: (evt) =>
 					onChange(buildEvent(getValue(evt, type))),
+				...rest,
 			} }
 		/>);
 };

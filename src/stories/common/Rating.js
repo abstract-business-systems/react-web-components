@@ -13,9 +13,8 @@ const MuiRating = (args) => {
 	return (
 		<Rating { ...{
 			value: initialValue,
-			onChange: (dummy, value) => {
-				onChange(buildEvent({ value }));
-			},
+			onChange: (dummy, value) =>
+				onChange(buildEvent({ value })),
 			...getIcons({ emptyIcon: emptyIcon, icon: selectedIcon }, sx),
 			...rest,
 		} }

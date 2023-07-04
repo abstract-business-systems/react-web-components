@@ -18,7 +18,9 @@ const Container = ({
 	shortcuts = [], resize, ...args
 }) => {
 	const ref = useRef();
-	const { width, height } = useResizeDetector({ targetRef: ref, ...resize });
+	// Todo: Need to discuss the initial values of width, height & having 0.
+	const { width, height }
+	= useResizeDetector({ targetRef: ref, ...resize });
 
 	useEffect(() => {
 		const orientation = width > height ? 'portrait' : 'landscape';

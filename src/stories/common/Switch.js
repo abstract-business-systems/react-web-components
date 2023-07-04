@@ -3,8 +3,8 @@ import { Switch as MuiSwitch } from '@mui/material';
 import { nothing } from '@laufire/utils/fn';
 import buildEvent from './helper/buildEvent';
 
-const Switch = (context) => {
-	const { value, onChange = nothing, ...args } = context;
+const Switch = (args) => {
+	const { value, onChange = nothing, ...rest } = args;
 
 	return (
 		<MuiSwitch { ...{
@@ -12,7 +12,7 @@ const Switch = (context) => {
 			onChange: ({ target: { checked }}) => {
 				onChange(buildEvent({ value: checked }));
 			},
-			...args,
+			...rest,
 		} }
 		/>);
 };

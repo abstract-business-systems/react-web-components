@@ -33,8 +33,8 @@ const DropDown = (context) => {
 		>{ MenuList(options) }</MuiSelect>);
 };
 
-const Select = (context) => {
-	const { helperText, label, sx, variant, ...rest } = context;
+const Select = (args) => {
+	const { helperText, label, sx, variant, ...rest } = args;
 
 	return <FormControl sx={ sx } variant={ variant }>
 		<InputLabel>{ label }</InputLabel>

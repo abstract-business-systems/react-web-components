@@ -7,17 +7,18 @@ import { map } from '@laufire/utils/collection';
 import { nothing } from '@laufire/utils/fn';
 import buildEvent from './helper/buildEvent';
 
-const RadioGroup = (context) => {
+const RadioGroup = (args) => {
 	const {
 		options, value: initialValue,
 		onChange = nothing, disabled,
-	} = context;
+	} = args;
 
 	return <FormControl disabled={ disabled }>
-		<MuiRadioGroup
-			value={ initialValue }
-			onChange={ ({ target: { value }}) =>
-				onChange(buildEvent({ value })) }
+		<MuiRadioGroup { ...{
+			value: initialValue,
+			onChange: ({ target: { value }}) =>
+				onChange(buildEvent({ value })),
+		} }
 		>
 			{ map(options, (option, index) =>
 				<FormControlLabel

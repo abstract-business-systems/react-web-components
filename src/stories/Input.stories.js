@@ -31,14 +31,14 @@ const component = {
 export default component;
 
 const Template = (args) => {
-	const { value: initialValue } = args;
+	const { value: initialValue, ...rest } = args;
 	const [value, setValue] = useState(initialValue);
 
 	return (
 		<MuiInput { ...{
 			onChange: (evt) => setValue(evt.target.value),
 			value: value,
-			...args,
+			...rest,
 		} }
 		/>);
 };
@@ -56,6 +56,7 @@ Input.args = {
 	fullWidth: false,
 	margin: 'none',
 	size: 'small',
+	// Todo: need to discuss the structure of adornments.
 	adornments: {
 		startAdornment: {
 			text: '',

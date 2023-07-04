@@ -53,10 +53,7 @@ const MaskContainer = (props) => {
 			className="absMask-canvas"
 			{ ...{
 				[triggers[trigger]]: (evt) =>
-					onChange(buildEvent({
-						value:
-						getColor(evt, canvasRef),
-					})),
+					onChange(buildEvent({ value: getColor(evt, canvasRef) })),
 			} }
 		/></Fragment>;
 };

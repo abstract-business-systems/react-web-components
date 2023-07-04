@@ -6,7 +6,8 @@ import { nothing } from '@laufire/utils/predicates';
 const Pagination = ({ onChange = nothing, ...rest }) =>
 	<MuiPagination { ...{
 		onChange: (evt) =>
-			onChange(buildEvent({ value: evt.target.innerText })), ...rest,
+			onChange(buildEvent({ value: evt.target.innerText })),
+		...rest,
 	} }
 	/>;
 
