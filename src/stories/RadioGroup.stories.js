@@ -4,6 +4,17 @@ import MuiRadioGroup from './common/RadioGroup';
 const component = {
 	title: 'Inputs/RadioGroup',
 	component: MuiRadioGroup,
+	argTypes: {
+		color: {
+			control: 'select',
+			options: ['success', 'secondary', 'primary', 'error', 'warning'],
+		},
+		labelPlacement: {
+			control: 'select',
+			options: ['top', 'start', 'end', 'bottom'],
+		},
+	},
+	args: { color: 'primary', labelPlacement: 'end' },
 };
 
 export default component;
@@ -31,4 +42,6 @@ RadioGroup.args = {
 	sx: {},
 	options: ['ten', 'twenty', 'thirty'],
 	value: 'ten',
+	disabled: false,
+	row: true,
 };
