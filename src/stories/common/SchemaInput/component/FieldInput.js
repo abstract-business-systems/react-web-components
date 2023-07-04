@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+/* eslint-disable object-shorthand */
+import React, { useCallback } from 'react';
 import { find } from '@laufire/utils/collection.js';
 import Checkbox from './CheckboxWrapper';
 import TextFieldWrapper from './TextFieldWrapper';
@@ -42,8 +43,8 @@ const FieldInput = (context) => {
 	const component = format || type;
 	const schemaType = getType(schema);
 	const transform = transformValue[component] || identity;
-	const validate = useMemo(() => ({
-		isValid: (value) => validator(transform(value)),
+	const validate = useCallback((value) => ({
+		isValid: validator(transform(value)),
 		errors: validator.errors,
 	}), [transform]);
 

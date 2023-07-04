@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SchemaInputComponent from './common/SchemaInput';
 import schema from './schema';
+import { peek } from '@laufire/utils/debug';
 
 const defaultValue = {
 	singleSelect: 'US',
@@ -66,8 +67,10 @@ const Template = (args) => {
 		<SchemaInputComponent { ...{
 			schema: jsonSchema,
 			value: value,
-			onChange: (evt) =>
-				setValue(evt.target.value),
+			onChange: (evt) => {
+				peek(evt);
+				return setValue(evt.target.value);
+			},
 			...(schemaType === 'custom') && args,
 		} }
 		/>);
