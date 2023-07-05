@@ -17,14 +17,12 @@ const events = {
 	onEnablePIP: { pip: true },
 	onDisablePIP: { pip: false },
 };
-const reactPlayer = (
-	playerProps, light, playing, playerEvents, patchValue, value
-) =>
-	<ReactPlayer
-		{ ...{
+const ReactVideoPlayer = (props) => {
+	const { playerProps, playerEvents, patchValue, value, ...rest } = props;
+
+	return (
+		<ReactPlayer	{ ...{
 			...playerProps,
-			light: light,
-			playing: playing,
 			...playerEvents,
 			onSeek: () => patchValue({ played: value.played }),
 			onProgress: (state) => patchValue({
@@ -34,8 +32,10 @@ const reactPlayer = (
 			onDuration: (duration) => patchValue({ duration }),
 			onPlaybackRateChange: (speed) =>
 				patchValue({ playbackRate: parseFloat(speed) }),
+			...rest,
 		} }
-	/>;
+		/>);
+};
 
 const VideoPlayer = ({ onChange = nothing, value: initialValue }) => {
 	const { mode, status, ...rest } = initialValue;
@@ -53,11 +53,12 @@ const VideoPlayer = ({ onChange = nothing, value: initialValue }) => {
 	const playerEvents = map(events, (eventData) =>
 		() => patchValue(eventData));
 
-	return (
-		reactPlayer(
-			playerProps, light, playing, playerEvents, patchValue, value
-		)
-	);
+	const props = {
+		playerProps, light,
+		playing, playerEvents, patchValue, value,
+	};
+
+	return <ReactVideoPlayer { ...props }/>;
 };
 
 export default VideoPlayer;
