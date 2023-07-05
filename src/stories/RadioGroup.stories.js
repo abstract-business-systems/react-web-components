@@ -13,8 +13,12 @@ const component = {
 			control: 'select',
 			options: ['top', 'start', 'end', 'bottom'],
 		},
+		orientation: {
+			control: 'radio',
+			options: ['horizontal', 'vertical'],
+		},
 	},
-	args: { color: 'primary', labelPlacement: 'end' },
+	args: { color: 'primary', labelPlacement: 'end', orientation: 'vertical' },
 };
 
 export default component;
@@ -43,5 +47,4 @@ RadioGroup.args = {
 	options: ['ten', 'twenty', 'thirty'],
 	value: 'ten',
 	disabled: false,
-	row: true,
 };

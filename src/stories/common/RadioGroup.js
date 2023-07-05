@@ -7,7 +7,7 @@ import { map } from '@laufire/utils/collection';
 import { nothing } from '@laufire/utils/fn';
 import buildEvent from './helper/buildEvent';
 
-const RadioButton = (options, { color, labelPlacement }) =>
+const RadioButton = (options, { color = 'primary', labelPlacement = 'end' }) =>
 	map(options, (option, index) =>
 		<FormControlLabel { ...{
 			key: index,
@@ -18,18 +18,24 @@ const RadioButton = (options, { color, labelPlacement }) =>
 		} }
 		/>);
 
+const orientations = {
+	horizontal: true,
+	vertical: false,
+};
+
 // Todo: Not able to call with angular brackets.
+// Todo: discuss about the default value.
 const RadioGroup = (args) => {
 	const {
 		options, value: initialValue, onChange = nothing,
-		disabled = false, row, ...rest
+		disabled = false, orientation = 'vertical', ...rest
 	} = args;
 
 	return <FormControl disabled={ disabled }>
 		<MuiRadioGroup { ...{
 			value: initialValue,
 			onChange: ({ target: { value }}) => onChange(buildEvent({ value })),
-			row: row,
+			row: orientations[orientation],
 		} }
 		>
 			{ RadioButton(options, rest) }

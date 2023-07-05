@@ -13,11 +13,11 @@ const MenuList = (options) =>
 		<MenuItem key={ index } value={ option }>
 			<ListItemText>{ option }</ListItemText></MenuItem>);
 
-const DropDown = (context) => {
+const DropDown = (args) => {
 	const {
 		options, onChange = nothing,
 		value, multiple, ...rest
-	} = context;
+	} = args;
 
 	return (
 		<MuiSelect
