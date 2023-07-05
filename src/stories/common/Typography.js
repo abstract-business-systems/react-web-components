@@ -1,6 +1,6 @@
 import React from 'react';
-import { Typography as Text } from '@mui/material';
+import { Typography as MuiTypography } from '@mui/material';
 
-const Typography = (args) => <Text { ...args }/>;
+const Typography = (args) => <MuiTypography { ...args }/>;
 
 export default Typography;

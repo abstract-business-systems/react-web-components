@@ -6,8 +6,8 @@ import dayjs from 'dayjs';
 import { nothing } from '@laufire/utils/fn';
 import buildEvent from './helper/buildEvent';
 
-const TimePicker = (context) => {
-	const { value: initialValue, onChange = nothing }	= context;
+const TimePicker = (args) => {
+	const { value: initialValue, onChange = nothing }	= args;
 	const initialTime = initialValue ? dayjs(`1/1/2022 ${ initialValue }`) : null;
 	const [time, setTime] = useState(initialTime);
 
