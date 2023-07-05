@@ -7,7 +7,7 @@ const component = {
 	title: 'Inputs/Rating',
 	component: MuiRating,
 	argTypes: {
-		selectedIcon: {
+		icon: {
 			control: 'select',
 			options: keys(icons),
 		},
@@ -17,7 +17,7 @@ const component = {
 		},
 	},
 	args: {
-		selectedIcon: 'Favorite',
+		icon: 'Favorite',
 		emptyIcon: 'FavoriteBorder',
 	},
 };
@@ -45,7 +45,7 @@ export const Rating = Template.bind({});
 Rating.args = {
 	precision: 0.5,
 	size: 'small',
-	sx: { color: 'green' },
+	sx: { color: 'red' },
 	max: 3,
 	value: 1,
 };

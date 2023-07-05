@@ -1,13 +1,12 @@
 import React from 'react';
-import IconButton from '../IconButton';
 import { filter, map } from '@laufire/utils/collection';
 import { truthy } from '@laufire/utils/predicates';
+import Icon from '../Icon';
 
-const getIcons = (icons, sx) => {
+const getIcons = (icons) => {
 	const Icons = filter(icons, truthy);
 
-	return map(Icons, (icon) =>
-		<IconButton { ...{ sx, icon } }/>);
+	return map(Icons, (icon) => <Icon { ...{ icon } }/>);
 };
 
 export default getIcons;
