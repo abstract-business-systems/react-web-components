@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SchemaInputComponent from './common/SchemaInput';
 import schema from './schema';
 import { peek } from '@laufire/utils/debug';
@@ -58,10 +58,14 @@ const component = {
 export default component;
 
 const Template = (args) => {
-	const { schemaType, value: initialValue } = args;
+	const { schemaType } = args;
 	const jsonSchema = schema[schemaType];
-	const newValue = defaultValue[schemaType] || initialValue;
+	const newValue = defaultValue[schemaType];
 	const [value, setValue] = useState(newValue);
+
+	useEffect(() => {
+		setValue(newValue);
+	}, [schemaType]);
 
 	return (
 		<SchemaInputComponent { ...{

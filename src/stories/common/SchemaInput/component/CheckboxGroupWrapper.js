@@ -16,27 +16,24 @@ const getInputProps = (schema) => {
 	};
 };
 
-const getValidValue = (value, {
-	setUserInput,
-	context: { onChange = nothing },
-}) => {
+const getValidValue = (value, { setUserInput, onChange = nothing }) => {
 	setUserInput(value);
 	onChange(buildEvent({ value }));
 };
 
 const handleValidInput = (props) =>
 	({ target: { value }}) => {
-		const { context: { validate }} = props;
+		const { validate } = props;
 
 		return validate(value)
 		&& getValidValue(value, props);
 	};
 
-const CheckBoxGroupWrapper = (context) => {
-	const { schema: { items }, schema,	value: initialValue } = context;
+const CheckBoxGroupWrapper = (args) => {
+	const { schema: { items }, schema,	value: initialValue } = args;
 	const [userInput, setUserInput] = useState(initialValue);
 	const multiSelectType = items.enum ? 'enum' : 'oneOf';
-	const props = { context, setUserInput };
+	const props = { ...{ ...args, setUserInput }};
 
 	return (
 		<MuiSelect { ...{

@@ -16,11 +16,11 @@ const MenuList = ({	 options, value }) =>
 			<ListItemText>{ option }</ListItemText></MenuItem>;
 	});
 
-const DropDown = (context) => {
+const DropDown = (args) => {
 	const {
 		options, onChange = nothing,
 		multiple, value, ...rest
-	} = context;
+	} = args;
 
 	return (
 		<MuiSelect

@@ -5,7 +5,7 @@ import Slider from '../../Slider';
 
 const updateValue = (value, {
 	setUserInput,
-	context: { onChange = nothing },
+	onChange = nothing,
 }) => {
 	setUserInput(value);
 	onChange(buildEvent({ value }));
@@ -13,7 +13,7 @@ const updateValue = (value, {
 
 const handleValidInput = (props) =>
 	({ target: { value }}) => {
-		const { context: { validate }} = props;
+		const { validate } = props;
 
 		validate(value) && updateValue(value, props);
 	};
@@ -29,16 +29,15 @@ const sliderProps = (schema) => ({
 	disabled: schema.disabled,
 });
 
-const SliderWrapper = (context) => {
-	const { schema, value } = context;
+const SliderWrapper = (args) => {
+	const { schema, value } = args;
 	const [userInput, setUserInput] = useState(value);
-	const props = { setUserInput, context };
 
 	return (
 		<Slider { ...{
 			value: userInput,
 			schema: schema,
-			onChange: handleValidInput(props),
+			onChange: handleValidInput({ ...{ ...args, setUserInput }}),
 			...sliderProps(schema),
 		} }
 		/>);

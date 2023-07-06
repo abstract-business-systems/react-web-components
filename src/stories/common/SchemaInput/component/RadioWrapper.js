@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import RadioGroup from '../../RadioGroup';
 import { nothing } from '@laufire/utils/fn';
 
-const RadioWrapper = (context) => {
+const RadioWrapper = (args) => {
 	const {
 		schema: { disabled }, schema,
 		value: initialValue, onChange = nothing,
-	} = context;
+	} = args;
 	const [value, setValue] = useState(initialValue);
 
 	return (

@@ -11,7 +11,7 @@ const getInputProps = (schema) => {
 
 const getValidValue = (value, {
 	setUserInput,
-	context: { onChange = nothing },
+	onChange = nothing,
 }) => {
 	setUserInput(value);
 	onChange(buildEvent({ value }));
@@ -19,7 +19,7 @@ const getValidValue = (value, {
 
 const handleValidInput = (props) =>
 	({ target: { value }}) => {
-		const { context: { validate }} = props;
+		const { validate } = props;
 
 		return validate(value)
 		&& getValidValue(value, props);
@@ -30,10 +30,10 @@ const selectProps = {
 	disableUnderline: true,
 	variant: 'standard',
 };
-const MultiSelectWrapper = (context) => {
-	const { options, schema, value } = context;
+const MultiSelectWrapper = (args) => {
+	const { options, schema, value } = args;
 	const [userInput, setUserInput] = useState(value);
-	const props = { setUserInput, context };
+	const props = { ...{ setUserInput, ...args }};
 
 	return (
 		<Select { ...{

@@ -37,8 +37,8 @@ const widgetMap = {
 const getType = ({ widget, format, type }) =>
 	widgetMap[widget] || formatMap[format] || typeMap[type];
 
-const FieldInput = (context) => {
-	const { schema: { format, type }, schema, validate: validator } = context;
+const FieldInput = (args) => {
+	const { schema: { format, type }, schema, validate: validator } = args;
 
 	const component = format || type;
 	const schemaType = getType(schema);
@@ -48,7 +48,7 @@ const FieldInput = (context) => {
 		errors: validator.errors,
 	}), [transform]);
 
-	const props = { ...context, component, schemaType, validate };
+	const props = { ...args, component, schemaType, validate };
 	const Component = getComponent(schema);
 
 	return <Component { ...props }/>;
