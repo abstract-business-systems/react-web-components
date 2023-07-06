@@ -42,8 +42,8 @@ const component = {
 
 export default component;
 
-const Template = ({ ...value }) =>
-	<ReactVideoPlayer { ...{ value } }/>;
+const Template = ({ onChange, ...value }) =>
+	<ReactVideoPlayer { ...{ value, onChange } }/>;
 
 export const VideoPlayer = Template.bind({});
 

@@ -4,12 +4,12 @@ import MuiTabContext from '@mui/lab/TabContext';
 import TabButtons from './TabButton';
 import { map, values } from '@laufire/utils/collection';
 
-const TabContext = ({ props, onClick, value }) => {
-	const { contents } = props;
+const TabContext = (args) => {
+	const { data, value } = args;
 
 	return <MuiTabContext value={ value }>
-		<TabButtons { ...{ ...props, value, onClick } }/>
-		{ values(map(contents, (content, key) => {
+		<TabButtons { ...args }/>
+		{ values(map(data, (content, key) => {
 			const Child = content.component;
 
 			return <TabPanel key={ key } value={ key }>

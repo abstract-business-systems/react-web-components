@@ -4,6 +4,8 @@ import { Tab as MuiTab } from '@mui/material';
 import { map, values } from '@laufire/utils/collection';
 import getIcons from '../helper/getIcons';
 
+// Todo: Necessity of the icon only, text only and icon & text in tab.
+
 const styles = {
 	iconOnly: {
 		icon: true,
@@ -20,24 +22,24 @@ const styles = {
 };
 
 const TabButtons = ({
-	color, contents,
-	onClick, orientation, type, centered,
+	textColor, data, indicatorColor,
+	setValue, orientation, type, centered,
 }) =>
-	<TabList
-		orientation={ orientation }
-		textColor={ color }
-		indicatorColor={ color }
-		centered={ centered }
+	<TabList { ...{
+		orientation,
+		textColor,
+		indicatorColor,
+		centered,
+	} }
 	>
-		{ values(map(contents, (content, tabKey) =>
+		{ values(map(data, (content, tabKey) =>
 			<MuiTab { ...{
 				key: tabKey,
 				...styles[type].text && { label: content.label },
 				...styles[type].icon && getIcons({ icon: content.icon }),
 				value: tabKey,
-				onClick: () => onClick(tabKey),
+				onClick: () => setValue(tabKey),
 			} }
-			/>)) }
-	</TabList>;
+			/>)) }</TabList>;
 
 export default TabButtons;

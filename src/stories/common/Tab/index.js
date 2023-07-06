@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../styles/global.scss';
 import clsx from 'clsx';
 import Box from '@mui/material/Box';
 import { nothing } from '@laufire/utils/fn';
 import buildEvent from '../helper/buildEvent';
 import TabContext from './TabContext';
+import useFollowState from '../hook/useFollowState';
 
 const tabStyle = { vertical: 'absTab-vertical' };
 
@@ -14,16 +15,16 @@ const Tab = (props) => {
 		value: initialValue, onChange = nothing,
 	} = props;
 
-	const [value, selectValue] = useState(initialValue);
-	const onClick = (tabKey) => {
-		selectValue(tabKey);
-		onChange(buildEvent({ value: tabKey }));
-	};
+	const handleClick = ({ curValue }) =>
+		onChange(buildEvent({ value: curValue }));
+
+	const [value, setValue] = useFollowState(initialValue, handleClick);
+
 	const dir = direction === 'right' ? 'rtl' : 'ltr';
 
 	return (
 		<Box dir={ dir } className={ clsx(tabStyle[orientation], className) }>
-			<TabContext { ...{ props, onClick, value } }/>
+			<TabContext { ...{ ...props, setValue, value } }/>
 		</Box>
 	);
 };

@@ -15,15 +15,20 @@ const component = {
 			control: 'radio',
 			options: ['vertical', 'horizontal'],
 		},
-		color: {
+		textColor: {
 			control: 'select',
 			options: ['secondary', 'primary'],
+		},
+		indicatorColor: {
+			control: 'select',
+			options: ['secondary', 'primary', 'inherit'],
 		},
 	},
 	args: {
 		type: 'iconAndText',
 		orientation: 'vertical',
-		color: 'secondary',
+		textColor: 'secondary',
+		indicatorColor: 'inherit',
 	},
 };
 
@@ -33,7 +38,7 @@ export const Tab = (args) => <MuiTab { ...args }/>;
 Tab.args = {
 	fullWidth: true,
 	centered: true,
-	contents: {
+	data: {
 		todoPane: {
 			label: 'TodoPane',
 			component: <Button { ...{ children: 'ClickMe!' } }/>,
