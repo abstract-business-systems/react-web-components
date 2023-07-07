@@ -56,18 +56,5 @@ Input.args = {
 	fullWidth: false,
 	margin: 'none',
 	size: 'small',
-	// Todo: need to discuss the structure of adornments.
-	adornments: {
-		startAdornment: {
-			text: '',
-			icon: 'Delete',
-			position: 'start',
-		},
-		endAdornment: {
-			text: 'kg',
-			icon: '',
-			position: 'end',
-		},
-	},
 	value: '',
 };
