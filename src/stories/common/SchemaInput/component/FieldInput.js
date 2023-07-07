@@ -1,10 +1,9 @@
-/* eslint-disable object-shorthand */
 import React, { useCallback } from 'react';
-import { find } from '@laufire/utils/collection.js';
 import Checkbox from './CheckboxWrapper';
 import TextFieldWrapper from './TextFieldWrapper';
 import transformValue from '../helper/transformValue';
 import { identity } from '@laufire/utils/fn';
+import getComponent from '../helper/getComponent';
 
 const formatList = {};
 const typeList = { boolean: Checkbox };
@@ -14,9 +13,6 @@ const componentType = {
 	type: ({ type }) => typeList[type],
 	default: () => TextFieldWrapper,
 };
-
-const getComponent = (schema) => find(componentType, (component) =>
-	component(schema))(schema);
 
 const formatMap = {
 	'date-time': 'datetime-local',
@@ -49,7 +45,7 @@ const FieldInput = (args) => {
 	}), [transform]);
 
 	const props = { ...args, component, schemaType, validate };
-	const Component = getComponent(schema);
+	const Component = getComponent(schema, componentType);
 
 	return <Component { ...props }/>;
 };

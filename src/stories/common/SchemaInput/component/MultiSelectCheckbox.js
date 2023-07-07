@@ -6,38 +6,36 @@ import {
 	MenuItem, Select as MuiSelect,
 } from '@mui/material';
 import { nothing } from '@laufire/utils/fn';
+import buildEvent from '../../helper/buildEvent';
 
-const MenuList = ({	 options, value }) =>
+const MenuList = ({	options, value }) =>
 	map(options, (option, index) => {
 		const checkedState = value.includes(option);
 
 		return <MenuItem key={ index } value={ option }>
 			<Checkbox checked={ checkedState }/>
-			<ListItemText>{ option }</ListItemText></MenuItem>;
+			<ListItemText>{ option }</ListItemText>
+		</MenuItem>;
 	});
 
 const DropDown = (args) => {
-	const {
-		options, onChange = nothing,
-		multiple, value, ...rest
-	} = args;
+	const { onChange = nothing,	...rest } = args;
 
 	return (
 		<MuiSelect
 			{ ...{
-				value: value,
-				multiple: multiple,
-				onChange: (evt) => onChange(evt),
+				onChange: (evt) =>
+					onChange(buildEvent({ value: evt.target.value })),
 				renderValue: (selectedValue) => selectedValue.join(', '),
 				...rest,
 			} }
-		>{ MenuList({ options, value }) }</MuiSelect>);
+		>{ MenuList({ ...rest }) }</MuiSelect>);
 };
 
 const Select = (context) => {
 	const { helperText, label, sx, variant, ...rest } = context;
 
-	return <FormControl sx={ sx } variant={ variant }>
+	return <FormControl { ...{ sx, variant } }>
 		<InputLabel>{ label }</InputLabel>
 		<DropDown { ...rest }/>
 		<FormHelperText>{ helperText }</FormHelperText>
