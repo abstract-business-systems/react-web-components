@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Select from '../../Select';
 import buildEvent from '../../helper/buildEvent';
 import { nothing } from '@laufire/utils/fn';
+import { pick } from '@laufire/utils/collection';
 
 const getInputProps = (schema) => {
 	const { readOnly, disabled } = schema;
@@ -31,7 +32,8 @@ const selectProps = {
 	variant: 'standard',
 };
 const MultiSelectWrapper = (args) => {
-	const { options, schema, value } = args;
+	const { schema: { items }, schema, value } = args;
+	const options = items.enum || pick(items.oneOf, 'const');
 	const [userInput, setUserInput] = useState(value);
 	const props = { ...{ setUserInput, ...args }};
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import dataFormatter from '../dataFormatter';
 import MuiSelect from './MultiSelectCheckbox';
 import { nothing } from '@laufire/utils/fn';
 import buildEvent from '../../helper/buildEvent';
+import { pick } from '@laufire/utils/collection';
 
 const getInputProps = (schema) => {
 	const { readOnly, disabled } = schema;
@@ -16,7 +16,7 @@ const getInputProps = (schema) => {
 	};
 };
 
-const getValidValue = (value, { setUserInput, onChange = nothing }) => {
+const updateValue = (value, { setUserInput, onChange = nothing }) => {
 	setUserInput(value);
 	onChange(buildEvent({ value }));
 };
@@ -25,19 +25,17 @@ const handleValidInput = (props) =>
 	({ target: { value }}) => {
 		const { validate } = props;
 
-		return validate(value)
-		&& getValidValue(value, props);
+		validate(value) && updateValue(value, props);
 	};
 
 const CheckBoxGroupWrapper = (args) => {
 	const { schema: { items }, schema,	value: initialValue } = args;
 	const [userInput, setUserInput] = useState(initialValue);
-	const multiSelectType = items.enum ? 'enum' : 'oneOf';
-	const props = { ...{ ...args, setUserInput }};
+	const props = { ...args, setUserInput };
 
 	return (
 		<MuiSelect { ...{
-			options: dataFormatter[multiSelectType](items),
+			options: items.enum || pick(items.oneOf, 'const'),
 			onChange: handleValidInput(props),
 			value: userInput,
 			schema: schema,
