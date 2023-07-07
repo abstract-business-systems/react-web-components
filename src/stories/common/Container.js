@@ -18,14 +18,12 @@ const Container = ({
 	shortcuts = [], resize, ...args
 }) => {
 	const ref = useRef();
-	// Todo: Need to discuss the initial values of width, height & having 0.
-	const { width, height }
-	= useResizeDetector({ targetRef: ref, ...resize });
+	const { width, height } = useResizeDetector({ targetRef: ref, ...resize });
 
 	useEffect(() => {
 		const orientation = width > height ? 'portrait' : 'landscape';
 
-		onChange(buildEvent({ value: { width, height, orientation }}));
+		width && onChange(buildEvent({ value: { width, height, orientation }}));
 	}, [width, height]);
 
 	useEffect(() => {
