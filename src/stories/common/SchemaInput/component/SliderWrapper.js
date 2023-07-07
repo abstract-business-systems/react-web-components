@@ -3,19 +3,15 @@ import buildEvent from '../../helper/buildEvent';
 import { nothing } from '@laufire/utils/fn';
 import Slider from '../../Slider';
 
-const updateValue = (value, {
-	setUserInput,
-	onChange = nothing,
-}) => {
-	setUserInput(value);
-	onChange(buildEvent({ value }));
-};
-
 const handleValidInput = (props) =>
 	({ target: { value }}) => {
-		const { validate } = props;
+		const {
+			setUserInput,
+			onChange = nothing,
+		} = props;
 
-		validate(value) && updateValue(value, props);
+		setUserInput(value);
+		onChange(buildEvent({ value }));
 	};
 
 const sliderProps = (schema) => ({
