@@ -15,7 +15,7 @@ const getClassName = (props) => {
 	return !validate(userInput).isValid && 'abs-error';
 };
 
-const textFieldProps = ({ readOnly, disabled }) => ({
+const textFieldProps = ({ readOnly = false, disabled = false }) => ({
 	variant: 'standard',
 	InputProps: {
 		disableUnderline: true,
@@ -29,7 +29,7 @@ const getValue = ({ curValue, isValid, component }) => {
 	const isInputValid = inputValidators[component] || everything;
 
 	return (isInputValid(curValue) && isValid)
-	&& { value: curValue };
+		&& { value: curValue };
 };
 
 const getHandleChange = (props) => ({ curValue, preValue }) => {
@@ -50,12 +50,12 @@ const TextFieldWrapper = (props) => {
 
 	return (
 		<Input { ...{
-			...textFieldProps(schema),
 			type: schemaType,
 			className: clsx(getClassName({ ...props, userInput }), className),
 			value: userInput,
 			onChange: ({ data }) => setUserInput(data),
 			inputProps: buildInputProps(props),
+			...textFieldProps(schema),
 		} }
 		/>);
 };

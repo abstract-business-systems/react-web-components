@@ -14,6 +14,8 @@ const componentType = {
 	default: () => TextFieldWrapper,
 };
 
+// TODO: Discuss the various ways to improve the code below.
+
 const formatMap = {
 	'date-time': 'datetime-local',
 	'date': 'date',
@@ -38,6 +40,7 @@ const FieldInput = (args) => {
 
 	const component = format || type;
 	const schemaType = getType(schema);
+	// TODO: Change transformValue to proper name.
 	const transform = transformValue[component] || identity;
 	const validate = useCallback((value) => ({
 		isValid: validator(transform(value)),

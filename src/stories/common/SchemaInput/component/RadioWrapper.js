@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import RadioGroup from '../../RadioGroup';
 import { nothing } from '@laufire/utils/fn';
+import buildEvent from '../../helper/buildEvent';
 
 const RadioWrapper = (args) => {
 	const {
@@ -14,7 +15,7 @@ const RadioWrapper = (args) => {
 			options: schema.enum,
 			onChange: (evt) => {
 				setValue(evt.target.value);
-				onChange(evt);
+				onChange(buildEvent({ value: evt.target.value }));
 			},
 			value: value,
 			disabled: disabled,

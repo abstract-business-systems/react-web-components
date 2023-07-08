@@ -1,8 +1,7 @@
 import React from 'react';
 import MuiSwitch from '../../Switch';
-import { nothing } from '@laufire/utils/fn';
 
-const SwitchWrapper = ({ value, onChange = nothing }) =>
+const SwitchWrapper = ({ value, onChange }) =>
 	<MuiSwitch { ...{
 		onChange,
 		value,

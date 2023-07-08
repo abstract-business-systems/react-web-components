@@ -12,9 +12,7 @@ const formatMap = {
 	'phoneNo': 'phoneNo',
 };
 
-const getRenderCellProp = (
-	ele, key, { editable, width }
-) => ({
+const getRenderCellProp = ({ ele, key, columns: { editable, width }}) => ({
 	...ele,
 	headerName: ele.title,
 	field: key,
@@ -24,42 +22,34 @@ const getRenderCellProp = (
 
 const widgetMap = { password: 'password' };
 
-const SchemaInputComponent = (
-	params, ele, onChange
-) => {
-	const { row, field, value } = params;
+const SchemaInputComponent = ({ row, field, value, ele, onChange = nothing }) =>
+	<SchemaInput { ...{
+		value: value, schema: ele,
+		onChange: (evt) => {
+			onChange(buildEvent({
+				value: {
+					...row,
+					[field]: evt.target.value,
+				},
+				error: evt.target.error,
+			}));
+		},
+	} }
+	/>;
 
-	return (
-		<SchemaInput { ...{
-			value: value, schema: ele,
-			onChange: (evt) => {
-				onChange(buildEvent({
-					value: {
-						...row,
-						[field]: evt.target.value,
-					},
-					error: evt.target.error,
-				}));
-			},
-		} }
-		/>);
-};
-
-const getColumns = (props) => {
-	const { columns: { data }, columns, onChange = nothing } = props;
+const getColumns = (args) => {
+	const { columns: { data }} = args;
 
 	return values(map(data.properties, (ele, key) => {
 		const { format, widget, type } = ele;
 		const component = widgetMap[widget] || formatMap[format] || type;
 		const getColumnProps = inputType[component] || nothing;
+		const props = { ele, key, ...args };
 
 		return {
-			...getRenderCellProp(
-				ele, key, columns
-			),
-			renderCell: (params) => SchemaInputComponent(
-				params, ele, onChange,
-			),
+			...getRenderCellProp(props),
+			renderCell: (params) =>
+				SchemaInputComponent({ ...props, ...params }),
 			...getColumnProps(),
 		};
 	}));

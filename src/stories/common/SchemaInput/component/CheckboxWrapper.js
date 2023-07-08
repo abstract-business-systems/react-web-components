@@ -1,8 +1,7 @@
 import React from 'react';
 import Checkbox from '../../Checkbox';
-import { nothing } from '@laufire/utils/fn';
 
-const CheckboxWrapper = ({ value, onChange = nothing }) =>
+const CheckboxWrapper = ({ value, onChange }) =>
 	<Checkbox { ...{
 		value,
 		onChange,

@@ -5,12 +5,12 @@ import { nothing } from '@laufire/utils/fn';
 import { pick } from '@laufire/utils/collection';
 
 const getInputProps = (schema) => {
-	const { readOnly, disabled } = schema;
+	const { readOnly = false, disabled = false } = schema;
 
 	return { inputProps: { readOnly, disabled }};
 };
 
-const getValidValue = (value, {
+const updateValue = (value, {
 	setUserInput,
 	onChange = nothing,
 }) => {
@@ -18,33 +18,33 @@ const getValidValue = (value, {
 	onChange(buildEvent({ value }));
 };
 
-const handleValidInput = (props) =>
+const generateOnChange = (props) =>
 	({ target: { value }}) => {
 		const { validate } = props;
 
-		return validate(value)
-		&& getValidValue(value, props);
+		validate(value) && updateValue(value, props);
 	};
-const selectProps = {
+
+const props = {
 	multiple: true,
 	sx: { width: '150px' },
 	disableUnderline: true,
 	variant: 'standard',
 };
+
 const MultiSelectWrapper = (args) => {
 	const { schema: { items }, schema, value } = args;
 	const options = items.enum || pick(items.oneOf, 'const');
 	const [userInput, setUserInput] = useState(value);
-	const props = { ...{ setUserInput, ...args }};
 
 	return (
 		<Select { ...{
 			options: options,
-			...selectProps,
 			value: userInput,
 			schema: schema,
-			onChange: handleValidInput(props),
+			onChange: generateOnChange({ setUserInput, ...args }),
 			...getInputProps(schema),
+			...props,
 		} }
 		/>);
 };

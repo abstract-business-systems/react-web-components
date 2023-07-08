@@ -4,8 +4,6 @@ import { Tab as MuiTab } from '@mui/material';
 import { map, values } from '@laufire/utils/collection';
 import getIcons from '../helper/getIcons';
 
-// Todo: Necessity of the icon only, text only and icon & text in tab.
-
 const styles = {
 	iconOnly: {
 		icon: true,
