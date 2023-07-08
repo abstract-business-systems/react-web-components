@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import buildEvent from '../../helper/buildEvent';
 import { nothing } from '@laufire/utils/fn';
 import Slider from '../../Slider';
+import getInputProp from '../helper/getInputProp';
 
 const handleValidInput = (props) =>
 	({ target: { value }}) => {
@@ -18,11 +19,9 @@ const sliderProps = (schema) => ({
 	size: 'large',
 	color: 'success',
 	valueLabelDisplay: 'auto',
-	min: schema.minimum,
-	max: schema.maximum,
-	step: schema.multipleOf,
 	sx: { width: '70%' },
 	disabled: schema.disabled,
+	...getInputProp(schema),
 });
 
 const SliderWrapper = (args) => {

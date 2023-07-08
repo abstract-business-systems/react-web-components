@@ -1,4 +1,4 @@
-const buildInputProp = ({ schema }) => {
+const getInputProp = ({ schema }) => {
 	const { maximum, minimum, multipleOf } = schema;
 
 	return {
@@ -8,4 +8,4 @@ const buildInputProp = ({ schema }) => {
 	};
 };
 
-export default buildInputProp;
+export default getInputProp;

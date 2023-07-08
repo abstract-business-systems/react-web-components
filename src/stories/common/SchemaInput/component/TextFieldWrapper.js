@@ -2,12 +2,13 @@ import React from 'react';
 import '../../../styles/global.scss';
 import { nothing } from '@laufire/utils/fn';
 import { everything } from '@laufire/utils/predicates';
-import inputProps from '../helper/inputProps';
 import inputValidators from '../helper/inputValidators';
 import Input from '../../Input';
 import buildEvent from '../../helper/buildEvent';
 import useFollowState from '../../hook/useFollowState';
 import clsx from 'clsx';
+import getDateProp from '../helper/getDateProp';
+import getInputProp from '../helper/getInputProp';
 
 const getClassName = (props) => {
 	const { validate, userInput } = props;
@@ -25,7 +26,15 @@ const textFieldProps = ({ readOnly = false, disabled = false }) => ({
 	sx: { width: '200px' },
 });
 
+const inputProps = {
+	'date': getDateProp,
+	'date-time': getDateProp,
+	'number': getInputProp,
+	'integer': getInputProp,
+};
+
 const getValue = ({ curValue, isValid, component }) => {
+	// TODO: Fix the name of inputValidators.
 	const isInputValid = inputValidators[component] || everything;
 
 	return (isInputValid(curValue) && isValid)
@@ -43,10 +52,9 @@ const getHandleChange = (props) => ({ curValue, preValue }) => {
 
 const TextFieldWrapper = (props) => {
 	const { value, component, schemaType, schema, className } = props;
-
 	const handleChange = getHandleChange(props);
 	const [userInput, setUserInput] = useFollowState(value, handleChange);
-	const buildInputProps = inputProps[component] || nothing;
+	const getProps = inputProps[component] || nothing;
 
 	return (
 		<Input { ...{
@@ -54,7 +62,7 @@ const TextFieldWrapper = (props) => {
 			className: clsx(getClassName({ ...props, userInput }), className),
 			value: userInput,
 			onChange: ({ data }) => setUserInput(data),
-			inputProps: buildInputProps(props),
+			inputProps: getProps(props),
 			...textFieldProps(schema),
 		} }
 		/>);

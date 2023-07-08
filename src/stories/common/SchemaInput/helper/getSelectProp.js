@@ -1,4 +1,4 @@
-const getInputProps = (schema) => {
+const getSelectProp = (schema) => {
 	const { readOnly = false, disabled = false } = schema;
 
 	return {
@@ -9,4 +9,4 @@ const getInputProps = (schema) => {
 	};
 };
 
-export default getInputProps;
+export default getSelectProp;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Select from '../../Select';
 import buildEvent from '../../helper/buildEvent';
 import { nothing } from '@laufire/utils/fn';
-import getInputProps from '../helper/getInputProps';
+import getSelectProp from '../helper/getSelectProp';
 
 const generateOnChange = (props) =>
 	({ target: { value }}) => {
@@ -22,7 +22,7 @@ const SingleSelectWrapper = (args) => {
 			value: userInput,
 			schema: schema,
 			onChange: generateOnChange({ setUserInput, ...args }),
-			...getInputProps(schema),
+			...getSelectProp(schema),
 		} }
 		/>);
 };

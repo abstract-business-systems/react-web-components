@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MuiSelect from './MultiSelectCheckbox';
 import { nothing } from '@laufire/utils/fn';
 import buildEvent from '../../helper/buildEvent';
-import getInputProps from '../helper/getInputProps';
+import getSelectProp from '../helper/getSelectProp';
 import getOneOfOptions from '../helper/getOneOfOptions';
 
 const updateValue = (value, { setUserInput, onChange = nothing }) => {
@@ -29,7 +29,7 @@ const CheckBoxGroupWrapper = (args) => {
 			value: userInput,
 			schema: schema,
 			multiple: true,
-			...getInputProps(schema),
+			...getSelectProp(schema),
 		} }
 		/>);
 };

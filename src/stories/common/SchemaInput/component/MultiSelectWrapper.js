@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Select from '../../Select';
 import buildEvent from '../../helper/buildEvent';
 import { nothing } from '@laufire/utils/fn';
-import getInputProps from '../helper/getInputProps';
 import getOneOfOptions from '../helper/getOneOfOptions';
+import getSelectProp from '../helper/getSelectProp';
 
 const updateValue = (value, {
 	setUserInput,
@@ -32,7 +32,7 @@ const MultiSelectWrapper = (args) => {
 			schema: schema,
 			multiple: true,
 			onChange: generateOnChange({ setUserInput, ...args }),
-			...getInputProps(schema),
+			...getSelectProp(schema),
 		} }
 		/>);
 };

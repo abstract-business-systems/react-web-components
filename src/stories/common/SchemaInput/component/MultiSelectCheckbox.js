@@ -2,8 +2,7 @@ import React from 'react';
 import { map } from '@laufire/utils/collection';
 import {
 	Checkbox, FormControl, FormHelperText, InputLabel,
-	ListItemText,
-	MenuItem, Select as MuiSelect,
+	ListItemText, MenuItem, Select as MuiSelect,
 } from '@mui/material';
 import { nothing } from '@laufire/utils/fn';
 import buildEvent from '../../helper/buildEvent';
