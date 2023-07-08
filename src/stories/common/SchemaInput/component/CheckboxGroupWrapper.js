@@ -2,19 +2,8 @@ import React, { useState } from 'react';
 import MuiSelect from './MultiSelectCheckbox';
 import { nothing } from '@laufire/utils/fn';
 import buildEvent from '../../helper/buildEvent';
-import { pick } from '@laufire/utils/collection';
-
-const getInputProps = (schema) => {
-	const { readOnly, disabled } = schema;
-
-	return {
-		disableUnderline: true,
-		variant: 'standard',
-		multiple: true,
-		sx: { width: '150px' },
-		inputProps: { readOnly, disabled },
-	};
-};
+import getInputProps from '../helper/getInputProps';
+import getOneOfOptions from '../helper/getOneOfOptions';
 
 const updateValue = (value, { setUserInput, onChange = nothing }) => {
 	setUserInput(value);
@@ -35,10 +24,11 @@ const CheckBoxGroupWrapper = (args) => {
 
 	return (
 		<MuiSelect { ...{
-			options: items.enum || pick(items.oneOf, 'const'),
+			options: items.enum || getOneOfOptions(items),
 			onChange: handleValidInput(props),
 			value: userInput,
 			schema: schema,
+			multiple: true,
 			...getInputProps(schema),
 		} }
 		/>);

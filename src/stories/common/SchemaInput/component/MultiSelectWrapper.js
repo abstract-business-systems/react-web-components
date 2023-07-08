@@ -2,13 +2,8 @@ import React, { useState } from 'react';
 import Select from '../../Select';
 import buildEvent from '../../helper/buildEvent';
 import { nothing } from '@laufire/utils/fn';
-import { pick } from '@laufire/utils/collection';
-
-const getInputProps = (schema) => {
-	const { readOnly = false, disabled = false } = schema;
-
-	return { inputProps: { readOnly, disabled }};
-};
+import getInputProps from '../helper/getInputProps';
+import getOneOfOptions from '../helper/getOneOfOptions';
 
 const updateValue = (value, {
 	setUserInput,
@@ -25,16 +20,9 @@ const generateOnChange = (props) =>
 		validate(value) && updateValue(value, props);
 	};
 
-const props = {
-	multiple: true,
-	sx: { width: '150px' },
-	disableUnderline: true,
-	variant: 'standard',
-};
-
 const MultiSelectWrapper = (args) => {
 	const { schema: { items }, schema, value } = args;
-	const options = items.enum || pick(items.oneOf, 'const');
+	const options = items.enum || getOneOfOptions(items);
 	const [userInput, setUserInput] = useState(value);
 
 	return (
@@ -42,9 +30,9 @@ const MultiSelectWrapper = (args) => {
 			options: options,
 			value: userInput,
 			schema: schema,
+			multiple: true,
 			onChange: generateOnChange({ setUserInput, ...args }),
 			...getInputProps(schema),
-			...props,
 		} }
 		/>);
 };

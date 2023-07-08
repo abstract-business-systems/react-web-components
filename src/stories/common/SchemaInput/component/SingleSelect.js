@@ -2,12 +2,7 @@ import React, { useState } from 'react';
 import Select from '../../Select';
 import buildEvent from '../../helper/buildEvent';
 import { nothing } from '@laufire/utils/fn';
-
-const getInputProps = (schema) => {
-	const { readOnly = false, disabled = false } = schema;
-
-	return { inputProps: { readOnly, disabled }};
-};
+import getInputProps from '../helper/getInputProps';
 
 const generateOnChange = (props) =>
 	({ target: { value }}) => {
@@ -16,12 +11,6 @@ const generateOnChange = (props) =>
 		setUserInput(value);
 		onChange(buildEvent({ value }));
 	};
-
-const props = {
-	sx: { width: '150px' },
-	disableUnderline: true,
-	variant: 'standard',
-};
 
 const SingleSelectWrapper = (args) => {
 	const { schema, value } = args;
@@ -34,7 +23,6 @@ const SingleSelectWrapper = (args) => {
 			schema: schema,
 			onChange: generateOnChange({ setUserInput, ...args }),
 			...getInputProps(schema),
-			...props,
 		} }
 		/>);
 };
