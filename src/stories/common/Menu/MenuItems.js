@@ -1,23 +1,25 @@
 import React from 'react';
 import MenuItem from '@mui/material/MenuItem';
-import * as Icons from '@mui/icons-material';
-import { Box, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { ListItemIcon, ListItemText, Typography } from '@mui/material';
+import Icon from '../Icon';
+import buildEvent from '../helper/buildEvent';
+import { nothing } from '@laufire/utils/fn';
 
-const MenuItems = ({ data, sx, setValue }) =>
-	data.map(({ icon, typography, children }, key) => {
-		const Icon = Icons[icon];
-		const ItemIcon = () => (icon ? <Icon/> : '');
+// TODO: Discuss the requirement of typography.
 
-		return (
-			<Box key={ key }>
-				<MenuItem
-					onClick={ () => setValue((prev) =>
-						({ ...prev, anchorEl: null, content: children })) }
-					sx={ sx }
-				><ListItemIcon><ItemIcon/></ListItemIcon>
-					<ListItemText>{ children }</ListItemText>
-					<Typography>{ typography }</Typography></MenuItem>
-			</Box>);
-	});
+const MenuItems = ({ data, sx = {}, setAnchorEl, onChange = nothing }) =>
+	data.map(({ icon, typography, children }, key) =>
+		<MenuItem
+			key={ key }
+			onClick={ () => {
+				setAnchorEl(null);
+				onChange(buildEvent({ value: children }));
+			} }
+			sx={ sx }
+		>
+			<ListItemIcon>{ icon && Icon({ icon }) }</ListItemIcon>
+			<ListItemText>{ children }</ListItemText>
+			<Typography>{ typography }</Typography>
+		</MenuItem>);
 
 export default MenuItems;

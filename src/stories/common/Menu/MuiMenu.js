@@ -2,26 +2,33 @@ import React from 'react';
 import { Menu } from '@mui/material';
 import MenuItems from './MenuItems';
 
-const MuiMenu = ({ args, handleClose, setValue, value: { anchorEl }}) => {
-	const {
-		transformHorizontal, transformVertical,
-		vertical, horizontal, data, sx,
-	} = args;
+const getOrigin = ({
+	transformHorizontal = 'left', transformVertical = 'top',
+	anchorVertical = 'left', anchorHorizontal = 'top',
+}) => ({
+	anchorOrigin: {
+		vertical: anchorVertical,
+		horizontal: anchorHorizontal,
+	},
+	transformOrigin: {
+		vertical: transformVertical,
+		horizontal: transformHorizontal,
+	},
+});
+
+const MuiMenu = (args) => {
+	const { handleClose, anchorEl	} = args;
 
 	return (
-		<Menu
-			anchorEl={ anchorEl }
-			open={ Boolean(anchorEl) }
-			onClose={ handleClose }
-			anchorOrigin={ {
-				vertical,
-				horizontal,
-			} }
-			transformOrigin={ {
-				vertical: transformVertical,
-				horizontal: transformHorizontal,
-			} }
-		><MenuItems { ...{ data, sx, setValue } }/></Menu>);
+		<Menu { ...{
+			anchorEl: anchorEl,
+			open: Boolean(anchorEl),
+			onClose: handleClose,
+			...getOrigin(args),
+		} }
+		>
+			<MenuItems { ...args }/>
+		</Menu>);
 };
 
 export default MuiMenu;

@@ -5,11 +5,11 @@ const component = {
 	title: 'Navigation/Menu',
 	component: MuiMenu,
 	argTypes: {
-		vertical: {
+		anchorVertical: {
 			control: 'radio',
 			options: ['top', 'center', 'bottom'],
 		},
-		horizontal: {
+		anchorHorizontal: {
 			control: 'radio',
 			options: ['left', 'center', 'right'],
 		},
@@ -23,8 +23,8 @@ const component = {
 		},
 	},
 	args: {
-		vertical: 'top',
-		horizontal: 'center',
+		anchorVertical: 'top',
+		anchorHorizontal: 'center',
 		transformVertical: 'top',
 		transformHorizontal: 'left',
 	},
