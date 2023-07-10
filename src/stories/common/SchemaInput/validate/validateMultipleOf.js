@@ -1,3 +1,5 @@
+import { peek } from '@laufire/utils/debug';
+
 const ten = 10;
 const decimalLength = 2;
 
@@ -12,23 +14,25 @@ const decimal = (number) => {
 const getFractionPoint = (number) =>
 	(isNaN(number) ? 0 : decimal(number));
 
-const hasReminder = (schemaNum, testNum) => {
-	const testNumDecimals = getFractionPoint(testNum);
-	const schemaNumDecimals = getFractionPoint(schemaNum);
+const hasReminder = (multipleOf, curValue) => {
+	const testNumDecimals = getFractionPoint(curValue);
+	const schemaNumDecimals = getFractionPoint(multipleOf);
 
 	const maxDecimalNum = Math.max(testNumDecimals, schemaNumDecimals);
 	const multiplier = Math.pow(ten, maxDecimalNum);
 
-	return Math.round(testNum * multiplier)
-% Math.round(schemaNum * multiplier) !== 0;
+	return Math.round(curValue * multiplier)
+		% Math.round(multipleOf * multiplier) !== 0;
 };
 
-const isTypeNumber = (schemaNum, testNum) => schemaNum === 0
-|| !(typeof testNum === 'number' && isFinite(testNum));
+const isTypeNumber = (multipleOf, curValue) => multipleOf === 0
+|| !(typeof curValue === 'number' && isFinite(curValue));
 
-const validateMultipleOf = (schemaNum, testNum) =>
-	(isTypeNumber(schemaNum, testNum)
+const validateMultipleOf = (multipleOf, curValue) => {
+	peek(multipleOf, curValue);
+	return isTypeNumber(multipleOf, curValue)
 		? false
-		: !hasReminder(schemaNum, testNum));
+		: !hasReminder(multipleOf, curValue);
+};
 
 export default validateMultipleOf;
