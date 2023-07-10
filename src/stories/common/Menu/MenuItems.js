@@ -11,13 +11,15 @@ const MenuItems = ({ data, sx = {}, setAnchorEl, onChange = nothing }) =>
 	data.map(({ icon, typography, children }, key) =>
 		<MenuItem
 			key={ key }
-			onClick={ () => {
-				setAnchorEl(null);
-				onChange(buildEvent({ value: children }));
+			{ ...{
+				onClick: () => {
+					setAnchorEl(null);
+					onChange(buildEvent({ value: children }));
+				},
+				sx: sx,
 			} }
-			sx={ sx }
 		>
-			<ListItemIcon>{ icon && Icon({ icon }) }</ListItemIcon>
+			<ListItemIcon>{ icon && <Icon { ...{ icon } }/> }</ListItemIcon>
 			<ListItemText>{ children }</ListItemText>
 			<Typography>{ typography }</Typography>
 		</MenuItem>);

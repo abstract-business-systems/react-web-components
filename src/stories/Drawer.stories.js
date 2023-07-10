@@ -15,23 +15,15 @@ const component = {
 
 export default component;
 
-const Template = (args) => {
-	const { value, lists, sx, direction } = args;
-
-	return (
-		<MuiDrawer { ...{
-			value,
-			lists, sx, direction,
-		} }
-		/>);
-};
+const Template = (args) =>
+	<MuiDrawer { ...args }/>;
 
 export const Drawer = Template.bind({});
 
 Drawer.args = {
 	value: true,
 	sx: { width: '200px' },
-	lists: [
+	data: [
 		{ text: 'Inbox', icon: 'Add', typography: 5 },
 		{ text: 'starred', icon: 'Delete', typography: 3 },
 	],

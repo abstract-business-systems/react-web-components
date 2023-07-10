@@ -1,16 +1,17 @@
 import React from 'react';
-import { Box, Drawer as MuiDrawer } from '@mui/material';
+import { Drawer as MuiDrawer } from '@mui/material';
 import DrawerList from './DrawerList';
 
-const Drawer = ({ direction, lists, value, sx }) =>
-	<Box>
+const Drawer = (args) => {
+	const { direction = 'right', value = 'false' } = args;
+
+	return (
 		<MuiDrawer
 			anchor={ direction }
 			open={ value }
 		>
-			<DrawerList { ...{ lists, value, sx } }/>
-		</MuiDrawer>
-	</Box>
-	;
+			<DrawerList { ...args }/>
+		</MuiDrawer>);
+};
 
 export default Drawer;
