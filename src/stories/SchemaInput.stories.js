@@ -17,6 +17,7 @@ const defaultValue = {
 	date: '2022-07-07',
 	number: 10,
 	switch: false,
+	progressBar: 1,
 	custom: '',
 };
 
@@ -40,6 +41,7 @@ const component = {
 				'date',
 				'number',
 				'switch',
+				'progressBar',
 				'custom',
 			],
 		},

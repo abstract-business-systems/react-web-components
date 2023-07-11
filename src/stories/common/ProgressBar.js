@@ -4,11 +4,14 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 const ProgressBar = (args) => {
-	const { value, color = 'primary', labelVariant = 'body1', ...rest } = args;
+	const {
+		value, color = 'primary', variant = 'determinate',
+		labelVariant = 'body1', ...rest
+	} = args;
 
 	return (
 		<Box>
-			<MuiLinearProgress { ...{ color, value, ...rest } }/>
+			<MuiLinearProgress { ...{ color, value, variant, ...rest } }/>
 			<Typography { ...{ color: color, variant: labelVariant } }>
 				{ `${ Math.round(value) }%` }</Typography>
 		</Box>);

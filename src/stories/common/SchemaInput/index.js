@@ -10,6 +10,7 @@ import RadioGroup from './component/RadioWrapper.js';
 import Slider from './component/SliderWrapper.js';
 import getValidator from './validate/getValidator.js';
 import { nothing } from '@laufire/utils/fn.js';
+import ProgressBar from './component/ProgressBarWrapper';
 import getComponent from './helper/getComponent';
 
 const widgetList = {
@@ -19,6 +20,7 @@ const widgetList = {
 	switch: Switch,
 	select: SingleSelect,
 	multiSelect: MultiSelect,
+	progressBar: ProgressBar,
 	dateTimePicker: FieldInput,
 	timePicker: FieldInput,
 	datePicker: FieldInput,

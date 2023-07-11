@@ -100,6 +100,10 @@ const schema = {
 		maximum: 10,
 		multipleOf: 0.2,
 	},
+	progressBar: {
+		type: 'number',
+		widget: 'progressBar',
+	},
 	custom: { type: 'string' },
 };
 
