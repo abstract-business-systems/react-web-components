@@ -104,6 +104,11 @@ const schema = {
 		type: 'number',
 		widget: 'progressBar',
 	},
+	rating: {
+		type: 'number',
+		widget: 'rating',
+		maximum: 10,
+	},
 	custom: { type: 'string' },
 };
 

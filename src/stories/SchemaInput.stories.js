@@ -19,6 +19,7 @@ const defaultValue = {
 	switch: false,
 	progressBar: 1,
 	custom: '',
+	rating: 3,
 };
 
 const component = {
@@ -43,6 +44,7 @@ const component = {
 				'switch',
 				'progressBar',
 				'custom',
+				'rating',
 			],
 		},
 		schema: {

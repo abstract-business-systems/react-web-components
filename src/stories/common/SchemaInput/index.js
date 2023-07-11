@@ -12,11 +12,13 @@ import getValidator from './validate/getValidator.js';
 import { nothing } from '@laufire/utils/fn.js';
 import ProgressBar from './component/ProgressBarWrapper';
 import getComponent from './helper/getComponent';
+import Rating from './component/RatingWrapper';
 
 const widgetList = {
 	slider: Slider,
 	checkboxGroup: CheckBoxGroup,
 	radioGroup: RadioGroup,
+	rating: Rating,
 	switch: Switch,
 	select: SingleSelect,
 	multiSelect: MultiSelect,
