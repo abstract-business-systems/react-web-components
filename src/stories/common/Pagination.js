@@ -3,10 +3,11 @@ import { Pagination as MuiPagination } from '@mui/material';
 import buildEvent from './helper/buildEvent';
 import { nothing } from '@laufire/utils/predicates';
 
-const Pagination = ({ onChange = nothing, ...rest }) =>
+const Pagination = ({ value, onChange = nothing, ...rest }) =>
 	<MuiPagination { ...{
+		page: value,
 		onChange: (evt) =>
-			onChange(buildEvent({ value: evt.target.innerText })),
+			onChange(buildEvent({ value: Number(evt.target.innerText) })),
 		...rest,
 	} }
 	/>;

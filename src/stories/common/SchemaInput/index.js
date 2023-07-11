@@ -13,11 +13,13 @@ import { nothing } from '@laufire/utils/fn.js';
 import ProgressBar from './component/ProgressBarWrapper';
 import getComponent from './helper/getComponent';
 import Rating from './component/RatingWrapper';
+import Pagination from './component/PaginationWrapper';
 
 const widgetList = {
 	slider: Slider,
 	checkboxGroup: CheckBoxGroup,
 	radioGroup: RadioGroup,
+	pagination: Pagination,
 	rating: Rating,
 	switch: Switch,
 	select: SingleSelect,

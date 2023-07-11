@@ -108,6 +108,13 @@ const schema = {
 		type: 'number',
 		widget: 'rating',
 		maximum: 10,
+		disabled: false,
+		readOnly: false,
+	},
+	pagination: {
+		type: 'number',
+		widget: 'pagination',
+		disabled: false,
 	},
 	custom: { type: 'string' },
 };

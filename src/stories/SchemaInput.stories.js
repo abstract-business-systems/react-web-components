@@ -20,6 +20,7 @@ const defaultValue = {
 	progressBar: 1,
 	custom: '',
 	rating: 3,
+	pagination: 1,
 };
 
 const component = {
@@ -45,6 +46,7 @@ const component = {
 				'progressBar',
 				'custom',
 				'rating',
+				'pagination',
 			],
 		},
 		schema: {

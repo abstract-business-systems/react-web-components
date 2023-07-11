@@ -36,5 +36,5 @@ Pagination.args = {
 	showLastButton: false,
 	hidePrevButton: false,
 	hideNextButton: false,
-	defaultPage: 2,
+	value: 2,
 };
