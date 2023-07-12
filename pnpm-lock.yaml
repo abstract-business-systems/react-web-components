@@ -51,6 +51,7 @@ specifiers:
   react-player: ^2.12.0
   react-qr-reader: ^3.0.0-beta-1
   react-resize-detector: ^9.1.0
+  react-router-dom: ^6.14.1
   react-scripts: 5.0.1
   react-table: ^7.8.0
   react-virtualized: ^9.22.5
@@ -95,6 +96,7 @@ dependencies:
   react-player: 2.12.0_react@17.0.2
   react-qr-reader: 3.0.0-beta-1_sfoxds7t5ydpegc3knd667wn6m
   react-resize-detector: 9.1.0_sfoxds7t5ydpegc3knd667wn6m
+  react-router-dom: 6.14.1_sfoxds7t5ydpegc3knd667wn6m
   react-scripts: 5.0.1_ymv2kc4gnyogsdidlynholv3rq
   react-table: 7.8.0_react@17.0.2
   react-virtualized: 9.22.5_sfoxds7t5ydpegc3knd667wn6m
@@ -2898,6 +2900,11 @@ packages:
       leaflet: 1.9.4
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
+    dev: false
+
+  /@remix-run/router/1.7.1:
+    resolution: {integrity: sha512-bgVQM4ZJ2u2CM8k1ey70o1ePFXsEzYVZoWghh6WjM8p59jQ7HxzbHW4SbnWFG7V9ig9chLawQxDTZ3xzOF8MkQ==}
+    engines: {node: '>=14'}
     dev: false
 
   /@rollup/plugin-babel/5.3.1_ixpapmkxoyzypvxfdre42vzpgy:
@@ -11038,6 +11045,29 @@ packages:
       lodash: 4.17.21
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
+    dev: false
+
+  /react-router-dom/6.14.1_sfoxds7t5ydpegc3knd667wn6m:
+    resolution: {integrity: sha512-ssF6M5UkQjHK70fgukCJyjlda0Dgono2QGwqGvuk7D+EDGHdacEN3Yke2LTMjkrpHuFwBfDFsEjGVXBDmL+bWw==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.7.1
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      react-router: 6.14.1_react@17.0.2
+    dev: false
+
+  /react-router/6.14.1_react@17.0.2:
+    resolution: {integrity: sha512-U4PfgvG55LdvbQjg5Y9QRWyVxIdO1LlpYT7x+tMAxd9/vmiPuJhIwdxZuIQLN/9e3O4KFDHYfR9gzGeYMasW8g==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      '@remix-run/router': 1.7.1
+      react: 17.0.2
     dev: false
 
   /react-scripts/5.0.1_ymv2kc4gnyogsdidlynholv3rq:
