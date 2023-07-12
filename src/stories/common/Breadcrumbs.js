@@ -7,8 +7,7 @@ const Breadcrumbs = ({ value, ...args }) =>
 		{ value.map(({ href, children }, key) =>
 			<Link
 				key={ key }
-				{
-					...{ underline: 'hover', color: 'inherit', href: href } }
+				{ ...{ underline: 'hover', color: 'inherit', href: href } }
 			>
 				{ children }
 			</Link>) }
