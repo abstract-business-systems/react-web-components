@@ -14,6 +14,7 @@ import ProgressBar from './component/ProgressBarWrapper';
 import getComponent from './helper/getComponent';
 import Rating from './component/RatingWrapper';
 import Pagination from './component/PaginationWrapper';
+import TextArea from './component/TextAreaWrapper';
 
 const widgetList = {
 	slider: Slider,
@@ -22,6 +23,7 @@ const widgetList = {
 	pagination: Pagination,
 	rating: Rating,
 	switch: Switch,
+	textArea: TextArea,
 	select: SingleSelect,
 	multiSelect: MultiSelect,
 	progressBar: ProgressBar,

@@ -116,6 +116,10 @@ const schema = {
 		widget: 'pagination',
 		disabled: false,
 	},
+	textArea: {
+		type: 'string',
+		widget: 'textArea',
+	},
 	custom: { type: 'string' },
 };
 

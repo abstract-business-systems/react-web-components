@@ -21,6 +21,7 @@ const defaultValue = {
 	custom: '',
 	rating: 3,
 	pagination: 1,
+	textArea: 'TextArea',
 };
 
 const component = {
@@ -47,6 +48,7 @@ const component = {
 				'custom',
 				'rating',
 				'pagination',
+				'textArea',
 			],
 		},
 		schema: {
