@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MuiCheckboxGroup from './common/CheckboxGroup.js';
 
 const component = {
@@ -8,8 +8,19 @@ const component = {
 
 export default component;
 
-const Template = (args) =>
-	<MuiCheckboxGroup { ...args }/>;
+const Template = (args) => {
+	const { value: initialValue, ...rest } = args;
+	const [value, setValue] = useState(initialValue);
+
+	return (
+		<MuiCheckboxGroup
+			{ ...{
+				value: value,
+				onChange: (evt) => setValue(evt.target.value),
+				...rest,
+			} }
+		/>);
+};
 
 export const CheckboxGroup = Template.bind({});
 

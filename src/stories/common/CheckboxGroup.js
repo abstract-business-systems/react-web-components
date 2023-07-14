@@ -1,30 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import MuiCheckbox from '@mui/material/Checkbox';
 import { isEqual, not } from '@laufire/utils/predicates';
 import { filter } from '@laufire/utils/collection';
+import buildEvent from './helper/buildEvent';
+import { nothing } from '@laufire/utils/fn';
 
-const handleChange = (args) => {
+const updateOnChange = (args) => {
 	const {
 		evt: { target: { checked, value }},
-		userInput, setUserInput,
+		value: currentValue, onChange = nothing,
 	} = args;
 
-	return checked
-		? setUserInput([...userInput, value])
-		: setUserInput(filter(userInput, not(isEqual(value))));
+	const updatedValue = checked
+		? [...currentValue, value]
+		: filter(currentValue, not(isEqual(value)));
+
+	onChange(buildEvent({ value: updatedValue }));
 };
 
 const Checkbox = (args) => {
-	const { userInput, option: { value }} = args;
+	const { value: currentValue, option: { value }} = args;
 
 	return (
 		<MuiCheckbox { ...{
-			checked: userInput.includes(value),
+			checked: currentValue.includes(value),
 			value: value,
-			onChange: (evt) => handleChange({ ...args, evt }),
+			onChange: (evt) => updateOnChange({ ...args, evt }),
 		} }
 		/>);
 };
@@ -45,11 +49,10 @@ const MuiFormGroup = (args) => {
 };
 
 const CheckboxGroup = (args) => {
-	const { value, disabled = false } = args;
-	const [userInput, setUserInput] = useState(value);
+	const { disabled = false } = args;
 
 	return <FormControl disabled={ disabled }>
-		<MuiFormGroup { ...{ ...args, userInput, setUserInput } }/>
+		<MuiFormGroup { ...args }/>
 	</FormControl>;
 };
 

@@ -16,7 +16,20 @@ const schema = {
 		disabled: false,
 		items: {
 			type: 'string',
-			enum: ['India', 'Africa', 'US'],
+			enum: [
+				{
+					value: 'india',
+					label: 'INDIA',
+				},
+				{
+					value: 'africa',
+					label: 'AFRICA',
+				},
+				{
+					value: 'us',
+					label: 'US',
+				},
+			],
 		},
 		maxItems: 1,
 	},

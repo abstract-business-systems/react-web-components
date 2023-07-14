@@ -1,37 +1,26 @@
 import React, { useState } from 'react';
-import MuiSelect from './MultiSelectCheckbox';
 import { nothing } from '@laufire/utils/fn';
 import buildEvent from '../../helper/buildEvent';
-import getSelectProp from '../helper/getSelectProp';
-import getOneOfOptions from '../helper/getOneOfOptions';
+import CheckboxGroup from '../../CheckboxGroup';
 
-const updateValue = (value, { setUserInput, onChange = nothing }) => {
-	setUserInput(value);
-	onChange(buildEvent({ value }));
-};
-
-const handleValidInput = (props) =>
-	({ target: { value }}) => {
-		const { validate } = props;
-
-		validate(value) && updateValue(value, props);
-	};
-
-const CheckBoxGroupWrapper = (args) => {
-	const { schema: { items }, schema,	value: initialValue } = args;
-	const [userInput, setUserInput] = useState(initialValue);
-	const props = { ...args, setUserInput };
+const CheckboxGroupWrapper = (args) => {
+	const {
+		schema: { disabled, items },
+		value: initialValue, onChange = nothing,
+	} = args;
+	const [value, setValue] = useState(initialValue);
 
 	return (
-		<MuiSelect { ...{
-			options: items.enum || getOneOfOptions(items),
-			onChange: handleValidInput(props),
-			value: userInput,
-			schema: schema,
-			multiple: true,
-			...getSelectProp(schema),
+		<CheckboxGroup { ...{
+			options: items.enum,
+			onChange: ({ data }) => {
+				setValue(data);
+				onChange(buildEvent({ value: data }));
+			},
+			value: value,
+			disabled: disabled,
 		} }
 		/>);
 };
 
-export default CheckBoxGroupWrapper;
+export default CheckboxGroupWrapper;

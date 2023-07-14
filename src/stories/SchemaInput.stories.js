@@ -6,7 +6,7 @@ import { peek } from '@laufire/utils/debug';
 const defaultValue = {
 	singleSelect: 'US',
 	radioGroup: 'India',
-	checkBoxGroup: ['US'],
+	checkBoxGroup: ['us'],
 	multiSelect: ['US'],
 	checkBox: false,
 	slider: 10,
