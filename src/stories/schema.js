@@ -16,22 +16,10 @@ const schema = {
 		disabled: false,
 		items: {
 			type: 'string',
-			enum: [
-				{
-					value: 'india',
-					label: 'INDIA',
-				},
-				{
-					value: 'africa',
-					label: 'AFRICA',
-				},
-				{
-					value: 'us',
-					label: 'US',
-				},
-			],
+			enum: ['india', 'africa', 'us'],
 		},
-		maxItems: 1,
+		labels: ['INDIA', 'AFRICA', 'US'],
+		maxItems: 2,
 	},
 	dateTime: {
 		type: 'string',

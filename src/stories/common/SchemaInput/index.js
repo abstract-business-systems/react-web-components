@@ -47,7 +47,7 @@ const componentType = {
 
 const SchemaInput = (props) => {
 	const { schema, onChange = nothing } = props;
-	const jsonSchema = omit(schema, ['widget', 'disabled']);
+	const jsonSchema = omit(schema, ['widget', 'disabled', 'labels']);
 	const validate = useMemo(() => getValidator(jsonSchema), [jsonSchema]);
 	const Component = getComponent(schema, componentType);
 
