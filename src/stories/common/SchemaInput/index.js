@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import DefaultInput from './component/DefaultInput';
 import { omit } from '@laufire/utils/collection';
-import CheckBoxGroup from './component/CheckboxGroupWrapper.js';
+import CheckboxGroup from './component/CheckboxGroupWrapper.js';
 import SingleSelect from './component/SingleSelect.js';
 import MultiSelect from './component/MultiSelectWrapper';
 import FieldInput from './component/FieldInput.js';
@@ -18,7 +18,7 @@ import TextArea from './component/TextAreaWrapper';
 
 const widgetList = {
 	slider: Slider,
-	checkboxGroup: CheckBoxGroup,
+	checkboxGroup: CheckboxGroup,
 	radioGroup: RadioGroup,
 	pagination: Pagination,
 	rating: Rating,

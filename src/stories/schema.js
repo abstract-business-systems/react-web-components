@@ -62,7 +62,7 @@ const schema = {
 		},
 		maxItems: 2,
 	},
-	checkBox: {
+	checkbox: {
 		type: 'boolean',
 		title: 'IsActive',
 		widget: 'checkbox',
