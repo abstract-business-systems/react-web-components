@@ -15,6 +15,19 @@ export const CheckboxGroup = Template.bind({});
 
 CheckboxGroup.args = {
 	disabled: false,
-	options: ['US', 'RUSSIA', 'INDIA'],
-	value: ['US'],
+	options: [
+		{
+			value: 'us',
+			label: 'US',
+		},
+		{
+			value: 'russia',
+			label: 'RUSSIA',
+		},
+		{
+			value: 'india',
+			label: 'INDIA',
+		},
+	],
+	value: ['us'],
 };

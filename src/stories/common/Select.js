@@ -8,7 +8,7 @@ import {
 import { nothing } from '@laufire/utils/fn';
 import buildEvent from './helper/buildEvent';
 
-const MenuList = (options) =>
+const GenMenuItem = (options) =>
 	map(options, (option, index) =>
 		<MenuItem key={ index } value={ option }>
 			<ListItemText>{ option }</ListItemText></MenuItem>);
@@ -30,7 +30,7 @@ const DropDown = (args) => {
 				&& { renderValue: (selected) => selected.join(', ') },
 				...rest,
 			} }
-		>{ MenuList(options) }</MuiSelect>);
+		>{ GenMenuItem(options) }</MuiSelect>);
 };
 
 const Select = (args) => {

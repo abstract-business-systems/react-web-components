@@ -18,12 +18,12 @@ const handleChange = (args) => {
 };
 
 const Checkbox = (args) => {
-	const { userInput, option } = args;
+	const { userInput, option: { value }} = args;
 
 	return (
 		<MuiCheckbox { ...{
-			checked: userInput.includes(option),
-			value: option,
+			checked: userInput.includes(value),
+			value: value,
 			onChange: (evt) => handleChange({ ...args, evt }),
 		} }
 		/>);
@@ -38,7 +38,7 @@ const MuiFormGroup = (args) => {
 				key={ index }
 				{ ...{
 					control: <Checkbox { ...{ option, ...args } }/>,
-					label: option,
+					label: option.label,
 				} }
 			/>) }
 	</FormGroup>;
