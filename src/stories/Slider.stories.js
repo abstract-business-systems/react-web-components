@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import MuiSlider from './common/Slider';
 
+const ten = 10;
+const twenty = 20;
+const thirty = 30;
+
 const component = {
 	title: 'Inputs/Slider',
 	component: MuiSlider,
@@ -55,4 +59,15 @@ Slider.args = {
 	sx: { width: '30%' },
 	valueLabelDisplay: 'auto',
 	value: 10,
+};
+
+export const MultiSlider = Template.bind({});
+
+MultiSlider.args = {
+	min: 0,
+	max: 100,
+	step: 10,
+	sx: { width: '30%' },
+	valueLabelDisplay: 'auto',
+	value: [ten, twenty, thirty],
 };
