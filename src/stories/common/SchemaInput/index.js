@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import DefaultInput from './component/DefaultInput';
-import { omit } from '@laufire/utils/collection';
 import SingleSelect from './component/SingleSelect.js';
 import MultiSelect from './component/MultiSelectWrapper';
 import FieldInput from './component/FieldInput.js';
@@ -20,8 +19,7 @@ const componentType = {
 
 const SchemaInput = (props) => {
 	const { schema, onChange = nothing } = props;
-	const jsonSchema = omit(schema, ['widget', 'disabled', 'labels']);
-	const validate = useMemo(() => getValidator(jsonSchema), [jsonSchema]);
+	const validate = useMemo(() => getValidator(schema), [schema]);
 	const Component = getComponent(schema, componentType);
 
 	return <Component { ...{ ...props, validate, onChange } }/>;

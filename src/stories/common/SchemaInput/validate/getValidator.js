@@ -2,6 +2,8 @@ import addFormats from 'ajv-formats';
 import validateMultipleOf from './validateMultipleOf';
 import Ajv from 'ajv';
 
+const keywords = ['widget', 'labels', 'disabled'];
+
 const getAjv = (() => {
 	const ajv = new Ajv();
 
@@ -14,6 +16,8 @@ const getAjv = (() => {
 		type: 'number',
 		validate: validateMultipleOf,
 	});
+
+	keywords.map((keyword) => ajv.addKeyword({ keyword }));
 
 	ajv.addFormat('phoneNo', {
 		validate: (phoneNumber) =>
