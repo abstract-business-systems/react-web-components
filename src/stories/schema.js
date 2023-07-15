@@ -35,19 +35,20 @@ const schema = {
 		items: {
 			oneOf: [
 				{
-					const: 'US',
+					const: 'us',
 					title: 'US',
 				},
 				{
-					const: 'India',
+					const: 'india',
 					title: 'India',
 				},
 				{
-					const: 'China',
+					const: 'china',
 					title: 'China',
 				},
 			],
 		},
+		labels: ['US', 'INDIA', 'CHINA'],
 		maxItems: 2,
 	},
 	checkbox: {

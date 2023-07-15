@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Select from '../../Select';
 import buildEvent from '../../helper/buildEvent';
 import { nothing } from '@laufire/utils/fn';
-import getOneOfOptions from '../helper/getOneOfOptions';
 import getSelectProp from '../helper/getSelectProp';
+import getOptions from '../helper/getOptions';
 
 const updateValue = (value, {
 	setUserInput,
@@ -21,13 +21,12 @@ const generateOnChange = (props) =>
 	};
 
 const MultiSelectWrapper = (args) => {
-	const { schema: { items }, schema, value } = args;
-	const options = items.enum || getOneOfOptions(items);
+	const { schema: { items, labels }, schema, value } = args;
 	const [userInput, setUserInput] = useState(value);
 
 	return (
 		<Select { ...{
-			options: options,
+			options: getOptions(items, labels),
 			value: userInput,
 			schema: schema,
 			multiple: true,

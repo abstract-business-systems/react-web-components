@@ -2,13 +2,9 @@ import React, { useState } from 'react';
 import CheckboxGroup from '../../CheckboxGroup';
 import { nothing } from '@laufire/utils/fn';
 import buildEvent from '../../helper/buildEvent';
+import getOptions from '../helper/getOptions';
 
-const getOptions = ({ enum: values }, labels) => values.map((val, i) => ({
-	value: val,
-	label: labels[i],
-}));
-
-const genOnChange = ({ onChange = nothing, setValue, data }) => {
+const updateValue = ({ onChange = nothing, setValue, data }) => {
 	setValue(data);
 	onChange(buildEvent({ value: data }));
 };
@@ -24,7 +20,7 @@ const CheckboxGroupWrapper = (args) => {
 		<CheckboxGroup { ...{
 			options: getOptions(items, labels),
 			onChange: ({ data }) =>
-				validate(data) && genOnChange({ ...args, data, setValue }),
+				validate(data) && updateValue({ ...args, data, setValue }),
 			value: value,
 			disabled: disabled,
 		} }
