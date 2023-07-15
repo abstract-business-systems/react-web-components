@@ -11,9 +11,9 @@ const RadioButton = ({ color = 'primary', labelPlacement = 'end', options }) =>
 	map(options, (option, index) =>
 		<FormControlLabel { ...{
 			key: index,
-			value: option,
+			value: option.value,
 			control: <Radio { ...{ color } }/>,
-			label: option,
+			label: option.label,
 			labelPlacement: labelPlacement,
 		} }
 		/>);

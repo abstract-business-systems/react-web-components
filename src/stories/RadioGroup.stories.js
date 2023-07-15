@@ -44,7 +44,20 @@ export const RadioGroup = Template.bind({});
 
 RadioGroup.args = {
 	sx: {},
-	options: ['ten', 'twenty', 'thirty'],
-	value: 'ten',
+	options: [
+		{
+			value: 'us',
+			label: 'US',
+		},
+		{
+			value: 'russia',
+			label: 'RUSSIA',
+		},
+		{
+			value: 'india',
+			label: 'INDIA',
+		},
+	],
+	value: 'us',
 	disabled: false,
 };

@@ -1,11 +1,13 @@
 const schema = {
 	singleSelect: {
 		type: 'string',
-		enum: ['India', 'Africa', 'US'],
+		enum: ['india', 'africa', 'us'],
+		labels: ['INDIA', 'AFRICA', 'US'],
 	},
 	radioGroup: {
 		type: 'string',
-		enum: ['India', 'Africa', 'US'],
+		enum: ['india', 'africa', 'us'],
+		labels: ['INDIA', 'AFRICA', 'US'],
 		widget: 'radioGroup',
 		disabled: false,
 	},

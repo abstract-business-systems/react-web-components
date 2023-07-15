@@ -45,7 +45,8 @@ const config = {
 			},
 			country: {
 				type: 'string',
-				enum: ['India', 'Africa', 'US'],
+				enum: ['India', 'China', 'us'],
+				labels: ['INDIA', 'CHINA', 'US'],
 				widget: 'radioGroup',
 				disabled: false,
 			},
@@ -56,8 +57,9 @@ const config = {
 				disabled: true,
 				items: {
 					type: 'string',
-					enum: ['India', 'Africa', 'US'],
+					enum: ['India', 'China', 'us'],
 				},
+				labels: ['INDIA', 'CHINA', 'US'],
 				maxItems: 1,
 			},
 			oneOf: {
@@ -67,19 +69,20 @@ const config = {
 				items: {
 					oneOf: [
 						{
-							const: 'US',
+							const: 'us',
 							title: 'US',
 						},
 						{
-							const: 'India',
+							const: 'india',
 							title: 'India',
 						},
 						{
-							const: 'China',
+							const: 'china',
 							title: 'China',
 						},
 					],
 				},
+				labels: ['US', 'INDIA', 'CHINA'],
 				maxItems: 2,
 			},
 		},

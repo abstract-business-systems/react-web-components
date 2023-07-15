@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import RadioGroup from '../../RadioGroup';
 import { nothing } from '@laufire/utils/fn';
 import buildEvent from '../../helper/buildEvent';
+import getOptions from '../helper/getOptions';
 
 const RadioWrapper = (args) => {
 	const {
-		schema: { disabled }, schema,
+		schema: { disabled, labels }, schema,
 		value: initialValue, onChange = nothing,
 	} = args;
 	const [value, setValue] = useState(initialValue);
 
 	return (
 		<RadioGroup { ...{
-			options: schema.enum,
+			options: getOptions(schema, labels),
 			onChange: (evt) => {
 				setValue(evt.target.value);
 				onChange(buildEvent({ value: evt.target.value }));

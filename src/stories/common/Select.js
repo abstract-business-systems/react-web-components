@@ -9,9 +9,9 @@ import { nothing } from '@laufire/utils/fn';
 import buildEvent from './helper/buildEvent';
 
 const GenMenuItem = (options) =>
-	map(options, (option, index) =>
-		<MenuItem key={ index } value={ option }>
-			<ListItemText>{ option }</ListItemText></MenuItem>);
+	map(options, ({ value, label }, index) =>
+		<MenuItem key={ index } value={ value }>
+			<ListItemText>{ label }</ListItemText></MenuItem>);
 
 const DropDown = (args) => {
 	const {

@@ -3,6 +3,7 @@ import Select from '../../Select';
 import buildEvent from '../../helper/buildEvent';
 import { nothing } from '@laufire/utils/fn';
 import getSelectProp from '../helper/getSelectProp';
+import getOptions from '../helper/getOptions';
 
 const generateOnChange = (props) =>
 	({ target: { value }}) => {
@@ -13,12 +14,12 @@ const generateOnChange = (props) =>
 	};
 
 const SingleSelectWrapper = (args) => {
-	const { schema, value } = args;
+	const { schema, schema: { labels }, value } = args;
 	const [userInput, setUserInput] = useState(value);
 
 	return (
 		<Select { ...{
-			options: schema.enum,
+			options: getOptions(schema, labels),
 			value: userInput,
 			schema: schema,
 			onChange: generateOnChange({ setUserInput, ...args }),
