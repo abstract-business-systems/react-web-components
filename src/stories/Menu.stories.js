@@ -42,7 +42,6 @@ Menu.args = {
 		{
 			children: 'Inbox',
 			icon: 'Check',
-			typography: 5,
 		},
 		{ children: 'Drafts' },
 		{ children: 'Starred' },

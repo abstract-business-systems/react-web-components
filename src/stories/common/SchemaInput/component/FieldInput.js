@@ -14,8 +14,6 @@ const componentType = {
 	default: () => TextFieldWrapper,
 };
 
-// TODO: Discuss the various ways to improve the code below.
-
 const formatMap = {
 	'date-time': 'datetime-local',
 	'date': 'date',

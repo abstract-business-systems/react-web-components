@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { Button as MuiButton } from '@mui/material';
 import { rndString } from '@laufire/utils/random';
 import { map } from '@laufire/utils/collection';
-import * as getIcons from './getIcons';
+import * as getIcons from './helper/getIcons';
 import Button from './Button';
 
 test('Button', () => {
