@@ -27,23 +27,21 @@ const Map = (coordinates, popupMessage) =>
 	</Fragment>
 	;
 
-const Location = ({ value, currentLocation }) => {
+const Location = ({ value, hasLocation }) => {
 	const map = useMap();
 	const [coordinates, setCoordinates] = useState(null);
-	const popupMessage = currentLocation
+	const popupMessage = hasLocation
 		? 'Your Current Location'
 		: 'Entered Location';
 
 	useEffect(() => {
-		map.locate({ setView: currentLocation });
+		map.locate({ setView: hasLocation });
 		map.on('locationfound', (event) => {
 			setCoordinates(value || event.latlng);
 		});
 	}, [map]);
 
-	return coordinates
-		? Map(coordinates, popupMessage)
-		: null;
+	return coordinates && Map(coordinates, popupMessage);
 };
 
 export default Location;

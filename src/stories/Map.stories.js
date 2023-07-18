@@ -13,10 +13,9 @@ const Template = (args) => <LeafletMap { ...args }/>;
 export const Map = Template.bind({});
 
 Map.args = {
-	// eslint-disable-next-line no-magic-numbers
 	value: {
-		lat: 13.088140,
-		lng: 80.161820,
+		latitude: 13.088140,
+		longitude: 80.161820,
 	},
 	zoom: 13,
 	scrollWheelZoom: true,
