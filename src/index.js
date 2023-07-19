@@ -5,6 +5,7 @@ import updateContext from '@laufire/resist';
 import './index.css';
 import App from './App';
 import context from './core/context';
+import { BrowserRouter } from 'react-router-dom';
 
 const Entry = () => {
 	const [state, setState] = useState(context.seed);
@@ -12,13 +13,15 @@ const Entry = () => {
 	useEffect(context.init, []);
 	updateContext(context, { state, setState });
 
-	return App(context);
+	return <App { ...context }/>;
 };
 
 ReactDOM.render(<React.StrictMode>
-	<Entry/>
+	<BrowserRouter>
+		<Entry />
+	</BrowserRouter>
 </React.StrictMode>,
-document.getElementById('root'));
+	document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
