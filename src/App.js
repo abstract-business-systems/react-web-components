@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.scss';
-import { useRoutes } from 'react-router-dom';
+import { useRoutes, useLocation } from 'react-router-dom';
 import Sections from './stories/common/Sections';
 import { Checkbox, Switch } from '@mui/material';
 import NavMenu from './stories/common/NavMenu';
+import Breadcrumbs from './stories/common/Breadcrumbs';
 
 const value = [
 	{
@@ -30,6 +31,11 @@ const value = [
 	},
 ];
 
+const getHref = (data, path) => data.reduce((acc, route) => (
+	acc || route.label.toLowerCase() === path
+		? route
+		: route.children && getHref(route.children, path)), false);
+
 const App = () => {
 	const getRoutes = (routes) =>
 		routes.map((data) => ({
@@ -39,8 +45,16 @@ const App = () => {
 		}));
 
 	const route = useRoutes(getRoutes(value));
+	const { pathname } = useLocation();
+
+	const breadcrumbsValue = pathname.split('/').filter((x) => x)
+		.map((path) => ({
+			children: path,
+			href: getHref(value, path).name,
+		}));
 
 	return <div className="App">
+		<Breadcrumbs { ...{ value: breadcrumbsValue } }/>
 		<NavMenu { ...{ value } }/>
 		{ route }
 	</div>;
