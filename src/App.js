@@ -3,9 +3,9 @@ import './App.scss';
 import { useRoutes, useLocation } from 'react-router-dom';
 import Sections from './stories/common/Sections';
 import { Checkbox, Switch } from '@mui/material';
-import NavMenu from './stories/common/NavMenu';
 import Breadcrumbs from './stories/common/Breadcrumbs';
 import { identity } from '@laufire/utils/fn';
+import TreeView from './stories/common/TreeView';
 
 const value = [
 	{
@@ -60,7 +60,7 @@ const App = () => {
 
 	return <div className="App">
 		<Breadcrumbs { ...{ value: getBreadcrumbsValue(pathname) } }/>
-		<NavMenu { ...{ value } }/>
+		<TreeView { ...{ value } }/>
 		{ route }
 	</div>;
 };
