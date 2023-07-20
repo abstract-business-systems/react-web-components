@@ -5,6 +5,7 @@ import Sections from './stories/common/Sections';
 import { Checkbox, Switch } from '@mui/material';
 import NavMenu from './stories/common/NavMenu';
 import Breadcrumbs from './stories/common/Breadcrumbs';
+import { identity } from '@laufire/utils/fn';
 
 const value = [
 	{
@@ -36,25 +37,29 @@ const getHref = (data, path) => data.reduce((acc, route) => (
 		? route
 		: route.children && getHref(route.children, path)), false);
 
-const App = () => {
-	const getRoutes = (routes) =>
-		routes.map((data) => ({
-			path: data.name,
-			element: <Sections { ...data }/>,
-			...data.children && { children: getRoutes(data.children) },
-		}));
+const getRoutes = (routes) =>
+	routes.map((data) => ({
+		path: data.name,
+		element: <Sections { ...data }/>,
+		...data.children && { children: getRoutes(data.children) },
+	}));
 
+const getBreadcrumbsValue = (pathname) => pathname.split('/').filter(identity)
+	.map((path) => {
+		const { label, name } = getHref(value, path);
+
+		return {
+			children: label,
+			href: name,
+		};
+	});
+
+const App = () => {
 	const route = useRoutes(getRoutes(value));
 	const { pathname } = useLocation();
 
-	const breadcrumbsValue = pathname.split('/').filter((x) => x)
-		.map((path) => ({
-			children: path,
-			href: getHref(value, path).name,
-		}));
-
 	return <div className="App">
-		<Breadcrumbs { ...{ value: breadcrumbsValue } }/>
+		<Breadcrumbs { ...{ value: getBreadcrumbsValue(pathname) } }/>
 		<NavMenu { ...{ value } }/>
 		{ route }
 	</div>;
