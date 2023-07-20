@@ -19,4 +19,19 @@ Map.args = {
 	},
 	zoom: 13,
 	scrollWheelZoom: true,
+	tileLayerProps: {
+		attribution: `'&copy; <a href="http://osm.org/copyright">
+					OpenStreetMap
+					</a> contributors'`,
+		subdomains: 'abc',
+		minZoom: 0,
+		maxZoom: 18,
+		errorTileUrl: '',
+		zoomOffset: 0,
+		tms: false,
+		zoomReverse: false,
+		detectRetina: false,
+		crossOrigin: false,
+		referrerPolicy: false,
+	},
 };
