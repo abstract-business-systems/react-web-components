@@ -4,14 +4,15 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
 import { Link } from 'react-router-dom';
+import { map, values } from '@laufire/utils/collection';
 
-const getTreeItem = ({ children, label, name }, key) =>
+const getTreeItem = ({ children, label, name, path }, key) =>
 	<TreeItem
 		key={ key }
 		nodeId={ name }
-		label={ <Link to={ name }>{ label }</Link> }
+		label={ <Link to={ path }>{ label }</Link> }
 	>
-		{ children && children.map(getTreeItem) }
+		{ children && values(map(children, getTreeItem)) }
 	</TreeItem>;
 
 const TreeView = ({ value }) =>
@@ -19,7 +20,7 @@ const TreeView = ({ value }) =>
 		defaultCollapseIcon={ <ExpandMoreIcon/> }
 		defaultExpandIcon={ <ChevronRightIcon/> }
 	>
-		{ value.map(getTreeItem) }
+		{ values(map(value, getTreeItem)) }
 	</MuiTreeView>;
 
 export default TreeView;
