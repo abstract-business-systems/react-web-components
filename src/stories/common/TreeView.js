@@ -5,23 +5,43 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
 import { Link } from 'react-router-dom';
 import { map, values } from '@laufire/utils/collection';
+import { Typography } from '@mui/material';
+import MuiLink from './Link';
 
-const getTreeItem = ({ children, label, name, path }, key) =>
-	<TreeItem
-		key={ key }
-		nodeId={ name }
-		label={ <Link to={ path }>{ label }</Link> }
-	>
-		{ children && values(map(children, getTreeItem)) }
-	</TreeItem>;
+const GetLabel = ({ path, value, label }) => {
+	const curValue = value[value.length - 1]?.href === path;
 
-const TreeView = ({ value }) =>
+	return (
+		<MuiLink
+			{ ...{
+				to: path,
+				underline: 'none',
+				color: curValue ? 'primary' : 'inherit',
+				component: curValue ? Typography : Link,
+			} }
+		>
+			{ label }
+		</MuiLink>);
+};
+
+const GetTreeItem = ({ options, value }) =>
+	values(map(options, ({ children, label, name, path }) =>
+		<TreeItem
+			key={ name }
+			nodeId={ name }
+			label={ <GetLabel { ...{ path, value, label } }/> }
+		>
+			{ children
+			&& <GetTreeItem { ...{ options: children, value: value } }/> }
+		</TreeItem>));
+
+const TreeView = (props) =>
 	<MuiTreeView
 		defaultCollapseIcon={ <ExpandMoreIcon/> }
 		defaultExpandIcon={ <ChevronRightIcon/> }
 		sx={ { overflowX: 'hidden' } }
 	>
-		{ values(map(value, getTreeItem)) }
+		<GetTreeItem { ...props }/>
 	</MuiTreeView>;
 
 export default TreeView;

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './App.scss';
 import { Checkbox, Switch } from '@mui/material';
 import Breadcrumbs from './stories/common/Breadcrumbs';
-import { reduce } from '@laufire/utils/collection';
 import TreeView from './stories/common/TreeView';
 import Navigation from './stories/common/Navigation';
 
@@ -44,33 +43,14 @@ const value = {
 	},
 };
 
-const updatePaths = (obj, path = '/') => reduce(
-	obj,
-	(
-		updatedObj, curValue, key
-	) => {
-		const updatedPath = path === '/' ? `/${ key }` : `${ path }/${ key }`;
-		const updatedValue = {
-			...curValue,
-			path: updatedPath,
-			...curValue.children
-				&& { children: updatePaths(curValue.children, updatedPath) },
-		};
-
-		return { ...updatedObj, [key]: updatedValue };
-	},
-	{}
-);
-
 const App = () => {
-	const [state, setState] = useState();
-	const updatedValue = updatePaths(value);
+	const [state, setState] = useState({ value: [], options: {}});
 
-	const onChange = ({ data }) => setState(data);
+	const onChange = ({ target }) => setState(target);
 
 	return <div className="App">
-		<Breadcrumbs { ...{ value: state } }/>
-		<TreeView { ...{ value: updatedValue } }/>
+		<Breadcrumbs { ...{ value: state.value } }/>
+		<TreeView { ...state }/>
 		<Navigation { ...{ options: value, onChange: onChange } }/>
 	</div>;
 };

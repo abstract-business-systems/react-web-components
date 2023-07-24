@@ -4,6 +4,7 @@ import { useRoutes, useLocation } from 'react-router-dom';
 import Sections from '../Sections';
 import { identity } from '@laufire/utils/fn';
 import buildEvent from '../helper/buildEvent';
+import { unique } from '@laufire/utils/predicates';
 
 const getRoutes = (routes) =>
 	values(map(routes, (data) => ({
@@ -38,15 +39,15 @@ const getHref = (data, path) => reduce(
 );
 
 const getBreadcrumbsValue = (updatedValue, pathname) =>
-	pathname.split('/').filter(identity)
-		.map((data) => {
-			const { label, path } = getHref(updatedValue, data);
+	pathname.split('/').map((data) => {
+		const { label, path } = getHref(updatedValue, data);
 
-			return {
-				children: label,
-				href: path,
-			};
-		});
+		return {
+			children: label,
+			href: path,
+		};
+	})
+		.filter(unique);
 
 const Navigation = ({ options, onChange = identity }) => {
 	const updatedValue = updatePaths(options);
