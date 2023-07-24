@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
-import { useLocation, useRoutes } from 'react-router-dom';
-import Sections from './stories/common/Sections';
 import { Checkbox, Switch } from '@mui/material';
 import Breadcrumbs from './stories/common/Breadcrumbs';
-import { identity } from '@laufire/utils/fn';
-import { map, reduce, values } from '@laufire/utils/collection';
+import { reduce } from '@laufire/utils/collection';
 import TreeView from './stories/common/TreeView';
+import Navigation from './stories/common/Navigation';
 
 const value = {
 	'': {
@@ -46,31 +44,6 @@ const value = {
 	},
 };
 
-const getHref = (data, path) => reduce(
-	data, (acc, route) =>
-		acc || (route.name === path
-			? route
-			: route.children && getHref(route.children, path)), false
-);
-
-const getRoutes = (routes) =>
-	values(map(routes, (data) => ({
-		path: data.name,
-		element: <Sections { ...data }/>,
-		...data.children && { children: getRoutes(data.children) },
-	})));
-
-const getBreadcrumbsValue = (updatedValue, pathname) =>
-	pathname.split('/').filter(identity)
-		.map((data) => {
-			const { label, path } = getHref(updatedValue, data);
-
-			return {
-				children: label,
-				href: path,
-			};
-		});
-
 const updatePaths = (obj, path = '/') => reduce(
 	obj,
 	(
@@ -90,18 +63,15 @@ const updatePaths = (obj, path = '/') => reduce(
 );
 
 const App = () => {
+	const [state, setState] = useState();
 	const updatedValue = updatePaths(value);
-	const route = useRoutes(getRoutes(updatedValue));
-	const { pathname } = useLocation();
+
+	const onChange = ({ data }) => setState(data);
 
 	return <div className="App">
-		<Breadcrumbs { ...{
-			value:
-			getBreadcrumbsValue(updatedValue, pathname),
-		} }
-		/>
+		<Breadcrumbs { ...{ value: state } }/>
 		<TreeView { ...{ value: updatedValue } }/>
-		{ route }
+		<Navigation { ...{ options: value, onChange: onChange } }/>
 	</div>;
 };
 
