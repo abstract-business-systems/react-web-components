@@ -19,6 +19,7 @@ const TreeView = ({ value }) =>
 	<MuiTreeView
 		defaultCollapseIcon={ <ExpandMoreIcon/> }
 		defaultExpandIcon={ <ChevronRightIcon/> }
+		sx={ { overflowX: 'hidden' } }
 	>
 		{ values(map(value, getTreeItem)) }
 	</MuiTreeView>;

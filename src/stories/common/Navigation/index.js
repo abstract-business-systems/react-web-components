@@ -12,12 +12,12 @@ const getRoutes = (routes) =>
 		...data.children && { children: getRoutes(data.children) },
 	})));
 
-const updatePaths = (data, path = '/') => reduce(
+const updatePaths = (data, path = '') => reduce(
 	data,
 	(
 		acc, curValue, key
 	) => {
-		const updatedPath = path === '/' ? '/' : `${ path }/${ key }`;
+		const updatedPath = `${ path }${ key }/`;
 		const updatedValue = {
 			...curValue,
 			path: updatedPath,
@@ -56,7 +56,7 @@ const Navigation = ({ options, onChange = identity }) => {
 	useEffect(() => {
 		const value = getBreadcrumbsValue(updatedValue, pathname);
 
-		onChange(buildEvent({ value }));
+		onChange(buildEvent({ value: value, options: updatedValue }));
 	}, [pathname]);
 
 	return <div>{ route }</div>;
