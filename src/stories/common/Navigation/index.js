@@ -43,7 +43,7 @@ const getBreadcrumbsValue = (updatedValue, pathname) =>
 		const { label, path } = getHref(updatedValue, data);
 
 		return {
-			children: label,
+			label: label,
 			href: path,
 		};
 	})

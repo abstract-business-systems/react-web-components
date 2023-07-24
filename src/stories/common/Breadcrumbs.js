@@ -5,7 +5,7 @@ import { Typography } from '@mui/material';
 
 const Breadcrumbs = ({ value = [], ...args }) =>
 	<MuiBreadcrumbs aria-label="breadcrumb" { ...args }>
-		{ value.map(({ children, ...rest }, key) => {
+		{ value.map(({ label, ...rest }, key) => {
 			const last = key === (value.length - 1);
 
 			return (
@@ -18,7 +18,7 @@ const Breadcrumbs = ({ value = [], ...args }) =>
 						...rest,
 					} }
 				>
-					{ children }
+					{ label }
 				</Link>);
 		}) }
 	</MuiBreadcrumbs>;

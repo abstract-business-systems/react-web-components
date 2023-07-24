@@ -16,11 +16,11 @@ Breadcrumbs.args = {
 	separator: '/',
 	value: [
 		{
-			children: 'Home',
+			label: 'Home',
 			href: '/',
 		},
 		{
-			children: 'Component',
+			label: 'Component',
 			href: '/component',
 		},
 	],
