@@ -1,5 +1,5 @@
 /* eslint-disable react/destructuring-assignment */
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { NavContext } from './NavContext.js';
 import { merge } from '@laufire/utils/collection.js';
 import scaffold from './helper/scaffold.js';
@@ -18,8 +18,7 @@ const Section = ({ children, name, pathname, location, label }) => {
 	return (
 		<section className="section">
 			<NavContext.Provider
-				// eslint-disable-next-line react/jsx-no-constructed-context-values
-				value={ {
+				value={ useMemo(() => ({
 					pathname: pathname || level.pathname,
 					location: location || level.location,
 					value: level.value + 1,
@@ -30,11 +29,11 @@ const Section = ({ children, name, pathname, location, label }) => {
 							.join(''),
 						{
 							children: {},
-							path: path,
 							name: name,
 							label: label || name,
 						})),
-				} }
+				}),
+				[name, location, level.location, pathname, level.pathname]) }
 			>
 				{ React.Children.map(children, (child) =>
 					(child.type.name === 'Section'
