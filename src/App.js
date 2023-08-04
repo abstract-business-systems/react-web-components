@@ -1,9 +1,9 @@
+/* eslint-disable unused-imports/no-unused-vars */
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import './App.scss';
 import { Checkbox, Switch } from '@mui/material';
-import Breadcrumbs from './stories/common/Breadcrumbs';
-import TreeView from './stories/common/TreeView';
-import Navigation from './stories/common/Navigation';
+import Nav from './components/Navigation';
 
 const value = {
 	'': {
@@ -49,9 +49,10 @@ const App = () => {
 	const onChange = ({ target }) => setState(target);
 
 	return <div className="App">
-		<Breadcrumbs { ...{ value: state.value } }/>
+		{ /* <Breadcrumbs { ...{ value: state.value } }/>
 		<TreeView { ...state }/>
-		<Navigation { ...{ options: value, onChange: onChange } }/>
+		<Navigation { ...{ options: value, onChange: onChange } }/> */ }
+		<Nav/>
 	</div>;
 };
 
