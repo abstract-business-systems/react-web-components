@@ -1,50 +1,40 @@
-/* eslint-disable max-lines-per-function */
 import React from 'react';
 import { NavContext } from './NavContext.js';
 import scaffold from './helper/scaffold.js';
 
-const Section = ({ children, name, parentPath = '', label }) => {
-	const currPath = `${ parentPath }${ name }/`;
-	// const currLocation = location
-	// 	|| level.location.find((data) => data.path === path);
+const setLoad = ({ currPath, name, label, locations, context }) => ({
+	parentPath: currPath,
+	options: scaffold(currPath.split('/').map((data) => (data ? `/children/${ data }` : data))
+		.join(''),
+	{
+		children: {},
+		name: name,
+		label: label || name,
+		path: currPath,
+	}),
+	locations: locations || context.data.locations,
+});
 
-	// const navigate = useNavigate();
+const Section = ({ children, name, parentPath = '', locations, label }) =>
+	<NavContext.Consumer>
+		{ (context) => {
+			const currPath = `${ parentPath }${ name }/`;
+			const currLocation = (locations || context.data.locations)
+				.find((data) => data.path === currPath);
 
-	return (
-		<NavContext.Consumer>
-			{ (context) => {
-				context.onLoad({
-					parentPath: currPath,
-					options: scaffold(currPath.split('/').map((data) =>
-						(data ? `/children/${ data }` : data))
-						.join(''),
-					{
-						children: {},
-						name: name,
-						label: label || name,
-						path: currPath,
-					}),
-				});
+			context.onLoad(setLoad({
+				currPath, name, label,
+				locations, context,
+			}));
 
-				return <section className="section">
-					{ React.Children.map(children, (child) =>
-						(child.type.name === 'Section'
-							? React.cloneElement(child,
-								{ parentPath: currPath })
-							: child)) }
-					{ /*
+			return <section className="section">
 				{ React.Children.map(children, (child) =>
 					(child.type.name === 'Section'
-						? React.cloneElement(child)
+						? React.cloneElement(child,
+							{ parentPath: currPath })
 						: currLocation && child)) }
-				<a onClick={ () => { navigate(`${ level.path }${ name }/`); } }>
-					{ `${ level.path }${ name }/` }
-				</a>
-			*/ }
-				</section>;
-			} }
-		</NavContext.Consumer>
-	);
-};
+			</section>;
+		} }
+	</NavContext.Consumer>;
 
 export default Section;
