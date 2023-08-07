@@ -4,8 +4,8 @@ import Document from './Document';
 import Box from './Box';
 
 // eslint-disable-next-line max-lines-per-function
-const Navigation = () =>
-	<Document>
+const Navigation = ({ onChange }) =>
+	<Document { ...{ onChange } }>
 		<Box title="Root">Title</Box>
 		<Section label="ParentOne" name="parentOne">
 			<Box title="ParentOne">Heading</Box>

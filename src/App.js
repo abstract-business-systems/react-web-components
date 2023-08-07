@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import './App.scss';
 import { Checkbox, Switch } from '@mui/material';
 import Nav from './components/Navigation';
+import TreeView from './stories/common/TreeView';
+import Breadcrumbs from './stories/common/Breadcrumbs';
 
 const value = {
 	'': {
@@ -46,13 +48,14 @@ const value = {
 const App = () => {
 	const [state, setState] = useState({ value: [], options: {}});
 
-	const onChange = ({ target }) => setState(target);
+	const onChange = (target) => setState(target);
 
 	return <div className="App">
-		{ /* <Breadcrumbs { ...{ value: state.value } }/>
+		<Breadcrumbs { ...{ value: state.value } }/>
 		<TreeView { ...state }/>
+		{ /*
 		<Navigation { ...{ options: value, onChange: onChange } }/> */ }
-		<Nav/>
+		<Nav { ...{ onChange } }/>
 	</div>;
 };
 

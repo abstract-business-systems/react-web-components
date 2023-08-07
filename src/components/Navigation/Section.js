@@ -3,15 +3,17 @@ import { NavContext } from './NavContext.js';
 import scaffold from './helper/scaffold.js';
 
 const setLoad = ({ currPath, name, label, locations, context }) => ({
-	parentPath: currPath,
-	options: scaffold(currPath.split('/').map((data) => (data ? `/children/${ data }` : data))
-		.join(''),
-	{
-		children: {},
-		name: name,
-		label: label || name,
-		path: currPath,
-	}),
+	option: {
+		parentPath: currPath,
+		options: scaffold(currPath.split('/').map((data) => (data ? `/children/${ data }` : data))
+			.join(''),
+		{
+			children: {},
+			name: name,
+			label: label || name,
+			path: currPath,
+		}),
+	},
 	locations: locations || context.data.locations,
 });
 
