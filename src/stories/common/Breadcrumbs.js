@@ -5,7 +5,7 @@ import { Typography } from '@mui/material';
 
 const Breadcrumbs = ({ value = [], ...args }) =>
 	<MuiBreadcrumbs aria-label="breadcrumb" { ...args }>
-		{ value.map(({ label, ...rest }, key) => {
+		{ value.map(({ label, path, ...rest }, key) => {
 			const last = key === (value.length - 1);
 
 			return (
@@ -15,6 +15,7 @@ const Breadcrumbs = ({ value = [], ...args }) =>
 						underline: 'hover',
 						color: last ? 'text.primary' : 'inherit',
 						...last && { component: Typography },
+						href: path,
 						...rest,
 					} }
 				>
