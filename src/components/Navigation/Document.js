@@ -8,14 +8,15 @@ import { NavContext } from './NavContext';
 const data = {
 	parentPath: '',
 	options: {},
-	locations: [],
+	location: [],
 };
 
-const onLoad = ({ option, locations }) => {
+const onLoad = ({ option, location }) => {
 	merge(data, option);
-	data.locations = locations;
+	data.location = location;
 };
-const getCurrLocations = (pathname) => pathname.split('/').filter(unique)
+
+const getCurrLocation = (pathname) => pathname.split('/').filter(unique)
 	.reduce((acc, curr) => acc.concat({
 		path: `${ acc[acc.length - 1]?.path || '' }${ curr }/`,
 		label: curr.charAt(0).toUpperCase() + curr.slice(1),
@@ -23,20 +24,20 @@ const getCurrLocations = (pathname) => pathname.split('/').filter(unique)
 
 const Document = ({ children, onChange }) => {
 	const { pathname } = useLocation();
-	const currLocations = getCurrLocations(pathname);
+	const location = getCurrLocation(pathname);
 
 	const value = useMemo(() => ({ onLoad, data }));
-	const { data: { options, locations }} = useContext(NavContext);
+	const { data: { options }} = useContext(NavContext);
 
 	useEffect(() => {
 		onChange({
 			options: { '': value.data.options },
-			value: currLocations,
+			value: location,
 		});
-	}, [options, locations, pathname]);
+	}, [options, pathname]);
 
 	return <NavContext.Provider value={ value }>
-		<Section { ...{ name: '', parentPath: '', locations: currLocations } }>
+		<Section { ...{ name: '', parentPath: '', location: location } }>
 			{ children }
 		</Section>
 	</NavContext.Provider>;

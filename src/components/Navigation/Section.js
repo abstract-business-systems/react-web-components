@@ -2,7 +2,7 @@ import React from 'react';
 import { NavContext } from './NavContext.js';
 import scaffold from './helper/scaffold.js';
 
-const setLoad = ({ currPath, name, label, locations, context }) => ({
+const setLoad = ({ currPath, name, label, location, context }) => ({
 	option: {
 		parentPath: currPath,
 		options: scaffold(currPath.split('/').map((data) => (data ? `/children/${ data }` : data))
@@ -14,19 +14,19 @@ const setLoad = ({ currPath, name, label, locations, context }) => ({
 			path: currPath,
 		}),
 	},
-	locations: locations || context.data.locations,
+	location: location || context.data.location,
 });
 
-const Section = ({ children, name, parentPath = '', locations, label }) =>
+const Section = ({ children, name, parentPath = '', location, label }) =>
 	<NavContext.Consumer>
 		{ (context) => {
 			const currPath = `${ parentPath }${ name }/`;
-			const currLocation = (locations || context.data.locations)
+			const currLocation = (location || context.data.location)
 				.find((data) => data.path === currPath);
 
 			context.onLoad(setLoad({
 				currPath, name, label,
-				locations, context,
+				location, context,
 			}));
 
 			return <section className="section">
