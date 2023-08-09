@@ -2,10 +2,11 @@ import React from 'react';
 import Section from './Section.js';
 import Document from './Document';
 import Box from './Box';
+import { identity } from '@laufire/utils/fn.js';
 
 // eslint-disable-next-line max-lines-per-function
-const Navigation = ({ onChange }) =>
-	<Document { ...{ onChange } }>
+const Navigation = ({ onLoad = identity }) =>
+	<Document { ...{ onLoad } }>
 		<Box title="Root">Title</Box>
 		<Section label="ParentOne" name="parentOne">
 			<Box title="ParentOne">Heading</Box>

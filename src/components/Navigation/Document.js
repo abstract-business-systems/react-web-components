@@ -5,15 +5,18 @@ import { unique } from '@laufire/utils/predicates';
 import { merge } from '@laufire/utils/collection';
 import { NavContext } from './NavContext';
 
-const data = {
-	parentPath: '',
-	options: {},
-	location: [],
-};
+const generateDataProcessor = () => {
+	const data = {
+		parentPath: '',
+		options: {},
+		location: [],
+	};
+	const onLoad = ({ option, location }) => {
+		merge(data, option);
+		data.location = location;
+	};
 
-const onLoad = ({ option, location }) => {
-	merge(data, option);
-	data.location = location;
+	return { onLoad, data };
 };
 
 const getCurrLocation = (pathname) => pathname.split('/').filter(unique)
@@ -22,15 +25,15 @@ const getCurrLocation = (pathname) => pathname.split('/').filter(unique)
 		label: curr.charAt(0).toUpperCase() + curr.slice(1),
 	}), []);
 
-const Document = ({ children, onChange }) => {
+const Document = ({ children, onLoad }) => {
 	const { pathname } = useLocation();
 	const location = getCurrLocation(pathname);
 
-	const value = useMemo(() => ({ onLoad, data }));
+	const value = useMemo(() => generateDataProcessor());
 	const { data: { options }} = useContext(NavContext);
 
 	useEffect(() => {
-		onChange({
+		onLoad({
 			options: { '': value.data.options },
 			value: location,
 		});
