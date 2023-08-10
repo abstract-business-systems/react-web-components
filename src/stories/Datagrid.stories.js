@@ -80,7 +80,8 @@ Journal.args = {
 				},
 				country: {
 					type: 'string',
-					enum: ['India', 'Africa', 'US'],
+					enum: ['india', 'africa', 'us'],
+					labels: ['INDIA', 'CHINA', 'US'],
 					widget: 'radioGroup',
 					disabled: false,
 				},
@@ -91,8 +92,9 @@ Journal.args = {
 					disabled: true,
 					items: {
 						type: 'string',
-						enum: ['India', 'Africa', 'US'],
+						enum: ['india', 'africa', 'us'],
 					},
+					labels: ['INDIA', 'CHINA', 'US'],
 					maxItems: 1,
 				},
 				oneOf: {

@@ -1,4 +1,4 @@
-const getInputProp = ({ schema }) => {
+const getInputProp = ({ schema = {}}) => {
 	const { maximum, minimum, multipleOf } = schema;
 
 	return {
