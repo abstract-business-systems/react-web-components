@@ -1,19 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.scss';
-import Nav from './components/Navigation';
-import TreeView from './stories/common/TreeView';
-import Breadcrumbs from './stories/common/Breadcrumbs';
+import Document from './Example/Document';
 
-const App = () => {
-	const [state, setState] = useState({ value: [], options: {}});
-
-	const onLoad = (target) => setState(target);
-
-	return <div className="App">
-		<Breadcrumbs { ...{ value: state.value } }/>
-		<TreeView { ...state }/>
-		<Nav { ...{ onLoad } }/>
-	</div>;
-};
+const App = () => <div className="App">
+	<Document/>
+</div>;
 
 export default App;
