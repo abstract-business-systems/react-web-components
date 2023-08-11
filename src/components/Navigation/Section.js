@@ -5,7 +5,7 @@ import scaffold from './helper/scaffold.js';
 const setLoad = ({ currPath, name, label }) => ({
 	option: {
 		parentPath: currPath,
-		options: scaffold(currPath.split('/').map((data) => (data ? `/children/${ data }` : data))
+		sections: scaffold(currPath.split('/').map((data) => (data ? `/children/${ data }` : data))
 			.join(''),
 		{
 			children: {},

@@ -6,9 +6,9 @@ import { keys, length, map, merge, reduce } from '@laufire/utils/collection';
 import { NavContext } from './NavContext';
 import { identity } from '@laufire/utils/fn';
 
-const transformOptions = (options) => (keys(options).length
-	? { '': options }
-	: options);
+const transformOptions = (sections) => (keys(sections).length
+	? { '': sections }
+	: sections);
 
 const generateDataProcessor = (state, setState) => {
 	const onLoad = ({ option }) => {
@@ -33,10 +33,10 @@ const getLabel = (data, path) => reduce(
 			: route.children && getLabel(route.children, path)), false
 );
 
-const getCurrLocation = ({ state: { options }, pathname }) =>
+const getCurrLocation = ({ state: { sections }, pathname }) =>
 	pathname.split('/').filter(unique)
 		.reduce((acc, curr) => {
-			const { label } = getLabel(transformOptions(options), curr);
+			const { label } = getLabel(transformOptions(sections), curr);
 
 			return acc.concat({
 				name: curr,
@@ -54,14 +54,14 @@ const updateLocation = (location, setState) => {
 
 const initialState = () => ({
 	parentPath: '',
-	options: {},
+	sections: {},
 	location: [],
 	button: 'dgsgsg',
 });
 
-const updateLoad = (onLoad, { state: { options, location }}) => {
+const updateLoad = (onLoad, { state: { sections, location }}) => {
 	onLoad({
-		options: transformOptions(options),
+		options: transformOptions(sections),
 		value: location,
 	});
 };
@@ -75,7 +75,7 @@ const Document = ({ children, onLoad = identity, label = 'Home' }) => {
 
 	useEffect(() => {
 		updateLocation(location, setState);
-	}, [pathname, length(keys(value.state.options))]);
+	}, [pathname, length(keys(value.state.sections))]);
 
 	useEffect(() => {
 		updateLoad(onLoad, value);
