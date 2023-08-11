@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavContext } from './NavContext.js';
 import scaffold from './helper/scaffold.js';
 
-const setLoad = ({ currPath, name, label, location, context }) => ({
+const setLoad = ({ currPath, name, label }) => ({
 	option: {
 		parentPath: currPath,
 		options: scaffold(currPath.split('/').map((data) => (data ? `/children/${ data }` : data))
@@ -14,29 +14,41 @@ const setLoad = ({ currPath, name, label, location, context }) => ({
 			path: currPath,
 		}),
 	},
-	location: location || context.data.location,
 });
+
+// eslint-disable-next-line max-lines-per-function
+const ChildSection = ({
+	parentPath, name, location,
+	context, label, children,
+}) => {
+	const currPath = `${ parentPath }${ name }/`;
+	const currLocation = context.state.location
+		.find(({ path }) => path === currPath);
+
+	useEffect(() => {
+		context.onLoad(setLoad({
+			currPath, name, label,
+			location, context,
+		}));
+	}, []);
+
+	return <section className="section">
+		{ React.Children.map(children, (child) =>
+			(child.type.name === 'Section'
+				? React.cloneElement(child,
+					{ parentPath: currPath })
+				: currLocation && child)) }
+	</section>;
+};
 
 const Section = ({ children, name, parentPath = '', location, label }) =>
 	<NavContext.Consumer>
-		{ (context) => {
-			const currPath = `${ parentPath }${ name }/`;
-			const currLocation = (location || context.data.location)
-				.find((data) => data.path === currPath);
-
-			context.onLoad(setLoad({
-				currPath, name, label,
-				location, context,
-			}));
-
-			return <section className="section">
-				{ React.Children.map(children, (child) =>
-					(child.type.name === 'Section'
-						? React.cloneElement(child,
-							{ parentPath: currPath })
-						: currLocation && child)) }
-			</section>;
-		} }
+		{ (context) =>
+			<ChildSection { ...{
+				parentPath, name, location,
+				context, label, children,
+			} }
+			/> }
 	</NavContext.Consumer>;
 
 export default Section;

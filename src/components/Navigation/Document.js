@@ -1,22 +1,25 @@
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Section from './Section';
 import { useLocation } from 'react-router-dom';
 import { unique } from '@laufire/utils/predicates';
-import { merge } from '@laufire/utils/collection';
+import { map, merge } from '@laufire/utils/collection';
 import { NavContext } from './NavContext';
+import { identity } from '@laufire/utils/fn';
 
-const generateDataProcessor = () => {
-	const data = {
-		parentPath: '',
-		options: {},
-		location: [],
-	};
-	const onLoad = ({ option, location }) => {
-		merge(data, option);
-		data.location = location;
+const generateDataProcessor = (state, setState) => {
+	const onLoad = ({ option }) => {
+		setState((pre) => merge(
+			{}, pre, option
+		),);
 	};
 
-	return { onLoad, data };
+	const patch = (evt) => {
+		map(evt, (value, key) => {
+			setState({ ...state, [key]: value });
+		});
+	};
+
+	return { onLoad, state, patch };
 };
 
 const getCurrLocation = (pathname) => pathname.split('/').filter(unique)
@@ -25,19 +28,33 @@ const getCurrLocation = (pathname) => pathname.split('/').filter(unique)
 		label: curr.charAt(0).toUpperCase() + curr.slice(1),
 	}), []);
 
-const Document = ({ children, onLoad }) => {
+// eslint-disable-next-line max-lines-per-function
+const Document = ({ children, onLoad = identity }) => {
 	const { pathname } = useLocation();
+	const [state, setState] = useState({
+		parentPath: '',
+		options: {},
+		location: [],
+		button: 'dgsgsg',
+	});
+
 	const location = getCurrLocation(pathname);
 
-	const value = useMemo(() => generateDataProcessor());
-	const { data: { options }} = useContext(NavContext);
+	const value = useMemo(() => generateDataProcessor(state, setState));
+
+	useEffect(() => {
+		location && setState((preState) => ({
+			...preState,
+			location,
+		}));
+	}, [pathname]);
 
 	useEffect(() => {
 		onLoad({
-			options: { '': value.data.options },
+			options: { '': value.state.options },
 			value: location,
 		});
-	}, [options, pathname]);
+	}, [value.state, pathname]);
 
 	return <NavContext.Provider value={ value }>
 		<Section { ...{ name: '', parentPath: '', location: location } }>
