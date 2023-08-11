@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import Section from './Section';
 import { useLocation } from 'react-router-dom';
 import { unique } from '@laufire/utils/predicates';
-import { map, merge } from '@laufire/utils/collection';
+import { keys, map, merge } from '@laufire/utils/collection';
 import { NavContext } from './NavContext';
 import { identity } from '@laufire/utils/fn';
 
@@ -28,32 +28,43 @@ const getCurrLocation = (pathname) => pathname.split('/').filter(unique)
 		label: curr.charAt(0).toUpperCase() + curr.slice(1),
 	}), []);
 
-// eslint-disable-next-line max-lines-per-function
+const updateLocation = (location, setState) => {
+	location && setState((preState) => ({
+		...preState,
+		location,
+	}));
+};
+
+const initialState = () => ({
+	parentPath: '',
+	options: {},
+	location: [],
+	button: 'dgsgsg',
+});
+
+const updateLoad = (onLoad, { state: { options, location }}) => {
+	onLoad({
+		options: keys(options).length
+			? { '': options }
+			: options,
+		value: location,
+	});
+};
+
 const Document = ({ children, onLoad = identity }) => {
 	const { pathname } = useLocation();
-	const [state, setState] = useState({
-		parentPath: '',
-		options: {},
-		location: [],
-		button: 'dgsgsg',
-	});
+	const [state, setState] = useState(initialState());
 
 	const location = getCurrLocation(pathname);
 
 	const value = useMemo(() => generateDataProcessor(state, setState));
 
 	useEffect(() => {
-		location && setState((preState) => ({
-			...preState,
-			location,
-		}));
+		updateLocation(location, setState);
 	}, [pathname]);
 
 	useEffect(() => {
-		onLoad({
-			options: { '': value.state.options },
-			value: location,
-		});
+		updateLoad(onLoad, value);
 	}, [value.state, pathname]);
 
 	return <NavContext.Provider value={ value }>

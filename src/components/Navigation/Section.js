@@ -16,20 +16,13 @@ const setLoad = ({ currPath, name, label }) => ({
 	},
 });
 
-// eslint-disable-next-line max-lines-per-function
-const ChildSection = ({
-	parentPath, name, location,
-	context, label, children,
-}) => {
+const ChildSection = ({ parentPath, name, context, label, children }) => {
 	const currPath = `${ parentPath }${ name }/`;
 	const currLocation = context.state.location
 		.find(({ path }) => path === currPath);
 
 	useEffect(() => {
-		context.onLoad(setLoad({
-			currPath, name, label,
-			location, context,
-		}));
+		context.onLoad(setLoad({ currPath, name, label, context }));
 	}, []);
 
 	return <section className="section">
@@ -41,14 +34,10 @@ const ChildSection = ({
 	</section>;
 };
 
-const Section = ({ children, name, parentPath = '', location, label }) =>
+const Section = (props) =>
 	<NavContext.Consumer>
 		{ (context) =>
-			<ChildSection { ...{
-				parentPath, name, location,
-				context, label, children,
-			} }
-			/> }
+			<ChildSection { ...{ ...props, context } }/> }
 	</NavContext.Consumer>;
 
 export default Section;
