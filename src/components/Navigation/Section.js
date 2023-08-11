@@ -16,7 +16,10 @@ const setLoad = ({ currPath, name, label }) => ({
 	},
 });
 
-const ChildSection = ({ parentPath, name, context, label, children }) => {
+const ChildSection = ({
+	parentPath = '', name = '', context,
+	label = '', children,
+}) => {
 	const currPath = `${ parentPath }${ name }/`;
 	const currLocation = context.state.location
 		.find(({ path }) => path === currPath);
