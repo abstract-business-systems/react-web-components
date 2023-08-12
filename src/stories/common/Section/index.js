@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { NavContext } from './NavContext.js';
+import { NavContext } from '../../../components/Navigation/GlobalContext';
 import scaffold from './helper/scaffold.js';
 
 const setLoad = ({ currPath, name, label }) => ({

@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.scss';
-import StateDocument from './Example/StateDocument';
+import Document from './Example/Document';
 
 const App = () => <div className="App">
-	<StateDocument/>
+	<Document/>
 </div>;
 
 export default App;

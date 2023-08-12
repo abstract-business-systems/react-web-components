@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import Section from './Section';
+import Section from '../Section';
 import { useLocation } from 'react-router-dom';
 import { unique } from '@laufire/utils/predicates';
 import { keys, length, map, merge, reduce } from '@laufire/utils/collection';
-import { NavContext } from './NavContext';
+import { NavContext } from '../../../components/Navigation/GlobalContext';
 import { identity } from '@laufire/utils/fn';
 
 const transformOptions = (sections) => (keys(sections).length

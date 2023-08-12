@@ -1,6 +1,6 @@
 import React from 'react';
-import Section from './Section.js';
-import Document from './Document';
+import Section from '../../stories/common/Section';
+import Document from '../../stories/common/Document';
 import Box from './Box';
 import { identity } from '@laufire/utils/fn.js';
 
