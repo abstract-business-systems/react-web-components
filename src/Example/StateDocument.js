@@ -2,12 +2,12 @@ import React from 'react';
 import Document from '../stories/common/Document';
 import Section from '../components/Navigation/Section';
 import { Button } from '@mui/material';
-import { NavContext } from '../components/Navigation/GlobalContext';
+import GlobalContext from '../stories/common/Document/GlobalContext';
 
 const StateDocument = () =>
 	<Document patch={ () => {} }>
 		<Section name="parentOne" label="ParentOne">
-			<NavContext.Consumer>
+			<GlobalContext.Consumer>
 				{
 					(context) => <div>
 						<Button
@@ -18,7 +18,7 @@ const StateDocument = () =>
 						<div>{ context.state.button }</div>
 					</div>
 				}
-			</NavContext.Consumer>
+			</GlobalContext.Consumer>
 		</Section>
 
 	</Document>;

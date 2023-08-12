@@ -3,7 +3,7 @@ import Section from '../Section';
 import { useLocation } from 'react-router-dom';
 import { unique } from '@laufire/utils/predicates';
 import { keys, length, map, merge, reduce } from '@laufire/utils/collection';
-import { NavContext } from '../../../components/Navigation/GlobalContext';
+import GlobalContext from './GlobalContext';
 import { identity } from '@laufire/utils/fn';
 
 const transformOptions = (sections) => (keys(sections).length
@@ -81,11 +81,11 @@ const Document = ({ children, onLoad = identity, label = 'Home' }) => {
 		updateLoad(onLoad, value);
 	}, [value.state, pathname]);
 
-	return <NavContext.Provider value={ value }>
+	return <GlobalContext.Provider value={ value }>
 		<Section { ...{ label } }>
 			{ children }
 		</Section>
-	</NavContext.Provider>;
+	</GlobalContext.Provider>;
 };
 
 export default Document;

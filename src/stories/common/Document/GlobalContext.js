@@ -1,3 +1,5 @@
 import { createContext } from 'react';
 
-export const NavContext = createContext({ data: {}});
+const GlobalContext = createContext({ data: {}});
+
+export default GlobalContext;

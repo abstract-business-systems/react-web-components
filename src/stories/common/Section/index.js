@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { NavContext } from '../../../components/Navigation/GlobalContext';
+import GlobalContext from '../Document/GlobalContext';
 import scaffold from './helper/scaffold.js';
 
 const setLoad = ({ currPath, name, label }) => ({
@@ -38,9 +38,9 @@ const ChildSection = ({
 };
 
 const Section = (props) =>
-	<NavContext.Consumer>
+	<GlobalContext.Consumer>
 		{ (context) =>
 			<ChildSection { ...{ ...props, context } }/> }
-	</NavContext.Consumer>;
+	</GlobalContext.Consumer>;
 
 export default Section;
