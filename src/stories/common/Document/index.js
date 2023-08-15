@@ -1,14 +1,32 @@
+/* eslint-disable no-console */
 import React, { useEffect, useMemo, useState } from 'react';
 import Section from '../Section';
 import { useLocation } from 'react-router-dom';
 import { unique } from '@laufire/utils/predicates';
-import { keys, length, map, merge, reduce } from '@laufire/utils/collection';
+import {
+	keys, length, map,
+	merge, reduce, result,
+} from '@laufire/utils/collection';
 import GlobalContext from './GlobalContext';
 import { identity } from '@laufire/utils/fn';
+import { resolve } from '@laufire/utils/path';
 
 const transformOptions = (sections) => (keys(sections).length
 	? { '': sections }
 	: sections);
+
+const generateUnLoad = (setState) => ({ currPath, name }) => {
+	setState((pre) => {
+		const option = result(pre.sections, (resolve(`${ currPath }../`)
+					|| '').replaceAll('/', '/children/'));
+
+		delete option[name];
+
+		return merge(
+			{}, pre, option
+		);
+	});
+};
 
 const generateDataProcessor = (state, setState) => {
 	const onLoad = ({ option }) => {
@@ -16,14 +34,15 @@ const generateDataProcessor = (state, setState) => {
 			{}, pre, option
 		),);
 	};
+	const unLoad = generateUnLoad(setState);
 
 	const patch = (evt) => {
 		map(evt, (value, key) => {
-			setState({ ...state, [key]: value });
+			setState((pre) => ({ ...pre, [key]: value }));
 		});
 	};
 
-	return { onLoad, state, patch };
+	return { onLoad, state, patch, unLoad };
 };
 
 const getLabel = (data, path) => reduce(
