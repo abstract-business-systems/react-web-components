@@ -24,7 +24,7 @@ const GetLabel = ({ path, value, label }) => {
 		</MuiLink>);
 };
 
-const GetTreeItem = ({ options, value }) =>
+const TreeItems = ({ options, value }) =>
 	values(map(options, ({ children, label, name, path }) =>
 		<TreeItem
 			key={ name }
@@ -32,7 +32,7 @@ const GetTreeItem = ({ options, value }) =>
 			label={ <GetLabel { ...{ path, value, label } }/> }
 		>
 			{ children
-			&& <GetTreeItem { ...{ options: children, value: value } }/> }
+			&& <TreeItems { ...{ options: children, value: value } }/> }
 		</TreeItem>));
 
 const TreeView = (props) =>
@@ -41,7 +41,7 @@ const TreeView = (props) =>
 		defaultExpandIcon={ <ChevronRightIcon/> }
 		sx={ { overflowX: 'hidden' } }
 	>
-		<GetTreeItem { ...props }/>
+		<TreeItems { ...props }/>
 	</MuiTreeView>;
 
 export default TreeView;
