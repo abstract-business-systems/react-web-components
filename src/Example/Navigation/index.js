@@ -4,9 +4,8 @@ import { identity } from '@laufire/utils/fn.js';
 import Box from './Box';
 import { Button } from '@mui/material';
 import { rndString, rndValue } from '@laufire/utils/random';
-import { map } from '@laufire/utils/collection';
 import Section from '../../stories/common/Section';
-import { peek } from '@laufire/utils/debug';
+import { map } from '@laufire/utils/collection';
 
 const data = [
 	{ name: 'parentOne', label: 'ParentOne' },
@@ -32,7 +31,6 @@ const Navigation = ({ onLoad = identity }) => {
 		<Button onClick={ () => {
 			const value = rndValue(state);
 
-			peek({ value });
 			setState((pre) => pre.filter((item) =>
 				item.name !== value.name));
 		} }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navigation from '../components/Navigation';
+import Navigation from './Navigation';
 import Breadcrumbs from '../stories/common/Breadcrumbs';
 import TreeView from '../stories/common/TreeView';
 
