@@ -1,20 +1,8 @@
 import React from 'react';
 import MuiTreeView from './common/TreeView';
 
-const component = {
-	title: 'Navigation/TreeView',
-	component: MuiTreeView,
-};
-
-export default component;
-
-const Template = (args) =>
-	<MuiTreeView { ...args }/>;
-
-export const TreeView = Template.bind({});
-
-TreeView.args = {
-	options: {
+const structure = {
+	structureOne: {
 		'': {
 			children: {
 				parentOne: {
@@ -75,14 +63,118 @@ TreeView.args = {
 			path: '/',
 		},
 	},
-	value: [
-		{
+
+	structureTwo: {
+		'': {
+			children: {
+				applications: {
+					children: {
+						calender: {
+							children: {},
+							name: 'calender',
+							label: 'Calender',
+							path: '/applications/calender/',
+						},
+					},
+					name: 'applications',
+					label: 'Applications',
+					path: '/applications/',
+				},
+				documents: {
+					children: {
+						oss: {
+							children: { },
+							name: 'oss',
+							label: 'OSS',
+							path: '/documents/oss/',
+						},
+						mui: {
+							children: {
+								index: {
+									children: { },
+									name: 'index',
+									label: 'Index',
+									path: '/documents/oss/mui/index',
+								},
+							},
+							name: 'mui',
+							label: 'MUI',
+							path: '/documents/oss/mui',
+						},
+					},
+					name: 'documents',
+					label: 'Documents',
+					path: '/documents/',
+				},
+			},
 			name: '',
-			href: '/',
+			label: 'Home',
+			path: '/',
 		},
-		{
-			name: 'parentTwo',
-			href: '/parentTwo/',
-		},
-	],
+	},
 };
+
+const structuralValue = {
+	structureOne: {
+		valueOne: [
+			{
+				name: 'parentTwo',
+				href: '/parentTwo/',
+			},
+		],
+		valueTwo: [
+			{
+				name: 'parentOne',
+				href: '/parentOne/childOne/',
+			},
+		],
+	},
+	structureTwo: {
+		valueOne: [
+			{
+				name: 'calender',
+				href: '/applications/calender/',
+			},
+		],
+		valueTwo: [
+			{
+				name: 'oss',
+				href: '/documents/oss/',
+			},
+		],
+	},
+};
+
+const component = {
+	title: 'Navigation/TreeView',
+	component: MuiTreeView,
+	argTypes: {
+		value: {
+			type: 'select',
+			options: ['valueOne', 'valueTwo'],
+		},
+		options: {
+			type: 'select',
+			options: ['structureOne', 'structureTwo'],
+		},
+	},
+	args: { value: 'valueOne', options: 'structureTwo' },
+
+};
+
+export default component;
+
+const Template = (args) => {
+	const { value, options } = args;
+
+	return (
+		<MuiTreeView { ...{
+			...args,
+			options: structure[options], value: structuralValue[options][value],
+		} }
+		/>);
+};
+
+export const TreeView = Template.bind({});
+
+TreeView.args = {};
