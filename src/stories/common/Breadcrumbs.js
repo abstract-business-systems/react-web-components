@@ -5,13 +5,13 @@ import { Typography } from '@mui/material';
 import { identity } from '@laufire/utils/fn';
 import buildEvent from './helper/buildEvent';
 
-const Breadcrumb = ({ isLast, onChange, path, label, ...rest }) =>
+const Breadcrumb = ({ isLast, onChange, value, label, ...rest }) =>
 	<Link
 		{ ...{
 			underline: 'hover',
 			color: isLast ? 'text.primary' : 'inherit',
 			...isLast && { component: Typography },
-			onClick: () => onChange(buildEvent({ value: path })),
+			onClick: () => onChange(buildEvent({ value })),
 			...rest,
 		} }
 	>
