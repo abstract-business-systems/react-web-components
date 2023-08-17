@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import GlobalContext from '../Document/GlobalContext';
 import scaffold from './helper/scaffold.js';
 
-const BuildLoad = ({ currPath, name, label }) => ({
+const buildLoad = ({ currPath, name, label }) => ({
 	option: {
 		parentPath: currPath,
 		sections: scaffold(currPath.split('/').map((data) =>
@@ -20,28 +20,33 @@ const BuildLoad = ({ currPath, name, label }) => ({
 const getCurrLocation = (context, currPath) => context.state.location
 	.find(({ path }) => path === currPath);
 
+const Children = ({ children, currLocation }) =>
+	React.Children.map(children, (child) => (child?.type?.name === 'Section'
+		? child
+		: currLocation && child));
+
 const ChildSection = ({
-	parentPath = '', name = '', context,
+	name = '', context,
 	label = '', children, dynamic,
 }) => {
-	const currPath = `${ parentPath }${ name }/`;
+	const currPath = `${ context.parentPath }${ name }/`;
 	const currLocation = getCurrLocation(context, currPath);
 
 	useEffect(() => {
-		context.onLoad(BuildLoad({ currPath, name, label, context }));
+		context.onLoad(buildLoad({ currPath, name, label, context }));
 
 		return () => {
 			dynamic && context.unLoad({ currPath, name });
 		};
 	}, []);
 
-	return <section className="section">
-		{ React.Children.map(children, (child) =>
-			(child?.type?.name === 'Section'
-				? React.cloneElement(child,
-					{ parentPath: currPath })
-				: currLocation && child)) }
-	</section>;
+	const contextValue = useMemo(() => ({ ...context, parentPath: currPath }));
+
+	return <GlobalContext.Provider value={ contextValue }>
+		<section className="section">
+			<Children { ...{ children, currLocation } }/>
+		</section>
+	</GlobalContext.Provider>;
 };
 
 const Section = (props) =>

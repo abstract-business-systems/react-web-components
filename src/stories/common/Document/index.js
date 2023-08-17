@@ -41,8 +41,9 @@ const generateDataProcessor = (state, setState) => {
 			setState((pre) => ({ ...pre, [key]: value }));
 		});
 	};
+	const parentPath = '';
 
-	return { onLoad, state, patch, unLoad };
+	return { onLoad, state, patch, unLoad, parentPath };
 };
 
 const getLabel = (data, path) => reduce(
