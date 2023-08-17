@@ -2,35 +2,33 @@ import React from 'react';
 import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 import Link from './Link';
 import { Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { identity } from '@laufire/utils/fn';
+import buildEvent from './helper/buildEvent';
 
-const Breadcrumb = ({ last, navigate, path, label, ...rest }) =>
+const Breadcrumb = ({ isLast, onChange, path, label, ...rest }) =>
 	<Link
 		{ ...{
 			underline: 'hover',
-			color: last ? 'text.primary' : 'inherit',
-			...last && { component: Typography },
-			onClick: () => navigate(path),
+			color: isLast ? 'text.primary' : 'inherit',
+			...isLast && { component: Typography },
+			onClick: () => onChange(buildEvent({ value: path })),
 			...rest,
 		} }
 	>
 		{ label }
 	</Link>;
 
-const Breadcrumbs = ({ value = [], ...args }) => {
-	const navigate = useNavigate();
-
-	return <MuiBreadcrumbs aria-label="breadcrumb" { ...args }>
+const Breadcrumbs = ({ value = [], onChange = identity, ...args }) =>
+	<MuiBreadcrumbs aria-label="breadcrumb" { ...args }>
 		{ value.map((data, key) => {
-			const last = key === (value.length - 1);
+			const isLast = key === (value.length - 1);
 
 			return (
 				<Breadcrumb
 					key={ key }
-					{ ...{ ...data, last, navigate } }
+					{ ...{ ...data, isLast, onChange } }
 				/>);
 		}) }
 	</MuiBreadcrumbs>;
-};
 
 export default Breadcrumbs;

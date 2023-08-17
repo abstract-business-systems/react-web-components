@@ -10,18 +10,13 @@ export default component;
 
 const Template = (args) => <MuiBreadcrumbs { ...args }/>;
 
-export const Breadcrumbs = Template.bind({});
+export const Simple = Template.bind({});
 
-Breadcrumbs.args = {
+Simple.args = {
 	separator: '/',
 	value: [
-		{
-			label: 'Home',
-			href: '/',
-		},
-		{
-			label: 'Component',
-			href: '/component',
-		},
+		{ label: 'Home' },
+		{ label: 'Component' },
+		{ label: 'Service' },
 	],
 };
