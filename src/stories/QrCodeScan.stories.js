@@ -1,6 +1,6 @@
 import React from 'react';
 import { peek } from '@laufire/utils/debug';
-import QrCodeScan from './common/QrCodeScan';
+import QrCodeScan from '../components/common/QrCodeScan';
 
 export default {
 	title: 'Display/QRCode',

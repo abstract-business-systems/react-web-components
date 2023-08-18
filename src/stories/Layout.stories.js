@@ -1,5 +1,5 @@
 import React from 'react';
-import CssLayout from '../components/Layout/index';
+import CssLayout from '../components/common/Layout/index';
 import { Box } from '@mui/material';
 
 const component = {

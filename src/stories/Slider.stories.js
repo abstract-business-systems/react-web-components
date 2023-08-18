@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import MuiSlider from './common/Slider';
+import MuiSlider from '../components/common/Slider';
 
 const ten = 10;
 const twenty = 20;

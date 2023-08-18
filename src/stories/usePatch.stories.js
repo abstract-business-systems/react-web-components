@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import Debugger from './common/Debugger';
-import usePatch from './common/hook/usePatch';
+import Debugger from '../components/common/Debugger';
+import usePatch from '../components/common/hook/usePatch';
 
 const component = {
 	title: 'Hook/UsePatch',

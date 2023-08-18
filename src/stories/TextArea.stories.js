@@ -1,5 +1,5 @@
 import React from 'react';
-import MuiTextArea from './common/TextArea';
+import MuiTextArea from '../components/common/TextArea';
 
 const component = {
 	title: 'Inputs/TextArea',

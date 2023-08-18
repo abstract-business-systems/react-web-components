@@ -1,5 +1,5 @@
 import React from 'react';
-import LeafletMap from './common/Map/index';
+import LeafletMap from '../components/common/Map/index';
 
 const component = {
 	title: 'Display/Map',

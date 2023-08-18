@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import MuiCheckbox from './common/Checkbox';
+import MuiCheckbox from '../components/common/Checkbox';
 
 const component = {
 	title: 'Inputs/Checkbox',

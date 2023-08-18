@@ -1,5 +1,5 @@
-import ImageCarousel from './common/ImageCarousel.js';
-import Debugger from './common/Debugger';
+import ImageCarousel from '../components/common/ImageCarousel.js';
+import Debugger from '../components/common/Debugger';
 import { peek } from '@laufire/utils/debug';
 
 const component = {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import MuiRadioGroup from './common/RadioGroup';
+import MuiRadioGroup from '../components/common/RadioGroup';
 
 const component = {
 	title: 'Inputs/RadioGroup',

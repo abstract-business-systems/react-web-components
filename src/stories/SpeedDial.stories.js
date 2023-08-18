@@ -1,5 +1,5 @@
 import React from 'react';
-import MuiSpeedDial from '../stories/common/SpeedDial';
+import MuiSpeedDial from '../components/common/SpeedDial';
 import * as Icons from '@mui/icons-material';
 import { keys } from '@laufire/utils/lib';
 import { peek } from '@laufire/utils/debug';

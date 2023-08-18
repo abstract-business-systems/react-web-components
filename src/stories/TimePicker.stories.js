@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MuiTimePicker from './common/TimePicker';
+import MuiTimePicker from '../components/common/TimePicker';
 
 const component = {
 	title: 'Inputs/TimePicker',

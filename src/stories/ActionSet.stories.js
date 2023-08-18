@@ -1,5 +1,5 @@
 import React from 'react';
-import MuiActionSet from '../stories/common/ActionSet';
+import MuiActionSet from '../components/common/ActionSet';
 
 const component = {
 	title: 'Navigation/ActionSet',

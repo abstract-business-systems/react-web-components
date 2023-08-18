@@ -1,5 +1,5 @@
 import React from 'react';
-import MuiBreadcrumbs from './common/Breadcrumbs';
+import MuiBreadcrumbs from '../components/common/Breadcrumbs';
 
 const data = {
 	example1: [

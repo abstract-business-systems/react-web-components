@@ -1,6 +1,6 @@
 import React from 'react';
-import Link from './common/Link';
-import Typography from './common/Typography';
+import Link from '../components/common/Link';
+import Typography from '../components/common/Typography';
 
 export default {
 	title: 'Navigation/Link',

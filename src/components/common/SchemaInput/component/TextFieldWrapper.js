@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../styles/global.scss';
+import '../../../../stories/styles/global.scss';
 import { nothing } from '@laufire/utils/fn';
 import { everything } from '@laufire/utils/predicates';
 import inputValidators from '../helper/inputValidators';

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MuiSelect from '../stories/common/Select';
+import MuiSelect from '../components/common/Select';
 
 const component = {
 	title: 'Inputs/Select',

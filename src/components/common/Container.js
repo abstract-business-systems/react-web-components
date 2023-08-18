@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import '../styles/global.scss';
 import { useResizeDetector } from 'react-resize-detector';
 import { Box } from '@mui/material';
+import '../../stories/styles/global.scss';
 import clsx from 'clsx';
 import { identity } from '@laufire/utils/fn';
 import { map } from '@laufire/utils/collection';

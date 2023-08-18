@@ -1,6 +1,6 @@
 import React from 'react';
 import { peek } from '@laufire/utils/debug';
-import QrCodeGenerator from './common/QrCodeGenerate';
+import QrCodeGenerator from '../components/common/QrCodeGenerate';
 
 export default {
 	title: 'Display/QRCode',

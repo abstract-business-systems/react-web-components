@@ -1,5 +1,5 @@
 import React from 'react';
-import DeviceComponent from './common/Device';
+import DeviceComponent from '../components/common/Device';
 import { peek } from '@laufire/utils/debug';
 
 const component = {

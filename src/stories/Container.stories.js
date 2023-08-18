@@ -1,5 +1,5 @@
 import React from 'react';
-import DisplayContainer from './common/Container';
+import DisplayContainer from '../components/common/Container';
 import { Box } from '@mui/material';
 import { peek } from '@laufire/utils/debug';
 

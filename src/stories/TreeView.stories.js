@@ -1,5 +1,5 @@
 import React from 'react';
-import MuiTreeView from './common/TreeView';
+import MuiTreeView from '../components/common/TreeView';
 
 const structure = {
 	structureOne: {

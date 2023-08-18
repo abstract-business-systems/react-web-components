@@ -1,5 +1,5 @@
 import React from 'react';
-import MuiButton from '../stories/common/Button';
+import MuiButton from '../components/common/Button';
 import * as icons from '@mui/icons-material';
 import { keys } from '@laufire/utils/lib';
 

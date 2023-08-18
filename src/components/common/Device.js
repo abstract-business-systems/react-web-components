@@ -1,5 +1,5 @@
 import { useEffect, React } from 'react';
-import '../styles/global.scss';
+import '../../stories/styles/global.scss';
 import { identity } from '@laufire/utils/fn';
 import buildEvent from './helper/buildEvent';
 import getScreenSize from './helper/screenSize';

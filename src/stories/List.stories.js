@@ -1,5 +1,5 @@
 import React from 'react';
-import ListComponent from './common/List';
+import ListComponent from '../components/common/List';
 import { Box } from '@mui/material';
 
 const component = {

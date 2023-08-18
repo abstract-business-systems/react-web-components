@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, Fragment } from 'react';
-import '../styles/global.scss';
 import { identity } from '@laufire/utils/fn';
 import color from './helper/color';
+import '../../stories/styles/global.scss';
 import buildEvent from './helper/buildEvent';
 import Container from './Container';
 

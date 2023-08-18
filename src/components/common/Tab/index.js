@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/global.scss';
+import '../../../stories/styles/global.scss';
 import clsx from 'clsx';
 import Box from '@mui/material/Box';
 import { nothing } from '@laufire/utils/fn';

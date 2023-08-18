@@ -1,5 +1,5 @@
 import React from 'react';
-import MuiPagination from '../stories/common/Pagination';
+import MuiPagination from '../components/common/Pagination';
 
 const component = {
 	title: 'Navigation/Pagination',

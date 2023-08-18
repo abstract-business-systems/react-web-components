@@ -1,5 +1,5 @@
 import React from 'react';
-import MuiTypography from '../stories/common/Typography';
+import MuiTypography from '../components/common/Typography';
 
 const component = {
 	title: 'Display/Typography',

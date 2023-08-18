@@ -1,5 +1,5 @@
 import React from 'react';
-import Debugger from '../stories/common/Debugger';
+import Debugger from '../components/common/Debugger';
 
 const component = {
 	title: 'Display/DeBugger',
