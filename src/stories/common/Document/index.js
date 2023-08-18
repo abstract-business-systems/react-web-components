@@ -60,7 +60,7 @@ const getCurrLocation = ({ state: { sections }, pathname }) =>
 
 			return acc.concat({
 				name: curr,
-				path: `${ acc[acc.length - 1]?.path || '' }${ curr }/`,
+				value: `${ acc[acc.length - 1]?.value || '' }${ curr }/`,
 				label: label,
 			});
 		}, []);

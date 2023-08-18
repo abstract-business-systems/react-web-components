@@ -12,13 +12,13 @@ const buildLoad = ({ currPath, name, label }) => ({
 			children: {},
 			name: name,
 			label: label || name,
-			path: currPath,
+			value: currPath,
 		}),
 	},
 });
 
 const getCurrLocation = (context, currPath) => context.state.location
-	.find(({ path }) => path === currPath);
+	.find(({ value }) => value === currPath);
 
 const Children = ({ children, currLocation }) =>
 	React.Children.map(children, (child) => (child?.type?.name === 'Section'
