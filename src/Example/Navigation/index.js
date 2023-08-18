@@ -13,52 +13,32 @@ const data = [
 	{ name: 'parentThree', label: 'ParentThree' },
 ];
 
-// eslint-disable-next-line max-lines-per-function
+const IncreaseSection = (setState) =>
+	<Button onClick={ () => {
+		const name = rndString();
+
+		setState((pre) => pre.concat({
+			name: name, label: name,
+			dynamic: true,
+		}));
+	} }
+	>Increase Section</Button>;
+
+const DeleteSection = (state, setState) =>
+	<Button onClick={ () => {
+		const value = rndValue(state);
+
+		setState((pre) => pre.filter((item) => item.name !== value.name));
+	} }
+	>X</Button>;
+
 const Navigation = ({ onLoad = identity }) => {
 	const [state, setState] = useState(data);
 
 	return <Document { ...{ onLoad } }>
 		<Box title="Root"/>
-		<Button onClick={ () => {
-			const name = rndString();
-
-			setState((pre) => pre.concat({
-				name: name, label: name,
-				dynamic: true,
-			}));
-		} }
-		>Increase Section</Button>
-		<Button onClick={ () => {
-			const value = rndValue(state);
-
-			setState((pre) => pre.filter((item) =>
-				item.name !== value.name));
-		} }
-		>X</Button>
-		{ /* <Section label="ParentOne" name="parentOne">
-			<Box title="ParentOne"/>
-			<Section label="ChildOne" name="childOne">
-				<Box title="childOne"/>
-				<Section label="GrandChildOne" name="grandChildOne">
-					<Box title="GrandChildOne"/>
-				</Section>
-				<Section label="GrandChildTwo" name="grandChildTwo">
-					<Box title="GrandChildTwo"/>
-				</Section>
-			</Section>
-		</Section>
-		<Section label="ParentTwo" name="parentTwo">
-			<Box title="ParentTwo"/>
-			<Section name="childOne" label="ChildOne">
-				<Box title="ChildOne"/>
-				<Section name="grandChildOne" label="GrandChildOne">
-					<Box title="GrandChildOne"/>
-				</Section>
-				<Section name="grandChildTwo" label="GrandChildTwo">
-					<Box title="GrandChildTwo"/>
-				</Section>
-			</Section>
-		</Section> */ }
+		<IncreaseSection { ...{ setState } }/>
+		<DeleteSection { ...{ state, setState } }/>
 		{ map(state, (props) =>
 			<Section key={ props.name } { ...props }>
 				{ props.label }
