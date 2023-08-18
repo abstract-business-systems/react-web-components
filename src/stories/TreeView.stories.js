@@ -13,23 +13,23 @@ const structure = {
 									children: {},
 									name: 'grandChildOne',
 									label: 'GrandChildOne',
-									path: '/parentOne/childOne/grandChildOne/',
+									value: '/parentOne/childOne/grandChildOne/',
 								},
 								grandChildTwo: {
 									children: {},
 									name: 'grandChildTwo',
 									label: 'GrandChildTwo',
-									path: '/parentOne/childOne/grandChildTwo/',
+									value: '/parentOne/childOne/grandChildTwo/',
 								},
 							},
 							name: 'childOne',
 							label: 'ChildOne',
-							path: '/parentOne/childOne/',
+							value: '/parentOne/childOne/',
 						},
 					},
 					name: 'parentOne',
 					label: 'ParentOne',
-					path: '/parentOne/',
+					value: '/parentOne/',
 				},
 				parentTwo: {
 					children: {
@@ -39,28 +39,28 @@ const structure = {
 									children: {},
 									name: 'grandChildOne',
 									label: 'GrandChildOne',
-									path: '/parentTwo/childOne/grandChildOne/',
+									value: '/parentTwo/childOne/grandChildOne/',
 								},
 								grandChildTwo: {
 									children: {},
 									name: 'grandChildTwo',
 									label: 'GrandChildTwo',
-									path: '/parentTwo/childOne/grandChildTwo/',
+									value: '/parentTwo/childOne/grandChildTwo/',
 								},
 							},
 							name: 'childOne',
 							label: 'ChildOne',
-							path: '/parentTwo/childOne/',
+							value: '/parentTwo/childOne/',
 						},
 					},
 					name: 'parentTwo',
 					label: 'ParentTwo',
-					path: '/parentTwo/',
+					value: '/parentTwo/',
 				},
 			},
 			name: '',
 			label: 'Home',
-			path: '/',
+			value: '/',
 		},
 	},
 
@@ -73,12 +73,12 @@ const structure = {
 							children: {},
 							name: 'calender',
 							label: 'Calender',
-							path: '/applications/calender/',
+							value: '/applications/calender/',
 						},
 					},
 					name: 'applications',
 					label: 'Applications',
-					path: '/applications/',
+					value: '/applications/',
 				},
 				documents: {
 					children: {
@@ -86,7 +86,7 @@ const structure = {
 							children: { },
 							name: 'oss',
 							label: 'OSS',
-							path: '/documents/oss/',
+							value: '/documents/oss/',
 						},
 						mui: {
 							children: {
@@ -94,22 +94,22 @@ const structure = {
 									children: { },
 									name: 'index',
 									label: 'Index',
-									path: '/documents/oss/mui/index',
+									value: '/documents/mui/index',
 								},
 							},
 							name: 'mui',
 							label: 'MUI',
-							path: '/documents/oss/mui',
+							value: '/documents/mui',
 						},
 					},
 					name: 'documents',
 					label: 'Documents',
-					path: '/documents/',
+					value: '/documents/',
 				},
 			},
 			name: '',
 			label: 'Home',
-			path: '/',
+			value: '/',
 		},
 	},
 };
@@ -118,28 +118,28 @@ const structuralValue = {
 	structureOne: {
 		valueOne: [
 			{
-				name: 'parentTwo',
-				href: '/parentTwo/',
+				label: 'parentTwo',
+				value: '/parentTwo/',
 			},
 		],
 		valueTwo: [
 			{
-				name: 'parentOne',
-				href: '/parentOne/childOne/',
+				label: 'parentOne',
+				value: '/parentOne/childOne/',
 			},
 		],
 	},
 	structureTwo: {
 		valueOne: [
 			{
-				name: 'calender',
-				href: '/applications/calender/',
+				label: 'calender',
+				value: '/applications/calender/',
 			},
 		],
 		valueTwo: [
 			{
-				name: 'oss',
-				href: '/documents/oss/',
+				label: 'oss',
+				value: '/documents/oss/',
 			},
 		],
 	},
@@ -177,4 +177,4 @@ const Template = (args) => {
 
 export const TreeView = Template.bind({});
 
-TreeView.args = {};
+TreeView.args = { };

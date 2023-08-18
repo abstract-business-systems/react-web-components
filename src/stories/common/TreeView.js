@@ -8,32 +8,41 @@ import MuiLink from './Link';
 import buildEvent from './helper/buildEvent';
 import { identity } from '@laufire/utils/fn';
 
-const GetLabel = ({ path, onChange, value, label }) => {
-	const hasCurValue = value[value.length - 1]?.href === path;
+const GetLabel = ({ onChange = identity, value, option }) => {
+	const hasCurValue = value[value.length - 1]?.value === option.value;
 
 	return (
 		<MuiLink
 			{ ...{
-				onClick: () =>
-					hasCurValue || onChange(buildEvent({ value: path })),
+				onClick: () => hasCurValue
+				|| onChange(buildEvent({ value: option.value })),
 				underline: 'none',
 				color: hasCurValue ? 'primary' : 'inherit',
 			} }
 		>
-			{ label }
+			{ option.label }
 		</MuiLink>);
 };
 
-const TreeItems = ({ options, value, onChange = identity }) =>
-	values(map(options, ({ children, label, name, path }) =>
-		<TreeItem
-			key={ name }
-			nodeId={ name }
-			label={ <GetLabel { ...{ path, value, onChange, label } }/> }
-		>
-			{ children
-			&& <TreeItems { ...{ options: children, value: value } }/> }
-		</TreeItem>));
+const TreeItems = (props) => {
+	const { options } = props;
+
+	return values(map(options, (option) => {
+		const { children, name } = option;
+
+		return (
+			<TreeItem
+				key={ name }
+				nodeId={ name }
+				label={ <GetLabel { ...{ option, ...props } }/> }
+			>{ children
+				&& <TreeItems { ...{
+					...props,
+					options: children,
+				} }/> }
+			</TreeItem>);
+	}));
+};
 
 const TreeView = (props) =>
 	<MuiTreeView
