@@ -1,5 +1,5 @@
 import React from 'react';
-import MuiMenu from '../components/common/Menu/index';
+import MuiMenu from '../components/Menu/index';
 
 const component = {
 	title: 'Navigation/Menu',

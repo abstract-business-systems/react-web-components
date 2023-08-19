@@ -1,8 +1,8 @@
 import React from 'react';
-import Document from '../components/common/Document';
+import Document from '../components/Document';
 import Section from '../components/Navigation/Section';
 import { Button } from '@mui/material';
-import GlobalContext from '../components/common/Document/GlobalContext';
+import GlobalContext from '../components/Document/GlobalContext';
 
 const StateDocument = () =>
 	<Document patch={ () => {} }>

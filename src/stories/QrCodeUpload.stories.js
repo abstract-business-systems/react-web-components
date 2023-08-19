@@ -1,5 +1,5 @@
 import React from 'react';
-import QrCodeUpload from '../components/common/QrCodeUpload';
+import QrCodeUpload from '../components/QrCodeUpload';
 import { peek } from '@laufire/utils/debug';
 
 export default {

@@ -1,5 +1,5 @@
 import React from 'react';
-import MuiDrawer from '../components/common/Drawer/index';
+import MuiDrawer from '../components/Drawer/index';
 
 const component = {
 	title: 'Navigation/Drawer',

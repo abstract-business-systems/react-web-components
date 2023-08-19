@@ -1,5 +1,5 @@
 import React from 'react';
-import MuiDataGrid from '../components/common/DataGrid/index';
+import MuiDataGrid from '../components/DataGrid/index';
 import { peek } from '@laufire/utils/debug';
 
 const component = {

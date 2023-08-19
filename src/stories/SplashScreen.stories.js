@@ -1,7 +1,7 @@
 import React from 'react';
-import SplashImage from '../components/common/SplashScreen/SplashImage';
-import SplashText from '../components/common/SplashScreen/SplashText';
-import MuiSplashScreen from '../components/common/SplashScreen/index';
+import SplashImage from '../components/SplashScreen/SplashImage';
+import SplashText from '../components/SplashScreen/SplashText';
+import MuiSplashScreen from '../components/SplashScreen/index';
 import image from './assets/splash_icon/Splash_rotate.gif';
 
 const component = {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import MuiSwitch from '../components/common/Switch';
+import MuiSwitch from '../components/Switch';
 
 const component = {
 	title: 'Inputs/Switch',

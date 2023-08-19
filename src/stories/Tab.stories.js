@@ -1,7 +1,7 @@
 import React from 'react';
-import MuiTab from '../components/common/Tab/index';
-import Button from '../components/common/Button';
-import Checkbox from '../components/common/Checkbox';
+import MuiTab from '../components/Tab/index';
+import Button from '../components/Button';
+import Checkbox from '../components/Checkbox';
 
 const component = {
 	title: 'Navigation/Tab',

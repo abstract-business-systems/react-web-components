@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactVideoPlayer from '../components/common/VideoPlayer';
+import ReactVideoPlayer from '../components/VideoPlayer';
 import video from './assets/video.mp4';
 
 const url = video;

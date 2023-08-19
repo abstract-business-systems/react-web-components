@@ -1,5 +1,5 @@
 import React from 'react';
-import MuiIconButton from '../components/common/IconButton';
+import MuiIconButton from '../components/IconButton';
 import * as icons from '@mui/icons-material';
 import { keys } from '@laufire/utils/lib';
 

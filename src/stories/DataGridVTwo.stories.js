@@ -1,5 +1,5 @@
 import React from 'react';
-import DataTable from '../components/common/DataGridVTwo';
+import DataTable from '../components/DataGridVTwo';
 import config from '../core/config';
 import seed from '../core/seed';
 

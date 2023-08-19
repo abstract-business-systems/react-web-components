@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navigation from './Navigation';
-import Breadcrumbs from '../components/common/Breadcrumbs';
-import TreeView from '../components/common/TreeView';
+import Breadcrumbs from '../components/Breadcrumbs';
+import TreeView from '../components/TreeView';
 import { useNavigate } from 'react-router-dom';
 
 const Document = () => {

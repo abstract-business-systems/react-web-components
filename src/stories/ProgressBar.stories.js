@@ -1,5 +1,5 @@
 import React from 'react';
-import MuiProgressBar from '../components/common/ProgressBar';
+import MuiProgressBar from '../components/ProgressBar';
 
 const component = {
 	title: 'Inputs/ProgressBar',

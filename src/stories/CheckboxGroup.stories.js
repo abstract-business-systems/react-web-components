@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import MuiCheckboxGroup from '../components/common/CheckboxGroup.js';
+import MuiCheckboxGroup from '../components/CheckboxGroup.js';
 const component = {
 	title: 'Inputs/CheckboxGroup',
 	component: MuiCheckboxGroup,

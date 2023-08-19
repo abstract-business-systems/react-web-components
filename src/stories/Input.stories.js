@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MuiInput from '../components/common/Input';
+import MuiInput from '../components/Input';
 
 const component = {
 	title: 'Inputs/Input',

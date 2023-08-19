@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import MaskComponent from '../components/common/Mask';
+import MaskComponent from '../components/Mask';
 import parent from './assets/direction.svg';
 import child from './assets/colors.svg';
 import { peek } from '@laufire/utils/debug';

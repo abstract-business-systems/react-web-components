@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SchemaInputComponent from '../components/common/SchemaInput';
+import SchemaInputComponent from '../components/SchemaInput';
 import schema from './schema';
 import { peek } from '@laufire/utils/debug';
 

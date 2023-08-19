@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import MuiRating from '../components/common/Rating';
+import MuiRating from '../components/Rating';
 import * as icons from '@mui/icons-material';
 import { keys } from '@laufire/utils/lib';
 
