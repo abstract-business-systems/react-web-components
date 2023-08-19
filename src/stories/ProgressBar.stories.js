@@ -11,7 +11,8 @@ const component = {
 		},
 		labelVariant: {
 			control: 'select',
-			options: ['h1',
+			options: [
+				'h1',
 				'h2',
 				'h3',
 				'h4',
@@ -23,7 +24,8 @@ const component = {
 				'body2',
 				'button',
 				'caption',
-				'overline'],
+				'overline',
+			],
 		},
 		variant: {
 			control: 'select',

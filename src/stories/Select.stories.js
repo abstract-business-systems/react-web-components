@@ -31,16 +31,18 @@ const Template = (args) => {
 
 export const SingleSelect = Template.bind({});
 SingleSelect.args = {
-	options: [{
-		value: 'ten',
-		label: 'Ten',
-	}, {
-		value: 'twenty',
-		label: 'Twenty',
-	}, {
-		value: 'thirty',
-		label: 'Thirty',
-	}],
+	options: [
+		{
+			value: 'ten',
+			label: 'Ten',
+		}, {
+			value: 'twenty',
+			label: 'Twenty',
+		}, {
+			value: 'thirty',
+			label: 'Thirty',
+		},
+	],
 	label: 'Number',
 	fullWidth: true,
 	helperText: 'welcome to selectBox',
@@ -57,16 +59,18 @@ SingleSelect.args = {
 export const MultiSelect = Template.bind({});
 
 MultiSelect.args = {
-	options: [{
-		value: 'ten',
-		label: 'Ten',
-	}, {
-		value: 'twenty',
-		label: 'Twenty',
-	}, {
-		value: 'thirty',
-		label: 'Thirty',
-	}],
+	options: [
+		{
+			value: 'ten',
+			label: 'Ten',
+		}, {
+			value: 'twenty',
+			label: 'Twenty',
+		}, {
+			value: 'thirty',
+			label: 'Thirty',
+		},
+	],
 	label: 'Number',
 	fullWidth: true,
 	helperText: 'welcome to selectBox',

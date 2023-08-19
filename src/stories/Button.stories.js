@@ -8,13 +8,15 @@ const component = {
 	component: MuiButton,
 	argTypes: {
 		color: {
-			type: 'select', options: ['inherit',
+			type: 'select', options: [
+				'inherit',
 				'primary',
 				'secondary',
 				'success',
 				'error',
 				'info',
-				'warning'],
+				'warning',
+			],
 		},
 		variant: {
 			control: 'select',

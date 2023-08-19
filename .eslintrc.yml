@@ -34,7 +34,7 @@ rules:
       after: true
   array-bracket-newline:
     - error
-    - consistent
+    - multiline: true
   array-bracket-spacing:
     - error
     - never

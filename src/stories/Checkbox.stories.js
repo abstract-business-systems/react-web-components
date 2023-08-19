@@ -6,13 +6,15 @@ const component = {
 	component: MuiCheckbox,
 	argTypes: {
 		color: {
-			type: 'select', options: ['inherit',
+			type: 'select', options: [
+				'inherit',
 				'primary',
 				'secondary',
 				'success',
 				'error',
 				'info',
-				'warning'],
+				'warning',
+			],
 		},
 	},
 	args: { color: 'primary' },

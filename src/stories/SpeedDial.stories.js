@@ -14,7 +14,8 @@ const component = {
 		},
 		tooltipPlacement: {
 			type: 'select',
-			options: ['bottom-end',
+			options: [
+				'bottom-end',
 				'bottom-start',
 				'bottom',
 				'left-end',
@@ -25,7 +26,8 @@ const component = {
 				'right',
 				'top-end',
 				'top-start',
-				'top'],
+				'top',
+			],
 		},
 		hidden: {
 			type: Boolean,

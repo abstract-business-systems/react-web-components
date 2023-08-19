@@ -15,14 +15,16 @@ const component = {
 		},
 		type: {
 			control: 'select',
-			options: ['date',
+			options: [
+				'date',
 				'time',
 				'password',
 				'number',
 				'string',
 				'datetime-local',
 				'color',
-				'file'],
+				'file',
+			],
 		},
 	},
 	args: { color: 'primary', variant: 'filled', type: 'password' },
