@@ -5,7 +5,7 @@ import Document from '../components/Document';
 
 const selectProps = {
 	value: 'b/c/d',
-	multiple: true,
+	multiple: 'multiple/',
 	options: [
 		{
 			value: 'ten',
@@ -26,6 +26,7 @@ const Example = () =>
 			a: { b: { c: '' }},
 			b: { c: { d: [] }},
 			todo: [{ a: 1 }],
+			multiple: false,
 		},
 	} }
 	>
