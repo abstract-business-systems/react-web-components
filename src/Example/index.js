@@ -1,6 +1,6 @@
 import React from 'react';
-import InputWithState from '../components/withState/InputWithState';
-import SelectWithState from '../components/withState/SelectWithState';
+import InputWithState from '../components/WithState/InputWithState';
+import SelectWithState from '../components/WithState/SelectWithState';
 import Document from '../components/Document';
 
 const selectProps = {

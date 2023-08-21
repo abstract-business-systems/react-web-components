@@ -11,7 +11,7 @@ const getProps = ({ props, state }) => map(props, (prop) =>
 	(isPath(prop) ? result(state, prop) : prop));
 
 // eslint-disable-next-line react/display-name
-const withState = (Component) => ({ ...props }) =>
+const genWithState = (Component) => ({ ...props }) =>
 	<GlobalContext.Consumer>
 		{ ({ state, setState }) => {
 			const onChange = ({ data }) => {
@@ -29,4 +29,4 @@ const withState = (Component) => ({ ...props }) =>
 		} }
 	</GlobalContext.Consumer>;
 
-export default withState;
+export default genWithState;
