@@ -21,7 +21,7 @@ const Container = ({
 	const { width, height } = useResizeDetector({ targetRef: ref, ...resize });
 
 	useEffect(() => {
-		const orientation = width > height ? 'portrait' : 'landscape';
+		const orientation = width < height ? 'portrait' : 'landscape';
 
 		width && onChange(buildEvent({ value: { width, height, orientation }}));
 	}, [width, height]);
