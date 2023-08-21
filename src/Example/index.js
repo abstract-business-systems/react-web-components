@@ -1,6 +1,5 @@
 import React from 'react';
-import InputWithState from '../components/WithState/InputWithState';
-import SelectWithState from '../components/WithState/SelectWithState';
+import { Input, Select } from '../components/WithState';
 import Document from '../components/Document';
 
 const selectProps = {
@@ -30,8 +29,8 @@ const Example = () =>
 		},
 	} }
 	>
-		<InputWithState value="/a/b/c/"/>
-		<SelectWithState { ...selectProps }/>
+		<Input value="/a/b/c/"/>
+		<Select { ...selectProps }/>
 	</Document>;
 
 export default Example;
