@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useEffect, useMemo, useState } from 'react';
 import Section from '../Section';
 import { useLocation } from 'react-router-dom';
@@ -43,7 +42,7 @@ const generateDataProcessor = (state, setState) => {
 	};
 	const parentPath = '';
 
-	return { onLoad, state, patch, unLoad, parentPath };
+	return { onLoad, state, patch, unLoad, parentPath, setState };
 };
 
 const getLabel = (data, path) => reduce(
@@ -72,11 +71,12 @@ const updateLocation = (location, setState) => {
 	}));
 };
 
-const initialState = () => ({
+const getInitialState = (initialState) => ({
 	parentPath: '',
 	sections: {},
 	location: [],
 	button: 'dgsgsg',
+	...initialState,
 });
 
 const updateLoad = (onLoad, { state: { sections, location }}) => {
@@ -86,9 +86,12 @@ const updateLoad = (onLoad, { state: { sections, location }}) => {
 	});
 };
 
-const Document = ({ children, onLoad = identity, label = 'Home' }) => {
+const Document = ({
+	children, onLoad = identity, label = 'Home',
+	initialState,
+}) => {
 	const { pathname } = useLocation();
-	const [state, setState] = useState(initialState());
+	const [state, setState] = useState(getInitialState(initialState));
 
 	const location = getCurrLocation({ pathname, state });
 	const value = useMemo(() => generateDataProcessor(state, setState));
