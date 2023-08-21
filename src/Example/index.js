@@ -4,8 +4,8 @@ import SelectWithState from '../components/withState/SelectWithState';
 import Document from '../components/Document';
 
 const selectProps = {
-	value: 'b/c/d',
-	multiple: 'multiple/',
+	value: '/b/c/d/',
+	multiple: '/multiple/',
 	options: [
 		{
 			value: 'ten',
@@ -30,7 +30,7 @@ const Example = () =>
 		},
 	} }
 	>
-		<InputWithState value="a/b/c"/>
+		<InputWithState value="/a/b/c/"/>
 		<SelectWithState { ...selectProps }/>
 	</Document>;
 

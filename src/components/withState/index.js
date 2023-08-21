@@ -1,9 +1,11 @@
 import React from 'react';
 import scaffold from '../Section/helper/scaffold';
-import { map, merge, result } from '@laufire/utils/collection';
+import { equals, map, merge, result } from '@laufire/utils/collection';
 import GlobalContext from '../Document/GlobalContext';
+import { pathType } from '@laufire/utils/path';
+import { falsy } from '@laufire/utils/predicates';
 
-const isPath = (prop) => prop.includes('/');
+const isPath = (prop) => falsy(equals(pathType(prop), 'lax'));
 
 const getProps = ({ props, state }) => map(props, (prop) =>
 	(isPath(prop) ? result(state, prop) : prop));
