@@ -1,6 +1,6 @@
 import { map, merge } from '@laufire/utils/collection';
 import { useEffect, React } from 'react';
-import buildEvent from '../stories/common/helper/buildEvent';
+import buildEvent from '../common/helper/buildEvent';
 import { identity } from '@laufire/utils/fn';
 
 const permissionNames = [
@@ -19,19 +19,16 @@ const permissionNames = [
 	'background-fetch',
 	'display-capture',
 	'persistent-storage',
-	'push',
 ];
 
 const queryStatus = async (permissionName) => {
-	const permissionStatus = await navigator.permissions.query({
-		name: permissionName,
-		userVisibleOnly: true,
-	});
+	const permissionStatus = await navigator
+		.permissions.query({ name: permissionName });
 
 	return permissionStatus;
 };
 
-const Permissions = ({ onChange = identity, onLoad = identity }) => {
+const Permissions = ({ onChange = identity, onLoad = identity, value }) => {
 	useEffect(async () => {
 		const permissionsStatus = await Promise
 			.all(map(permissionNames, queryStatus));
@@ -47,6 +44,12 @@ const Permissions = ({ onChange = identity, onLoad = identity }) => {
 
 		onLoad(buildEvent({ value: merge({}, ...res) }));
 	}, []);
+
+	const requestPermission = () => {
+
+	};
+
+	value && requestPermission();
 
 	return <div/>;
 };
