@@ -14,35 +14,48 @@ const transformOptions = (sections) => (keys(sections).length
 	? { '': sections }
 	: sections);
 
-const generateUnLoad = (setState) => ({ currPath, name }) => {
+const genRemoveSection = (setState) => ({ data: { currPath, name }}) => {
 	setState((pre) => {
 		const option = result(pre.sections, (resolve(`${ currPath }../`)
 					|| '').replaceAll('/', '/children/'));
 
 		delete option[name];
 
-		return merge(
-			{}, pre, option
-		);
+		return merge({}, pre);
+	});
+};
+
+const genAddSection = (setState) => ({ data }) => {
+	setState((pre) => merge(
+		{}, pre, data
+	));
+};
+
+const genPatch = (setState) => (evt) => {
+	map(evt, (value, key) => {
+		setState((pre) => ({ ...pre, [key]: value }));
 	});
 };
 
 const generateDataProcessor = (state, setState) => {
-	const onLoad = ({ option }) => {
-		setState((pre) => merge(
-			{}, pre, option
-		),);
-	};
-	const unLoad = generateUnLoad(setState);
+	const addSection = genAddSection(setState);
+	const removeSection = genRemoveSection(setState);
 
-	const patch = (evt) => {
-		map(evt, (value, key) => {
-			setState((pre) => ({ ...pre, [key]: value }));
-		});
-	};
+	const patch = genPatch(setState);
 	const parentPath = '';
 
-	return { onLoad, state, patch, unLoad, parentPath, setState };
+	const actions = { create: addSection, delete: removeSection };
+	const receivers = {
+		'/': ({ data, action }) =>
+			actions[action]({ data }),
+	};
+	const sendMessage = ({ to = '/', ...rest }) =>
+		receivers[to]({ to, ...rest });
+
+	return {
+		addSection, state, patch, removeSection,
+		parentPath, setState, sendMessage,
+	};
 };
 
 const getLabel = (data, path) => reduce(

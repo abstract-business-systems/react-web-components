@@ -2,8 +2,8 @@ import React, { useEffect, useMemo } from 'react';
 import GlobalContext from '../Document/GlobalContext';
 import scaffold from './helper/scaffold.js';
 
-const buildLoad = ({ currPath, name, label }) => ({
-	option: {
+const buildAddProp = ({ currPath, name, label }) => ({
+	data: {
 		parentPath: currPath,
 		sections: scaffold(currPath.split('/').map((data) =>
 			(data ? `/children/${ data }` : data))
@@ -15,7 +15,13 @@ const buildLoad = ({ currPath, name, label }) => ({
 			value: currPath,
 		}),
 	},
+	action: 'create',
+	entity: 'section',
+	id: currPath,
 });
+
+const buildDeleteProp = (currPath, name) =>
+	({ data: { currPath, name }, action: 'delete' });
 
 const getCurrLocation = (context, currPath) => context.state.location
 	.find(({ value }) => value === currPath);
@@ -33,10 +39,10 @@ const ChildSection = ({
 	const currLocation = getCurrLocation(context, currPath);
 
 	useEffect(() => {
-		context.onLoad(buildLoad({ currPath, name, label, context }));
+		context.sendMessage(buildAddProp({ currPath, name, label, context }));
 
 		return () => {
-			dynamic && context.unLoad({ currPath, name });
+			dynamic && context.sendMessage(buildDeleteProp(currPath, name));
 		};
 	}, []);
 
