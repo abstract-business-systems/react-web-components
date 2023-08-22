@@ -37,14 +37,18 @@ const genPatch = (setState) => (evt) => {
 	});
 };
 
+const parentPath = '';
+
 const generateDataProcessor = (state, setState) => {
 	const addSection = genAddSection(setState);
 	const removeSection = genRemoveSection(setState);
-
 	const patch = genPatch(setState);
-	const parentPath = '';
 
-	const actions = { create: addSection, delete: removeSection };
+	const actions = {
+		create: addSection,
+		delete: removeSection,
+		patch: addSection,
+	};
 	const receivers = {
 		'/': ({ data, action }) =>
 			actions[action]({ data }),

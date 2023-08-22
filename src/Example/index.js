@@ -5,6 +5,7 @@ import Document from '../components/Document';
 const selectProps = {
 	value: '/b/c/d/',
 	multiple: '/multiple/',
+	action: 'patch',
 	options: [
 		{
 			value: 'ten',
@@ -19,6 +20,11 @@ const selectProps = {
 	],
 };
 
+const inputProps = {
+	value: '/a/b/c/',
+	action: 'patch',
+};
+
 const Example = () =>
 	<Document { ...{
 		initialState: {
@@ -29,7 +35,7 @@ const Example = () =>
 		},
 	} }
 	>
-		<Input value="/a/b/c/"/>
+		<Input { ...inputProps }/>
 		<Select { ...selectProps }/>
 	</Document>;
 
