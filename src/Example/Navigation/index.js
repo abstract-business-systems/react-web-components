@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Document from '../../stories/common/Document';
+import Document from '../../components/Document';
 import { identity } from '@laufire/utils/fn.js';
 import Box from './Box';
 import { Button } from '@mui/material';
 import { rndString, rndValue } from '@laufire/utils/random';
-import Section from '../../stories/common/Section';
+import Section from '../../components/Section';
 import { map } from '@laufire/utils/collection';
 
 const data = [
@@ -13,7 +13,7 @@ const data = [
 	{ name: 'parentThree', label: 'ParentThree' },
 ];
 
-const IncreaseSection = (setState) =>
+const IncreaseSection = ({ setState }) =>
 	<Button onClick={ () => {
 		const name = rndString();
 
@@ -24,7 +24,7 @@ const IncreaseSection = (setState) =>
 	} }
 	>Increase Section</Button>;
 
-const DeleteSection = (state, setState) =>
+const DeleteSection = ({ state, setState }) =>
 	<Button onClick={ () => {
 		const value = rndValue(state);
 
