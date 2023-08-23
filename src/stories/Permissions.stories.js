@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PermissionsComp from '../components/permissions';
+import PermissionsComp from '../components/Permissions';
 
 const component = {
 	title: 'Permissions',
