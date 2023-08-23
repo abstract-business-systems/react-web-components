@@ -21,7 +21,7 @@ const buildAddProp = ({ currPath, name, label }) => ({
 });
 
 const buildDeleteProp = (currPath, name) =>
-	({ data: { currPath, name }, action: 'delete' });
+	({ data: { currPath, name }, action: 'delete', entity: 'section' });
 
 const getCurrLocation = (context, currPath) => context.state.location
 	.find(({ value }) => value === currPath);

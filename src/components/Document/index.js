@@ -39,26 +39,43 @@ const genPatch = (setState) => (evt) => {
 
 const parentPath = '';
 
+const generateActions = ({ addSection, removeSection }) => ({
+	create: addSection,
+	delete: removeSection,
+	patch: addSection,
+});
+
+const generateReceivers = (actions) =>
+	({ '/': ({ data, action }) => actions[action]({ data }) });
+
+const generateEntities = (receivers) => ({
+	receiver: ({ id, data }) => {
+		receivers[id] = data;
+	},
+	section: ({ to, ...rest }) => receivers[to]({ to, ...rest }),
+	state: ({ to, ...rest }) => receivers[to]({ to, ...rest }),
+});
+
+const generateSendMessage = (entities) => ({ to = '/', entity, ...rest }) => {
+	entities[entity]({ to, ...rest });
+};
+
 const generateDataProcessor = (state, setState) => {
 	const addSection = genAddSection(setState);
 	const removeSection = genRemoveSection(setState);
-	const patch = genPatch(setState);
+	const path = genPatch(setState);
 
-	const actions = {
-		create: addSection,
-		delete: removeSection,
-		patch: addSection,
-	};
-	const receivers = {
-		'/': ({ data, action }) =>
-			actions[action]({ data }),
-	};
-	const sendMessage = ({ to = '/', ...rest }) =>
-		receivers[to]({ to, ...rest });
+	const actions = generateActions({ addSection, removeSection });
+	const receivers = generateReceivers(actions);
+	const entities = generateEntities(receivers);
+	const sendMessage = generateSendMessage(entities);
 
 	return {
-		addSection, state, patch, removeSection,
-		parentPath, setState, sendMessage,
+		state,
+		path,
+		parentPath,
+		setState,
+		sendMessage,
 	};
 };
 

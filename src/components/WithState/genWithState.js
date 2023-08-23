@@ -19,6 +19,7 @@ const genWithState = (Component) => ({ action, ...props }) =>
 					data: scaffold(props.value, data),
 					action: action,
 					id: props.value,
+					entity: 'state',
 				});
 			};
 

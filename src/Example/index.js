@@ -1,6 +1,8 @@
 import React from 'react';
 import { Input, Select } from '../components/WithState';
 import Document from '../components/Document';
+import Section from '../components/Section';
+import RESTClient from '../components/RESTClient';
 
 const selectProps = {
 	value: '/b/c/d/',
@@ -37,6 +39,9 @@ const Example = () =>
 	>
 		<Input { ...inputProps }/>
 		<Select { ...selectProps }/>
+		<Section label="ParentOne" name="parentOne">
+			<RESTClient name="apiClient" base="url"/>
+		</Section>
 	</Document>;
 
 export default Example;
