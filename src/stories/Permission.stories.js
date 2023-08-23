@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PermissionsComp from '../components/permissions/Permissions';
+import PermissionsComp from '../components/permissions';
 
 const component = {
 	title: 'Permissions',
@@ -25,3 +25,17 @@ const Template = (args) => {
 };
 
 export const Permissions = Template.bind({});
+
+Permissions.args = {
+	value: {
+		notifications: 'granted',
+		geolocation: 'granted',
+		// microphone: 'granted',
+		// camera: 'granted',
+		// usb: 'granted',
+		// hid: 'granted',
+		// clipboard: 'granted',
+		// localFonts: 'granted',
+		// midi: 'granted',
+	},
+};

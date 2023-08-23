@@ -1,7 +1,8 @@
 import { map, merge } from '@laufire/utils/collection';
-import { useEffect, React } from 'react';
+import { useEffect } from 'react';
 import buildEvent from '../common/helper/buildEvent';
 import { identity } from '@laufire/utils/fn';
+import requestPermissions from './requestPermissions';
 
 const permissionNames = [
 	'camera',
@@ -28,7 +29,9 @@ const queryStatus = async (permissionName) => {
 	return permissionStatus;
 };
 
-const Permissions = ({ onChange = identity, onLoad = identity, value }) => {
+const request = (dummy, permission) => requestPermissions[permission]();
+
+const Permissions = ({ onChange = identity, onLoad = identity, value = {}}) => {
 	useEffect(async () => {
 		const permissionsStatus = await Promise
 			.all(map(permissionNames, queryStatus));
@@ -45,13 +48,9 @@ const Permissions = ({ onChange = identity, onLoad = identity, value }) => {
 		onLoad(buildEvent({ value: merge({}, ...res) }));
 	}, []);
 
-	const requestPermission = () => {
+	map(value, request);
 
-	};
-
-	value && requestPermission();
-
-	return <div/>;
+	return null;
 };
 
 export default Permissions;
