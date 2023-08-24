@@ -1,22 +1,32 @@
 import React, { useEffect } from 'react';
 import GlobalContext from './Document/GlobalContext';
 
-const actions = {
+const getActions = ({ sendMessage, base, name }) => ({
 	create: ({ data }) => ({ data: data, action: 'patch' }),
 
 	delete: ({ data }) => ({ data: data, action: 'patch' }),
 
-	list: ({ data }) => ({ data: data, action: 'patch' }),
+	list: ({ to }) => {
+		const data = `${ base }/${ name }`;
+
+		sendMessage({
+			data: { [to]: data }, action: 'patch',
+			entity: 'state',
+		});
+	},
 
 	patch: ({ data }) => ({ data: data, action: 'patch' }),
-};
+});
 
-const SendMessage = ({ sendMessage, parentPath, name }) => {
+const SendMessage = (args) => {
+	const { sendMessage, parentPath, name } = args;
+
 	useEffect(() => {
 		sendMessage({
 			id: `${ parentPath }${ name }/`,
 			entity: 'receiver',
-			data: ({ data, action }) => actions[action]({ data }),
+			data: ({ action, ...rest }) =>
+				getActions(args)[action]({ action, ...rest }),
 		});
 	}, []);
 
@@ -25,9 +35,7 @@ const SendMessage = ({ sendMessage, parentPath, name }) => {
 
 const RESTClient = (props) => <GlobalContext.Consumer>
 	{ (context) =>
-		<SendMessage
-			{ ...{ ...context, ...props } }
-		/> }
+		<SendMessage { ...{ ...context, ...props } }/> }
 </GlobalContext.Consumer>;
 
 export default RESTClient;
