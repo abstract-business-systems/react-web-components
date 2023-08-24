@@ -9,7 +9,6 @@ import {
 import GlobalContext from './GlobalContext';
 import { identity } from '@laufire/utils/fn';
 import { resolve } from '@laufire/utils/path';
-import { peek } from '@laufire/utils/debug';
 
 const transformOptions = (sections) => (keys(sections).length
 	? { '': sections }
@@ -48,7 +47,7 @@ const generateEntities = (receivers) => ({
 		receivers[id] = data;
 	},
 	section: ({ to, ...rest }) => receivers[to]({ to, ...rest }),
-	state: ({ to, ...rest }) => peek(receivers[to]({ to, ...rest })),
+	state: ({ to, ...rest }) => receivers[to]({ to, ...rest }),
 });
 
 const generateSendMessage = (entities) =>
