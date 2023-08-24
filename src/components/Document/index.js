@@ -3,7 +3,7 @@ import Section from '../Section';
 import { useLocation } from 'react-router-dom';
 import { unique } from '@laufire/utils/predicates';
 import {
-	keys, length, map,
+	keys, length,
 	merge, reduce, result,
 } from '@laufire/utils/collection';
 import GlobalContext from './GlobalContext';
@@ -30,12 +30,6 @@ const genAddSection = (setState) => ({ data }) => {
 	setState((pre) => merge(
 		{}, pre, data
 	));
-};
-
-const genPatch = (setState) => (evt) => {
-	map(evt, (value, key) => {
-		setState((pre) => ({ ...pre, [key]: value }));
-	});
 };
 
 const parentPath = '';
@@ -74,11 +68,9 @@ const getEntities = (setState) => {
 
 const generateDataProcessor = ({ state, setState, entities }) => {
 	const sendMessage = generateSendMessage(entities);
-	const patch = genPatch(setState);
 
 	return {
 		state,
-		patch,
 		parentPath,
 		setState,
 		sendMessage,
