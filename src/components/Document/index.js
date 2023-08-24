@@ -9,6 +9,7 @@ import {
 import GlobalContext from './GlobalContext';
 import { identity } from '@laufire/utils/fn';
 import { resolve } from '@laufire/utils/path';
+import { peek } from '@laufire/utils/debug';
 
 const transformOptions = (sections) => (keys(sections).length
 	? { '': sections }
@@ -53,26 +54,31 @@ const generateEntities = (receivers) => ({
 		receivers[id] = data;
 	},
 	section: ({ to, ...rest }) => receivers[to]({ to, ...rest }),
-	state: ({ to, ...rest }) => receivers[to]({ to, ...rest }),
+	state: ({ to, ...rest }) => peek(receivers[to]({ to, ...rest })),
 });
 
-const generateSendMessage = (entities) => ({ to = '/', entity, ...rest }) => {
-	entities[entity]({ to, ...rest });
-};
+const generateSendMessage = (entities) =>
+	({ to = '/', entity, ...rest }) => {
+		entities[entity]({ to, ...rest });
+	};
 
-const generateDataProcessor = (state, setState) => {
+const getEntities = (setState) => {
 	const addSection = genAddSection(setState);
 	const removeSection = genRemoveSection(setState);
-	const path = genPatch(setState);
-
 	const actions = generateActions({ addSection, removeSection });
 	const receivers = generateReceivers(actions);
 	const entities = generateEntities(receivers);
+
+	return entities;
+};
+
+const generateDataProcessor = ({ state, setState, entities }) => {
 	const sendMessage = generateSendMessage(entities);
+	const patch = genPatch(setState);
 
 	return {
 		state,
-		path,
+		patch,
 		parentPath,
 		setState,
 		sendMessage,
@@ -109,7 +115,7 @@ const getInitialState = (initialState) => ({
 	parentPath: '',
 	sections: {},
 	location: [],
-	button: 'dgsgsg',
+	button: 'hi',
 	...initialState,
 });
 
@@ -120,23 +126,35 @@ const updateLoad = (onLoad, { state: { sections, location }}) => {
 	});
 };
 
-const Document = ({
-	children, onLoad = identity, label = 'Home',
-	initialState,
-}) => {
-	const { pathname } = useLocation();
-	const [state, setState] = useState(getInitialState(initialState));
-
+const useUpdateLocation = ({ state, setState, pathname, value }) => {
 	const location = getCurrLocation({ pathname, state });
-	const value = useMemo(() => generateDataProcessor(state, setState));
 
 	useEffect(() => {
 		updateLocation(location, setState);
 	}, [pathname, length(keys(value.state.sections))]);
+};
 
+const useUpdateLoad = ({ onLoad, value, pathname }) => {
 	useEffect(() => {
 		updateLoad(onLoad, value);
 	}, [value.state, pathname]);
+};
+
+const Document = ({
+	children, onLoad = identity,
+	label = 'Home', initialState,
+}) => {
+	const { pathname } = useLocation();
+	const [state, setState] = useState(getInitialState(initialState));
+
+	const entities = useMemo(() => getEntities(setState), []) ;
+
+	const value = useMemo(() =>
+		generateDataProcessor({ state, setState, entities }));
+
+	useUpdateLocation({ state, setState, pathname, value });
+
+	useUpdateLoad({ onLoad, value, pathname });
 
 	return <GlobalContext.Provider value={ value }>
 		<Section { ...{ label } }>
