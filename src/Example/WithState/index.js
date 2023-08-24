@@ -3,6 +3,8 @@ import { Input, Select } from '../../components/WithState';
 import Document from '../../components/Document';
 import Section from '../../components/Section';
 import RESTClient from '../../components/RESTClient';
+import GlobalContext from '../../components/Document/GlobalContext';
+import Button from '../../components/Button';
 
 const selectProps = {
 	value: '/b/c/d/',
@@ -27,6 +29,19 @@ const inputProps = {
 	action: 'patch',
 };
 
+const ButtonContainer = () => <GlobalContext.Consumer>
+	{ ({ sendMessage }) => {
+		const onClick = () => {
+			sendMessage({
+				to: '/parentOne/apiClient/',
+				action: 'list', entity: 'state',
+			});
+		};
+
+		return <Button { ...{ onClick } }/>;
+	} }
+</GlobalContext.Consumer>;
+
 const WithState = () =>
 	<Document { ...{
 		initialState: {
@@ -41,6 +56,7 @@ const WithState = () =>
 		<Select { ...selectProps }/>
 		<Section label="ParentOne" name="parentOne">
 			<RESTClient name="apiClient" base="url"/>
+			<ButtonContainer/>
 		</Section>
 	</Document>;
 
