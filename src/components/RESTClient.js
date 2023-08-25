@@ -11,7 +11,8 @@ const getActions = ({ sendMessage, base }) => ({
 			.then((response) => response.json())
 			.then((data) => {
 				sendMessage({
-					data: { [to]: data },
+					data: data,
+					id: `${ to }${ entity }`,
 					action: 'patch',
 					entity: 'state',
 				});

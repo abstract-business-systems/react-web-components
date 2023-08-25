@@ -33,10 +33,20 @@ const genAddSection = (setState) => ({ data }) => {
 
 const parentPath = '';
 
-const generateActions = ({ addSection, removeSection }) => ({
+const genPatch = (setState) => ({ data, id }) => {
+	const lastIndex = id.lastIndexOf('/');
+	const parent = id.substring(0, lastIndex + 1);
+	const child = id.substring(lastIndex + 1);
+
+	setState((preState) => merge(
+		{}, preState, { [parent]: { [child]: data }}
+	));
+};
+
+const generateActions = ({ addSection, removeSection, patch }) => ({
 	create: addSection,
 	delete: removeSection,
-	patch: addSection,
+	patch: patch,
 });
 
 const generateReceivers = (actions) => {
@@ -64,7 +74,8 @@ const generateSendMessage = (receivers) =>
 const getEntities = (setState) => {
 	const addSection = genAddSection(setState);
 	const removeSection = genRemoveSection(setState);
-	const actions = generateActions({ addSection, removeSection });
+	const patch = genPatch(setState);
+	const actions = generateActions({ addSection, removeSection, patch });
 	const receivers = generateReceivers(actions);
 
 	return receivers;
