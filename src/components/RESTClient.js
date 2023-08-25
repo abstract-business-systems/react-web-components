@@ -1,18 +1,21 @@
 import React, { useEffect } from 'react';
 import GlobalContext from './Document/GlobalContext';
 
-const getActions = ({ sendMessage, base, name }) => ({
+const getActions = ({ sendMessage, base }) => ({
 	create: ({ data }) => ({ data: data, action: 'patch' }),
 
 	delete: ({ data }) => ({ data: data, action: 'patch' }),
 
-	list: ({ to }) => {
-		const data = `${ base }/${ name }`;
-
-		sendMessage({
-			data: { [to]: data }, action: 'patch',
-			entity: 'state',
-		});
+	list: ({ to, entity }) => {
+		fetch(`${ base }/${ entity }`)
+			.then((response) => response.json())
+			.then((data) => {
+				sendMessage({
+					data: { [to]: data },
+					action: 'patch',
+					entity: 'state',
+				});
+			});
 	},
 
 	patch: ({ data }) => ({ data: data, action: 'patch' }),

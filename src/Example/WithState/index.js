@@ -6,6 +6,15 @@ import RESTClient from '../../components/RESTClient';
 import GlobalContext from '../../components/Document/GlobalContext';
 import Button from '../../components/Button';
 
+const documentProps = {
+	initialState: {
+		a: { b: { c: '' }},
+		b: { c: { d: ['ten'] }},
+		todo: [{ a: 1 }],
+		multiple: false,
+	},
+};
+
 const selectProps = {
 	value: '/b/c/d/',
 	multiple: '/multiple/',
@@ -29,12 +38,17 @@ const inputProps = {
 	action: 'patch',
 };
 
+const restClientProps = {
+	name: 'apiClient',
+	base: 'https://jsonplaceholder.typicode.com',
+};
+
 const ButtonContainer = () => <GlobalContext.Consumer>
 	{ ({ sendMessage }) => {
 		const onClick = () => {
 			sendMessage({
 				to: '/parentOne/apiClient/',
-				action: 'list', entity: 'state',
+				action: 'list', entity: 'todos',
 			});
 		};
 
@@ -43,19 +57,11 @@ const ButtonContainer = () => <GlobalContext.Consumer>
 </GlobalContext.Consumer>;
 
 const WithState = () =>
-	<Document { ...{
-		initialState: {
-			a: { b: { c: '' }},
-			b: { c: { d: ['ten'] }},
-			todo: [{ a: 1 }],
-			multiple: false,
-		},
-	} }
-	>
+	<Document { ...documentProps }>
 		<Input { ...inputProps }/>
 		<Select { ...selectProps }/>
 		<Section label="ParentOne" name="parentOne">
-			<RESTClient name="apiClient" base="url"/>
+			<RESTClient { ...restClientProps }/>
 			<ButtonContainer/>
 		</Section>
 	</Document>;
