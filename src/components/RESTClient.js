@@ -18,7 +18,7 @@ const getActions = ({ sendMessage, base, name }) => ({
 	patch: ({ data }) => ({ data: data, action: 'patch' }),
 });
 
-const SendMessage = (args) => {
+const BaseComponent = (args) => {
 	const { sendMessage, parentPath, name } = args;
 
 	useEffect(() => {
@@ -35,7 +35,7 @@ const SendMessage = (args) => {
 
 const RESTClient = (props) => <GlobalContext.Consumer>
 	{ (context) =>
-		<SendMessage { ...{ ...context, ...props } }/> }
+		<BaseComponent { ...{ ...context, ...props } }/> }
 </GlobalContext.Consumer>;
 
 export default RESTClient;

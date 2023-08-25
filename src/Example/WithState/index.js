@@ -46,7 +46,7 @@ const WithState = () =>
 	<Document { ...{
 		initialState: {
 			a: { b: { c: '' }},
-			b: { c: { d: [] }},
+			b: { c: { d: ['ten'] }},
 			todo: [{ a: 1 }],
 			multiple: false,
 		},
