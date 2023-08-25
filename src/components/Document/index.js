@@ -39,20 +39,26 @@ const generateActions = ({ addSection, removeSection }) => ({
 	patch: addSection,
 });
 
-const generateReceivers = (actions) =>
-	({ '/': ({ data, action }) => actions[action]({ data }) });
+const generateReceivers = (actions) => {
+	const receivers = {
+		'/': ({ entity, ...rest }) =>
+			({
+				receiver: ({ id, data }) => {
+					receivers[id] = data;
+				},
+				section: ({ action, ...props }) =>
+					actions[action]({ action, ...props }),
+				state: ({ action, ...props }) =>
+					actions[action]({ action, ...props }),
+			})[entity]({ entity, ...rest }),
+	};
 
-const generateEntities = (receivers) => ({
-	receiver: ({ id, data }) => {
-		receivers[id] = data;
-	},
-	section: ({ to, ...rest }) => receivers[to]({ to, ...rest }),
-	state: ({ to, ...rest }) => receivers[to]({ to, ...rest }),
-});
+	return receivers;
+};
 
-const generateSendMessage = (entities) =>
-	({ to = '/', entity, ...rest }) => {
-		entities[entity]({ to, ...rest });
+const generateSendMessage = (receivers) =>
+	({ to = '/', ...rest }) => {
+		receivers[to]({ to, ...rest });
 	};
 
 const getEntities = (setState) => {
@@ -60,9 +66,8 @@ const getEntities = (setState) => {
 	const removeSection = genRemoveSection(setState);
 	const actions = generateActions({ addSection, removeSection });
 	const receivers = generateReceivers(actions);
-	const entities = generateEntities(receivers);
 
-	return entities;
+	return receivers;
 };
 
 const generateDataProcessor = ({ state, setState, entities }) => {
