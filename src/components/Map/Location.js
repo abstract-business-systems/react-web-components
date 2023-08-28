@@ -13,7 +13,7 @@ const icon = new Leaflet.Icon({
 	shadowSize: [41, 41],
 });
 
-const Map = (coordinates, popupMessage) =>
+export const Map = (coordinates, popupMessage = '') =>
 	<Fragment>
 		<Circle
 			center={ coordinates }

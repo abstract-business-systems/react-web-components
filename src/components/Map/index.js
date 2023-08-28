@@ -4,8 +4,9 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 import tileLayer from './tileLayer';
 import Location from './Location';
 import { values } from '@laufire/utils/collection';
+import Markers from './Markers';
 
-const Map = ({ value: initialValue, tileLayerProps, ...args }) => {
+const Map = ({ value: initialValue, tileLayerProps, locations, ...args }) => {
 	const value = values(initialValue);
 
 	return (
@@ -15,6 +16,7 @@ const Map = ({ value: initialValue, tileLayerProps, ...args }) => {
 			style={ { height: '100vh' } }
 		>
 			<Location { ...{ value } }/>
+			<Markers { ...{ locations } }/>
 			<TileLayer { ...{ ...tileLayer, ...tileLayerProps } }/>
 		</MapContainer>
 	);
