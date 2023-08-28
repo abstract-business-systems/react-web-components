@@ -32,20 +32,22 @@ const queryStatus = async (permissionName) => {
 const request = (dummy, permission) => requestPermissions[permission]();
 
 const Permissions = ({ onChange = identity, onLoad = identity, value = {}}) => {
-	useEffect(async () => {
-		const permissionsStatus = await Promise
-			.all(map(permissionNames, queryStatus));
+	useEffect(() => {
+		(async () => {
+			const permissionsStatus = await Promise
+				.all(map(permissionNames, queryStatus));
 
-		const res = map(permissionsStatus, (permissionStatus) => {
-			const { name } = permissionStatus;
+			const res = map(permissionsStatus, (permissionStatus) => {
+				const { name } = permissionStatus;
 
-			permissionStatus.onchange = ({ target: { state }}) =>
-				onChange(buildEvent({ value: { [name]: state }}));
+				permissionStatus.onchange = ({ target: { state }}) =>
+					onChange(buildEvent({ value: { [name]: state }}));
 
-			return { [name]: permissionStatus.state };
-		});
+				return { [name]: permissionStatus.state };
+			});
 
-		onLoad(buildEvent({ value: merge({}, ...res) }));
+			onLoad(buildEvent({ value: merge({}, ...res) }));
+		})();
 	}, []);
 
 	map(value, request);
