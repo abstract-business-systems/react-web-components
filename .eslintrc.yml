@@ -343,17 +343,17 @@ rules:
   no-redeclare: error
   no-shadow-restricted-names: error
   no-unused-vars:
-  - "error"
+    - error
   no-use-before-define:
     - error
     - functions: true
       classes: true
       variables: true
-      allowNamedExports: false
   no-undef: error
   no-undef-init: error
   no-var: error
-  unused-imports/no-unused-imports: error
+  unused-imports/no-unused-imports:
+    - error
   unused-imports/no-unused-vars:
     - warn
     - vars: all
