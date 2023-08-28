@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
-import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
 import updateContext from '@laufire/resist';
+import { createRoot } from 'react-dom/client';
+import reportWebVitals from './reportWebVitals';
 import './index.css';
 import App from './App';
 import context from './core/context';
-import { BrowserRouter } from 'react-router-dom';
 
 const Entry = () => {
 	const [state, setState] = useState(context.seed);
@@ -16,12 +16,15 @@ const Entry = () => {
 	return <App { ...context }/>;
 };
 
-ReactDOM.render(<React.StrictMode>
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(<React.StrictMode>
 	<BrowserRouter>
 		<Entry />
 	</BrowserRouter>
-</React.StrictMode>,
-	document.getElementById('root'));
+</React.StrictMode>);
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

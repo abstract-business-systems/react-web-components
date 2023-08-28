@@ -25,11 +25,11 @@
     "mousetrap": "^1.6.5",
     "qr-scanner": "^1.4.2",
     "qrcode.react": "^3.1.0",
-    "react": "^17.0.2",
+    "react": "^18.2.0",
     "react-device-detect": "^2.2.3",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
-    "react-dom": "^17.0.2",
+    "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1",
     "react-player": "^2.12.0",
     "react-qr-reader": "^3.0.0-beta-1",
@@ -40,7 +40,7 @@
     "react-virtualized": "^9.22.5",
     "react-window": "^1.8.9",
     "swiper": "^9.2.4",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^3.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
