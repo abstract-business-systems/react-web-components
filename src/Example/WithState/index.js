@@ -1,5 +1,5 @@
-import React from 'react';
-import { Input, Select } from '../../components/WithState';
+import React, { Fragment } from 'react';
+import { Input, Select, Debugger } from '../../components/WithState';
 import Document from '../../components/Document';
 import Section from '../../components/Section';
 import RESTClient from '../../components/RESTClient';
@@ -52,7 +52,12 @@ const ButtonContainer = () => <GlobalContext.Consumer>
 			});
 		};
 
-		return <Button { ...{ onClick } }/>;
+		return <Fragment>
+			<Button { ...{ onClick } }/>
+			<Debugger {
+				...{ value: '/parentOne/apiClient/data/todos/data/' } }
+			/>
+		</Fragment>;
 	} }
 </GlobalContext.Consumer>;
 

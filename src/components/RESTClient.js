@@ -12,7 +12,7 @@ const getActions = ({ sendMessage, base }) => ({
 			.then((data) => {
 				sendMessage({
 					data: data,
-					id: `${ to }${ entity }`,
+					id: `${ to }data/${ entity }/data/`,
 					action: 'patch',
 					entity: 'state',
 				});
@@ -31,6 +31,12 @@ const BaseComponent = (args) => {
 			entity: 'receiver',
 			data: ({ action, ...rest }) =>
 				getActions(args)[action]({ action, ...rest }),
+		});
+		sendMessage({
+			id: `${ parentPath }${ name }/meta/`,
+			entity: 'state',
+			action: 'patch',
+			data: {},
 		});
 	}, []);
 

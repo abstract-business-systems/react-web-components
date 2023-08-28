@@ -9,6 +9,7 @@ import {
 import GlobalContext from './GlobalContext';
 import { identity } from '@laufire/utils/fn';
 import { resolve } from '@laufire/utils/path';
+import scaffold from '../Section/helper/scaffold';
 
 const transformOptions = (sections) => (keys(sections).length
 	? { '': sections }
@@ -34,12 +35,8 @@ const genAddSection = (setState) => ({ data }) => {
 const parentPath = '';
 
 const genPatch = (setState) => ({ data, id }) => {
-	const lastIndex = id.lastIndexOf('/');
-	const parent = id.substring(0, lastIndex + 1);
-	const child = id.substring(lastIndex + 1);
-
 	setState((preState) => merge(
-		{}, preState, { [parent]: { [child]: data }}
+		{}, preState, scaffold(id, data)
 	));
 };
 
