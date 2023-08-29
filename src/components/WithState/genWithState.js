@@ -10,7 +10,7 @@ const getProps = ({ props, state }) => map(props, (prop) =>
 	(isPath(prop) ? result(state, prop) : prop));
 
 // eslint-disable-next-line react/display-name
-const genWithState = (Component) => ({ action, ...props }) =>
+const genWithState = (Component) => ({ action = 'patch', ...props }) =>
 	<GlobalContext.Consumer>
 		{ ({ state, sendMessage }) => {
 			const onChange = ({ data }) => {
