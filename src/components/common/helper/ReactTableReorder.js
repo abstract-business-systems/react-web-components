@@ -1,4 +1,6 @@
 import update from 'immutability-helper';
+import buildEvent from './buildEvent';
+import { identity } from '@laufire/utils/fn';
 
 const itemTypes = {
 	column: 'column',
@@ -26,15 +28,17 @@ const ReactTableReorder = {
 		&& ReactTableReorder.shouldSwap(isAboveMiddle, isDragBeforeHover);
 	},
 
-	reposition: ({ setState, data: { dragIndex, hoverIndex }, position }) => {
-		setState((prevState) => ({
-			...prevState,
-			[`${ position }s`]: update(prevState[`${ position }s`], {
+	reposition: ({
+		value, onChange = identity,
+		data: { dragIndex, hoverIndex },
+	}) => {
+		onChange(buildEvent({
+			value: update(value, {
 				$splice: [
 					[dragIndex, 1],
-					[hoverIndex, 0, prevState[`${ position }s`][dragIndex]],
+					[hoverIndex, 0, value[dragIndex]],
 				],
-			}),
+			}).map((data) => data.original),
 		}));
 	},
 
@@ -44,11 +48,13 @@ const ReactTableReorder = {
 		const hoverIndex = index;
 
 		const shouldMoveColumn = ref.current
-	&& ReactTableReorder.isMovePosition(context);
+			&& ReactTableReorder.isMovePosition(context);
 
 		shouldMoveColumn
-	&& ReactTableReorder
-		.reposition({ ...context, data: { ...data, dragIndex, hoverIndex }});
+				&& ReactTableReorder.reposition({
+					...context,
+					data: { ...data, dragIndex, hoverIndex },
+				});
 
 		item.index = hoverIndex;
 	},

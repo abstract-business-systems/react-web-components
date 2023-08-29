@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import { useTable } from 'react-table';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend as HTMLBackend } from 'react-dnd-html5-backend';
@@ -10,10 +10,11 @@ const List = (args) => {
 	const { value: rows, Component } = args;
 	const columns = dataTable.getColumns(args);
 
-	const [state, setState] = useState({ columns, rows });
-	const props = useTable({ columns: state.columns, data: state.rows },);
+	const data = useMemo(() => ({ columns: columns, data: rows }),
+		[rows]) ;
+	const props = useTable(data);
 
-	const context = { ...args, state, setState, props, Component };
+	const context = { ...args, props, Component };
 
 	return (
 		<DndProvider backend={ HTMLBackend }>
