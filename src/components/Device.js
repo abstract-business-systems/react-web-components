@@ -1,10 +1,8 @@
-/* eslint-disable no-magic-numbers */
 /* eslint-disable max-lines-per-function */
-/* eslint-disable no-restricted-globals */
 import { useEffect } from 'react';
-import '../styles/global.scss';
+import '../stories/styles/global.scss';
 import { identity } from '@laufire/utils/fn';
-import buildEvent from './helper/buildEvent';
+import buildEvent from './common/helper/buildEvent';
 import {
 	isDesktop, isMobileOnly,
 	isSmartTV, isTablet, isWearable,
@@ -41,8 +39,11 @@ const Device = ({ onChange = identity }) => {
 		onChange(buildEvent({
 			value:
 			{
-				width, height, orientation,
-				device, connection,
+				width,
+				height,
+				orientation,
+				device,
+				connection,
 			},
 		}));
 	};
