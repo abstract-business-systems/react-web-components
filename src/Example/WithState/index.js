@@ -24,18 +24,7 @@ const documentProps = {
 				label: 'Thirty',
 			},
 		],
-		parentOne: {
-			apiClient: {
-				data: {
-					todos: {
-						data: [
-							{ title: 'dssg' },
-							{ title: 'djffgdgh' },
-						],
-					},
-				},
-			},
-		},
+		parentOne: { apiClient: { data: { todos: { data: [] }}}},
 	},
 };
 

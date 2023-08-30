@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import GlobalContext from './Document/GlobalContext';
+import getId from './common/helper/getId';
 
 const getActions = ({ sendMessage, base }) => ({
 	create: ({ data }) => ({ data: data, action: 'patch' }),
@@ -9,9 +10,9 @@ const getActions = ({ sendMessage, base }) => ({
 	list: ({ to, entity }) => {
 		fetch(`${ base }/${ entity }`)
 			.then((response) => response.json())
-			.then((data) => {
+			.then((json) => {
 				sendMessage({
-					data: data,
+					data: json.map((data) => ({ [getId()]: { data }})),
 					id: `${ to }data/${ entity }/data/`,
 					action: 'patch',
 					entity: 'state',
