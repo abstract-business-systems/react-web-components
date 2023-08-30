@@ -10,6 +10,7 @@ import GlobalContext from './GlobalContext';
 import { identity } from '@laufire/utils/fn';
 import { resolve } from '@laufire/utils/path';
 import scaffold from '../Section/helper/scaffold';
+import getId from '../common/helper/getId';
 
 const transformOptions = (sections) => (keys(sections).length
 	? { '': sections }
@@ -40,10 +41,18 @@ const genPatch = (setState) => ({ data, id }) => {
 	));
 };
 
-const generateActions = ({ addSection, removeSection, patch }) => ({
+const genUpdate = (setState) => ({ data, id }) => {
+	setState((preState) => ({
+		...preState,
+		...scaffold(id, result(preState, id).concat({ [getId()]: { data }})),
+	}));
+};
+
+const generateActions = ({ addSection, removeSection, patch, update }) => ({
 	create: addSection,
 	delete: removeSection,
 	patch: patch,
+	update: update,
 });
 
 const generateReceivers = (actions) => {
@@ -72,7 +81,11 @@ const getEntities = (setState) => {
 	const addSection = genAddSection(setState);
 	const removeSection = genRemoveSection(setState);
 	const patch = genPatch(setState);
-	const actions = generateActions({ addSection, removeSection, patch });
+	const update = genUpdate(setState);
+	const actions = generateActions({
+		addSection, removeSection,
+		patch, update,
+	});
 	const receivers = generateReceivers(actions);
 
 	return receivers;

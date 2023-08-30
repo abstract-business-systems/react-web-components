@@ -2,23 +2,40 @@ import React, { useEffect } from 'react';
 import GlobalContext from './Document/GlobalContext';
 import getId from './common/helper/getId';
 
-const getActions = ({ sendMessage, base }) => ({
-	create: ({ data }) => ({ data: data, action: 'patch' }),
+const getCreate = ({ base, entity, data, sendMessage, to }) => {
+	fetch(`${ base }/${ entity }`, {
+		method: 'POST',
+		body: JSON.stringify(data),
+		headers: { 'Content-type': 'application/json; charset=UTF-8' },
+	})
+		.then((response) => response.json())
+		.then((json) => sendMessage({
+			data: json,
+			id: `${ to }data/${ entity }/data/`,
+			action: 'update',
+			entity: 'state',
+		}));
+};
+
+const getList = ({ base, entity, sendMessage, to }) => {
+	fetch(`${ base }/${ entity }`)
+		.then((response) => response.json())
+		.then((json) => {
+			sendMessage({
+				data: json.map((data) => ({ [getId()]: { data }})),
+				id: `${ to }data/${ entity }/data/`,
+				action: 'patch',
+				entity: 'state',
+			});
+		});
+};
+
+const getActions = (args) => ({
+	create: (props) => getCreate({ ...props, ...args }),
 
 	delete: ({ data }) => ({ data: data, action: 'patch' }),
 
-	list: ({ to, entity }) => {
-		fetch(`${ base }/${ entity }`)
-			.then((response) => response.json())
-			.then((json) => {
-				sendMessage({
-					data: json.map((data) => ({ [getId()]: { data }})),
-					id: `${ to }data/${ entity }/data/`,
-					action: 'patch',
-					entity: 'state',
-				});
-			});
-	},
+	list: (props) => getList({ ...props, ...args }),
 
 	patch: ({ data }) => ({ data: data, action: 'patch' }),
 });

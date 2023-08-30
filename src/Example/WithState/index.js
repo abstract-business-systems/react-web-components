@@ -56,17 +56,32 @@ const listProps = {
 		<Debugger { ...{ value: original } }/>,
 };
 
+const getOnClick = (sendMessage) => {
+	const listOnClick = () => {
+		sendMessage({
+			to: '/parentOne/apiClient/',
+			action: 'list', entity: 'todos',
+		});
+	};
+
+	const createOnClick = () => {
+		sendMessage({
+			to: '/parentOne/apiClient/',
+			action: 'create', entity: 'todos',
+			data: { title: 'hi', userId: 1, completed: false },
+		});
+	};
+
+	return { listOnClick, createOnClick };
+};
+
 const ButtonContainer = () => <GlobalContext.Consumer>
 	{ ({ sendMessage }) => {
-		const onClick = () => {
-			sendMessage({
-				to: '/parentOne/apiClient/',
-				action: 'list', entity: 'todos',
-			});
-		};
+		const { listOnClick, createOnClick } = getOnClick(sendMessage);
 
 		return <Fragment>
-			<Button { ...{ onClick } }/>
+			<Button { ...{ onClick: listOnClick, children: 'list' } }/>
+			<Button { ...{ onClick: createOnClick, children: 'create' } }/>
 			<List { ...listProps }/>
 		</Fragment>;
 	} }
