@@ -12,6 +12,18 @@ const documentProps = {
 		a: { b: { c: '' }},
 		b: { c: { d: ['ten'] }},
 		todo: [{ a: 1 }],
+		selectOptions: [
+			{
+				value: 'ten',
+				label: 'Ten',
+			}, {
+				value: 'twenty',
+				label: 'Twenty',
+			}, {
+				value: 'thirty',
+				label: 'Thirty',
+			},
+		],
 		multiple: false,
 		parentOne: {
 			apiClient: {
@@ -32,18 +44,7 @@ const selectProps = {
 	value: '/b/c/d/',
 	multiple: '/multiple/',
 	action: 'patch',
-	options: [
-		{
-			value: 'ten',
-			label: 'Ten',
-		}, {
-			value: 'twenty',
-			label: 'Twenty',
-		}, {
-			value: 'thirty',
-			label: 'Thirty',
-		},
-	],
+	options: '/selectOption/',
 };
 
 const inputProps = {
