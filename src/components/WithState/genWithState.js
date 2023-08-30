@@ -4,7 +4,6 @@ import GlobalContext from '../Document/GlobalContext';
 import { pathType } from '@laufire/utils/path';
 import { falsy, isEqual } from '@laufire/utils/predicates';
 import { isDefined } from '@laufire/utils/reflection';
-import { peek } from '@laufire/utils/debug';
 
 const isPath = (prop) => falsy(equals(pathType(prop), 'lax'));
 
@@ -39,7 +38,7 @@ const genWithState = ({ Component, ...rest }) =>
 				return (
 					<Component { ...{
 						onChange,
-						...peek(getProps({ props, state, ...rest })),
+						...getProps({ props, state, ...rest }),
 					} }
 					/>);
 			} }
