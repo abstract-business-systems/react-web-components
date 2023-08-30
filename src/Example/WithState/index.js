@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Input, Select, List } from '../../components/WithState';
+import { Input, Select, List, MultiSelect } from '../../components/WithState';
 import Document from '../../components/Document';
 import Section from '../../components/Section';
 import RESTClient from '../../components/RESTClient';
@@ -10,7 +10,7 @@ import Debugger from '../../components/Debugger';
 const documentProps = {
 	initialState: {
 		a: { b: { c: '' }},
-		b: { c: { d: ['ten'] }},
+		b: { c: { d: 'ten', e: ['ten'] }},
 		todo: [{ a: 1 }],
 		selectOptions: [
 			{
@@ -24,7 +24,6 @@ const documentProps = {
 				label: 'Thirty',
 			},
 		],
-		multiple: false,
 		parentOne: {
 			apiClient: {
 				data: {
@@ -42,9 +41,14 @@ const documentProps = {
 
 const selectProps = {
 	value: '/b/c/d/',
-	multiple: '/multiple/',
 	action: 'patch',
-	options: '/selectOption/',
+	options: '/selectOptions/',
+};
+
+const multiSelectProps = {
+	value: '/b/c/e/',
+	action: 'patch',
+	options: '/selectOptions/',
 };
 
 const inputProps = {
@@ -83,6 +87,7 @@ const WithState = () =>
 	<Document { ...documentProps }>
 		<Input { ...inputProps }/>
 		<Select { ...selectProps }/>
+		<MultiSelect { ...multiSelectProps }/>
 		<Section label="ParentOne" name="parentOne">
 			<RESTClient { ...restClientProps }/>
 			<ButtonContainer/>
