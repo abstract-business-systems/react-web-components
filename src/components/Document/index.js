@@ -36,9 +36,10 @@ const genAddSection = (setState) => ({ data }) => {
 const parentPath = '';
 
 const genPatch = (setState) => ({ data, id }) => {
-	setState((preState) => merge(
-		{}, preState, scaffold(id, data)
-	));
+	setState((preState) => ({
+		...preState,
+		...scaffold(id, data),
+	}));
 };
 
 const genUpdate = (setState) => ({ data, id }) => {
