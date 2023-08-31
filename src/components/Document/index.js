@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { unique } from '@laufire/utils/predicates';
 import {
 	keys, length,
-	merge, reduce, result,
+	merge, patch as patchFn, reduce, result,
 } from '@laufire/utils/collection';
 import GlobalContext from './GlobalContext';
 import { identity } from '@laufire/utils/fn';
@@ -45,15 +45,38 @@ const genPatch = (setState) => ({ data, id }) => {
 const genUpdate = (setState) => ({ data, id }) => {
 	setState((preState) => ({
 		...preState,
-		...scaffold(id, result(preState, id).concat({ [getId()]: { data }})),
+		...scaffold(id, data),
 	}));
 };
 
-const generateActions = ({ addSection, removeSection, patch, update }) => ({
-	create: addSection,
+const genList = (setState) => ({ data: json, id }) => {
+	setState((preState) => ({
+		...preState,
+		...scaffold(id, reduce(
+			json.map((data) =>
+				({ [getId()]: { data }})), (acc, curr) =>
+				patchFn(acc, curr), {}
+		)),
+	}));
+};
+
+const genCreate = (setState) => ({ data, id }) => {
+	setState((preState) => ({
+		...preState,
+		...scaffold(id, patchFn(result(preState, id), { [getId()]: { data }})),
+	}));
+};
+
+const generateActions = ({
+	addSection, removeSection,
+	patch, update, list, create,
+}) => ({
+	addSection: addSection,
 	delete: removeSection,
 	patch: patch,
 	update: update,
+	list: list,
+	create: create,
 });
 
 const generateReceivers = (actions) => {
@@ -83,9 +106,11 @@ const getEntities = (setState) => {
 	const removeSection = genRemoveSection(setState);
 	const patch = genPatch(setState);
 	const update = genUpdate(setState);
+	const list = genList(setState);
+	const create = genCreate(setState);
 	const actions = generateActions({
 		addSection, removeSection,
-		patch, update,
+		patch, update, list, create,
 	});
 	const receivers = generateReceivers(actions);
 

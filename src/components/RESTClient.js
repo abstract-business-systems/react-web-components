@@ -1,8 +1,13 @@
 import React, { useEffect } from 'react';
 import GlobalContext from './Document/GlobalContext';
-import getId from './common/helper/getId';
 
 const getCreate = ({ base, entity, data, sendMessage, to }) => {
+	sendMessage({
+		data: data,
+		id: `${ to }data/${ entity }/data/`,
+		action: 'create',
+		entity: 'state',
+	});
 	fetch(`${ base }/${ entity }`, {
 		method: 'POST',
 		body: JSON.stringify(data),
@@ -18,22 +23,26 @@ const getCreate = ({ base, entity, data, sendMessage, to }) => {
 };
 
 const getList = ({ base, entity, sendMessage, to }) => {
-	fetch(`${ base }/${ entity }`)
+	fetch(`${ base }/${ entity }?userId=1`)
 		.then((response) => response.json())
 		.then((json) => {
 			sendMessage({
-				data: json.map((data) => ({ [getId()]: { data }})),
+				data: json,
 				id: `${ to }data/${ entity }/data/`,
-				action: 'patch',
+				action: 'list',
 				entity: 'state',
 			});
 		});
 };
 
+const getDelete = () => {
+
+};
+
 const getActions = (args) => ({
 	create: (props) => getCreate({ ...props, ...args }),
 
-	delete: ({ data }) => ({ data: data, action: 'patch' }),
+	delete: (props) => getDelete(props),
 
 	list: (props) => getList({ ...props, ...args }),
 

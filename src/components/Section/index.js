@@ -15,7 +15,7 @@ const buildAddProp = ({ currPath, name, label }) => ({
 			value: currPath,
 		}),
 	},
-	action: 'create',
+	action: 'addSection',
 	entity: 'section',
 	id: currPath,
 });
