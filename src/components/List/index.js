@@ -5,22 +5,13 @@ import { HTML5Backend as HTMLBackend } from 'react-dnd-html5-backend';
 import ListBody from './ListBody';
 import { Paper, TableContainer } from '@mui/material';
 import dataTable from '../common/helper/dataTable';
-import { reduce } from '@laufire/utils/collection';
 
-// eslint-disable-next-line max-lines-per-function
 const List = (args) => {
 	const { value: rows, Component } = args;
 	const columns = dataTable.getColumns(args);
 
-	const data = useMemo(() => ({
-		columns: columns,
-		data: reduce(
-			rows, (
-				acc, curr, key
-			) => [...acc, { [key]: curr }], []
-		),
-	}),
-	[rows]) ;
+	const data = useMemo(() => ({ columns: columns, data: rows }),
+		[rows]) ;
 	const props = useTable(data);
 
 	const context = { ...args, props, Component };

@@ -30,7 +30,7 @@ const genWithState = ({ Component, ...rest }) =>
 					sendMessage({
 						data: data,
 						action: action,
-						id: props.value,
+						path: props.value,
 						entity: 'state',
 					});
 				};

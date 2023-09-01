@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import GlobalContext from './Document/GlobalContext';
 
 const getCreate = ({ base, entity, data, sendMessage, to }) => {
-	sendMessage({
+	const { id } = sendMessage({
 		data: data,
-		id: `${ to }data/${ entity }/data/`,
+		path: `${ to }data/${ entity }/data/`,
 		action: 'create',
 		entity: 'state',
 	});
+
 	fetch(`${ base }/${ entity }`, {
 		method: 'POST',
 		body: JSON.stringify(data),
@@ -16,7 +17,7 @@ const getCreate = ({ base, entity, data, sendMessage, to }) => {
 		.then((response) => response.json())
 		.then((json) => sendMessage({
 			data: json,
-			id: `${ to }data/${ entity }/data/`,
+			path: `${ to }data/${ entity }/data/${ id }`,
 			action: 'update',
 			entity: 'state',
 		}));
@@ -25,10 +26,10 @@ const getCreate = ({ base, entity, data, sendMessage, to }) => {
 const getList = ({ base, entity, sendMessage, to }) => {
 	fetch(`${ base }/${ entity }?userId=1`)
 		.then((response) => response.json())
-		.then((json) => {
+		.then((data) => {
 			sendMessage({
-				data: json,
-				id: `${ to }data/${ entity }/data/`,
+				data: data,
+				path: `${ to }data/${ entity }/data/`,
 				action: 'list',
 				entity: 'state',
 			});
@@ -54,13 +55,13 @@ const BaseComponent = (args) => {
 
 	useEffect(() => {
 		sendMessage({
-			id: `${ parentPath }${ name }/`,
+			path: `${ parentPath }${ name }/`,
 			entity: 'receiver',
 			data: ({ action, ...rest }) =>
 				getActions(args)[action]({ action, ...rest }),
 		});
 		sendMessage({
-			id: `${ parentPath }${ name }/meta/`,
+			path: `${ parentPath }${ name }/meta/`,
 			entity: 'state',
 			action: 'patch',
 			data: {},

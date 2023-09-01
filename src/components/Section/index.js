@@ -17,11 +17,11 @@ const buildAddProp = ({ currPath, name, label }) => ({
 	},
 	action: 'addSection',
 	entity: 'section',
-	id: currPath,
+	path: currPath,
 });
 
 const buildDeleteProp = (currPath, name) =>
-	({ data: { currPath, name }, action: 'delete', entity: 'section' });
+	({ data: { currPath, name }, action: 'removeSection', entity: 'section' });
 
 const getCurrLocation = (context, currPath) => context.state.location
 	.find(({ value }) => value === currPath);

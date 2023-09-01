@@ -4,11 +4,11 @@ import { useLocation } from 'react-router-dom';
 import { unique } from '@laufire/utils/predicates';
 import {
 	keys, length,
-	merge, patch as patchFn, reduce, result,
+	merge, overlay, reduce, result,
 } from '@laufire/utils/collection';
 import GlobalContext from './GlobalContext';
 import { identity } from '@laufire/utils/fn';
-import { resolve } from '@laufire/utils/path';
+import { parts, resolve } from '@laufire/utils/path';
 import scaffold from '../Section/helper/scaffold';
 import getId from '../common/helper/getId';
 
@@ -18,8 +18,8 @@ const transformOptions = (sections) => (keys(sections).length
 
 const genRemoveSection = (setState) => ({ data: { currPath, name }}) => {
 	setState((pre) => {
-		const option = result(pre.sections, (resolve(`${ currPath }../`)
-					|| '').replaceAll('/', '/children/'));
+		const option = result(pre.sections, (resolve(`${ currPath }../`) || '')
+			.replaceAll('/', '/children/'));
 
 		delete option[name];
 
@@ -35,56 +35,62 @@ const genAddSection = (setState) => ({ data }) => {
 
 const parentPath = '';
 
-const genPatch = (setState) => ({ data, id }) => {
-	setState((preState) => ({
-		...preState,
-		...scaffold(id, data),
-	}));
+const genPatch = (setState) => ({ data, path }) => {
+	setState((preState) => overlay(
+		{},
+		preState,
+		scaffold(path, data),
+	));
 };
 
-const genUpdate = (setState) => ({ data, id }) => {
-	setState((preState) => ({
-		...preState,
-		...scaffold(id, data),
-	}));
+const genUpdate = (setState) => ({ data, path }) => {
+	const partsArray = parts(path);
+	const parent = resolve(...partsArray.slice(0, partsArray.length - 1));
+	const leaf = partsArray[partsArray.length - 1];
+
+	setState((preState) => overlay(
+		{},
+		preState,
+		scaffold(parent, result(preState, parent)
+			.map((value) => (value.id === leaf
+				? { ...value, data }
+				: value)))
+	));
 };
 
-const genList = (setState) => ({ data: json, id }) => {
-	setState((preState) => ({
-		...preState,
-		...scaffold(id, reduce(
-			json.map((data) =>
-				({ [getId()]: { data }})), (acc, curr) =>
-				patchFn(acc, curr), {}
-		)),
-	}));
+const genList = (setState) => ({ data, path }) => {
+	setState((preState) => overlay(
+		{}, preState, scaffold(path, data.map((value) =>
+			({ id: getId(), data: value })))
+	));
 };
 
-const genCreate = (setState) => ({ data, id }) => {
-	setState((preState) => ({
-		...preState,
-		...scaffold(id, patchFn(result(preState, id), { [getId()]: { data }})),
-	}));
+const genCreate = (setState) => ({ data, id, path }) => {
+	setState((preState) => overlay(
+		{}, preState,
+		scaffold(path, result(preState, path)
+			.concat({ id, data }))
+	));
 };
 
 const generateActions = ({
 	addSection, removeSection,
 	patch, update, list, create,
 }) => ({
-	addSection: addSection,
-	delete: removeSection,
-	patch: patch,
-	update: update,
-	list: list,
-	create: create,
+	addSection,
+	removeSection,
+	patch,
+	update,
+	list,
+	create,
 });
 
 const generateReceivers = (actions) => {
 	const receivers = {
 		'/': ({ entity, ...rest }) =>
 			({
-				receiver: ({ id, data }) => {
-					receivers[id] = data;
+				receiver: ({ path, data }) => {
+					receivers[path] = data;
 				},
 				section: ({ action, ...props }) =>
 					actions[action]({ action, ...props }),
@@ -98,7 +104,11 @@ const generateReceivers = (actions) => {
 
 const generateSendMessage = (receivers) =>
 	({ to = '/', ...rest }) => {
-		receivers[to]({ to, ...rest });
+		const id = getId();
+
+		receivers[to]({ to, ...rest, id });
+
+		return { id };
 	};
 
 const getEntities = (setState) => {
