@@ -50,11 +50,18 @@ const restClientProps = {
 	base: 'https://jsonplaceholder.typicode.com',
 };
 
-const listProps = {
+const listProps = (sendMessage) => ({
 	value: '/parentOne/apiClient/data/todos/data/',
 	Component: ({ data: { original }}) =>
-		<Debugger { ...{ value: original } }/>,
-};
+		<Debugger { ...{
+			value: original,
+			onClick: ({ data }) => sendMessage({
+				to: '/parentOne/apiClient/',
+				action: 'delete', entity: 'todos', data: data,
+			}),
+		} }
+		/>,
+});
 
 const getOnClick = (sendMessage) => {
 	const listOnClick = () => {
@@ -82,7 +89,7 @@ const ButtonContainer = () => <GlobalContext.Consumer>
 		return <Fragment>
 			<Button { ...{ onClick: listOnClick, children: 'list' } }/>
 			<Button { ...{ onClick: createOnClick, children: 'create' } }/>
-			<List { ...listProps }/>
+			<List { ...listProps(sendMessage) }/>
 		</Fragment>;
 	} }
 </GlobalContext.Consumer>;

@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
 import GlobalContext from './Document/GlobalContext';
+import { equals } from '@laufire/utils/collection';
+
+const status = 200;
 
 const getCreate = ({ base, entity, data, sendMessage, to }) => {
 	const { id } = sendMessage({
@@ -36,14 +39,21 @@ const getList = ({ base, entity, sendMessage, to }) => {
 		});
 };
 
-const getDelete = () => {
-
+const getDelete = ({ base, entity, data, sendMessage, to }) => {
+	fetch(`${ base }/${ entity }/${ data.data.id }`, { method: 'DELETE' })
+		.then((response) => equals(response.status, status)
+		&& sendMessage({
+			data: data,
+			path: `${ to }data/${ entity }/data/`,
+			action: 'delete',
+			entity: 'state',
+		}));
 };
 
 const getActions = (args) => ({
 	create: (props) => getCreate({ ...props, ...args }),
 
-	delete: (props) => getDelete(props),
+	delete: (props) => getDelete({ ...props, ...args }),
 
 	list: (props) => getList({ ...props, ...args }),
 

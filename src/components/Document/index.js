@@ -73,16 +73,24 @@ const genCreate = (setState) => ({ data, id, path }) => {
 	));
 };
 
+const genRemove = (setState) => ({ path, data }) => {
+	setState((preState) => overlay(
+		{}, preState, scaffold(path, result(preState, path)
+			.filter((value) => value.id !== data.id))
+	));
+};
+
 const generateActions = ({
 	addSection, removeSection,
-	patch, update, list, create,
+	patch, update, list, create, remove,
 }) => ({
-	addSection,
-	removeSection,
-	patch,
-	update,
-	list,
-	create,
+	addSection: addSection,
+	removeSection: removeSection,
+	patch: patch,
+	update: update,
+	list: list,
+	create: create,
+	delete: remove,
 });
 
 const generateReceivers = (actions) => {
@@ -118,9 +126,10 @@ const getEntities = (setState) => {
 	const update = genUpdate(setState);
 	const list = genList(setState);
 	const create = genCreate(setState);
+	const remove = genRemove(setState);
 	const actions = generateActions({
 		addSection, removeSection,
-		patch, update, list, create,
+		patch, update, list, create, remove,
 	});
 	const receivers = generateReceivers(actions);
 
