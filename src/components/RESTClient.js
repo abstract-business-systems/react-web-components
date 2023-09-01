@@ -19,7 +19,7 @@ const getCreate = ({ base, entity, data, sendMessage, to }) => {
 	})
 		.then((response) => response.json())
 		.then((json) => sendMessage({
-			data: json,
+			data: { data: json },
 			path: `${ to }data/${ entity }/data/${ id }`,
 			action: 'update',
 			entity: 'state',
@@ -39,7 +39,36 @@ const getList = ({ base, entity, sendMessage, to }) => {
 		});
 };
 
+const getPatch = ({ base, entity, data, sendMessage, to }) => {
+	const { id } = sendMessage({
+		data: data,
+		path: `${ to }data/${ entity }/data/${ data.id }`,
+		action: 'update',
+		entity: 'state',
+	});
+
+	fetch(`${ base }/${ entity }/${ data.data.id }`, {
+		method: 'PATCH',
+		body: JSON.stringify(data),
+		headers: { 'Content-type': 'application/json; charset=UTF-8' },
+	})
+		.then((response) => response.json())
+		.then((json) => sendMessage({
+			data: json,
+			path: `${ to }data/${ entity }/data/${ id }`,
+			action: 'update',
+			entity: 'state',
+		}));
+};
+
 const getDelete = ({ base, entity, data, sendMessage, to }) => {
+	sendMessage({
+		data: data,
+		path: `${ to }data/${ entity }/data/`,
+		action: 'delete',
+		entity: 'state',
+	});
+
 	fetch(`${ base }/${ entity }/${ data.data.id }`, { method: 'DELETE' })
 		.then((response) => equals(response.status, status)
 		&& sendMessage({
@@ -57,7 +86,7 @@ const getActions = (args) => ({
 
 	list: (props) => getList({ ...props, ...args }),
 
-	patch: ({ data }) => ({ data: data, action: 'patch' }),
+	patch: (props) => getPatch({ ...props, ...args }),
 });
 
 const BaseComponent = (args) => {

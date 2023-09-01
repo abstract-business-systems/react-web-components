@@ -53,7 +53,7 @@ const genUpdate = (setState) => ({ data, path }) => {
 		preState,
 		scaffold(parent, result(preState, parent)
 			.map((value) => (value.id === leaf
-				? { ...value, data }
+				? { id: value.id, data: { ...value.data, ...data.data }}
 				: value)))
 	));
 };
