@@ -1,11 +1,17 @@
 import React, { Fragment } from 'react';
-import { Select, List, MultiSelect, Input } from '../../components/WithState';
+import {
+	Input,
+	Select,
+	Debugger,
+	Permissions,
+	List,
+	MultiSelect,
+} from '../../components/WithState';
 import Document from '../../components/Document';
 import Section from '../../components/Section';
 import RESTClient from '../../components/RESTClient';
 import GlobalContext from '../../components/Document/GlobalContext';
 import Button from '../../components/Button';
-import Debugger from '../../components/Debugger';
 import { rndValue } from '@laufire/utils/random';
 import { result } from '@laufire/utils/collection';
 
@@ -48,6 +54,15 @@ const inputProps = {
 	value: '',
 	action: 'patch',
 	name: 'input',
+};
+
+const permissionsProps = {
+	value: {
+		notifications: 'granted',
+		geolocation: 'granted',
+	},
+	action: 'patch',
+
 };
 
 const restClientProps = {
@@ -118,6 +133,7 @@ const ButtonContainer = () => <GlobalContext.Consumer>
 
 const WithState = () =>
 	<Document { ...documentProps }>
+		<Permissions { ...permissionsProps }/>
 		<Select { ...selectProps }/>
 		<Section label="ParentOne" name="parentOne">
 			<MultiSelect { ...multiSelectProps }/>
