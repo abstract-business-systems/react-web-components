@@ -2,6 +2,7 @@ import genWithState from './genWithState';
 import InputWithState from '../Input';
 import SelectWithState from '../Select';
 import DebuggerWithState from '../Debugger';
+import PermissionsWithState from '../Permissions';
 import ListWithState from '../List';
 import MultiSelectWithState from '../MultiSelect';
 
@@ -17,5 +18,6 @@ const MultiSelect = genWithState({
 	default: [],
 	options: [],
 });
+const Permissions = genWithState(PermissionsWithState);
 
-export { Input, Select, Debugger, List, MultiSelect };
+export { Input, Select, Debugger, Permissions, List, MultiSelect };
