@@ -5,10 +5,12 @@ import DebuggerWithState from '../Debugger';
 import PermissionsWithState from '../Permissions';
 import ListWithState from '../List';
 import MultiSelectWithState from '../MultiSelect';
+import TransformationWithState from '../Transformation';
 
 const Input = genWithState({ Component: InputWithState, default: '' });
 const Select = genWithState({
-	Component: SelectWithState, default: undefined,
+	Component: SelectWithState,
+	default: undefined,
 	options: [],
 });
 const Debugger = genWithState({ Component: DebuggerWithState, default: '' });
@@ -18,6 +20,15 @@ const MultiSelect = genWithState({
 	default: [],
 	options: [],
 });
-const Permissions = genWithState(PermissionsWithState);
+const Permissions = genWithState({ Component: PermissionsWithState });
+const Transformation = genWithState({ Component: TransformationWithState });
 
-export { Input, Select, Debugger, Permissions, List, MultiSelect };
+export {
+	Input,
+	Select,
+	Debugger,
+	Permissions,
+	List,
+	MultiSelect,
+	Transformation,
+};

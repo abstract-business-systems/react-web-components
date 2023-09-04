@@ -6,6 +6,7 @@ import {
 	Permissions,
 	List,
 	MultiSelect,
+	Transformation,
 } from '../../components/WithState';
 import Document from '../../components/Document';
 import Section from '../../components/Section';
@@ -61,8 +62,13 @@ const permissionsProps = {
 		notifications: 'granted',
 		geolocation: 'granted',
 	},
-	action: 'patch',
+	name: 'permissions',
+};
 
+const transformationProps = {
+	data: 'apiClient/data/todos/data/',
+	name: 'todoCount',
+	fn: (data) => data.length,
 };
 
 const restClientProps = {
@@ -136,6 +142,7 @@ const WithState = () =>
 		<Permissions { ...permissionsProps }/>
 		<Select { ...selectProps }/>
 		<Section label="ParentOne" name="parentOne">
+			<Transformation { ...transformationProps }/>
 			<MultiSelect { ...multiSelectProps }/>
 			<Input { ...inputProps }/>
 			<RESTClient { ...restClientProps }/>
