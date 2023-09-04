@@ -15,7 +15,7 @@ export const AuthTemp = Template.bind({});
 
 AuthTemp.args = {
 	baseURL: 'http://localhost:30102',
-	refreshBefore: '5s',
+	refreshBefore: { seconds: 5 },
 	paths: {},
 	onError: () => {},
 };
