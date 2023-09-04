@@ -1,47 +1,68 @@
-import React from 'react';
-import { equals, map, result } from '@laufire/utils/collection';
+import React, { useEffect } from 'react';
+import { equals, map, omit, result } from '@laufire/utils/collection';
 import GlobalContext from '../Document/GlobalContext';
 import { pathType } from '@laufire/utils/path';
-import { falsy, isEqual } from '@laufire/utils/predicates';
-import { isDefined } from '@laufire/utils/reflection';
+import { falsy } from '@laufire/utils/predicates';
 
 const isPath = (prop) => falsy(equals(pathType(prop), 'lax'));
 
-const getValue = ({
-	state, data: { value, key },
-	default: defaultValue, options,
-}) => {
-	const extractedValue = result(state, value);
+const getProps = ({ props: { name, ...props }, path, context: { state }}) => {
+	const value = (name && result(state, path)) || props.value;
 
-	return isDefined(extractedValue)
-		? extractedValue
-		: isEqual(key)('options') ? options : defaultValue ;
+	return {
+		value,
+		...map(omit(props, [name && 'value']),
+			(prop) => (isPath(prop) ? result(state, prop) : prop)),
+	};
 };
 
-const getProps = ({ props, ...rest }) => map(props, (value, key) =>
-	(isPath(value) ? getValue({ ...rest, data: { value, key }}) : value));
+const onload = ({ props, sendMessage, path }) => {
+	props.name && sendMessage({
+		data: props.value,
+		action: 'patch',
+		path: path,
+		entity: 'state',
+	});
+};
 
-const genWithState = ({ Component, ...rest }) =>
+const genOnChange = ({ sendMessage, data, path }) => {
+	sendMessage({
+		data: data,
+		action: 'patch',
+		path: path,
+		entity: 'state',
+	});
+};
+
+const WithState = ({
+	props, context, args: { Component },
+	context: { sendMessage },
+}) => {
+	const { parentPath } = context;
+	const path = `${ parentPath }${ props.name }`;
+
+	useEffect(() => {
+		onload({ props, sendMessage, path });
+	}, []);
+
+	const onChange = ({ data }) => {
+		genOnChange({ sendMessage, data, path });
+	};
+
+	return (
+		<Component { ...{
+			onChange,
+			...getProps({ props, context, path }),
+		} }
+		/>);
+};
+
+const genWithState = (args) =>
 	// eslint-disable-next-line react/display-name
-	({ action = 'patch', ...props }) =>
+	({ ...props }) =>
 		<GlobalContext.Consumer>
-			{ ({ state, sendMessage }) => {
-				const onChange = ({ data }) => {
-					sendMessage({
-						data: data,
-						action: action,
-						path: props.value,
-						entity: 'state',
-					});
-				};
-
-				return (
-					<Component { ...{
-						onChange,
-						...getProps({ props, state, ...rest }),
-					} }
-					/>);
-			} }
+			{ (context) =>
+				<WithState { ...{ context, args, props } }/> }
 		</GlobalContext.Consumer>;
 
 export default genWithState;
