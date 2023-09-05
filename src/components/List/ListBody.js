@@ -27,8 +27,8 @@ const Body = (context) => {
 const ListBody = (context) => {
 	const { value, props: { prepareRow }} = context;
 
-	return value.map((data, key) => prepareRow(data)
-			|| <Body key={ key } { ...{ ...context, data } }/>);
+	return value.map((data, id) => prepareRow(data)
+			|| <Body key={ id } { ...{ ...context, data, id } }/>);
 };
 
 export default ListBody;
