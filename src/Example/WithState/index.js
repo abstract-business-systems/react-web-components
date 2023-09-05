@@ -68,7 +68,7 @@ const permissionsProps = {
 const transformationProps = {
 	data: 'apiClient/data/todos/data/',
 	name: 'todoCount',
-	fn: (data) => data.length,
+	fn: ({ entity }) => entity.length,
 };
 
 const restClientProps = {
