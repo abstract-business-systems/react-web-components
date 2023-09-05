@@ -1,27 +1,33 @@
 import genWithState from './genWithState';
-import InputWithState from '../Input';
-import SelectWithState from '../Select';
-import DebuggerWithState from '../Debugger';
-import PermissionsWithState from '../Permissions';
-import ListWithState from '../List';
-import MultiSelectWithState from '../MultiSelect';
-import TransformationWithState from '../Transformation';
+import PermissionsComponent from '../Permissions';
+import TransformationComponent from '../Transformation';
+import InputComponent from '../Input';
+import SelectComponent from '../Select';
+import DebuggerComponent from '../Debugger';
+import ListComponent from '../List';
+import MultiSelectComponent from '../MultiSelect';
+import ButtonComponent from '../Button';
 
-const Input = genWithState({ Component: InputWithState, default: '' });
+const Input = genWithState({ Component: InputComponent, trigger: 'onChange' });
 const Select = genWithState({
-	Component: SelectWithState,
-	default: undefined,
-	options: [],
+	Component: SelectComponent,
+	trigger: 'onChange',
 });
-const Debugger = genWithState({ Component: DebuggerWithState, default: '' });
-const List = genWithState({ Component: ListWithState, default: [] });
+const Debugger = genWithState({
+	Component: DebuggerComponent,
+	trigger: 'onChange',
+});
+const List = genWithState({ Component: ListComponent });
 const MultiSelect = genWithState({
-	Component: MultiSelectWithState,
-	default: [],
-	options: [],
+	Component: MultiSelectComponent,
+	trigger: 'onChange',
 });
-const Permissions = genWithState({ Component: PermissionsWithState });
-const Transformation = genWithState({ Component: TransformationWithState });
+const Button = genWithState({
+	Component: ButtonComponent,
+	trigger: 'onClick',
+});
+const Permissions = genWithState({ Component: PermissionsComponent });
+const Transformation = genWithState({ Component: TransformationComponent });
 
 export {
 	Input,
@@ -31,4 +37,5 @@ export {
 	List,
 	MultiSelect,
 	Transformation,
+	Button,
 };

@@ -1,20 +1,20 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import {
 	Input,
 	Select,
-	Debugger,
 	Permissions,
 	List,
 	MultiSelect,
 	Transformation,
+	Button,
 } from '../../components/WithState';
 import Document from '../../components/Document';
 import Section from '../../components/Section';
 import RESTClient from '../../components/RESTClient';
 import GlobalContext from '../../components/Document/GlobalContext';
-import Button from '../../components/Button';
-import { rndValue } from '@laufire/utils/random';
 import { result } from '@laufire/utils/collection';
+import ListItem from '../../components/List/ListItem';
+import { resolve } from '@laufire/utils/path';
 
 const documentProps = {
 	initialState: {
@@ -39,22 +39,19 @@ const documentProps = {
 
 const selectProps = {
 	value: 'ten',
-	action: 'patch',
 	options: '/selectOptions/',
-	name: 'singleSelect',
+	name: './singleSelect',
 };
 
 const multiSelectProps = {
 	value: [],
-	action: 'patch',
 	options: '/selectOptions/',
-	name: 'multiSelect',
+	name: './multiSelect',
 };
 
 const inputProps = {
 	value: '',
-	action: 'patch',
-	name: 'input',
+	name: './input',
 };
 
 const permissionsProps = {
@@ -76,66 +73,46 @@ const restClientProps = {
 	base: 'https://jsonplaceholder.typicode.com',
 };
 
-const listProps = (sendMessage) => ({
-	value: [],
-	Component: ({ data: { original }}) =>
-		<Debugger { ...{
-			value: original,
-			onClick: ({ data }) => sendMessage({
-				to: '/parentOne/apiClient/',
-				action: 'delete', entity: 'todos', data: data,
-			}),
+const Display = ({ value }) =>
+	<GlobalContext.Consumer>
+		{ (context) => {
+			const title = result(context.state, resolve(`${ context.path }${ context.id }`, value));
+
+			return (
+				<div>{ title }</div>);
 		} }
-		/>,
-	name: 'apiClient/data/todos/data/',
-});
+	</GlobalContext.Consumer>;
 
-const genUpdateOnClick = (state, sendMessage) => {
-	const data = rndValue(result(state,
-		'/parentOne/apiClient/data/todos/data/'));
+const Todo = ({ data: { original }, ...rest }) =>
+	<ListItem { ...{ data: original, ...rest } }>
+		<Display value="./data/title/"/>
+		<GlobalContext.Consumer>
+			{ ({ path, id, state }) => {
+				const data = result(state, `${ path }${ id }`);
 
-	sendMessage({
+				return (
+					<Button { ...{
+						onClick: {
+							action: 'delete', data: data,
+							entity: 'todos', to: '/parentOne/apiClient/',
+						},
+						children: 'delete',
+					} }
+					/>);
+			} }
+		</GlobalContext.Consumer>
+	</ListItem>;
+
+const listProps = {
+	value: [],
+	name: './apiClient/data/todos/data/',
+	Component: Todo,
+	onLoad: {
 		to: '/parentOne/apiClient/',
-		action: 'patch', entity: 'todos',
-		data: { ...data, data: { title: 'todos' }},
-	});
+		action: 'list',
+		entity: 'todos',
+	},
 };
-
-const getOnClick = ({ sendMessage, state }) => ({
-	listOnClick: () => {
-		sendMessage({
-			to: '/parentOne/apiClient/',
-			action: 'list', entity: 'todos',
-		});
-	},
-
-	createOnClick: () => {
-		sendMessage({
-			to: '/parentOne/apiClient/',
-			action: 'create', entity: 'todos',
-			data: { title: 'hi', userId: 1, completed: false },
-		});
-	},
-
-	updateOnClick: () => {
-		genUpdateOnClick(state, sendMessage);
-	},
-
-});
-
-const ButtonContainer = () => <GlobalContext.Consumer>
-	{ ({ sendMessage, state }) => {
-		const { listOnClick, createOnClick, updateOnClick }
-		= getOnClick({ sendMessage, state });
-
-		return <Fragment>
-			<Button { ...{ onClick: listOnClick, children: 'list' } }/>
-			<Button { ...{ onClick: createOnClick, children: 'create' } }/>
-			<Button { ...{ onClick: updateOnClick, children: 'update' } }/>
-			<List { ...listProps(sendMessage) }/>
-		</Fragment>;
-	} }
-</GlobalContext.Consumer>;
 
 const WithState = () =>
 	<Document { ...documentProps }>
@@ -143,10 +120,17 @@ const WithState = () =>
 		<Select { ...selectProps }/>
 		<Section label="ParentOne" name="parentOne">
 			<Transformation { ...transformationProps }/>
+			<RESTClient { ...restClientProps }/>
 			<MultiSelect { ...multiSelectProps }/>
 			<Input { ...inputProps }/>
-			<RESTClient { ...restClientProps }/>
-			<ButtonContainer/>
+			<List { ...listProps }/>
+			<Button { ...{
+				children: 'list', onClick: {
+					to: '/parentOne/apiClient/',
+					action: 'list', entity: 'todos',
+				},
+			} }
+			/>
 		</Section>
 	</Document>;
 
