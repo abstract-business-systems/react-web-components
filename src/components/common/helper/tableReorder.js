@@ -7,7 +7,7 @@ const itemTypes = {
 	row: 'row',
 };
 
-const ReactTableReorder = {
+const tableReorder = {
 	shouldSwap: (isAboveMiddle, isDragBeforeHover) =>
 		(isAboveMiddle && isDragBeforeHover)
 		|| (!isAboveMiddle && !isDragBeforeHover),
@@ -25,7 +25,7 @@ const ReactTableReorder = {
 		const isAboveMiddle = hoverClientY < hoverMiddleY;
 
 		return !isDragEqualHover
-		&& ReactTableReorder.shouldSwap(isAboveMiddle, isDragBeforeHover);
+		&& tableReorder.shouldSwap(isAboveMiddle, isDragBeforeHover);
 	},
 
 	reposition: ({
@@ -48,10 +48,10 @@ const ReactTableReorder = {
 		const hoverIndex = index;
 
 		const shouldMoveColumn = ref.current
-			&& ReactTableReorder.isMovePosition(context);
+			&& tableReorder.isMovePosition(context);
 
 		shouldMoveColumn
-				&& ReactTableReorder.reposition({
+				&& tableReorder.reposition({
 					...context,
 					data: { ...data, dragIndex, hoverIndex },
 				});
@@ -64,7 +64,7 @@ const ReactTableReorder = {
 
 		return {
 			accept: itemTypes[position],
-			hover: (item, monitor) => ReactTableReorder.getHover({
+			hover: (item, monitor) => tableReorder.getHover({
 				...context,
 				item, monitor,
 			}),
@@ -82,4 +82,4 @@ const ReactTableReorder = {
 	},
 };
 
-export default ReactTableReorder;
+export default tableReorder;

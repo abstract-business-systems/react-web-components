@@ -1,16 +1,16 @@
 import React, { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import ReactTableReorder from '../common/helper/ReactTableReorder';
+import tableReorder from '../common/helper/tableReorder';
 import { Box } from '@mui/material';
 
 const Body = (context) => {
 	const dropRef = useRef();
 	const position = 'row';
 
-	const [, drop] = useDrop(ReactTableReorder
+	const [, drop] = useDrop(tableReorder
 		.getDrop({ ...context, ref: dropRef, position: position }));
 
-	const [{ isDragging }, drag] = useDrag(ReactTableReorder
+	const [{ isDragging }, drag] = useDrag(tableReorder
 		.getDrag({ ...context, position }));
 
 	const opacity = isDragging ? 0 : 1;

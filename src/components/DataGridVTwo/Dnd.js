@@ -1,13 +1,13 @@
 import { useDrag, useDrop } from 'react-dnd';
-import ReactTableReorder from '../common/helper/ReactTableReorder';
+import tableReorder from '../common/helper/tableReorder';
 
 const Dnd = ({ setState, index, position, ref }) => {
-	const [, drop] = useDrop(ReactTableReorder
+	const [, drop] = useDrop(tableReorder
 		.getDrop({
 			...{ data: { index }},
 			ref, position, setState,
 		}));
-	const [{ isDragging }, drag] = useDrag(ReactTableReorder
+	const [{ isDragging }, drag] = useDrag(tableReorder
 		.getDrag({ ...{ data: { index }}, position, setState }));
 	const opacity = isDragging ? 0 : 1;
 
