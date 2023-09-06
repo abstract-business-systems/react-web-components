@@ -1,12 +1,7 @@
-import { reduce, findIndex } from '@laufire/utils/collection';
+import { findIndex } from '@laufire/utils/collection';
 
-const classify = (collection, classifiers) =>
-	reduce(collection, (
-		acc, value, key
-	) =>
-		findIndex(classifiers, (classifier) =>
-			classifier(
-				value, key, collection
-			)));
+const classify = ({ collection = {}, classifiers }) =>
+	findIndex(classifiers, (classifier) =>
+		classifier(collection));
 
 export default classify;

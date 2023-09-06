@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { useEffect } from 'react';
 import '../../stories/styles/global.scss';
 import { identity } from '@laufire/utils/fn';
@@ -11,46 +10,35 @@ import classify from '../../helper/classifier';
 
 // TODO: Need to use classify from js-utils
 
-const getDeviceType = () => {
-	const classifiers = {
-		mobile: () => isMobileOnly,
-		tablet: () => isTablet,
-		desktop: () => isDesktop,
-		smartTV: () => isSmartTV,
-		wearable: () => isWearable,
-	};
+const classifiers = {
+	mobile: () => isMobileOnly,
+	tablet: () => isTablet,
+	desktop: () => isDesktop,
+	smartTV: () => isSmartTV,
+	wearable: () => isWearable,
+};
 
-	const collection = [{}];
+const events = ['resize', 'online', 'offline'];
 
-	return classify(collection, classifiers);
+const getProps = () => {
+	const { innerWidth: width, innerHeight: height } = window;
+	const orientation = window.matchMedia('(orientation: landscape)')
+		.matches
+		? 'landscape'
+		: 'portrait';
+	const device = classify({ classifiers });
+	const connection = navigator.onLine ? 'online' : 'offline';
+
+	return { width, height, orientation, device, connection };
 };
 
 const Device = ({ onChange = identity }) => {
-	const handleResize = () => {
-		const width = window.innerWidth;
-		const height = window.innerHeight;
-		const orientation = window.matchMedia('(orientation: landscape)')
-			.matches
-			? 'landscape'
-			: 'portrait';
-		const device = getDeviceType();
-		const connection = navigator.onLine ? 'online' : 'offline';
-
-		onChange(buildEvent({
-			value:
-			{
-				width,
-				height,
-				orientation,
-				device,
-				connection,
-			},
-		}));
-	};
+	const handleResize = () =>
+		onChange(peek(buildEvent({ value: { ...getProps() }})));
 
 	useEffect(() => {
 		handleResize();
-		window.addEventListener('resize', handleResize);
+		map(events, (event) => window.addEventListener(event, handleResize));
 	}, []);
 
 	return null;
