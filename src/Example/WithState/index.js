@@ -76,7 +76,7 @@ const restClientProps = {
 const Display = ({ value }) =>
 	<GlobalContext.Consumer>
 		{ (context) => {
-			const title = result(context.state, resolve(`${ context.path }${ context.id }`, value));
+			const title = result(context.state, resolve(context.path, value));
 
 			return (
 				<div>{ title }</div>);
@@ -87,8 +87,8 @@ const Todo = ({ data: { original }, ...rest }) =>
 	<ListItem { ...{ data: original, ...rest } }>
 		<Display value="./data/title/"/>
 		<GlobalContext.Consumer>
-			{ ({ path, id, state }) => {
-				const data = result(state, `${ path }${ id }`);
+			{ ({ path, state }) => {
+				const data = result(state, path);
 
 				return (
 					<Button { ...{
@@ -104,8 +104,7 @@ const Todo = ({ data: { original }, ...rest }) =>
 	</ListItem>;
 
 const listProps = {
-	value: [],
-	name: './apiClient/data/todos/data/',
+	value: './apiClient/data/todos/data/',
 	Component: Todo,
 	onLoad: {
 		to: '/parentOne/apiClient/',

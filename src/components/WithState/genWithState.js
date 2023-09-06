@@ -1,18 +1,23 @@
 import React, { useEffect, useMemo } from 'react';
 import { equals, map, omit, result } from '@laufire/utils/collection';
 import GlobalContext from '../Document/GlobalContext';
-import { pathType } from '@laufire/utils/path';
+import { pathType, resolve } from '@laufire/utils/path';
 import { falsy } from '@laufire/utils/predicates';
 
 const isPath = (prop) => falsy(equals(pathType(prop), 'lax'));
 
-const getProps = ({ props: { name, ...props }, path, context: { state }}) => {
+const getProps = ({
+	props: { name, ...props }, path,
+	context: { state, parentPath },
+}) => {
 	const value = (name && result(state, path)) || props.value;
 
 	return {
 		value,
 		...map(omit(props, [name && 'value']),
-			(prop) => (isPath(prop) ? result(state, prop) : prop)),
+			(prop) => (isPath(prop)
+				? result(state, resolve(parentPath, prop))
+				: prop)),
 	};
 };
 
@@ -41,7 +46,7 @@ const WithState = ({
 	context, args: { Component, trigger = 'onChange' },
 }) => {
 	const { parentPath, sendMessage } = context;
-	const path = `${ parentPath }${ props.name }`;
+	const path = resolve(parentPath, props.name || props.value || '');
 
 	useEffect(() => {
 		handelOnLoad({ props, sendMessage, path, source });
