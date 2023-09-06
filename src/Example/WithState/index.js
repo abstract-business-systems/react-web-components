@@ -11,10 +11,11 @@ import {
 import Document from '../../components/Document';
 import Section from '../../components/Section';
 import RESTClient from '../../components/RESTClient';
-import GlobalContext from '../../components/Document/GlobalContext';
-import { result } from '@laufire/utils/collection';
 import ListItem from '../../components/List/ListItem';
-import { resolve } from '@laufire/utils/path';
+import {
+	Display,
+	Button as ButtonWithContext,
+} from '../../components/withContext';
 
 const documentProps = {
 	initialState: {
@@ -73,34 +74,17 @@ const restClientProps = {
 	base: 'https://jsonplaceholder.typicode.com',
 };
 
-const Display = ({ value }) =>
-	<GlobalContext.Consumer>
-		{ (context) => {
-			const title = result(context.state, resolve(context.path, value));
-
-			return (
-				<div>{ title }</div>);
-		} }
-	</GlobalContext.Consumer>;
-
 const Todo = ({ data: { original }, ...rest }) =>
 	<ListItem { ...{ data: original, ...rest } }>
 		<Display value="./data/title/"/>
-		<GlobalContext.Consumer>
-			{ ({ path, state }) => {
-				const data = result(state, path);
-
-				return (
-					<Button { ...{
-						onClick: {
-							action: 'delete', data: data,
-							entity: 'todos', to: '/parentOne/apiClient/',
-						},
-						children: 'delete',
-					} }
-					/>);
-			} }
-		</GlobalContext.Consumer>
+		<ButtonWithContext { ...{
+			onClick: {
+				action: 'delete',
+				entity: 'todos',
+				to: '/parentOne/apiClient/',
+			},
+		} }
+		>delete</ButtonWithContext>
 	</ListItem>;
 
 const listProps = {
