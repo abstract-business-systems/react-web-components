@@ -74,8 +74,8 @@ const restClientProps = {
 	base: 'https://jsonplaceholder.typicode.com',
 };
 
-const Todo = ({ data: { original }, ...rest }) =>
-	<ListItem { ...{ data: original, ...rest } }>
+const Todo = (props) =>
+	<ListItem { ...props }>
 		<Display value="./data/title/"/>
 		<ButtonWithContext { ...{
 			onClick: {
@@ -108,12 +108,13 @@ const WithState = () =>
 			<Input { ...inputProps }/>
 			<List { ...listProps }/>
 			<Button { ...{
-				children: 'list', onClick: {
+				onClick: {
 					to: '/parentOne/apiClient/',
-					action: 'list', entity: 'todos',
+					action: 'list',
+					entity: 'todos',
 				},
 			} }
-			/>
+			>List</Button>
 		</Section>
 	</Document>;
 

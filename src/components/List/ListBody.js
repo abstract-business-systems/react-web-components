@@ -4,6 +4,7 @@ import tableReorder from '../common/helper/tableReorder';
 import { Box } from '@mui/material';
 
 const Body = (context) => {
+	const { data: { original }, Component } = context;
 	const dropRef = useRef();
 	const position = 'row';
 
@@ -19,7 +20,7 @@ const Body = (context) => {
 
 	return (
 		<Box { ...{ ref: dropRef, style: { opacity }} }>
-			<context.Component { ...context }/>
+			<Component { ...{ ...context, data: original } }/>
 		</Box>
 	);
 };
