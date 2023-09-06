@@ -1,4 +1,4 @@
-import { merge } from '@laufire/utils/collection';
+import { merge, reduce } from '@laufire/utils/collection';
 import { defined } from '@laufire/utils/fn';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
@@ -6,7 +6,8 @@ dayjs.extend(duration);
 
 const httpStatusCodes = { unAuthorized: 401, success: 200 };
 const fetchOptions = { method: 'GET', credentials: 'include' };
-const durationOptions = {
+const durationRegex = /((\d+)([yMwdhms]))/g;
+const defaultUnits = {
 	seconds: 0,
 	minutes: 0,
 	hours: 0,
@@ -14,6 +15,35 @@ const durationOptions = {
 	weeks: 0,
 	months: 0,
 	years: 0,
+};
+const durationUnits = {
+	s: 'seconds',
+	m: 'minutes',
+	h: 'hours',
+	d: 'days',
+	w: 'weeks',
+	M: 'months',
+	y: 'years',
+};
+
+const parseDuration = ({ match }) => {
+	const [, , value, key] = match;
+	const unit = durationUnits[key];
+
+	return { [unit]: Number(value) };
+};
+
+const getDurations = (regex, input) => {
+	const durations = merge({}, defaultUnits);
+	const matches = [...input.matchAll(regex)];
+
+	return reduce(
+		matches, (acc, match) => {
+			const parsedDuration = parseDuration({ match });
+
+			return merge(acc, parsedDuration);
+		}, durations
+	);
 };
 
 const redirectToLogin = ({ baseURL, paths: { login }}) =>
@@ -35,8 +65,8 @@ const fetchSession = async ({ baseURL, paths: { session }}) => {
 
 const getRefreshIn = (expiresAt, refreshBefore) => {
 	const currentTime = dayjs();
-	const newLocal = merge(durationOptions, refreshBefore);
-	const refreshTime = dayjs(expiresAt).subtract(dayjs.duration(newLocal));
+	const durations = getDurations(durationRegex, refreshBefore);
+	const refreshTime = dayjs(expiresAt).subtract(dayjs.duration(durations));
 	const timeDifference = refreshTime.diff(currentTime);
 
 	return timeDifference;
