@@ -19,7 +19,7 @@ const getCreate = ({ base, entity, data, sendMessage, to }) => {
 	})
 		.then((response) => response.json())
 		.then((json) => sendMessage({
-			data: { data: json },
+			data: json,
 			path: `${ to }data/${ entity }/data/${ id }`,
 			action: 'update',
 			entity: 'state',

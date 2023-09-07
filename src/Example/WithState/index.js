@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-	Input,
-	Select,
-	Permissions,
 	List,
-	MultiSelect,
-	Transformation,
 	Button,
+	Select,
+	MultiSelect,
+	Input,
+	Transformation,
+	Permissions,
 } from '../../components/WithState';
 import Document from '../../components/Document';
 import Section from '../../components/Section';
@@ -34,7 +34,7 @@ const documentProps = {
 				label: 'Thirty',
 			},
 		],
-		parentOne: { apiClient: { data: { todos: { data: [] }}}},
+		parentOne: { apiClient: { data: { todos: { data: {}}}}},
 	},
 };
 
@@ -98,24 +98,35 @@ const listProps = {
 	},
 };
 
+const createButtonProps = {
+	onClick: {
+		to: '/parentOne/apiClient/',
+		action: 'create',
+		entity: 'todos',
+		data: { title: ' hi' },
+	},
+};
+
+const listButtonProps = {
+	onClick: {
+		to: '/parentOne/apiClient/',
+		action: 'list',
+		entity: 'todos',
+	},
+};
+
 const WithState = () =>
 	<Document { ...documentProps }>
 		<Permissions { ...permissionsProps }/>
 		<Select { ...selectProps }/>
 		<Section label="ParentOne" name="parentOne">
-			<Transformation { ...transformationProps }/>
 			<RESTClient { ...restClientProps }/>
+			<Transformation { ...transformationProps }/>
 			<MultiSelect { ...multiSelectProps }/>
 			<Input { ...inputProps }/>
 			<List { ...listProps }/>
-			<Button { ...{
-				onClick: {
-					to: '/parentOne/apiClient/',
-					action: 'list',
-					entity: 'todos',
-				},
-			} }
-			>List</Button>
+			<Button { ...listButtonProps }>List</Button>
+			<Button { ...createButtonProps }>create</Button>
 		</Section>
 	</Document>;
 

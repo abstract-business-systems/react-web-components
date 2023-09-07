@@ -3,8 +3,13 @@ import Section from '../Section';
 import { useLocation } from 'react-router-dom';
 import { unique } from '@laufire/utils/predicates';
 import {
-	keys, length,
-	merge, overlay, reduce, result,
+	keys,
+	length,
+	merge,
+	overlay,
+	patch as patchFn,
+	reduce,
+	result,
 } from '@laufire/utils/collection';
 import GlobalContext from './GlobalContext';
 import { identity } from '@laufire/utils/fn';
@@ -46,38 +51,42 @@ const genPatch = (setState) => ({ data, path }) => {
 const genUpdate = (setState) => ({ data, path }) => {
 	const partsArray = parts(path);
 	const parent = resolve(...partsArray.slice(0, partsArray.length - 1));
-	const leaf = partsArray[partsArray.length - 1];
+	const id = partsArray[partsArray.length - 1];
 
 	setState((preState) => overlay(
 		{},
 		preState,
-		scaffold(parent, result(preState, parent)
-			.map((value) => (value.id === leaf
-				? { id: value.id, data: { ...value.data, ...data.data }}
-				: value)))
+		scaffold(parent, patchFn(result(preState, parent),
+			{ [id]: { data }}))
 	));
 };
 
 const genList = (setState) => ({ data, path }) => {
 	setState((preState) => overlay(
-		{}, preState, scaffold(path, data.map((value) =>
-			({ id: getId(), data: value })))
+		{}, preState, scaffold(path, reduce(
+			data, (acc, curr) => {
+				const id = getId();
+
+				return { ...acc, [id]: { id: id, data: curr }};
+			}, {}
+		))
 	));
 };
 
 const genCreate = (setState) => ({ data, id, path }) => {
 	setState((preState) => overlay(
 		{}, preState,
-		scaffold(path, result(preState, path)
-			.concat({ id, data }))
+		scaffold(path, patchFn(result(preState, path),
+			{ [id]: { id, data }}))
 	));
 };
 
 const genRemove = (setState) => ({ path, data }) => {
-	setState((preState) => overlay(
-		{}, preState, scaffold(path, result(preState, path)
-			.filter((value) => value.id !== data.id))
-	));
+	setState((preState) => {
+		delete result(preState, path)[data.id];
+
+		return overlay({}, preState);
+	});
 };
 
 const generateActions = ({
