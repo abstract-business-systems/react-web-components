@@ -15,7 +15,7 @@ import ListItem from '../../components/List/ListItem';
 import {
 	Display,
 	Button as ButtonWithContext,
-} from '../../components/withContext';
+} from '../../components/WithContext';
 
 const documentProps = {
 	initialState: {
