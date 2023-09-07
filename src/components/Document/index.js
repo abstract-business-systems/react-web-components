@@ -6,15 +6,12 @@ import {
 	keys,
 	length,
 	merge,
-	overlay,
-	patch as patchFn,
 	reduce,
 	result,
 } from '@laufire/utils/collection';
 import GlobalContext from './GlobalContext';
 import { identity } from '@laufire/utils/fn';
 import { parts, resolve } from '@laufire/utils/path';
-import scaffold from '../Section/helper/scaffold';
 import getId from '../common/helper/getId';
 
 const transformOptions = (sections) => (keys(sections).length
@@ -40,52 +37,71 @@ const genAddSection = (setState) => ({ data }) => {
 
 const parentPath = '';
 
+const getPathParentAndLeaf = (path) => {
+	const partsArray = parts(path);
+	const parent = resolve(...partsArray.slice(0, partsArray.length - 1));
+	const leaf = partsArray[partsArray.length - 1];
+
+	return { parent, leaf };
+};
+
 const genPatch = (setState) => ({ data, path }) => {
-	setState((preState) => overlay(
-		{},
-		preState,
-		scaffold(path, data),
-	));
+	const { parent, leaf } = getPathParentAndLeaf(path);
+
+	setState((preState) => {
+		const value = result(preState, parent);
+
+		value[leaf] = data;
+
+		return { ...preState };
+	});
 };
 
 const genUpdate = (setState) => ({ data, path }) => {
-	const partsArray = parts(path);
-	const parent = resolve(...partsArray.slice(0, partsArray.length - 1));
-	const id = partsArray[partsArray.length - 1];
+	const { parent, leaf } = getPathParentAndLeaf(path);
 
-	setState((preState) => overlay(
-		{},
-		preState,
-		scaffold(parent, patchFn(result(preState, parent),
-			{ [id]: { data }}))
-	));
+	setState((preState) => {
+		const value = result(preState, parent);
+
+		value[leaf] = { ...value[leaf], data: { ...value[leaf].data, ...data }};
+
+		return { ...preState };
+	});
 };
 
 const genList = (setState) => ({ data, path }) => {
-	setState((preState) => overlay(
-		{}, preState, scaffold(path, reduce(
+	const { parent, leaf } = getPathParentAndLeaf(path);
+
+	setState((preState) => {
+		const value = result(preState, parent);
+
+		value[leaf] = reduce(
 			data, (acc, curr) => {
 				const id = getId();
 
 				return { ...acc, [id]: { id: id, data: curr }};
 			}, {}
-		))
-	));
+		);
+
+		return { ...preState };
+	});
 };
 
 const genCreate = (setState) => ({ data, id, path }) => {
-	setState((preState) => overlay(
-		{}, preState,
-		scaffold(path, patchFn(result(preState, path),
-			{ [id]: { id, data }}))
-	));
+	setState((preState) => {
+		const value = result(preState, path);
+
+		value[id] = { id, data };
+
+		return { ...preState };
+	});
 };
 
 const genRemove = (setState) => ({ path, data }) => {
 	setState((preState) => {
 		delete result(preState, path)[data.id];
 
-		return overlay({}, preState);
+		return { ...preState };
 	});
 };
 

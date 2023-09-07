@@ -12,7 +12,8 @@ const List = (args) => {
 	const columns = dataTable.getColumns(args);
 
 	const data = useMemo(() => ({ columns: columns, data: values(rows) }),
-		[rows]) ;
+		[args]) ;
+
 	const props = useTable(data);
 
 	const context = { ...args, props, Component };
