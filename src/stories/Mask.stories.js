@@ -42,5 +42,4 @@ Mask.args = {
 	onChange: peek,
 	src: parent,
 	style: {},
-	resize: { refreshRate: 250 },
 };

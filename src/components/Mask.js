@@ -59,7 +59,6 @@ const MaskContainer = (props) => {
 };
 
 const Mask = (props) => {
-	const { resize } = props;
 	const image = new Image();
 	const [state, setState] = useState({ width: 0, height: 0 });
 
@@ -71,7 +70,7 @@ const Mask = (props) => {
 		<Container { ...{
 			className: 'absMask-root',
 			onChange: containerOnChange,
-			resize: resize,
+			resize: { refreshRate: 250, refreshMode: 'debounce' },
 		} }
 		>
 			<MaskContainer { ...enhancedProps }/>
