@@ -53,7 +53,7 @@ const addEventListeners = (props) => {
 	element.addEventListener('scroll', () => handleChange(props));
 };
 
-const setupShortcuts = ({ shortcuts }) =>
+const setupShortcuts = ({ shortcuts, ref }) =>
 	map(shortcuts, (cb, key) => shortcut.createShortcut({ cb, key, ref }));
 
 const Container = ({
@@ -68,7 +68,7 @@ const Container = ({
 
 		onLoad(buildEvent({ ...getValue({ element, width, height }) }));
 		addEventListeners({ element, onChange, width, height });
-		setupShortcuts({ shortcuts });
+		setupShortcuts({ shortcuts, ref });
 	}, []);
 
 	return (
