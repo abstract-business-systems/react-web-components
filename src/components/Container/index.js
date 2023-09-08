@@ -7,8 +7,9 @@ import '../../stories/styles/global.scss';
 import clsx from 'clsx';
 import { identity } from '@laufire/utils/fn';
 import { map } from '@laufire/utils/collection';
-import shortcut from '../common/helper/shortcut';
-import buildEvent from '../common/helper/buildEvent';
+import shortcut from './common/helper/shortcut';
+import buildEvent from './common/helper/buildEvent';
+import { isDefined } from '@laufire/utils/reflection';
 
 const getArgs = ({ className, ...args }) => ({
 	...args, tabIndex: '-1',
@@ -16,48 +17,58 @@ const getArgs = ({ className, ...args }) => ({
 	className: clsx('absContainer', className),
 });
 
-// eslint-disable-next-line max-lines-per-function
+const getValue = ({ element, width, height }) => {
+	const orientation = width < height ? 'portrait' : 'landscape';
+	const {
+		scrollHeight,
+		scrollWidth,
+		scrollTop,
+		scrollLeft,
+		clientWidth,
+		clientHeight,
+	} = element;
+
+	return {
+		value: {
+			width: isDefined(width) ? width : clientWidth,
+			height: isDefined(height) ? height : clientHeight,
+			orientation: orientation,
+			scroll: {
+				width: scrollWidth,
+				height: scrollHeight,
+				x: scrollLeft,
+				y: scrollTop,
+			},
+		},
+	};
+};
+
+const handleChange = ({ onChange, ...rest }) =>
+	onChange(buildEvent({ ...getValue(rest) }));
+
+const addEventListeners = (props) => {
+	const { element } = props;
+
+	window.addEventListener('resize', () => handleChange(props));
+	element.addEventListener('scroll', () => handleChange(props));
+};
+
+const setupShortcuts = ({ shortcuts }) =>
+	map(shortcuts, (cb, key) => shortcut.createShortcut({ cb, key, ref }));
+
 const Container = ({
-	onChange = identity, children,
+	onChange = identity, onLoad = identity, children,
 	shortcuts = [], resize, ...args
 }) => {
 	const ref = useRef();
 	const { width, height } = useResizeDetector({ targetRef: ref, ...resize });
 
-	const handleChange = () => {
-		const { current }	= ref;
-		const orientation = width < height ? 'portrait' : 'landscape';
-		const {
-			scrollHeight,
-			scrollWidth,
-			scrollTop,
-			scrollLeft,
-			clientWidth,
-			clientHeight,
-		} = current;
-
-		onChange(buildEvent({
-			value: {
-				width: width || clientWidth,
-				height: height || clientHeight,
-				orientation: orientation,
-				scroll: {
-					width: scrollWidth,
-					height: scrollHeight,
-					x: scrollLeft,
-					y: scrollTop,
-				},
-			},
-		}));
-	};
-
 	useEffect(() => {
-		handleChange();
 		const { current: element } = ref;
 
-		window.addEventListener('resize', handleChange);
-		element.addEventListener('scroll', handleChange);
-		map(shortcuts, (cb, key) => shortcut.createShortcut({ cb, key, ref }));
+		onLoad(buildEvent({ ...getValue({ element, width, height }) }));
+		addEventListeners({ element, onChange, width, height });
+		setupShortcuts({ shortcuts });
 	}, []);
 
 	return (
