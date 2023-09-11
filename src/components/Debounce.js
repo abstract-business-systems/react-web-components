@@ -1,15 +1,25 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 const defaultRefreshRate = 200;
 
 const Debounce = ({ children, refreshRate = defaultRefreshRate }) => {
-	const [lastRender, setLastRender] = useState(Date.now());
+	const [lastRefresh, setLastRefresh] = useState(Date.now());
 
-	const shouldRender = (Date.now() - lastRender) > refreshRate ;
+	const shouldRender = (Date.now() - lastRefresh) >= refreshRate ;
 
-	shouldRender && setLastRender(Date.now());
+	shouldRender && setLastRefresh(Date.now());
+	useEffect(() => {
+		const nextRefreshAt = refreshRate + lastRefresh - Date.now();
+		const timeoutId = setTimeout(() => {
+			shouldRender && setLastRefresh(Date.now());
+		}, nextRefreshAt);
 
-	const memoized = useMemo(() => children, [lastRender]);
+		return () => {
+			clearTimeout(timeoutId);
+		};
+	}, [children, shouldRender]);
+
+	const memoized = useMemo(() => children, [lastRefresh]);
 
 	return memoized;
 };
