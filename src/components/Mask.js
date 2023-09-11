@@ -70,7 +70,6 @@ const Mask = (props) => {
 		<Container { ...{
 			className: 'absMask-root',
 			onChange: containerOnChange,
-			resize: { refreshRate: 250, refreshMode: 'debounce' },
 		} }
 		>
 			<MaskContainer { ...enhancedProps }/>

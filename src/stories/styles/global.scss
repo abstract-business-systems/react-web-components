@@ -45,11 +45,11 @@
 	top: 0;
 	left: 0;
 	width: 100%;
-	opacity: 0.5;
+	opacity: 0;
 }
 
 .absContainer:focus-visible {
-outline: none;
+	outline: none;
 }
 
 .layout {
