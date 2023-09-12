@@ -92,11 +92,13 @@ const Todo = (props) =>
 const listProps = {
 	value: './apiClient/data/todos/data/',
 	Component: Todo,
-	onLoad: {
-		to: '/parentOne/apiClient/',
-		action: 'list',
-		entity: 'todos',
-	},
+	onLoad: [
+		{
+			to: '/parentOne/apiClient/',
+			action: 'list',
+			entity: 'todos',
+		},
+	],
 };
 
 const createButtonProps = {

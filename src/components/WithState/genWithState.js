@@ -21,13 +21,22 @@ const getProps = ({
 	};
 };
 
-const handelOnLoad = ({ props, sendMessage, path, source }) => {
-	(props.name || source) && sendMessage({
+const handelOnLoad = ({ props, sendMessage, path, onLoad }) => {
+	props.name && sendMessage({
 		data: props.value,
 		action: 'patch',
 		path: path,
 		entity: 'state',
-		...source,
+	});
+
+	onLoad && onLoad.forEach((load) => {
+		sendMessage({
+			data: props.value,
+			action: 'patch',
+			path: path,
+			entity: 'state',
+			...load,
+		});
 	});
 };
 
@@ -42,14 +51,14 @@ const onTrigger = ({
 };
 
 const WithState = ({
-	props: { onClick = {}, onLoad: source, ...props },
+	props: { onClick = {}, onLoad, ...props },
 	context, args: { Component, trigger = 'onChange' },
 }) => {
 	const { parentPath, sendMessage } = context;
 	const path = resolve(parentPath, props.name || props.value || '');
 
 	useEffect(() => {
-		handelOnLoad({ props, sendMessage, path, source });
+		handelOnLoad({ props, sendMessage, path, onLoad });
 	}, []);
 
 	return (
