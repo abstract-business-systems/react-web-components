@@ -7,6 +7,7 @@ import {
 	Input,
 	Transformation,
 	Permissions,
+	Location,
 } from '../../components/WithState';
 import Document from '../../components/Document';
 import Section from '../../components/Section';
@@ -115,9 +116,15 @@ const listButtonProps = {
 	},
 };
 
+const locationProps = {
+	value: '',
+	name: './geolocation',
+};
+
 const WithState = () =>
 	<Document { ...documentProps }>
 		<Permissions { ...permissionsProps }/>
+		<Location { ...locationProps }/>
 		<Select { ...selectProps }/>
 		<Section label="ParentOne" name="parentOne">
 			<RESTClient { ...restClientProps }/>
