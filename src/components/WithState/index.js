@@ -8,6 +8,7 @@ import ListComponent from '../List';
 import MultiSelectComponent from '../MultiSelect';
 import ButtonComponent from '../Button';
 import LocationComponent from '../Location';
+import ResourceEditorComponent from '../ResourceEditor';
 
 const Input = genWithState({ Component: InputComponent, trigger: 'onChange' });
 const Select = genWithState({
@@ -30,6 +31,7 @@ const Button = genWithState({
 const Permissions = genWithState({ Component: PermissionsComponent });
 const Transformation = genWithState({ Component: TransformationComponent });
 const Location = genWithState({ Component: LocationComponent });
+const ResourceEditor = genWithState({ Component: ResourceEditorComponent });
 
 export {
 	Input,
@@ -41,4 +43,5 @@ export {
 	Transformation,
 	Button,
 	Location,
+	ResourceEditor,
 };
