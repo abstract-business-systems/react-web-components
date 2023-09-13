@@ -45,31 +45,36 @@ const getPathParentAndLeaf = (path) => {
 	return { parent, leaf };
 };
 
-const genPatch = (setState) => ({ data, path }) => {
+const genPatch = (setState) => ({ data, path, meta }) => {
 	const { parent, leaf } = getPathParentAndLeaf(path);
 
 	setState((preState) => {
 		const value = result(preState, parent);
 
 		value[leaf] = data;
+		value.meta = meta;
 
 		return { ...preState };
 	});
 };
 
-const genUpdate = (setState) => ({ data, path }) => {
+const genUpdate = (setState) => ({ data, path, meta }) => {
 	const { parent, leaf } = getPathParentAndLeaf(path);
 
 	setState((preState) => {
 		const value = result(preState, parent);
 
-		value[leaf] = { ...value[leaf], data: { ...value[leaf].data, ...data }};
+		value[leaf] = {
+			...value[leaf],
+			data: { ...value[leaf].data, ...data },
+			meta: meta,
+		};
 
 		return { ...preState };
 	});
 };
 
-const genList = (setState) => ({ data, path }) => {
+const genList = (setState) => ({ data, path, meta }) => {
 	const { parent, leaf } = getPathParentAndLeaf(path);
 
 	setState((preState) => {
@@ -79,7 +84,13 @@ const genList = (setState) => ({ data, path }) => {
 			data, (acc, curr) => {
 				const id = getId();
 
-				return { ...acc, [id]: { id: id, data: curr }};
+				return {
+					...acc, [id]: {
+						id: id,
+						data: curr,
+						meta: meta,
+					},
+				};
 			}, {}
 		);
 
@@ -87,11 +98,11 @@ const genList = (setState) => ({ data, path }) => {
 	});
 };
 
-const genCreate = (setState) => ({ data, id, path }) => {
+const genCreate = (setState) => ({ data, id, path, meta }) => {
 	setState((preState) => {
 		const value = result(preState, path);
 
-		value[id] = { id, data };
+		value[id] = { id, data, meta };
 
 		return { ...preState };
 	});

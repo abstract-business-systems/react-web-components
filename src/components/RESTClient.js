@@ -10,24 +10,24 @@ const getCreate = ({ base, entity, data, sendMessage, to }) => {
 		path: `${ to }data/${ entity }/data/`,
 		action: 'create',
 		entity: 'state',
+		meta: { status: 'syncing' },
 	});
 
 	fetch(`${ base }/${ entity }`, {
 		method: 'POST',
 		body: JSON.stringify(data),
 		headers: { 'Content-type': 'application/json; charset=UTF-8' },
-	})
-		.then((response) => response.json())
+	}).then((response) => response.json())
 		.then((json) => sendMessage({
 			data: json,
 			path: `${ to }data/${ entity }/data/${ id }`,
-			action: 'update',
-			entity: 'state',
+			action: 'update', entity: 'state',
+			meta: { status: 'synced' },
 		}));
 };
 
 const getList = ({ base, entity, sendMessage, to }) => {
-	fetch(`${ base }/${ entity }?userId=1`)
+	fetch(`${ base }/${ entity }`)
 		.then((response) => response.json())
 		.then((data) => {
 			sendMessage({
@@ -35,6 +35,7 @@ const getList = ({ base, entity, sendMessage, to }) => {
 				path: `${ to }data/${ entity }/data/`,
 				action: 'list',
 				entity: 'state',
+				meta: { status: 'synced' },
 			});
 		});
 };
@@ -45,19 +46,19 @@ const getPatch = ({ base, entity, data, sendMessage, to }) => {
 		path: `${ to }data/${ entity }/data/${ data.id }`,
 		action: 'update',
 		entity: 'state',
+		meta: { status: 'synced' },
 	});
 
 	fetch(`${ base }/${ entity }/${ data.data.id }`, {
 		method: 'PATCH',
 		body: JSON.stringify(data),
 		headers: { 'Content-type': 'application/json; charset=UTF-8' },
-	})
-		.then((response) => response.json())
+	}).then((response) => response.json())
 		.then((json) => sendMessage({
 			data: json,
 			path: `${ to }data/${ entity }/data/${ id }`,
-			action: 'update',
-			entity: 'state',
+			action: 'update', entity: 'state',
+			meta: { status: 'updated' },
 		}));
 };
 
