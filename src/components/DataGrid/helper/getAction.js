@@ -5,11 +5,11 @@ import buildEvent from '../../common/helper/buildEvent';
 import { nothing } from '@laufire/utils/fn';
 
 const Actions = {
-	editRow: (rows, value) => rows.map((row) => (row.id !== value.id
+	editRow: (rows, value) => rows.map((row) => (row.data.id !== value.id
 		? row
-		: { ...row, ...value })),
+		: { ...row, data: value })),
 
-	deleteRow: (rows, value) => rows.filter((row) => row.id !== value.id),
+	deleteRow: (rows, value) => rows.filter((row) => row.data.id !== value.id),
 };
 
 const getActionItems = (props) => {

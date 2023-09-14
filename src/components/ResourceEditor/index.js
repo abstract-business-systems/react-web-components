@@ -3,16 +3,14 @@ import React from 'react';
 import DataGrid from '../DataGrid';
 import Section from '../Section';
 import GlobalContext from '../Document/GlobalContext';
-import { map, merge, reduce, result, values } from '@laufire/utils/collection';
+import { map, merge, result, values } from '@laufire/utils/collection';
 import { resolve } from '@laufire/utils/path';
 import { defined } from '@laufire/utils/fn';
 
 const getResources = ({ state, valuesPath }) => {
-	const resources = defined(result(state, valuesPath), {});
+	const resources = result(state, valuesPath);
 
-	return reduce(
-		resources, (acc, { data }) => merge(acc, data), {}
-	);
+	return map(resources, (resource) => values(defined(resource.data, {})));
 };
 
 const actions = [
@@ -28,7 +26,11 @@ const actions = [
 
 const columnProps = { width: 200, editable: true };
 
-const ResourceEditor = ({ value: valuesProp, schemas: schemasProp }) =>
+const ResourceEditor = ({
+	value: valuesProp,
+	schemas: schemasProp,
+	...rest
+}) =>
 	<GlobalContext.Consumer>
 		{ ({ state, parentPath }) => {
 			const valuesPath = resolve(parentPath, valuesProp);
@@ -50,12 +52,14 @@ const ResourceEditor = ({ value: valuesProp, schemas: schemasProp }) =>
 							{ ...{
 								value: resources[id],
 								columns: buildColumns,
+								...rest,
 							} }
 						/>
 					</Section>
 				);
 			}));
 		} }
-	</GlobalContext.Consumer>;
+	</GlobalContext.Consumer>
+;
 
 export default ResourceEditor;

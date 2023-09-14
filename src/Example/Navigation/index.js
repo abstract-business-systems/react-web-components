@@ -8,6 +8,7 @@ import Section from '../../components/Section';
 import { map } from '@laufire/utils/collection';
 import { ResourceEditor } from '../../components/WithState';
 import RESTClient from '../../components/RESTClient';
+import { peek } from '@laufire/utils/debug';
 
 const data = [
 	{ name: 'parentOne', label: 'ParentOne' },
@@ -39,20 +40,28 @@ const documentProps = {
 		apiClient: {
 			data: {
 				meta: {},
-				values: {},
+				values: {
+					teachers: {},
+					students: {},
+				},
 			},
 		},
 	},
 };
 
 const resourceProps = {
-	value: '/apiClient/data/values/data',
+	value: '/apiClient/data/values',
 	schemas: '/apiClient/data/meta/data',
 	onLoad: [
 		{
 			to: '/apiClient/',
 			action: 'list',
-			entity: 'values',
+			entity: 'values/teachers/',
+		},
+		{
+			to: '/apiClient/',
+			action: 'list',
+			entity: 'values/students/',
 		},
 		{
 			to: '/apiClient/',
@@ -60,6 +69,7 @@ const resourceProps = {
 			entity: 'meta',
 		},
 	],
+	onChange: (event) => peek({ event }),
 };
 
 const restClientProps = {
