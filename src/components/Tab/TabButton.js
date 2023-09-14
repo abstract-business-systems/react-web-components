@@ -1,8 +1,7 @@
 import React from 'react';
 import TabList from '@mui/lab/TabList';
 import { Tab as MuiTab } from '@mui/material';
-import { map, values } from '@laufire/utils/collection';
-import getIcons from '../common/helper/getIcons';
+import { map } from '@laufire/utils/collection';
 
 const styles = {
 	iconOnly: {
@@ -30,14 +29,14 @@ const TabButtons = ({
 		centered,
 	} }
 	>
-		{ values(map(data, (content, tabKey) =>
+		{ map(data, (content, tabKey) =>
 			<MuiTab { ...{
 				key: tabKey,
 				...styles[type].text && { label: content.label },
-				...styles[type].icon && getIcons({ icon: content.icon }),
-				value: tabKey,
-				onClick: () => setValue(tabKey),
+				...styles[type].icon && { icon: content.icon },
+				value: content.value,
+				onClick: () => setValue(content.value),
 			} }
-			/>)) }</TabList>;
+			/>) }</TabList>;
 
 export default TabButtons;

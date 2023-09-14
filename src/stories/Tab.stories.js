@@ -2,6 +2,7 @@ import React from 'react';
 import MuiTab from '../components/Tab/index';
 import Button from '../components/Button';
 import Checkbox from '../components/Checkbox';
+import Icon from '../components/Icon';
 
 const component = {
 	title: 'Navigation/Tab',
@@ -40,14 +41,16 @@ Tab.args = {
 	centered: true,
 	data: {
 		todoPane: {
-			label: 'TodoPane',
+			label: <div>TodoPane</div>,
 			component: <Button { ...{ children: 'ClickMe!' } }/>,
-			icon: 'Favorite',
+			icon: <Icon { ...{ icon: 'Favorite' } }/>,
+			// value: 'todoPane',
 		},
 		taskPane: {
-			label: 'TaskPane',
+			label: <div>TaskPane</div>,
 			component: <Checkbox { ...{ value: true } }/>,
-			icon: 'Star',
+			icon: <Icon { ...{ icon: 'Star' } }/>,
+			value: 'taskPane',
 		},
 	},
 	value: 'todoPane',
