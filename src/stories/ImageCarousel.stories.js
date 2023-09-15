@@ -1,4 +1,4 @@
-import ImageCarousel from '../components/ImageCarousel.js';
+import ImageCarousel from '../components/ImageCarousel';
 import Debugger from '../components/Debugger';
 import { peek } from '@laufire/utils/debug';
 
