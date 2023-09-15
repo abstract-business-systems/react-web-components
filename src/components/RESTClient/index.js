@@ -65,9 +65,10 @@ const getPatch = ({ base, entity, data, sendMessage, to }) => {
 const getDelete = ({ base, entity, data, sendMessage, to }) => {
 	sendMessage({
 		data: data,
-		path: `${ to }data/${ entity }/data/`,
-		action: 'delete',
+		path: `${ to }data/${ entity }/data/${ data.id }`,
+		action: 'update',
 		entity: 'state',
+		meta: { status: 'deleting' },
 	});
 
 	fetch(`${ base }/${ entity }/${ data.data.id }`, { method: 'DELETE' })
