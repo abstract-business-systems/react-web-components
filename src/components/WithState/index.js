@@ -9,6 +9,8 @@ import MultiSelectComponent from '../MultiSelect';
 import ButtonComponent from '../Button';
 import LocationComponent from '../Location';
 import ResourceEditorComponent from '../ResourceEditor';
+import TreeViewComponent from '../TreeView';
+import BreadcrumbsComponent from '../Breadcrumbs';
 
 const Input = genWithState({ Component: InputComponent, trigger: 'onChange' });
 const Select = genWithState({
@@ -32,6 +34,8 @@ const Permissions = genWithState({ Component: PermissionsComponent });
 const Transformation = genWithState({ Component: TransformationComponent });
 const Location = genWithState({ Component: LocationComponent });
 const ResourceEditor = genWithState({ Component: ResourceEditorComponent });
+const TreeView = genWithState({ Component: TreeViewComponent });
+const Breadcrumbs = genWithState({ Component: BreadcrumbsComponent });
 
 export {
 	Input,
@@ -44,4 +48,6 @@ export {
 	Button,
 	Location,
 	ResourceEditor,
+	TreeView,
+	Breadcrumbs,
 };
