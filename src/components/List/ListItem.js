@@ -4,10 +4,11 @@ import { resolve } from '@laufire/utils/path';
 
 const ListItem = ({ children, id }) => {
 	const context = useContext(GlobalContext);
+	const { path } = context;
 
 	const contextValue = useMemo(() => ({
 		...context,
-		path: resolve(context.path, id),
+		path: resolve(path, id),
 	}));
 
 	return <GlobalContext.Provider value={ contextValue }>

@@ -7,6 +7,7 @@ import {
 	isSmartTV, isTablet, isWearable,
 } from 'react-device-detect';
 import classify from '../../helper/classifier';
+import { map } from '@laufire/utils/collection';
 
 // TODO: Need to use classify from js-utils
 
@@ -34,7 +35,7 @@ const getProps = () => {
 
 const Device = ({ onChange = identity }) => {
 	const handleResize = () =>
-		onChange(peek(buildEvent({ value: { ...getProps() }})));
+		onChange(buildEvent({ value: { ...getProps() }}));
 
 	useEffect(() => {
 		handleResize();
