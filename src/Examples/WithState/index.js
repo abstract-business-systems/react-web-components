@@ -8,6 +8,8 @@ import {
 	Transformation,
 	Permissions,
 	Location,
+	Breadcrumbs,
+	TreeView,
 } from '../../components/WithState';
 import Document from '../../components/Document';
 import Section from '../../components/Section';
@@ -24,6 +26,66 @@ const documentProps = {
 		a: { b: { c: '' }},
 		b: { c: { d: 'ten', e: ['ten'] }},
 		todo: [{ a: 1 }],
+		structureTwoValue: {
+			valueOne: [
+				{
+					label: 'calender',
+					value: '/applications/calender/',
+				},
+			],
+			valueTwo: [
+				{
+					label: 'oss',
+					value: '/documents/oss/',
+				},
+			],
+		},
+		structureTwo: {
+			children: {
+				applications: {
+					children: {
+						calender: {
+							children: {},
+							name: 'calender',
+							label: 'Calender',
+							value: '/applications/calender/',
+						},
+					},
+					name: 'applications',
+					label: 'Applications',
+					value: '/applications/',
+				},
+				documents: {
+					children: {
+						oss: {
+							children: { },
+							name: 'oss',
+							label: 'OSS',
+							value: '/documents/oss/',
+						},
+						mui: {
+							children: {
+								index: {
+									children: { },
+									name: 'index',
+									label: 'Index',
+									value: '/documents/mui/index',
+								},
+							},
+							name: 'mui',
+							label: 'MUI',
+							value: '/documents/mui',
+						},
+					},
+					name: 'documents',
+					label: 'Documents',
+					value: '/documents/',
+				},
+			},
+			name: '',
+			label: 'Home',
+			value: '/',
+		},
 		selectOptions: [
 			{
 				value: 'ten',
@@ -124,10 +186,23 @@ const locationProps = {
 	name: './geolocation',
 };
 
+const treeViewProps = {
+	options: './structureTwo/',
+	value: './structureTwoValue/valueTwo/',
+	onClick: { to: 'location' },
+};
+
+const breadcrumbsProps = {
+	value: './location/',
+	onClick: { to: 'location' },
+};
+
 const WithState = () =>
 	<Document { ...documentProps }>
 		<Permissions { ...permissionsProps }/>
 		<Location { ...locationProps }/>
+		<Breadcrumbs { ...breadcrumbsProps }/>
+		<TreeView { ...treeViewProps }/>
 		<Select { ...selectProps }/>
 		<Section label="ParentOne" name="parentOne">
 			<RESTClient { ...restClientProps }/>

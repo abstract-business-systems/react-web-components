@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import Section from '../Section';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { unique } from '@laufire/utils/predicates';
 import {
 	keys,
@@ -126,7 +126,7 @@ const generateActions = ({
 	delete: remove,
 });
 
-const generateReceivers = (actions) => {
+const generateReceivers = ({ actions, navigate }) => {
 	const receivers = {
 		'/': ({ entity, ...rest }) =>
 			({
@@ -138,6 +138,9 @@ const generateReceivers = (actions) => {
 				state: ({ action, ...props }) =>
 					actions[action]({ action, ...props }),
 			})[entity]({ entity, ...rest }),
+		'location': ({ data }) => {
+			navigate(data);
+		},
 	};
 
 	return receivers;
@@ -152,7 +155,7 @@ const generateSendMessage = (receivers) =>
 		return { id };
 	};
 
-const getEntities = (setState) => {
+const getEntities = ({ setState, navigate }) => {
 	const addSection = genAddSection(setState);
 	const removeSection = genRemoveSection(setState);
 	const patch = genPatch(setState);
@@ -164,7 +167,7 @@ const getEntities = (setState) => {
 		addSection, removeSection,
 		patch, update, list, create, remove,
 	});
-	const receivers = generateReceivers(actions);
+	const receivers = generateReceivers({ actions, navigate });
 
 	return receivers;
 };
@@ -195,7 +198,7 @@ const getCurrLocation = ({ state: { sections }, pathname }) =>
 			return acc.concat({
 				name: curr,
 				value: `${ acc[acc.length - 1]?.value || '' }${ curr }/`,
-				label: label,
+				label: label || curr,
 			});
 		}, []);
 
@@ -241,8 +244,9 @@ const Document = ({
 }) => {
 	const { pathname } = useLocation();
 	const [state, setState] = useState(getInitialState(initialState));
+	const navigate = useNavigate();
 
-	const entities = useMemo(() => getEntities(setState), []) ;
+	const entities = useMemo(() => getEntities({ setState, navigate }), []) ;
 
 	const value = useMemo(() =>
 		generateDataProcessor({ state, setState, entities }));
