@@ -13,10 +13,7 @@ import GlobalContext from './GlobalContext';
 import { identity } from '@laufire/utils/fn';
 import { parts, resolve } from '@laufire/utils/path';
 import getId from '../common/helper/getId';
-
-const transformOptions = (sections) => (keys(sections).length
-	? { '': sections }
-	: sections);
+import transformOptions from '../common/helper/transformOptions';
 
 const genRemoveSection = (setState) => ({ data: { currPath, name }}) => {
 	setState((pre) => {
