@@ -17,6 +17,7 @@ import {
 	Display,
 	Button as ButtonWithContext,
 } from '../../components/WithContext';
+import { length } from '@laufire/utils/collection';
 
 const documentProps = {
 	initialState: {
@@ -65,10 +66,10 @@ const permissionsProps = {
 };
 
 const transformationProps = {
-	data: 'apiClient/data/todos/data/',
-	sam: 'apiClient/data/todos/data/',
+	data: './apiClient/data/todos/data/',
+	sam: './apiClient/data/todos/data/',
 	name: 'todoCount',
-	fn: ({ data }) => data.length,
+	fn: ({ data }) => length(data),
 };
 
 const restClientProps = {
