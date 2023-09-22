@@ -8,7 +8,7 @@ const genWithContext = ({ Component }) => ({ ...props }) =>
 	<GlobalContext.Consumer>
 		{ (context) => {
 			const value = result(context.state,
-				resolve(context.path, props.value || ''));
+				resolve(context.valuePath, props.value || ''));
 
 			return (
 				<Component { ...{ ...props, value } }/>

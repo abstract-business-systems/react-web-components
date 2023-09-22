@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { equals, map, omit, result } from '@laufire/utils/collection';
 import GlobalContext from '../Document/GlobalContext';
 import { pathType, resolve } from '@laufire/utils/path';
@@ -8,7 +8,7 @@ const isPath = (prop) => falsy(equals(pathType(prop), 'lax'));
 
 const getProps = ({
 	props: { name, ...props }, path,
-	context: { state, parentPath },
+	context: { state, valuePath },
 }) => {
 	const value = (name && result(state, path)) || props.value;
 
@@ -16,7 +16,7 @@ const getProps = ({
 		value,
 		...map(omit(props, [name && 'value']),
 			(prop) => (isPath(prop)
-				? result(state, resolve(parentPath, prop))
+				? result(state, resolve(valuePath, prop))
 				: prop)),
 	};
 };
@@ -50,19 +50,22 @@ const onTrigger = ({
 	sendMessage({ data, action, path, entity, to, ...onClick });
 };
 
+const contextValue = ({ context, path }) =>
+	({ ...context, valuePath: path });
+
 const WithState = ({
 	props: { onClick = {}, onLoad, ...props },
 	context, args: { Component, trigger = 'onChange' },
 }) => {
-	const { parentPath, sendMessage } = context;
-	const path = resolve(parentPath, props.name || props.value || '');
+	const { valuePath, sendMessage } = context;
+	const path = resolve(valuePath, props.name || props.value || '');
 
 	useEffect(() => {
 		handelOnLoad({ props, sendMessage, path, onLoad });
 	}, []);
 
 	return (
-		<GlobalContext.Provider value={ useMemo(() => ({ ...context, path })) }>
+		<GlobalContext.Provider value={ contextValue({ context, path }) }>
 			<Component { ...{
 				[trigger]: onTrigger({ sendMessage, path, onClick }),
 				...getProps({ props, context, path }),

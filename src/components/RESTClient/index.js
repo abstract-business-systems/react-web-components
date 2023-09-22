@@ -92,17 +92,18 @@ const getActions = (args) => ({
 });
 
 const BaseComponent = (args) => {
-	const { sendMessage, parentPath, name } = args;
+	const { sendMessage, valuePath, name } = args;
 
 	useEffect(() => {
 		sendMessage({
-			path: `${ parentPath }${ name }/`,
+			path: `${ valuePath }${ name }/`,
 			entity: 'receiver',
 			data: ({ action, ...rest }) =>
 				getActions(args)[action]({ action, ...rest }),
 		});
+
 		sendMessage({
-			path: `${ parentPath }${ name }/meta/`,
+			path: `${ valuePath }${ name }/meta/`,
 			entity: 'state',
 			action: 'patch',
 			data: {},

@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import GlobalContext from '../Document/GlobalContext';
 import scaffold from './helper/scaffold.js';
 
 const buildAddProp = ({ currPath, name, label }) => ({
 	data: {
-		parentPath: currPath,
+		structurePath: currPath,
 		sections: scaffold(currPath.split('/').map((data) =>
 			(data ? `/children/${ data }` : data))
 			.join(''),
@@ -31,11 +31,16 @@ const Children = ({ children, currLocation }) =>
 		? child
 		: currLocation && child));
 
+const contextValue = (context, currPath) => ({
+	...context,
+	structurePath: currPath,
+});
+
 const ChildSection = ({
-	name = '', context,
-	label = '', children, dynamic,
+	name = '', label = '',
+	context, children, dynamic,
 }) => {
-	const currPath = `${ context.parentPath }${ name }/`;
+	const currPath = `${ context.structurePath }${ name }/`;
 	const currLocation = getCurrLocation(context, currPath);
 
 	useEffect(() => {
@@ -46,9 +51,7 @@ const ChildSection = ({
 		};
 	}, []);
 
-	const contextValue = useMemo(() => ({ ...context, parentPath: currPath }));
-
-	return <GlobalContext.Provider value={ contextValue }>
+	return <GlobalContext.Provider value={ contextValue(context, currPath) }>
 		<section className="section">
 			<Children { ...{ children, currLocation } }/>
 		</section>

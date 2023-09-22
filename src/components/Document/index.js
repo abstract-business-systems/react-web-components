@@ -15,6 +15,9 @@ import { parts, resolve } from '@laufire/utils/path';
 import getId from '../common/helper/getId';
 import transformOptions from '../common/helper/transformOptions';
 
+const structurePath = '';
+const valuePath = '/';
+
 const genRemoveSection = (setState) => ({ data: { currPath, name }}) => {
 	setState((pre) => {
 		const option = result(pre.sections, (resolve(`${ currPath }../`) || '')
@@ -31,8 +34,6 @@ const genAddSection = (setState) => ({ data }) => {
 		{}, pre, data
 	));
 };
-
-const parentPath = '';
 
 const getPathParentAndLeaf = (path) => {
 	const partsArray = parts(path);
@@ -177,7 +178,8 @@ const generateDataProcessor = ({ state, setState, entities }) => {
 
 	return {
 		state,
-		parentPath,
+		structurePath,
+		valuePath,
 		setState,
 		sendMessage,
 	};
@@ -210,7 +212,6 @@ const updateLocation = (location, setState) => {
 };
 
 const getInitialState = (initialState) => ({
-	parentPath: '',
 	sections: {},
 	location: [],
 	button: 'hi',

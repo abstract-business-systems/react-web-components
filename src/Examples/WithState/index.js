@@ -98,7 +98,7 @@ const documentProps = {
 				label: 'Thirty',
 			},
 		],
-		parentOne: { apiClient: { data: { todos: { data: {}}}}},
+		apiClient: { data: { todos: { data: {}}}},
 	},
 };
 
@@ -146,7 +146,7 @@ const Todo = (props) =>
 			onClick: {
 				action: 'delete',
 				entity: 'todos',
-				to: '/parentOne/apiClient/',
+				to: '/apiClient/',
 			},
 		} }
 		>delete</ButtonWithContext>
@@ -157,7 +157,7 @@ const listProps = {
 	Component: Todo,
 	onLoad: [
 		{
-			to: '/parentOne/apiClient/',
+			to: '/apiClient/',
 			action: 'list',
 			entity: 'todos',
 		},
@@ -166,7 +166,7 @@ const listProps = {
 
 const createButtonProps = {
 	onClick: {
-		to: '/parentOne/apiClient/',
+		to: '/apiClient/',
 		action: 'create',
 		entity: 'todos',
 		data: { title: ' hi' },
@@ -175,7 +175,7 @@ const createButtonProps = {
 
 const listButtonProps = {
 	onClick: {
-		to: '/parentOne/apiClient/',
+		to: '/apiClient/',
 		action: 'list',
 		entity: 'todos',
 	},
