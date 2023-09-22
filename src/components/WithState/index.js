@@ -11,6 +11,7 @@ import LocationComponent from '../Location';
 import ResourceEditorComponent from '../ResourceEditor';
 import TreeViewComponent from '../TreeView';
 import BreadcrumbsComponent from '../Breadcrumbs';
+import TickerComponent from '../Ticker';
 
 const Input = genWithState({ Component: InputComponent, trigger: 'onChange' });
 const Select = genWithState({
@@ -36,6 +37,7 @@ const Location = genWithState({ Component: LocationComponent });
 const ResourceEditor = genWithState({ Component: ResourceEditorComponent });
 const TreeView = genWithState({ Component: TreeViewComponent });
 const Breadcrumbs = genWithState({ Component: BreadcrumbsComponent });
+const Ticker = genWithState({ Component: TickerComponent });
 
 export {
 	Input,
@@ -50,4 +52,5 @@ export {
 	ResourceEditor,
 	TreeView,
 	Breadcrumbs,
+	Ticker,
 };

@@ -10,6 +10,7 @@ import {
 	Location,
 	Breadcrumbs,
 	TreeView,
+	Ticker,
 } from '../../components/WithState';
 import Document from '../../components/Document';
 import Section from '../../components/Section';
@@ -205,6 +206,18 @@ const breadcrumbsProps = {
 	value: './location/',
 	onClick: { to: 'location' },
 };
+const TickerProps = {
+	delay: 1000,
+	count: 5,
+	onLoad: 0,
+	name: 'tick',
+};
+const TickerPropsTwo = {
+	delay: 2000,
+	count: 5,
+	onLoad: 0,
+	name: 'tickTwo',
+};
 
 const WithState = () =>
 	<Document { ...documentProps }>
@@ -216,7 +229,9 @@ const WithState = () =>
 		<Section label="ParentOne" name="parentOne">
 			<RESTClient { ...restClientProps }/>
 			<Transformation { ...transformationProps }/>
+			<Ticker { ...TickerProps }/>
 			<MultiSelect { ...multiSelectProps }/>
+			<Ticker { ...TickerPropsTwo }/>
 			<Input { ...inputProps }/>
 			<List { ...listProps }/>
 			<Button { ...listButtonProps }>List</Button>
