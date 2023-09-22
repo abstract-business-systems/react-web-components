@@ -1,19 +1,23 @@
 import buildEvent from '../common/helper/buildEvent';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
-const Ticker = ({ count, onChange, delay, onLoad }) => {
-	let tick = 0;
+const updateTick = ({ tickRef, onChange }) => {
+	tickRef.current += 1;
+	onChange(buildEvent({ value: tickRef.current }));
+};
+
+const Ticker = ({ count, delay, onChange }) => {
+	const tickRef = useRef(0);
 
 	useEffect(() => {
-		onLoad(buildEvent({ value: tick }));
-	}, []);
+		const interval = setInterval(() => {
+			tickRef.current < count
+				? updateTick({ tickRef, onChange })
+				: clearInterval(interval);
+		}, delay);
 
-	const interval = setInterval(() => {
-		tick += 1;
-		onChange(buildEvent({ value: tick }));
-	}, delay);
-
-	count <= tick || clearInterval(interval);
+		return () => clearInterval(interval);
+	}, [delay]);
 
 	return null;
 };
