@@ -139,17 +139,26 @@ const restClientProps = {
 	base: 'https://jsonplaceholder.typicode.com',
 };
 
+const deleteButtonProps = {
+	onClick: {
+		action: 'delete',
+		entity: 'todos',
+		to: '/apiClient/',
+	},
+	disabled: './local/disabled/',
+};
 const Todo = (props) =>
 	<ListItem { ...props }>
+		<Transformation
+			{ ...{
+				fn: ({ data }) => ({ disabled: data?.status === 'deleting' }),
+				value: { disabled: false },
+				data: './meta/',
+				name: 'local',
+			} }
+		/>
 		<Display value="./data/title/"/>
-		<ButtonWithContext { ...{
-			onClick: {
-				action: 'delete',
-				entity: 'todos',
-				to: '/apiClient/',
-			},
-		} }
-		>delete</ButtonWithContext>
+		<ButtonWithContext { ...deleteButtonProps }>delete</ButtonWithContext>
 	</ListItem>;
 
 const listProps = {
