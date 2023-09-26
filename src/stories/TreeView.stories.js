@@ -3,114 +3,110 @@ import MuiTreeView from '../components/TreeView';
 
 const structure = {
 	structureOne: {
-		'': {
-			children: {
-				parentOne: {
-					children: {
-						childOne: {
-							children: {
-								grandChildOne: {
-									children: {},
-									name: 'grandChildOne',
-									label: 'GrandChildOne',
-									value: '/parentOne/childOne/grandChildOne/',
-								},
-								grandChildTwo: {
-									children: {},
-									name: 'grandChildTwo',
-									label: 'GrandChildTwo',
-									value: '/parentOne/childOne/grandChildTwo/',
-								},
+		children: {
+			parentOne: {
+				children: {
+					childOne: {
+						children: {
+							grandChildOne: {
+								children: {},
+								name: 'grandChildOne',
+								label: 'GrandChildOne',
+								value: '/parentOne/childOne/grandChildOne/',
 							},
-							name: 'childOne',
-							label: 'ChildOne',
-							value: '/parentOne/childOne/',
-						},
-					},
-					name: 'parentOne',
-					label: 'ParentOne',
-					value: '/parentOne/',
-				},
-				parentTwo: {
-					children: {
-						childOne: {
-							children: {
-								grandChildOne: {
-									children: {},
-									name: 'grandChildOne',
-									label: 'GrandChildOne',
-									value: '/parentTwo/childOne/grandChildOne/',
-								},
-								grandChildTwo: {
-									children: {},
-									name: 'grandChildTwo',
-									label: 'GrandChildTwo',
-									value: '/parentTwo/childOne/grandChildTwo/',
-								},
+							grandChildTwo: {
+								children: {},
+								name: 'grandChildTwo',
+								label: 'GrandChildTwo',
+								value: '/parentOne/childOne/grandChildTwo/',
 							},
-							name: 'childOne',
-							label: 'ChildOne',
-							value: '/parentTwo/childOne/',
 						},
+						name: 'childOne',
+						label: 'ChildOne',
+						value: '/parentOne/childOne/',
 					},
-					name: 'parentTwo',
-					label: 'ParentTwo',
-					value: '/parentTwo/',
 				},
+				name: 'parentOne',
+				label: 'ParentOne',
+				value: '/parentOne/',
 			},
-			name: '',
-			label: 'Home',
-			value: '/',
+			parentTwo: {
+				children: {
+					childOne: {
+						children: {
+							grandChildOne: {
+								children: {},
+								name: 'grandChildOne',
+								label: 'GrandChildOne',
+								value: '/parentTwo/childOne/grandChildOne/',
+							},
+							grandChildTwo: {
+								children: {},
+								name: 'grandChildTwo',
+								label: 'GrandChildTwo',
+								value: '/parentTwo/childOne/grandChildTwo/',
+							},
+						},
+						name: 'childOne',
+						label: 'ChildOne',
+						value: '/parentTwo/childOne/',
+					},
+				},
+				name: 'parentTwo',
+				label: 'ParentTwo',
+				value: '/parentTwo/',
+			},
 		},
+		name: '',
+		label: 'Home',
+		value: '/',
 	},
 
 	structureTwo: {
-		'': {
-			children: {
-				applications: {
-					children: {
-						calender: {
-							children: {},
-							name: 'calender',
-							label: 'Calender',
-							value: '/applications/calender/',
-						},
+		children: {
+			applications: {
+				children: {
+					calender: {
+						children: {},
+						name: 'calender',
+						label: 'Calender',
+						value: '/applications/calender/',
 					},
-					name: 'applications',
-					label: 'Applications',
-					value: '/applications/',
 				},
-				documents: {
-					children: {
-						oss: {
-							children: { },
-							name: 'oss',
-							label: 'OSS',
-							value: '/documents/oss/',
-						},
-						mui: {
-							children: {
-								index: {
-									children: { },
-									name: 'index',
-									label: 'Index',
-									value: '/documents/mui/index',
-								},
-							},
-							name: 'mui',
-							label: 'MUI',
-							value: '/documents/mui',
-						},
-					},
-					name: 'documents',
-					label: 'Documents',
-					value: '/documents/',
-				},
+				name: 'applications',
+				label: 'Applications',
+				value: '/applications/',
 			},
-			name: '',
-			label: 'Home',
-			value: '/',
+			documents: {
+				children: {
+					oss: {
+						children: { },
+						name: 'oss',
+						label: 'OSS',
+						value: '/documents/oss/',
+					},
+					mui: {
+						children: {
+							index: {
+								children: { },
+								name: 'index',
+								label: 'Index',
+								value: '/documents/mui/index',
+							},
+						},
+						name: 'mui',
+						label: 'MUI',
+						value: '/documents/mui',
+					},
+				},
+				name: 'documents',
+				label: 'Documents',
+				value: '/documents/',
+			},
 		},
+		name: '',
+		label: 'Home',
+		value: '/',
 	},
 };
 
