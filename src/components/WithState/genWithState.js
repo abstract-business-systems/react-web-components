@@ -41,7 +41,7 @@ const handelOnLoad = ({ props, sendMessage, path, onLoad }) => {
 	});
 };
 
-const onTrigger = ({
+const genOnTrigger = ({
 	sendMessage, path,
 	onClick: {
 		action = 'patch',
@@ -54,7 +54,7 @@ const onTrigger = ({
 const contextValue = ({ context, path }) =>
 	({ ...context, valuePath: path });
 
-const getPath = ({ name, value }) =>
+const getResolvePath = ({ name, value }) =>
 	defined(name, isPath(value) && value) || '';
 
 const WithState = ({
@@ -62,7 +62,7 @@ const WithState = ({
 	context, args: { Component, trigger = 'onChange' },
 }) => {
 	const { valuePath, sendMessage } = context;
-	const path = resolve(valuePath, getPath(props));
+	const path = resolve(valuePath, getResolvePath(props));
 
 	useEffect(() => {
 		handelOnLoad({ props, sendMessage, path, onLoad });
@@ -71,7 +71,7 @@ const WithState = ({
 	return (
 		<GlobalContext.Provider value={ contextValue({ context, path }) }>
 			<Component { ...{
-				[trigger]: onTrigger({ sendMessage, path, onClick }),
+				[trigger]: genOnTrigger({ sendMessage, path, onClick }),
 				...getProps({ props, context, path }),
 			} }
 			/>
