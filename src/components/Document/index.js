@@ -14,6 +14,7 @@ import { identity } from '@laufire/utils/fn';
 import { parts, resolve } from '@laufire/utils/path';
 import getId from '../common/helper/getId';
 import transformOptions from '../common/helper/transformOptions';
+import scaffold from '../Section/helper/scaffold';
 
 const structurePath = '';
 const valuePath = '/';
@@ -43,14 +44,25 @@ const getPathParentAndLeaf = (path) => {
 	return { parent, leaf };
 };
 
+const ensureParent = ({ preState, parent: path }) => {
+	const parent = parts(path)[1];
+	const two = 2;
+	const resolvedParentParts = resolve(...parts(path).slice(two));
+
+	preState[parent] = scaffold(resolvedParentParts, {});
+
+	return result(preState, path);
+};
+
 const genPatch = (setState) => ({ data, path, meta }) => {
 	const { parent, leaf } = getPathParentAndLeaf(path);
 
 	setState((preState) => {
-		const value = result(preState, parent);
+		const value = result(preState, parent)
+			|| ensureParent({ preState, parent, leaf });
 
 		value[leaf] = data;
-		value.meta = meta;
+		value.meta = meta || value.meta;
 
 		return { ...preState };
 	});
@@ -106,9 +118,11 @@ const genCreate = (setState) => ({ data, id, path, meta }) => {
 	});
 };
 
-const genRemove = (setState) => ({ path, data }) => {
+const genRemove = (setState) => ({ path }) => {
+	const { parent, leaf } = getPathParentAndLeaf(path);
+
 	setState((preState) => {
-		delete result(preState, path)[data.id];
+		delete result(preState, parent)[leaf];
 
 		return { ...preState };
 	});

@@ -75,7 +75,7 @@ const getDelete = ({ base, entity, data, sendMessage, to }) => {
 		.then((response) => equals(response.status, status)
 		&& sendMessage({
 			data: data,
-			path: `${ to }data/${ entity }/data/`,
+			path: `${ to }data/${ entity }/data/${ data.id }`,
 			action: 'delete',
 			entity: 'state',
 		}));
