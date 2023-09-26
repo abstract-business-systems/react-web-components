@@ -3,6 +3,7 @@ import { equals, map, omit, result } from '@laufire/utils/collection';
 import GlobalContext from '../Document/GlobalContext';
 import { pathType, resolve } from '@laufire/utils/path';
 import { falsy } from '@laufire/utils/predicates';
+import { defined } from '@laufire/utils/fn';
 
 const isPath = (prop) => falsy(equals(pathType(prop), 'lax'));
 
@@ -53,12 +54,15 @@ const onTrigger = ({
 const contextValue = ({ context, path }) =>
 	({ ...context, valuePath: path });
 
+const getPath = ({ name, value }) =>
+	defined(name, isPath(value) && value) || '';
+
 const WithState = ({
 	props: { onClick = {}, onLoad, ...props },
 	context, args: { Component, trigger = 'onChange' },
 }) => {
 	const { valuePath, sendMessage } = context;
-	const path = resolve(valuePath, props.name || props.value || '');
+	const path = resolve(valuePath, getPath(props));
 
 	useEffect(() => {
 		handelOnLoad({ props, sendMessage, path, onLoad });
