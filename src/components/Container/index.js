@@ -7,8 +7,8 @@ import '../../stories/styles/global.scss';
 import clsx from 'clsx';
 import { identity } from '@laufire/utils/fn';
 import { map } from '@laufire/utils/collection';
-import shortcut from './common/helper/shortcut';
-import buildEvent from './common/helper/buildEvent';
+import shortcut from '../common/helper/shortcut';
+import buildEvent from '../common/helper/buildEvent';
 import { isDefined } from '@laufire/utils/reflection';
 
 const getArgs = ({ className, ...args }) => ({
