@@ -15,12 +15,8 @@ import {
 import Document from '../../components/Document';
 import Section from '../../components/Section';
 import RESTClient from '../../components/RESTClient';
-import ListItem from '../../components/List/ListItem';
-import {
-	Display,
-	Button as ButtonWithContext,
-} from '../../components/WithContext';
 import { length } from '@laufire/utils/collection';
+import Todo from './Todo';
 
 const documentProps = {
 	initialState: {
@@ -139,28 +135,6 @@ const restClientProps = {
 	name: 'apiClient',
 	base: 'https://jsonplaceholder.typicode.com',
 };
-
-const deleteButtonProps = {
-	onClick: {
-		action: 'delete',
-		entity: 'todos',
-		to: '/apiClient/',
-	},
-	disabled: './local/disabled/',
-};
-const Todo = (props) =>
-	<ListItem { ...props }>
-		<Transformation
-			{ ...{
-				fn: ({ data }) => ({ disabled: data?.status === 'deleting' }),
-				value: { disabled: false },
-				data: './meta/',
-				name: 'local',
-			} }
-		/>
-		<Display value="./data/title/"/>
-		<ButtonWithContext { ...deleteButtonProps }>delete</ButtonWithContext>
-	</ListItem>;
 
 const listProps = {
 	value: './apiClient/data/todos/data/',
