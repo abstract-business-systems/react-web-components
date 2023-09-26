@@ -209,13 +209,11 @@ const breadcrumbsProps = {
 const TickerProps = {
 	delay: 1000,
 	count: 5,
-	onLoad: 0,
 	name: 'tick',
 };
 const TickerPropsTwo = {
 	delay: 2000,
 	count: 5,
-	onLoad: 0,
 	name: 'tickTwo',
 };
 

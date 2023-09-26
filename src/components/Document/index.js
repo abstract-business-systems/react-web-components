@@ -187,6 +187,8 @@ const getEntities = ({ setState, navigate }) => {
 	return receivers;
 };
 
+const transforms = { not: (data) => !data };
+
 const generateDataProcessor = ({ state, setState, entities }) => {
 	const sendMessage = generateSendMessage(entities);
 
@@ -195,6 +197,7 @@ const generateDataProcessor = ({ state, setState, entities }) => {
 		structurePath,
 		valuePath,
 		setState,
+		transforms,
 		sendMessage,
 	};
 };
