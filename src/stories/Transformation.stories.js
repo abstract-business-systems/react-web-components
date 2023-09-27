@@ -10,29 +10,57 @@ import scaffold from '../components/Section/helper/scaffold';
 const component = {
 	title: 'Transformation',
 	component: TransformationComponent,
+	argTypes: {
+		fn: {
+			control: 'select',
+			options: [
+				'function',
+				'string',
+				'object',
+			],
+		},
+		data: {
+			control: 'select',
+			options: [
+				'constant',
+				'path',
+			],
+		},
+	},
+	args: { fn: 'function', data: 'constant' },
 };
 
 export default component;
 
 const documentProps = {
-	initialState: scaffold('apiClient/data/todos/data', [
+	initialState: scaffold('/todos/data', [
 		{ todo: 1 },
 		{ todo: 2 },
 	]),
 };
 
-const Template = (args) =>
-	<BrowserRouter>
+const fnOptions = {
+	string: 'not',
+	object: { len: (data) => peek(length(data)) },
+	function: (data) => peek(data),
+};
+
+const dataOptions = {
+	constant: [{ todo: 1 }],
+	path: './todos/data/',
+};
+
+const Template = (args) => {
+	const { fn, data } = args;
+	const enrichedArgs = { data: dataOptions[data], fn: fnOptions[fn] };
+
+	return <BrowserRouter>
 		<Document { ...documentProps }>
-			<TransformationComponent { ...args }/>
+			<TransformationComponent { ...{ ...args, ...enrichedArgs } }/>
 		</Document>
 	</BrowserRouter>;
+};
 
 export const Transformation = Template.bind({});
 
-Transformation.args = {
-	data: './apiClient/data/todos/data/',
-	name: 'todoCount',
-	fn: ({ data }) => peek(length(data)),
-	// fn: 'not',
-};
+Transformation.args = { name: 'todo' };

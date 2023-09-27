@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
-import { omit, values } from '@laufire/utils/collection';
+import { map, omit, values } from '@laufire/utils/collection';
 import buildEvent from '../common/helper/buildEvent';
 import GlobalContext from '../Document/GlobalContext';
 
 const excludedProps = ['onChange', 'fn', 'name', 'value'];
 
 const actions = {
-	string: ({ transforms, fn, data }) => transforms[fn](data),
+	string: ({ transforms, fn, data: { data }}) => transforms[fn](data),
 	function: ({ fn, data }) => fn(data),
+	object: ({ fn, data }) => map(fn, (func) => func(data)),
 };
 
 const Transform = (props) => {
