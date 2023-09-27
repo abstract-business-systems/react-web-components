@@ -40,10 +40,10 @@ const getList = ({ base, entity, sendMessage, to }) => {
 		});
 };
 
-const getPatch = ({ base, entity, data, sendMessage, to }) => {
-	const { id } = sendMessage({
+const getPatch = ({ base, entity, data, sendMessage, path }) => {
+	sendMessage({
 		data: data,
-		path: `${ to }data/${ entity }/data/${ data.id }`,
+		path: path,
 		action: 'update',
 		entity: 'state',
 		meta: { status: 'synced' },
@@ -51,21 +51,21 @@ const getPatch = ({ base, entity, data, sendMessage, to }) => {
 
 	fetch(`${ base }/${ entity }/${ data.data.id }`, {
 		method: 'PATCH',
-		body: JSON.stringify(data),
+		body: JSON.stringify(data.data),
 		headers: { 'Content-type': 'application/json; charset=UTF-8' },
 	}).then((response) => response.json())
 		.then((json) => sendMessage({
 			data: json,
-			path: `${ to }data/${ entity }/data/${ id }`,
+			path: path,
 			action: 'update', entity: 'state',
 			meta: { status: 'updated' },
 		}));
 };
 
-const getDelete = ({ base, entity, data, sendMessage, to }) => {
+const getDelete = ({ base, entity, data, sendMessage, path }) => {
 	sendMessage({
 		data: data,
-		path: `${ to }data/${ entity }/data/${ data.id }`,
+		path: path,
 		action: 'update',
 		entity: 'state',
 		meta: { status: 'deleting' },
@@ -75,7 +75,7 @@ const getDelete = ({ base, entity, data, sendMessage, to }) => {
 		.then((response) => equals(response.status, status)
 		&& sendMessage({
 			data: data,
-			path: `${ to }data/${ entity }/data/${ data.id }`,
+			path: path,
 			action: 'delete',
 			entity: 'state',
 		}));
