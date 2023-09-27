@@ -1,5 +1,5 @@
 import React from 'react';
-import { Transformation } from '../../components/WithState';
+import { Input, Transformation } from '../../components/WithState';
 import ListItem from '../../components/List/ListItem';
 import {
 	Display,
@@ -15,7 +15,17 @@ const deleteButtonProps = {
 	disabled: './local/disabled/',
 };
 
-const transformProps = {
+const savButtonProps = {
+	onClick: {
+		action: 'patch',
+		entity: 'todos',
+		to: '/apiClient/',
+	},
+};
+
+const inputProps = { value: './data/title/' };
+
+const transformDisableProps = {
 	fn: ({ data }) => ({ disabled: data?.status === 'deleting' }),
 	value: { disabled: false },
 	data: './meta/',
@@ -23,9 +33,11 @@ const transformProps = {
 };
 
 const Todo = (props) => <ListItem { ...props }>
-	<Transformation { ...transformProps }/>
+	<Transformation { ...transformDisableProps }/>
+	<Input { ...inputProps }/>
 	<Display value="./data/title/"/>
 	<ButtonWithContext { ...deleteButtonProps }>delete</ButtonWithContext>
+	<ButtonWithContext { ...savButtonProps }>save</ButtonWithContext>
 </ListItem>;
 
 export default Todo;
