@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { equals, map, omit, result } from '@laufire/utils/collection';
 import GlobalContext from '../Document/GlobalContext';
 import { pathType, resolve } from '@laufire/utils/path';
@@ -57,6 +57,9 @@ const contextValue = ({ context, path }) =>
 const getResolvePath = ({ name, value }) =>
 	defined(name, isPath(value) && value) || '';
 
+const useTrigger = ({ sendMessage, path, onClick }) =>
+	useMemo(() => genOnTrigger({ sendMessage, path, onClick }), []);
+
 const WithState = ({
 	props: { onClick = {}, onLoad, ...props },
 	context, args: { Component, trigger = 'onChange' },
@@ -68,10 +71,12 @@ const WithState = ({
 		handelOnLoad({ props, sendMessage, path, onLoad });
 	}, []);
 
+	const onTrigger = useTrigger({ sendMessage, path, onClick });
+
 	return (
 		<GlobalContext.Provider value={ contextValue({ context, path }) }>
 			<Component { ...{
-				[trigger]: genOnTrigger({ sendMessage, path, onClick }),
+				[trigger]: onTrigger,
 				...getProps({ props, context, path }),
 			} }
 			/>
