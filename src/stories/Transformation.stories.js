@@ -63,4 +63,4 @@ const Template = (args) => {
 
 export const Transformation = Template.bind({});
 
-Transformation.args = { name: 'todo' };
+Transformation.args = { name: 'todo', sam: './todos/data/' };

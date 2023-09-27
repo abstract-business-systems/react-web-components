@@ -3,31 +3,43 @@ import { map, omit, values } from '@laufire/utils/collection';
 import buildEvent from '../common/helper/buildEvent';
 import GlobalContext from '../Document/GlobalContext';
 
-const excludedProps = ['onChange', 'fn', 'name', 'value'];
+const excludedProps = ['value'];
 
 const actions = {
-	string: ({ transforms, fn, data: { data }}) => transforms[fn](data),
-	function: ({ fn, data }) => fn(data),
-	object: ({ fn, data }) => map(fn, (func) => func(data)),
+	string: (props) => {
+		const { transforms, fn } = props;
+
+		return transforms[fn](props);
+	},
+	function: (props) => {
+		const { fn } = props;
+
+		return fn(props);
+	},
+	object: (props) => {
+		const { fn } = props;
+
+		return map(fn, (func) => func(props));
+	},
 };
 
 const Transform = (props) => {
-	const { onChange, fn, data } = props;
+	const { onChange, fn, dependencies } = props;
 
 	useEffect(() => {
 		const value = actions[typeof fn](props);
 
 		onChange(buildEvent({ value }));
-	}, values(data));
+	}, values(dependencies));
 };
 
 const Transformation = (props) => {
-	const data = omit(props, excludedProps);
+	const dependencies = omit(props, excludedProps);
 
 	return (
 		<GlobalContext.Consumer>
 			{ ({ transforms }) =>
-				<Transform { ...{ ...props, data, transforms } }/> }
+				<Transform { ...{ ...props, dependencies, transforms } }/> }
 		</GlobalContext.Consumer>
 	);
 };
