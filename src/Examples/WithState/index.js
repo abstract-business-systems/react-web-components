@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import {
 	List,
 	Button,
@@ -191,6 +191,35 @@ const TickerPropsTwo = {
 	name: 'tickTwo',
 };
 
+const inputDataProps = { value: './data/input/' };
+
+const buttonProps = { disabled: '/transform/update/' };
+
+const transformUpdateProps = {
+	name: 'transform',
+	value: { update: true },
+	data: './data/input/',
+	fn: ({ data, value }) => {
+		const update = value?.input ? value.input === data : true;
+		const preInput = data;
+
+		return { update: update, input: preInput };
+	},
+};
+
+const SectionChild = () =>
+	<Fragment>
+		<RESTClient { ...restClientProps }/>
+		<Transformation { ...transformationProps }/>
+		<Ticker { ...TickerProps }/>
+		<MultiSelect { ...multiSelectProps }/>
+		<Ticker { ...TickerPropsTwo }/>
+		<Input { ...inputProps }/>
+		<List { ...listProps }/>
+		<Button { ...listButtonProps }>List</Button>
+		<Button { ...createButtonProps }>create</Button>
+	</Fragment>;
+
 const WithState = () =>
 	<Document { ...documentProps }>
 		<Permissions { ...permissionsProps }/>
@@ -198,16 +227,11 @@ const WithState = () =>
 		<Breadcrumbs { ...breadcrumbsProps }/>
 		<TreeView { ...treeViewProps }/>
 		<Select { ...selectProps }/>
+		<Input { ...inputDataProps }/>
+		<Transformation { ...transformUpdateProps }/>
+		<Button { ...buttonProps }>button</Button>
 		<Section label="ParentOne" name="parentOne">
-			<RESTClient { ...restClientProps }/>
-			<Transformation { ...transformationProps }/>
-			<Ticker { ...TickerProps }/>
-			<MultiSelect { ...multiSelectProps }/>
-			<Ticker { ...TickerPropsTwo }/>
-			<Input { ...inputProps }/>
-			<List { ...listProps }/>
-			<Button { ...listButtonProps }>List</Button>
-			<Button { ...createButtonProps }>create</Button>
+			<SectionChild/>
 		</Section>
 	</Document>;
 
