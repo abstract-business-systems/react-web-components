@@ -1,11 +1,13 @@
 import React from 'react';
-import ReactVideoPlayer from '../components/VideoPlayer';
+import ReactMediaPlayer from '../components/MediaPlayer';
 import video from './assets/video.mp4';
+import audio from './assets/audio.mp3';
 
-const url = video;
+const videoUrl = video;
+const audioUrl = audio;
 const component = {
-	title: 'Display/Video Player',
-	component: ReactVideoPlayer,
+	title: 'Display/MediaPlayer',
+	component: ReactMediaPlayer,
 	argTypes: {
 		status: {
 			type: 'select',
@@ -37,20 +39,33 @@ const component = {
 				step: 0.25,
 			},
 		},
+		type: {
+			type: 'select',
+			options: ['audio', 'video'],
+		},
 	},
+	args: { type: 'audio' },
 };
 
 export default component;
 
-const Template = ({ onChange, ...value }) =>
-	<ReactVideoPlayer { ...{ value, onChange } }/>;
+const mediaType = {
+	audio: audioUrl,
+	video: videoUrl,
+};
 
-export const VideoPlayer = Template.bind({});
+const Template = ({ type, onChange, ...props }) => {
+	const url = mediaType[type];
+	const value = { ...props, url, type };
 
-VideoPlayer.args = {
-	url: url,
+	return <ReactMediaPlayer { ...{ value, onChange } }/>;
+};
+
+export const MediaPlayer = Template.bind({});
+
+MediaPlayer.args = {
 	status: 'unknown',
-	mode: 'light',
+	mode: 'normal',
 	loop: false,
 	controls: true,
 	volume: 0.5,

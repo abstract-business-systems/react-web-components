@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { map, omit } from '@laufire/utils/collection';
-import { nothing } from '@laufire/utils/fn';
+import { identity, nothing } from '@laufire/utils/fn';
 import ReactPlayer from 'react-player/lazy';
 import buildEvent from '../common/helper/buildEvent';
 
@@ -17,18 +17,31 @@ const events = {
 	onEnablePIP: { pip: true },
 	onDisablePIP: { pip: false },
 };
-const ReactVideoPlayer = (props) => {
-	const { playerProps, playerEvents, patchValue, value, ...rest } = props;
+
+const displayStyle = {
+	audio: ({ controls }) =>
+		controls || { display: 'none' },
+	video: identity,
+};
+
+const progress = (state) => ({
+	played: state.playedSeconds,
+	loaded: state.loadedSeconds,
+});
+
+const ReactMediaPlayer = (props) => {
+	const {
+		playerProps: { type, ...playerProps }, playerEvents, patchValue,
+		value, style, ...rest
+	} = props;
 
 	return (
 		<ReactPlayer	{ ...{
 			...playerProps,
 			...playerEvents,
+			style: { ...style, ...displayStyle[type](playerProps) },
 			onSeek: () => patchValue({ played: value.played }),
-			onProgress: (state) => patchValue({
-				played: state.playedSeconds,
-				loaded: state.loadedSeconds,
-			}),
+			onProgress: (state) => patchValue(progress(state)),
 			onDuration: (duration) => patchValue({ duration }),
 			onPlaybackRateChange: (speed) =>
 				patchValue({ playbackRate: parseFloat(speed) }),
@@ -37,7 +50,7 @@ const ReactVideoPlayer = (props) => {
 		/>);
 };
 
-const VideoPlayer = ({ onChange = nothing, value: initialValue }) => {
+const MediaPlayer = ({ onChange = nothing, value: initialValue }) => {
 	const { mode, status, ...rest } = initialValue;
 	const playerProps = omit(rest, { played: 'played', loaded: 'loaded' });
 	const light = mode === 'light';
@@ -58,7 +71,7 @@ const VideoPlayer = ({ onChange = nothing, value: initialValue }) => {
 		playing, playerEvents, patchValue, value,
 	};
 
-	return <ReactVideoPlayer { ...props }/>;
+	return <ReactMediaPlayer { ...props }/>;
 };
 
-export default VideoPlayer;
+export default MediaPlayer;
