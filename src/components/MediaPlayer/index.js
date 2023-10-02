@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { map, omit } from '@laufire/utils/collection';
-import { identity, nothing } from '@laufire/utils/fn';
+import { nothing } from '@laufire/utils/fn';
 import ReactPlayer from 'react-player/lazy';
 import buildEvent from '../common/helper/buildEvent';
 
@@ -21,17 +21,18 @@ const events = {
 const displayStyle = {
 	audio: ({ controls }) =>
 		controls || { display: 'none' },
-	video: identity,
+	video: nothing,
 };
 
-const progress = (state) => ({
-	played: state.playedSeconds,
-	loaded: state.loadedSeconds,
+const progress = ({ playedSeconds, loadedSeconds }) => ({
+	played: playedSeconds,
+	loaded: loadedSeconds,
 });
 
 const ReactMediaPlayer = (props) => {
 	const {
-		playerProps: { type, ...playerProps }, playerEvents, patchValue,
+		playerProps: { type = 'video', ...playerProps },
+		playerEvents, patchValue,
 		value, style, ...rest
 	} = props;
 
@@ -41,10 +42,10 @@ const ReactMediaPlayer = (props) => {
 			...playerEvents,
 			style: { ...style, ...displayStyle[type](playerProps) },
 			onSeek: () => patchValue({ played: value.played }),
-			onProgress: (state) => patchValue(progress(state)),
+			onProgress: (seconds) => patchValue(progress(seconds)),
 			onDuration: (duration) => patchValue({ duration }),
 			onPlaybackRateChange: (speed) =>
-				patchValue({ playbackRate: parseFloat(speed) }),
+				patchValue({ playbackRate: speed }),
 			...rest,
 		} }
 		/>);

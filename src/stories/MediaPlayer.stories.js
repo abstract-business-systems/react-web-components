@@ -44,7 +44,7 @@ const component = {
 			options: ['audio', 'video'],
 		},
 	},
-	args: { type: 'audio' },
+	args: { type: 'video' },
 };
 
 export default component;
@@ -59,13 +59,14 @@ const Template = ({ type, onChange, ...props }) => {
 	const value = { ...props, url, type };
 
 	return <ReactMediaPlayer { ...{ value, onChange } }/>;
-};
+}
+;
 
 export const MediaPlayer = Template.bind({});
 
 MediaPlayer.args = {
 	status: 'unknown',
-	mode: 'normal',
+	mode: 'light',
 	loop: false,
 	controls: true,
 	volume: 0.5,
