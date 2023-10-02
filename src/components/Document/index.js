@@ -19,22 +19,20 @@ import scaffold from '../Section/helper/scaffold';
 const structurePath = '';
 const valuePath = '/';
 
-const genRemoveSection = (setState) => ({ data: { currPath, name }}) => {
-	setState((pre) => {
-		const option = result(pre.sections, (resolve(`${ currPath }../`) || '')
+const genRemoveSection = ({ data: { currPath, name }}) =>
+	(preState) => {
+		const option = result(preState.sections, (resolve(`${ currPath }../`) || '')
 			.replaceAll('/', '/children/'));
 
 		delete option[name];
 
-		return merge({}, pre);
-	});
-};
+		return merge({}, preState);
+	};
 
-const genAddSection = (setState) => ({ data }) => {
-	setState((pre) => merge(
-		{}, pre, data
-	));
-};
+const genAddSection = ({ data }) =>
+	(preState) => merge(
+		{}, preState, data
+	);
 
 const getPathParentAndLeaf = (path) => {
 	const partsArray = parts(path);
@@ -54,10 +52,10 @@ const ensureParent = ({ preState, parent: path }) => {
 	return result(preState, path);
 };
 
-const genPatch = (setState) => ({ data, path, meta }) => {
+const genPatch = ({ data, path, meta }) => {
 	const { parent, leaf } = getPathParentAndLeaf(path);
 
-	setState((preState) => {
+	return (preState) => {
 		const value = result(preState, parent)
 			|| ensureParent({ preState, parent, leaf });
 
@@ -65,13 +63,13 @@ const genPatch = (setState) => ({ data, path, meta }) => {
 		value.meta = meta || value.meta;
 
 		return { ...preState };
-	});
+	};
 };
 
-const genUpdate = (setState) => ({ data, path, meta }) => {
+const genUpdate = ({ data, path, meta }) => {
 	const { parent, leaf } = getPathParentAndLeaf(path);
 
-	setState((preState) => {
+	return (preState) => {
 		const value = result(preState, parent);
 
 		value[leaf] = {
@@ -81,13 +79,13 @@ const genUpdate = (setState) => ({ data, path, meta }) => {
 		};
 
 		return { ...preState };
-	});
+	};
 };
 
-const genList = (setState) => ({ data, path, meta }) => {
+const genList = ({ data, path, meta }) => {
 	const { parent, leaf } = getPathParentAndLeaf(path);
 
-	setState((preState) => {
+	return (preState) => {
 		const value = result(preState, parent);
 
 		value[leaf] = reduce(
@@ -105,54 +103,42 @@ const genList = (setState) => ({ data, path, meta }) => {
 		);
 
 		return { ...preState };
-	});
+	};
 };
 
-const genCreate = (setState) => ({ data, id, path, meta }) => {
-	setState((preState) => {
+const genCreate = ({ data, id, path, meta }) =>
+	(preState) => {
 		const value = result(preState, path);
 
 		value[id] = { id, data, meta };
 
 		return { ...preState };
-	});
-};
+	};
 
-const genRemove = (setState) => ({ path }) => {
+const genDelete = ({ path }) => {
 	const { parent, leaf } = getPathParentAndLeaf(path);
 
-	setState((preState) => {
+	return (preState) => {
 		delete result(preState, parent)[leaf];
 
 		return { ...preState };
-	});
+	};
 };
 
-const generateActions = ({
-	addSection, removeSection,
-	patch, update, list, create, remove,
-}) => ({
-	addSection: addSection,
-	removeSection: removeSection,
-	patch: patch,
-	update: update,
-	list: list,
-	create: create,
-	delete: remove,
-});
-
-const generateReceivers = ({ actions, navigate }) => {
+const generateReceivers = ({ actions, navigate, setState }) => {
 	const receivers = {
-		'/': ({ entity, ...rest }) =>
-			({
-				receiver: ({ path, data }) => {
-					receivers[path] = data;
-				},
-				section: ({ action, ...props }) =>
-					actions[action]({ action, ...props }),
-				state: ({ action, ...props }) =>
-					actions[action]({ action, ...props }),
-			})[entity]({ entity, ...rest }),
+		'/': ({ entity, ...rest }) => ({
+			receiver: ({ path, data }) => {
+				receivers[path] = data;
+			},
+
+			section: ({ action, ...props }) =>
+				setState(actions[action]({ action, ...props })),
+
+			state: ({ action, ...props }) =>
+				setState(actions[action]({ action, ...props })),
+		})[entity]({ entity, ...rest }),
+
 		'location': ({ data }) => {
 			navigate(data);
 		},
@@ -171,18 +157,16 @@ const generateSendMessage = (receivers) =>
 	};
 
 const getEntities = ({ setState, navigate }) => {
-	const addSection = genAddSection(setState);
-	const removeSection = genRemoveSection(setState);
-	const patch = genPatch(setState);
-	const update = genUpdate(setState);
-	const list = genList(setState);
-	const create = genCreate(setState);
-	const remove = genRemove(setState);
-	const actions = generateActions({
-		addSection, removeSection,
-		patch, update, list, create, remove,
-	});
-	const receivers = generateReceivers({ actions, navigate });
+	const actions = {
+		addSection: genAddSection,
+		removeSection: genRemoveSection,
+		patch: genPatch,
+		update: genUpdate,
+		list: genList,
+		create: genCreate,
+		delete: genDelete,
+	};
+	const receivers = generateReceivers({ actions, navigate, setState });
 
 	return receivers;
 };
