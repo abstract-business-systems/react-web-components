@@ -1,9 +1,9 @@
-import { React, useRef } from 'react';
+import { useRef } from 'react';
 
-const useBeforeLoad = (Cb) => {
+const useBeforeLoad = (cb) => {
 	const ref = useRef(false);
 
-	ref.current || <Cb/>;
+	ref.current || cb();
 
 	ref.current = true;
 };
