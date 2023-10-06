@@ -2,6 +2,7 @@ import React from 'react';
 import ReactMediaPlayer from '../components/MediaPlayer';
 import video from './assets/video.mp4';
 import audio from './assets/audio.mp3';
+import { nothing } from '@laufire/utils/predicates';
 
 const videoUrl = video;
 const audioUrl = audio;
@@ -76,4 +77,5 @@ MediaPlayer.args = {
 	loaded: 0,
 	duration: 0,
 	playbackRate: 1.0,
+	onChange: nothing,
 };
