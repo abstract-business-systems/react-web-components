@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import GlobalContext from '../Document/GlobalContext';
 import { equals } from '@laufire/utils/collection';
+import useBeforeLoad from '../hook/useBeforeLoad';
 
 const status = 200;
 
@@ -94,10 +95,11 @@ const getActions = (args) => ({
 const BaseComponent = (args) => {
 	const { sendMessage, valuePath, name } = args;
 
-	useEffect(() => {
+	useBeforeLoad(() => {
 		sendMessage({
 			path: `${ valuePath }${ name }/`,
 			entity: 'receiver',
+			deferred: true,
 			data: ({ action, ...rest }) =>
 				getActions(args)[action]({ action, ...rest }),
 		});
@@ -106,6 +108,7 @@ const BaseComponent = (args) => {
 			path: `${ valuePath }${ name }/meta/`,
 			entity: 'state',
 			action: 'patch',
+			deferred: true,
 			data: {},
 		});
 	}, []);

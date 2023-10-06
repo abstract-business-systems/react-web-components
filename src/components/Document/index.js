@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Section from '../Section';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { unique } from '@laufire/utils/predicates';
@@ -125,8 +125,18 @@ const genDelete = ({ path }) => {
 	};
 };
 
-const generateReceivers = ({ actions, navigate, setState }) => {
-	const receivers = {
+const actions = {
+	addSection: genAddSection,
+	removeSection: genRemoveSection,
+	patch: genPatch,
+	update: genUpdate,
+	list: genList,
+	create: genCreate,
+	delete: genDelete,
+};
+
+const generateReceivers = ({ navigate, setState, state, receivers }) => {
+	merge(receivers, {
 		'/': ({ entity, ...rest }) => ({
 			receiver: ({ path, data }) => {
 				receivers[path] = data;
@@ -135,16 +145,19 @@ const generateReceivers = ({ actions, navigate, setState }) => {
 			section: ({ action, ...props }) =>
 				setState(actions[action]({ action, ...props })),
 
-			state: ({ action, ...props }) =>
-				setState(actions[action]({ action, ...props })),
+			state: ({ action, deferred = false, ...props }) => {
+				const fn = deferred
+					? (cb) => { cb(state); }
+					: setState;
+
+				return fn(actions[action]({ action, ...props }));
+			},
 		})[entity]({ entity, ...rest }),
 
 		'location': ({ data }) => {
 			navigate(data);
 		},
-	};
-
-	return receivers;
+	});
 };
 
 const generateSendMessage = (receivers) =>
@@ -156,25 +169,10 @@ const generateSendMessage = (receivers) =>
 		return { id };
 	};
 
-const getEntities = ({ setState, navigate }) => {
-	const actions = {
-		addSection: genAddSection,
-		removeSection: genRemoveSection,
-		patch: genPatch,
-		update: genUpdate,
-		list: genList,
-		create: genCreate,
-		delete: genDelete,
-	};
-	const receivers = generateReceivers({ actions, navigate, setState });
-
-	return receivers;
-};
-
 const transforms = { not: (data) => !data };
 
-const generateDataProcessor = ({ state, setState, entities }) => {
-	const sendMessage = generateSendMessage(entities);
+const getContextValue = ({ state, setState, receivers }) => {
+	const sendMessage = generateSendMessage(receivers);
 
 	return {
 		state,
@@ -247,11 +245,13 @@ const Document = ({
 	const { pathname } = useLocation();
 	const [state, setState] = useState(getInitialState(initialState));
 	const navigate = useNavigate();
+	const { current: receivers } = useRef({});
 
-	const entities = useMemo(() => getEntities({ setState, navigate }), []) ;
+	useMemo(() =>
+		generateReceivers({ setState, state, navigate, receivers }), [state]) ;
 
 	const value = useMemo(() =>
-		generateDataProcessor({ state, setState, entities }));
+		getContextValue({ state, setState, receivers }));
 
 	useUpdateLocation({ state, setState, pathname, value });
 

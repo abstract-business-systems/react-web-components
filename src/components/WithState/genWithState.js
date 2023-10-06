@@ -1,9 +1,11 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { equals, map, omit, result } from '@laufire/utils/collection';
 import GlobalContext from '../Document/GlobalContext';
 import { pathType, resolve } from '@laufire/utils/path';
 import { falsy } from '@laufire/utils/predicates';
 import { defined } from '@laufire/utils/fn';
+import useBeforeLoad from '../hook/useBeforeLoad';
+import { isDefined } from '@laufire/utils/reflection';
 
 const isPath = (prop) => falsy(equals(pathType(prop), 'lax'));
 
@@ -11,7 +13,9 @@ const getProps = ({
 	props: { name, ...props }, path,
 	context: { state, valuePath },
 }) => {
-	const value = (name && result(state, path)) || props.value;
+	const value = isDefined(name && result(state, path))
+		? result(state, path)
+		: props.value;
 
 	return {
 		value,
@@ -28,6 +32,7 @@ const handelOnLoad = ({ props, sendMessage, path, onLoad }) => {
 		action: 'patch',
 		path: path,
 		entity: 'state',
+		deferred: true,
 	});
 
 	onLoad && onLoad.forEach((load) => {
@@ -36,6 +41,7 @@ const handelOnLoad = ({ props, sendMessage, path, onLoad }) => {
 			action: 'patch',
 			path: path,
 			entity: 'state',
+			deferred: true,
 			...load,
 		});
 	});
@@ -67,10 +73,9 @@ const WithState = ({
 	const { valuePath, sendMessage } = context;
 	const path = resolve(valuePath, getResolvePath(props));
 
-	useEffect(() => {
+	useBeforeLoad(() => {
 		handelOnLoad({ props, sendMessage, path, onLoad });
 	}, []);
-
 	const onTrigger = useTrigger({ sendMessage, path, onClick });
 
 	return (
