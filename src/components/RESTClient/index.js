@@ -47,7 +47,7 @@ const getPatch = ({ base, entity, data, sendMessage, path }) => {
 		path: path,
 		action: 'update',
 		entity: 'state',
-		meta: { status: 'synced' },
+		meta: { status: 'syncing' },
 	});
 
 	fetch(`${ base }/${ entity }/${ data.data.id }`, {
