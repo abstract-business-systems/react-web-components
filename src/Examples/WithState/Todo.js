@@ -5,6 +5,8 @@ import {
 	Display,
 	Button as ButtonWithContext,
 } from '../../components/WithContext';
+import { isDefined } from '@laufire/utils/reflection';
+import { defined } from '@laufire/utils/fn';
 
 const deleteButtonProps = {
 	onClick: {
@@ -21,6 +23,7 @@ const savButtonProps = {
 		entity: 'todos',
 		to: '/apiClient/',
 	},
+	disabled: './localOne/update/',
 };
 
 const inputProps = { value: './data/title/' };
@@ -32,8 +35,27 @@ const transformDisableProps = {
 	name: 'local',
 };
 
+const transformUpdateInput = {
+	data: './data/title/',
+	name: 'localOne',
+	value: { update: true },
+	meta: './meta/status/',
+	fn: ({ data: currData, value: { data: preData }, meta }) => {
+		const update = meta === 'syncing'
+			? true
+			: !(isDefined(preData) && preData !== currData);
+		const data = meta === 'syncing' ? currData : defined(preData, currData);
+
+		return {
+			data,
+			update,
+		};
+	},
+};
+
 const Todo = (props) => <ListItem { ...props }>
 	<Transformation { ...transformDisableProps }/>
+	<Transformation { ...transformUpdateInput }/>
 	<Input { ...inputProps }/>
 	<Display value="./data/title/"/>
 	<ButtonWithContext { ...deleteButtonProps }>delete</ButtonWithContext>
