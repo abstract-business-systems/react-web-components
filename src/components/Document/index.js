@@ -66,51 +66,35 @@ const genPatch = ({ data, path, meta }) => {
 	};
 };
 
-const genUpdate = ({ data, path, meta }) => {
+const genUpdate = ({ data, path }) => {
 	const { parent, leaf } = getPathParentAndLeaf(path);
 
 	return (preState) => {
 		const value = result(preState, parent);
 
-		value[leaf] = {
-			...value[leaf],
-			data: { ...value[leaf].data, ...data },
-			meta: meta,
-		};
+		merge(value[leaf], data);
 
 		return { ...preState };
 	};
 };
 
-const genList = ({ data, path, meta }) => {
+const genList = ({ data, path }) => {
 	const { parent, leaf } = getPathParentAndLeaf(path);
 
 	return (preState) => {
 		const value = result(preState, parent);
 
-		value[leaf] = reduce(
-			data, (acc, curr) => {
-				const id = getId();
-
-				return {
-					...acc, [id]: {
-						id: id,
-						data: curr,
-						meta: meta,
-					},
-				};
-			}, {}
-		);
+		value[leaf] = data;
 
 		return { ...preState };
 	};
 };
 
-const genCreate = ({ data, id, path, meta }) =>
+const genCreate = ({ data, id, path }) =>
 	(preState) => {
 		const value = result(preState, path);
 
-		value[id] = { id, data, meta };
+		value[id] = { id, ...data };
 
 		return { ...preState };
 	};
