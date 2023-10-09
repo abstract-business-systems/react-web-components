@@ -4,6 +4,7 @@ import initialState from './initialState';
 import { Checkbox, Input } from '../../components/WithState';
 import Section from '../../components/Section';
 import RESTClient from '../../components/RESTClient';
+import TodosDisplay from './TodosDisplay';
 
 const docProps = { initialState };
 
@@ -22,6 +23,7 @@ const Todos = () =>
 			<RESTClient { ...restClientProps }/>
 			<Checkbox { ...toggleAllProps }/>
 			<Input { ...todoInputProps }/>
+			<TodosDisplay/>
 		</Section>
 	</Document>;
 
