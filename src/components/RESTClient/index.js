@@ -1,10 +1,9 @@
 import React from 'react';
 import GlobalContext from '../Document/GlobalContext';
-import { equals, merge, reduce } from '@laufire/utils/collection';
+import { merge } from '@laufire/utils/collection';
 import useBeforeLoad from '../hook/useBeforeLoad';
-import getId from '../common/helper/getId';
-
-const status = 200;
+import listEntity from './listEntity';
+import deleteEntity from './deleteEntity';
 
 const getCreate = ({ base, entity, data, sendMessage, to }) => {
 	const { id } = sendMessage({
@@ -24,34 +23,6 @@ const getCreate = ({ base, entity, data, sendMessage, to }) => {
 			path: `${ to }data/${ entity }/data/${ id }`,
 			action: 'update', entity: 'state',
 		}));
-};
-
-const listData = (data) =>
-	reduce(
-		data, (acc, curr) => {
-			const id = getId();
-
-			return {
-				...acc, [id]: {
-					id: id,
-					data: curr,
-					meta: { status: 'synced' },
-				},
-			};
-		}, {}
-	);
-
-const getList = ({ base, entity, sendMessage, path }) => {
-	fetch(`${ base }/${ entity }`)
-		.then((response) => response.json())
-		.then((data) => {
-			sendMessage({
-				data: listData(data),
-				path: path,
-				action: 'list',
-				entity: 'state',
-			});
-		});
 };
 
 const getPatch = ({ base, entity, data, sendMessage, path }) => {
@@ -74,30 +45,11 @@ const getPatch = ({ base, entity, data, sendMessage, path }) => {
 		}));
 };
 
-const getDelete = ({ base, entity, data, sendMessage, path }) => {
-	sendMessage({
-		data: merge(data, { meta: { status: 'deleting' }}),
-		path: path,
-		action: 'update',
-		entity: 'state',
-	});
-
-	fetch(`${ base }/${ entity }/${ data.data.id }`, { method: 'DELETE' })
-		.then((response) => equals(response.status, status)
-		&& sendMessage({
-			data: data,
-			path: path,
-			action: 'delete',
-			entity: 'state',
-		}));
-};
-
 const getActions = (args) => ({
+	list: (props) => listEntity({ ...props, ...args }),
 	create: (props) => getCreate({ ...props, ...args }),
 
-	delete: (props) => getDelete({ ...props, ...args }),
-
-	list: (props) => getList({ ...props, ...args }),
+	delete: (props) => deleteEntity({ ...props, ...args }),
 
 	patch: (props) => getPatch({ ...props, ...args }),
 });
