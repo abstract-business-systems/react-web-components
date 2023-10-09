@@ -89,11 +89,15 @@ const WithState = ({
 	);
 };
 
-const genWithState = (args) =>
-	// eslint-disable-next-line react/display-name
-	(props) =>
+const genWithState = (args) => {
+	const WrappedComponent = (props) =>
 		<GlobalContext.Consumer>
 			{ (context) => <WithState { ...{ context, args, props } }/> }
 		</GlobalContext.Consumer>;
+
+	WrappedComponent.displayName = 'GeneratedWithState';
+
+	return WrappedComponent;
+};
 
 export default genWithState;
