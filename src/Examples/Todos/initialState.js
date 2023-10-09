@@ -1,3 +1,6 @@
-const initialState = { toggleAll: false };
+const initialState = {
+	toggleAll: false,
+	todo: '',
+};
 
 export default initialState;
