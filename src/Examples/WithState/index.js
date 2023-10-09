@@ -96,6 +96,7 @@ const documentProps = {
 			},
 		],
 		apiClient: { data: { todos: { data: {}}}},
+		data: { input: 'hi' },
 	},
 };
 
