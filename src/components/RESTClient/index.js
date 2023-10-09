@@ -41,13 +41,13 @@ const listData = (data) =>
 		}, {}
 	);
 
-const getList = ({ base, entity, sendMessage, to }) => {
+const getList = ({ base, entity, sendMessage, path }) => {
 	fetch(`${ base }/${ entity }`)
 		.then((response) => response.json())
 		.then((data) => {
 			sendMessage({
 				data: listData(data),
-				path: `${ to }data/${ entity }/data/`,
+				path: path,
 				action: 'list',
 				entity: 'state',
 			});
