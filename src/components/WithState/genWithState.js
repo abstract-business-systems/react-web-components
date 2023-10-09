@@ -48,13 +48,13 @@ const handelOnLoad = ({ props, sendMessage, path, onLoad }) => {
 };
 
 const genOnTrigger = ({
-	sendMessage, path,
+	sendMessage, path, onChange = {},
 	onClick: {
 		action = 'patch',
 		to, entity = 'state', ...onClick
 	},
 }) => ({ data }) => {
-	sendMessage({ data, action, path, entity, to, ...onClick });
+	sendMessage({ data, action, path, entity, to, ...onClick, ...onChange });
 };
 
 const contextValue = ({ context, path }) =>
@@ -63,11 +63,11 @@ const contextValue = ({ context, path }) =>
 const getResolvePath = ({ name, value }) =>
 	defined(name, isPath(value) && value) || '';
 
-const useTrigger = ({ sendMessage, path, onClick }) =>
-	useMemo(() => genOnTrigger({ sendMessage, path, onClick }), []);
+const useTrigger = (props) =>
+	useMemo(() => genOnTrigger(props), []);
 
 const WithState = ({
-	props: { onClick = {}, onLoad, ...props },
+	props: { onClick = {}, onLoad, onChange, ...props },
 	context, args: { Component, trigger = 'onChange' },
 }) => {
 	const { valuePath, sendMessage } = context;
@@ -76,7 +76,7 @@ const WithState = ({
 	useBeforeLoad(() => {
 		handelOnLoad({ props, sendMessage, path, onLoad });
 	}, []);
-	const onTrigger = useTrigger({ sendMessage, path, onClick });
+	const onTrigger = useTrigger({ sendMessage, path, onClick, onChange });
 
 	return (
 		<GlobalContext.Provider value={ contextValue({ context, path }) }>
