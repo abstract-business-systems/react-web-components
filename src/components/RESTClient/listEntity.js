@@ -1,5 +1,4 @@
 import axios from 'axios';
-import splitPath from '../common/helper/splitPath';
 import { reduce } from '@laufire/utils/collection';
 import getId from '../common/helper/getId';
 
@@ -9,10 +8,13 @@ const listData = (data) =>
 			const id = getId();
 
 			return {
-				...acc, [id]: {
-					id: id,
-					data: curr,
-					meta: { status: 'synced' },
+				data: {
+					...acc.data,
+					[id]: {
+						id: id,
+						data: curr,
+						meta: { status: 'synced' },
+					},
 				},
 			};
 		}, {}
@@ -32,7 +34,7 @@ const listEntities = async ({ base, entity, sendMessage, path }) => {
 	catch (error) {
 		sendMessage({
 			data: { meta: { error }},
-			path: splitPath(path).parent,
+			path: path,
 			action: 'update',
 			entity: 'state',
 		});

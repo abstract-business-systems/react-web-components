@@ -8,7 +8,7 @@ import dataTable from '../common/helper/dataTable';
 import { values } from '@laufire/utils/collection';
 
 const List = (args) => {
-	const { value: rows, Component } = args;
+	const { value: { data: rows }, Component } = args;
 	const columns = dataTable.getColumns(args);
 
 	const data = useMemo(() => ({ columns: columns, data: values(rows) }),

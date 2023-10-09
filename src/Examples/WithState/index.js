@@ -138,7 +138,7 @@ const restClientProps = {
 };
 
 const listProps = {
-	value: './apiClient/data/todos/data/',
+	value: './apiClient/data/todos/',
 	Component: Todo,
 	onLoad: [
 		{

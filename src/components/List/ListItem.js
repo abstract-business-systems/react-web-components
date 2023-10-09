@@ -8,7 +8,9 @@ const ListItem = ({ children, id }) => {
 
 	const contextValue = useMemo(() => ({
 		...context,
-		valuePath: resolve(valuePath, id),
+		valuePath: resolve(
+			valuePath, 'data', id
+		),
 	}));
 
 	return <GlobalContext.Provider value={ contextValue }>
