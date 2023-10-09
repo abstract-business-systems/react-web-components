@@ -15,6 +15,7 @@ import { parts, resolve } from '@laufire/utils/path';
 import getId from '../common/helper/getId';
 import transformOptions from '../common/helper/transformOptions';
 import scaffold from '../Section/helper/scaffold';
+import splitPath from '../common/helper/splitPath';
 
 const structurePath = '';
 const valuePath = '/';
@@ -34,14 +35,6 @@ const genAddSection = ({ data }) =>
 		{}, preState, data
 	);
 
-const getPathParentAndLeaf = (path) => {
-	const partsArray = parts(path);
-	const parent = resolve(...partsArray.slice(0, partsArray.length - 1));
-	const leaf = partsArray[partsArray.length - 1];
-
-	return { parent, leaf };
-};
-
 const ensureParent = ({ preState, parent: path }) => {
 	const parent = parts(path)[1];
 	const two = 2;
@@ -53,7 +46,7 @@ const ensureParent = ({ preState, parent: path }) => {
 };
 
 const genPatch = ({ data, path, meta }) => {
-	const { parent, leaf } = getPathParentAndLeaf(path);
+	const { parent, leaf } = splitPath(path);
 
 	return (preState) => {
 		const value = result(preState, parent)
@@ -67,7 +60,7 @@ const genPatch = ({ data, path, meta }) => {
 };
 
 const genUpdate = ({ data, path }) => {
-	const { parent, leaf } = getPathParentAndLeaf(path);
+	const { parent, leaf } = splitPath(path);
 
 	return (preState) => {
 		const value = result(preState, parent);
@@ -79,7 +72,7 @@ const genUpdate = ({ data, path }) => {
 };
 
 const genList = ({ data, path }) => {
-	const { parent, leaf } = getPathParentAndLeaf(path);
+	const { parent, leaf } = splitPath(path);
 
 	return (preState) => {
 		const value = result(preState, parent);
@@ -100,7 +93,7 @@ const genCreate = ({ data, id, path }) =>
 	};
 
 const genDelete = ({ path }) => {
-	const { parent, leaf } = getPathParentAndLeaf(path);
+	const { parent, leaf } = splitPath(path);
 
 	return (preState) => {
 		delete result(preState, parent)[leaf];
