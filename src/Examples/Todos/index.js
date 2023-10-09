@@ -7,9 +7,9 @@ const docProps = { initialState };
 
 const toggleAllProps = { value: '/toggleAll/' };
 
-const Todo = () =>
+const Todos = () =>
 	<Document { ...docProps }>
 		<Checkbox { ...toggleAllProps }/>
 	</Document>;
 
-export default Todo;
+export default Todos;
