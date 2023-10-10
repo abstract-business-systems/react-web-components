@@ -26,36 +26,45 @@ const getProps = ({
 	};
 };
 
-const handelOnLoad = ({ props, sendMessage, path, onLoad }) => {
-	props.name && sendMessage({
-		data: props.value,
-		action: 'patch',
-		path: path,
-		entity: 'state',
+const processSendMessage = ({
+	events, data: currData, context: { state, sendMessage, valuePath },
+	path: currPath, deferred = false,
+}) => {
+	const action = 'patch';
+	const entity = 'state';
+	const data = isPath(currData)
+		? result(state, resolve(valuePath, currData))
+		: currData;
+
+	[].concat(events).forEach((event) => {
+		const path = event.path ? resolve(currData, event.path) : currPath;
+
+		sendMessage({ data, action, path, entity, deferred, ...event });
+	});
+};
+
+const handelOnLoad = ({
+	props: { name, value: data }, path,
+	onLoad, context,
+}) => {
+	const props = { path, context, data };
+
+	name && processSendMessage({
+		...props,
 		deferred: true,
+		events: { action: 'patch' },
 	});
 
-	onLoad && onLoad.forEach((load) => {
-		sendMessage({
-			data: props.value,
-			action: 'patch',
-			path: path,
-			entity: 'state',
-			deferred: true,
-			...load,
-		});
-	});
+	onLoad && processSendMessage({ ...props, events: onLoad, deferred: true });
 };
 
-const genOnTrigger = ({
-	sendMessage, path, onChange,
-	onClick: {
-		action = 'patch',
-		to, entity = 'state', ...onClick
-	},
-}) => ({ data }) => {
-	sendMessage({ data, action, path, entity, to, ...onClick, ...onChange });
-};
+const genOnTrigger = ({ path, onChange, onClick, trigger, ...rest }) =>
+	({ data }) => {
+		const props = { ...rest, path, data };
+		const events = { onChange, onClick };
+
+		processSendMessage({ ...props, events: events[trigger] });
+	};
 
 const contextValue = ({ context, path }) =>
 	({ ...context, valuePath: path });
@@ -75,13 +84,14 @@ const WithState = ({
 	props: { onClick = {}, onLoad, onChange = {}, ...props },
 	context, args: { Component, trigger = 'onChange' },
 }) => {
-	const { valuePath, sendMessage } = context;
+	const { valuePath } = context;
 	const path = resolve(valuePath, getResolvePath(props));
 
 	useBeforeLoad(() => {
-		handelOnLoad({ props, sendMessage, path, onLoad });
+		handelOnLoad({ context, props, path, onLoad });
 	}, []);
-	const onTrigger = useTrigger({ sendMessage, path, onClick, onChange });
+
+	const onTrigger = useTrigger({ context, path, onClick, onChange, trigger });
 
 	return (
 		<GlobalContext.Provider value={ contextValue({ context, path }) }>
