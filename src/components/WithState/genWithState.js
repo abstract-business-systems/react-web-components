@@ -9,6 +9,10 @@ import { isDefined } from '@laufire/utils/reflection';
 
 const isPath = (prop) => falsy(equals(pathType(prop), 'lax'));
 
+const getProp = ({ prop, state, valuePath }) => (isPath(prop)
+	? result(state, resolve(valuePath, prop))
+	: prop);
+
 const getProps = ({
 	props: { name, ...props }, path,
 	context: { state, valuePath },
@@ -20,26 +24,28 @@ const getProps = ({
 	return {
 		value,
 		...map(omit(props, [name && 'value']),
-			(prop) => (isPath(prop)
-				? result(state, resolve(valuePath, prop))
-				: prop)),
+			(prop) => getProp({ prop, state, valuePath })),
 	};
 };
 
 const processSendMessage = ({
-	events, data: currData, context: { state, sendMessage, valuePath },
-	path: currPath, deferred = false,
+	events, data: currData, context: { sendMessage },
+	path: currPath, deferred = false, context,
 }) => {
 	const action = 'patch';
 	const entity = 'state';
-	const data = isPath(currData)
-		? result(state, resolve(valuePath, currData))
-		: currData;
+
+	const data = getProp({ prop: currData, ...context });
 
 	[].concat(events).forEach((event) => {
 		const path = event.path ? resolve(currData, event.path) : currPath;
+		const eventData = isDefined(event.data)
+		&& { data: getProp({ prop: event.data, ...context }) };
 
-		sendMessage({ data, action, path, entity, deferred, ...event });
+		sendMessage({
+			data, action, path, entity, deferred, ...event,
+			...eventData,
+		});
 	});
 };
 
@@ -52,7 +58,7 @@ const handelOnLoad = ({
 	name && processSendMessage({
 		...props,
 		deferred: true,
-		events: { action: 'patch' },
+		events: { },
 	});
 
 	onLoad && processSendMessage({ ...props, events: onLoad, deferred: true });
