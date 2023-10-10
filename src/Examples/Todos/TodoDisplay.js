@@ -2,6 +2,7 @@ import React from 'react';
 import ListItem from '../../components/List/ListItem';
 import { Display } from '../../components/WithContext';
 import { Checkbox } from '../../components/WithState';
+import { Box } from '@mui/material';
 
 const toggleProps = {
 	value: './data/completed/',
@@ -13,8 +14,10 @@ const toggleProps = {
 };
 
 const TodoDisplay = (props) => <ListItem { ...props }>
-	<Checkbox { ...toggleProps }/>
-	<Display value="./data/text/"/>
+	<Box display="flex" alignItems="center">
+		<Checkbox { ...toggleProps }/>
+		<Display value="./data/text/"/>
+	</Box>
 </ListItem>;
 
 export default TodoDisplay;
