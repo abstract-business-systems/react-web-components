@@ -48,7 +48,7 @@ const handelOnLoad = ({ props, sendMessage, path, onLoad }) => {
 };
 
 const genOnTrigger = ({
-	sendMessage, path, onChange = {},
+	sendMessage, path, onChange,
 	onClick: {
 		action = 'patch',
 		to, entity = 'state', ...onClick
@@ -63,11 +63,16 @@ const contextValue = ({ context, path }) =>
 const getResolvePath = ({ name, value }) =>
 	defined(name, isPath(value) && value) || '';
 
-const useTrigger = (props) =>
-	useMemo(() => genOnTrigger(props), []);
+const useTrigger = (props) => {
+	const dependency = defined(
+		props.onClick?.data, props.onChange?.data, ''
+	);
+
+	return useMemo(() => genOnTrigger(props), [dependency]);
+};
 
 const WithState = ({
-	props: { onClick = {}, onLoad, onChange, ...props },
+	props: { onClick = {}, onLoad, onChange = {}, ...props },
 	context, args: { Component, trigger = 'onChange' },
 }) => {
 	const { valuePath, sendMessage } = context;
