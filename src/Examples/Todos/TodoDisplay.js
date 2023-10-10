@@ -7,11 +7,15 @@ import DeleteButton from './DeleteButton';
 
 const toggleProps = {
 	value: './data/completed/',
-	onChange: {
-		to: '/todoClient/',
-		action: 'patch',
-		entity: 'todos',
-	},
+	onChange: [
+		{},
+		{
+			to: '/todoClient/',
+			action: 'patch',
+			entity: 'todos',
+			data: './',
+		},
+	],
 };
 
 const TodoDisplay = (props) => <ListItem { ...props }>
