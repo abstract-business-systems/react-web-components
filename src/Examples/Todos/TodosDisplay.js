@@ -3,7 +3,7 @@ import { List } from '../../components/WithState';
 import TodoDisplay from './TodoDisplay';
 
 const listProps = {
-	value: './todoClient/data/todos/',
+	value: '/filterTodos/',
 	Component: TodoDisplay,
 	onLoad: [
 		{
