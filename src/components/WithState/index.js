@@ -13,6 +13,7 @@ import TreeViewComponent from '../TreeView';
 import BreadcrumbsComponent from '../Breadcrumbs';
 import TickerComponent from '../Ticker';
 import CheckboxComponent from '../Checkbox';
+import BranchComponent from '../Branch';
 
 const Input = genWithState({ Component: InputComponent, trigger: 'onChange' });
 const Select = genWithState({
@@ -40,6 +41,7 @@ const TreeView = genWithState({ Component: TreeViewComponent });
 const Breadcrumbs = genWithState({ Component: BreadcrumbsComponent });
 const Ticker = genWithState({ Component: TickerComponent });
 const Checkbox = genWithState({ Component: CheckboxComponent });
+const Branch = genWithState({ Component: BranchComponent });
 
 export {
 	Input,
@@ -56,4 +58,5 @@ export {
 	Breadcrumbs,
 	Ticker,
 	Checkbox,
+	Branch,
 };
