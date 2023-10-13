@@ -8,7 +8,10 @@ import DeleteButton from './DeleteButton';
 const toggleProps = {
 	value: './data/completed/',
 	onChange: [
-		{},
+		{
+			to: '/',
+			action: 'patch',
+		},
 		{
 			to: '/todoClient/',
 			action: 'patch',
