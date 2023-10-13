@@ -20,6 +20,10 @@ const addProps = {
 			to: '/todoClient/',
 			data: './',
 		},
+		{
+			path: '../todo/',
+			data: '',
+		},
 	],
 };
 
