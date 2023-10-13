@@ -12,7 +12,7 @@ const sendCreateMessage = ({ data, path, sendMessage }) =>
 const sendUpdateMessage = ({ data, path, sendMessage, id }) => {
 	sendMessage({
 		data: merge({ data: data, meta: { status: 'synced' }}),
-		path: `${ path }/${ id }/`,
+		path: `${ path }${ id }/`,
 		action: 'update',
 		entity: 'state',
 	});
@@ -21,7 +21,7 @@ const sendUpdateMessage = ({ data, path, sendMessage, id }) => {
 const sendErrorMessage = ({ error, sendMessage, path, id }) => {
 	sendMessage({
 		data: { meta: { error }},
-		path: `${ path }/${ id }/`,
+		path: `${ path }${ id }/`,
 		action: 'update',
 		entity: 'state',
 	});
