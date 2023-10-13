@@ -28,7 +28,9 @@ const sendErrorMessage = ({ error, path, sendMessage }) => {
 	});
 };
 
-const deleteEntity = async ({ base, entity, data, sendMessage, path }) => {
+const deleteEntity = async ({ base, entity, data, sendMessage, to }) => {
+	const path = `${ to }data/${ entity }/data/${ data.id }`;
+
 	sendUpdateMessage({ data, path, sendMessage });
 
 	try {

@@ -20,7 +20,9 @@ const listData = (data) =>
 		}, {}
 	);
 
-const listEntities = async ({ base, entity, sendMessage, path }) => {
+const listEntities = async ({ base, entity, sendMessage, to }) => {
+	const path = `${ to }data/${ entity }/`;
+
 	try {
 		const response = await axios(`${ base }/${ entity }`);
 
