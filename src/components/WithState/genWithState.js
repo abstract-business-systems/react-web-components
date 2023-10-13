@@ -38,8 +38,8 @@ const processSendMessage = ({
 		const eventData = isDefined(event.data) && { data: event.data };
 
 		sendMessage({
-			data, action, path, entity, deferred, ...event,
-			...eventData,
+			data, action, entity, deferred, ...event,
+			...eventData, path,
 		});
 	});
 };
