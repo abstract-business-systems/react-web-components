@@ -1,15 +1,5 @@
-import React, { Fragment } from 'react';
-import { Button, Transformation } from '../../components/WithState';
-
-const transformationProps = {
-	value: {},
-	todo: '/todo/',
-	name: 'transformTodo',
-	fn: ({ todo }) => ({
-		text: todo,
-		completed: false,
-	}),
-};
+import React from 'react';
+import { Button } from '../../components/WithState';
 
 const addProps = {
 	value: '/transformTodo/',
@@ -21,16 +11,13 @@ const addProps = {
 			data: './',
 		},
 		{
-			path: '../todo/',
+			path: '/todo/',
 			data: '',
 		},
 	],
 };
 
 const AddButton = () =>
-	<Fragment>
-		<Transformation { ...transformationProps }/>
-		<Button { ...addProps }>Add</Button>
-	</Fragment>;
+	<Button { ...addProps }>Add</Button>;
 
 export default AddButton;

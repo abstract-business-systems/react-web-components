@@ -1,7 +1,10 @@
 import React from 'react';
 import Document from '../../components/Document';
 import initialState from './initialState';
-import { Checkbox, Input, Transformation } from '../../components/WithState';
+import {
+	Checkbox,
+	Input, Transformation,
+} from '../../components/WithState';
 import Section from '../../components/Section';
 import RESTClient from '../../components/RESTClient';
 import TodosDisplay from './TodosDisplay';
@@ -37,10 +40,21 @@ const filterTodosProps = {
 		({ data: filter(todos, filters[filterTodo]) }),
 };
 
+const createTodoProps = {
+	value: {},
+	data: '/todo/',
+	name: 'transformTodo',
+	fn: ({ data }) => ({
+		text: data,
+		completed: false,
+	}),
+};
+
 const Todos = () =>
 	<Document { ...docProps }>
 		<Section { ...{ label: 'Todos', name: 'todos' } }>
 			<RESTClient { ...restClientProps }/>
+			<Transformation { ...createTodoProps }/>
 			<Checkbox { ...toggleAllProps }/>
 			<Input { ...todoInputProps }/>
 			<AddButton/>
