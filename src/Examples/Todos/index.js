@@ -29,11 +29,12 @@ const filters = {
 };
 
 const filterTodosProps = {
-	value: {},
+	value: { data: {}},
 	filterTodo: '/filterTodo/',
 	todos: '/todoClient/data/todos/data/',
 	name: 'filterTodos',
-	fn: ({ filterTodo, todos }) => filter(todos, filters[filterTodo]),
+	fn: ({ filterTodo, todos }) =>
+		({ data: filter(todos, filters[filterTodo]) }),
 };
 
 const Todos = () =>
@@ -43,8 +44,8 @@ const Todos = () =>
 			<Checkbox { ...toggleAllProps }/>
 			<Input { ...todoInputProps }/>
 			<AddButton/>
-			<TodosDisplay/>
 			<Transformation { ...filterTodosProps }/>
+			<TodosDisplay/>
 			<FilterButton/>
 		</Section>
 	</Document>;
