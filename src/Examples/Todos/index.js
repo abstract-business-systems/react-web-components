@@ -1,11 +1,12 @@
 import React from 'react';
 import Document from '../../components/Document';
 import initialState from './initialState';
-import { Checkbox, Input } from '../../components/WithState';
+import { Checkbox, Input, Transformation } from '../../components/WithState';
 import Section from '../../components/Section';
 import RESTClient from '../../components/RESTClient';
 import TodosDisplay from './TodosDisplay';
 import AddButton from './AddButton';
+import { filter } from '@laufire/utils/collection';
 
 const docProps = { initialState };
 
@@ -18,6 +19,22 @@ const restClientProps = {
 	base: 'http://localhost:3500',
 };
 
+const filters = {
+	all: () => true,
+
+	active: ({ data }) => !data.completed,
+
+	completed: ({ data }) => data.completed,
+};
+
+const filterTodosProps = {
+	value: {},
+	filterTodo: '/filterTodo/',
+	todos: '/todoClient/data/todos/data/',
+	name: 'filterTodos',
+	fn: ({ filterTodo, todos }) => filter(todos, filters[filterTodo]),
+};
+
 const Todos = () =>
 	<Document { ...docProps }>
 		<Section { ...{ label: 'Todos', name: 'todos' } }>
@@ -26,6 +43,7 @@ const Todos = () =>
 			<Input { ...todoInputProps }/>
 			<AddButton/>
 			<TodosDisplay/>
+			<Transformation { ...filterTodosProps }/>
 		</Section>
 	</Document>;
 
