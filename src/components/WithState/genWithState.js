@@ -1,17 +1,12 @@
 import React, { useMemo } from 'react';
-import { equals, map, omit, result } from '@laufire/utils/collection';
+import { map, omit, result } from '@laufire/utils/collection';
 import GlobalContext from '../Document/GlobalContext';
-import { pathType, resolve } from '@laufire/utils/path';
-import { falsy } from '@laufire/utils/predicates';
+import { resolve } from '@laufire/utils/path';
 import { defined } from '@laufire/utils/fn';
 import useBeforeLoad from '../hook/useBeforeLoad';
 import { isDefined } from '@laufire/utils/reflection';
-
-const isPath = (prop) => falsy(equals(pathType(prop), 'lax'));
-
-const getProp = ({ prop, state, valuePath }) => (isPath(prop)
-	? result(state, resolve(valuePath, prop))
-	: prop);
+import isPath from '../common/helper/isPath';
+import getResolveProp from '../common/helper/getResolveProp';
 
 const getProps = ({
 	props: { name, ...props }, path,
@@ -24,23 +19,23 @@ const getProps = ({
 	return {
 		value,
 		...map(omit(props, [name && 'value']),
-			(prop) => getProp({ prop, state, valuePath })),
+			(prop) => getResolveProp({
+				prop: prop, state: state,
+				path: valuePath,
+			})),
 	};
 };
 
 const processSendMessage = ({
-	events, data: currData, context: { sendMessage },
-	path: currPath, deferred = false, context,
+	events, data, context: { sendMessage },
+	path: currPath, deferred = false,
 }) => {
 	const action = 'patch';
 	const entity = 'state';
 
-	const data = getProp({ prop: currData, ...context });
-
 	[].concat(events).forEach((event) => {
-		const path = event.path ? resolve(currData, event.path) : currPath;
-		const eventData = isDefined(event.data)
-		&& { data: getProp({ prop: event.data, ...context }) };
+		const path = event.path ? resolve(currPath, event.path) : currPath;
+		const eventData = isDefined(event.data) && { data: event.data };
 
 		sendMessage({
 			data, action, path, entity, deferred, ...event,
@@ -78,13 +73,8 @@ const contextValue = ({ context, path }) =>
 const getResolvePath = ({ name, value }) =>
 	defined(name, isPath(value) && value) || '';
 
-const useTrigger = (props) => {
-	const dependency = defined(
-		props.onClick?.data, props.onChange?.data, ''
-	);
-
-	return useMemo(() => genOnTrigger(props), [dependency]);
-};
+const useTrigger = (props) => useMemo(() =>
+	genOnTrigger(props), [props.context.sendMessage]);
 
 const WithState = ({
 	props: { onClick = {}, onLoad, onChange = {}, ...props },

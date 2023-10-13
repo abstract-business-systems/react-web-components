@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
-import { Transformation } from '../../components/WithState';
-import { Button } from '../../components/WithContext';
+import { Button, Transformation } from '../../components/WithState';
 
 const transformationProps = {
 	value: {},
@@ -14,11 +13,14 @@ const transformationProps = {
 
 const addProps = {
 	value: '/transformTodo/',
-	onClick: {
-		action: 'create',
-		entity: 'todos',
-		to: '/todoClient/',
-	},
+	onClick: [
+		{
+			action: 'create',
+			entity: 'todos',
+			to: '/todoClient/',
+			data: './',
+		},
+	],
 };
 
 const AddButton = () =>

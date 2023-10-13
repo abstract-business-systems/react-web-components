@@ -13,7 +13,7 @@ const toggleProps = {
 			to: '/todoClient/',
 			action: 'patch',
 			entity: 'todos',
-			data: './',
+			data: '../../',
 		},
 	],
 };
