@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Document from '../../components/Document';
 import initialState from './initialState';
 import {
-	Checkbox,
+	Branch, Checkbox,
 	Input, Transformation,
 } from '../../components/WithState';
 import Section from '../../components/Section';
@@ -40,6 +40,16 @@ const filterTodosProps = {
 		({ data: filter(todos, filters[filterTodo]) }),
 };
 
+const branchProps = {
+	options: {
+		add: () => <Fragment>
+			<Input { ...todoInputProps }/>
+			<AddButton/>
+		</Fragment>,
+	},
+	value: '/editing/status/',
+};
+
 const createTodoProps = {
 	value: {},
 	data: '/todo/',
@@ -56,8 +66,7 @@ const Todos = () =>
 			<RESTClient { ...restClientProps }/>
 			<Transformation { ...createTodoProps }/>
 			<Checkbox { ...toggleAllProps }/>
-			<Input { ...todoInputProps }/>
-			<AddButton/>
+			<Branch { ...branchProps }/>
 			<Transformation { ...filterTodosProps }/>
 			<TodosDisplay/>
 			<FilterButton/>

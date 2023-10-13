@@ -3,6 +3,7 @@ const initialState = {
 	todo: '',
 	todoClient: { data: { todos: { data: {}}}},
 	filterTodo: 'all',
+	editing: { data: {}, status: 'add' },
 };
 
 export default initialState;
