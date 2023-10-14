@@ -39,7 +39,7 @@ const processSendMessage = ({
 
 		sendMessage({
 			data, action, entity, deferred, ...event,
-			...eventData, path,
+			...eventData, path, currPath,
 		});
 	});
 };

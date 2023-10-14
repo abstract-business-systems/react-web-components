@@ -151,7 +151,7 @@ const generateSendMessage = ({ ref }) =>
 		const id = getId();
 		const data = getResolveProp({
 			prop: rest.data, state: ref.current.state,
-			path: rest.path,
+			path: rest.currPath,
 		});
 
 		receivers[to]({ to, ...rest, id, data });
