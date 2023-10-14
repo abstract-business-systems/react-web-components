@@ -20,7 +20,13 @@ const toggleProps = {
 	],
 };
 
-const displayProps = { value: './data/text/' };
+const displayProps = {
+	value: './data/text/',
+	onClick: [
+		{ data: '../../', path: '/editing/data/' },
+		{ data: 'edit', path: '/editing/status/' },
+	],
+};
 
 const TodoDisplay = (props) => <ListItem { ...props }>
 	<Box display="flex" alignItems="center">

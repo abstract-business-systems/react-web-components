@@ -11,6 +11,7 @@ import TodosDisplay from './TodosDisplay';
 import AddButton from './AddButton';
 import { filter } from '@laufire/utils/collection';
 import FilterButton from './FilterButton';
+import EditButton from './EditButton';
 
 const docProps = { initialState };
 
@@ -40,12 +41,23 @@ const filterTodosProps = {
 		({ data: filter(todos, filters[filterTodo]) }),
 };
 
+const AddTodo = <Fragment>
+	<Input { ...todoInputProps }/>
+	<AddButton/>
+</Fragment>;
+
+const editTodoProps = { value: '/editing/data/data/text/' };
+
+const EditTodo = <Fragment>
+	<Input { ...editTodoProps }/>
+	<EditButton/>
+</Fragment>;
+
 const branchProps = {
 	options: {
-		add: () => <Fragment>
-			<Input { ...todoInputProps }/>
-			<AddButton/>
-		</Fragment>,
+		add: () => AddTodo,
+
+		edit: () => EditTodo,
 	},
 	value: '/editing/status/',
 };
