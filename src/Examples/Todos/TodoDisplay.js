@@ -1,7 +1,6 @@
 import React from 'react';
 import ListItem from '../../components/List/ListItem';
-import { Display } from '../../components/WithContext';
-import { Checkbox } from '../../components/WithState';
+import { Checkbox, Display } from '../../components/WithState';
 import { Box } from '@mui/material';
 import DeleteButton from './DeleteButton';
 
@@ -21,10 +20,12 @@ const toggleProps = {
 	],
 };
 
+const displayProps = { value: './data/text/' };
+
 const TodoDisplay = (props) => <ListItem { ...props }>
 	<Box display="flex" alignItems="center">
 		<Checkbox { ...toggleProps }/>
-		<Display value="./data/text/"/>
+		<Display { ...displayProps }/>
 		<DeleteButton/>
 	</Box>
 </ListItem>;

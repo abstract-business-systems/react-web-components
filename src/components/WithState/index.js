@@ -14,6 +14,7 @@ import BreadcrumbsComponent from '../Breadcrumbs';
 import TickerComponent from '../Ticker';
 import CheckboxComponent from '../Checkbox';
 import BranchComponent from '../Branch';
+import Typography from '../Typography';
 
 const Input = genWithState({ Component: InputComponent, trigger: 'onChange' });
 const Select = genWithState({
@@ -42,6 +43,7 @@ const Breadcrumbs = genWithState({ Component: BreadcrumbsComponent });
 const Ticker = genWithState({ Component: TickerComponent });
 const Checkbox = genWithState({ Component: CheckboxComponent });
 const Branch = genWithState({ Component: BranchComponent });
+const Display = genWithState({ Component: Typography, trigger: 'onClick' });
 
 export {
 	Input,
@@ -59,4 +61,5 @@ export {
 	Ticker,
 	Checkbox,
 	Branch,
+	Display,
 };
