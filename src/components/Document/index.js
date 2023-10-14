@@ -91,9 +91,9 @@ const genCreate = ({ data, id, path }) =>
 
 		value[id] = { id, ...data };
 
-		return merge(
-			{}, preState, merge({}, value)
-		);
+		merge({}, value);
+
+		return merge({}, preState,);
 	};
 
 const genDelete = ({ path }) => {
@@ -102,9 +102,9 @@ const genDelete = ({ path }) => {
 	return (preState) => {
 		delete result(preState, parent)[leaf];
 
-		return merge(
-			{}, preState, merge({}, result(preState, parent))
-		);
+		merge({}, result(preState, parent));
+
+		return merge({}, preState,);
 	};
 };
 
