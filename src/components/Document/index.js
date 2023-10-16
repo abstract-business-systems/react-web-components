@@ -63,11 +63,13 @@ const genPatch = ({ data, path, meta }) => {
 
 const genUpdate = ({ data, path }) => {
 	const { parent, leaf } = splitPath(path);
+	const { parent: preParent, leaf: preLeaf } = splitPath(parent);
 
 	return (preState) => {
 		const value = result(preState, parent);
 
 		merge(value[leaf], data);
+		result(preState, preParent)[preLeaf] = { ...value };
 
 		return { ...preState };
 	};
