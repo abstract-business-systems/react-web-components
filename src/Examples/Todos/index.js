@@ -10,7 +10,7 @@ import RESTClient from '../../components/RESTClient';
 import TodosDisplay from './TodosDisplay';
 import AddButton from './AddButton';
 import { filter } from '@laufire/utils/collection';
-import FilterButton from './FilterButton';
+import FilterBar from './FilterBar';
 import EditButton from './EditButton';
 
 const docProps = { initialState };
@@ -80,7 +80,7 @@ const Todos = () =>
 			<Branch { ...branchProps }/>
 			<Transformation { ...filterTodosProps }/>
 			<TodosDisplay/>
-			<FilterButton/>
+			<FilterBar/>
 		</Section>
 	</Document>;
 
