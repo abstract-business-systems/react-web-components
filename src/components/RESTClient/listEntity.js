@@ -17,7 +17,7 @@ const listData = (data) =>
 					},
 				},
 			};
-		}, {}
+		}, { data: {}}
 	);
 
 const listEntities = async ({ base, entity, sendMessage, to }) => {
