@@ -3,10 +3,9 @@ import Document from '../../components/Document';
 import initialState from './initialState';
 import {
 	Branch, Checkbox,
-	Input, Transformation,
+	Input, RESTClient, Transformation,
 } from '../../components/WithState';
 import Section from '../../components/Section';
-import RESTClient from '../../components/RESTClient';
 import TodosDisplay from './TodosDisplay';
 import AddButton from './AddButton';
 import FilterBar from './FilterBar';
@@ -19,6 +18,7 @@ const toggleAllProps = { value: '/toggleAll/' };
 const todoInputProps = { value: '/todo/' };
 
 const restClientProps = {
+	value: { data: { todos: { data: {}}}},
 	name: 'todoClient',
 	base: 'http://localhost:3500',
 };

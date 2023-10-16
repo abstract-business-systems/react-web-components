@@ -20,11 +20,11 @@ const getActions = ({ action, ...args }) => ({
 });
 
 const BaseComponent = (args) => {
-	const { sendMessage, valuePath, name } = args;
+	const { sendMessage, valuePath } = args;
 
 	useBeforeLoad(() => {
 		sendMessage({
-			path: `${ valuePath }${ name }/`,
+			path: `${ valuePath }`,
 			entity: 'receiver',
 			deferred: true,
 			data: ({ action, ...rest }) =>
@@ -32,7 +32,7 @@ const BaseComponent = (args) => {
 		});
 
 		sendMessage({
-			path: `${ valuePath }${ name }/meta/`,
+			path: `${ valuePath }meta/`,
 			entity: 'state',
 			action: 'patch',
 			deferred: true,
