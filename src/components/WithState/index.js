@@ -15,6 +15,7 @@ import TickerComponent from '../Ticker';
 import CheckboxComponent from '../Checkbox';
 import BranchComponent from '../Branch';
 import Typography from '../Typography';
+import RESTClientComponent from '../RESTClient';
 
 const Input = genWithState({ Component: InputComponent, trigger: 'onChange' });
 const Select = genWithState({
@@ -44,6 +45,7 @@ const Ticker = genWithState({ Component: TickerComponent });
 const Checkbox = genWithState({ Component: CheckboxComponent });
 const Branch = genWithState({ Component: BranchComponent });
 const Display = genWithState({ Component: Typography, trigger: 'onClick' });
+const RESTClient = genWithState({ Component: RESTClientComponent });
 
 export {
 	Input,
@@ -62,4 +64,5 @@ export {
 	Checkbox,
 	Branch,
 	Display,
+	RESTClient,
 };
