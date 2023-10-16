@@ -41,23 +41,22 @@ const filterTodosProps = {
 		({ data: filter(todos, filters[filterTodo]) }),
 };
 
-const AddTodo = <Fragment>
+const AddTodo = () => <Fragment>
 	<Input { ...todoInputProps }/>
 	<AddButton/>
 </Fragment>;
 
 const editTodoProps = { value: '/editing/data/data/text/' };
 
-const EditTodo = <Fragment>
+const EditTodo = () => <Fragment>
 	<Input { ...editTodoProps }/>
 	<EditButton/>
 </Fragment>;
 
 const branchProps = {
 	options: {
-		add: () => AddTodo,
-
-		edit: () => EditTodo,
+		add: AddTodo,
+		edit: EditTodo,
 	},
 	value: '/editing/status/',
 };
