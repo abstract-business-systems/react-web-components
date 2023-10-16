@@ -10,6 +10,7 @@ import TodosDisplay from './TodosDisplay';
 import AddButton from './AddButton';
 import FilterBar from './FilterBar';
 import EditButton from './EditButton';
+import deleteAllEntity from './deleteAllEntity';
 import updateAllEntity from './updateAllEntity';
 
 const docProps = { initialState };
@@ -33,7 +34,10 @@ const restClientProps = {
 	value: { data: { todos: { data: {}}}},
 	name: 'todoClient',
 	base: 'http://localhost:3500',
-	action: { updateAll: updateAllEntity },
+	action: {
+		deleteAll: deleteAllEntity,
+		updateAll: updateAllEntity,
+	},
 };
 
 const AddTodo = () => <Fragment>

@@ -15,7 +15,7 @@ const listProps = {
 	],
 };
 
-const filters = {
+export const filters = {
 	all: () => true,
 
 	active: ({ data }) => !data.completed,
