@@ -9,7 +9,6 @@ import Section from '../../components/Section';
 import RESTClient from '../../components/RESTClient';
 import TodosDisplay from './TodosDisplay';
 import AddButton from './AddButton';
-import { filter } from '@laufire/utils/collection';
 import FilterBar from './FilterBar';
 import EditButton from './EditButton';
 
@@ -22,23 +21,6 @@ const todoInputProps = { value: '/todo/' };
 const restClientProps = {
 	name: 'todoClient',
 	base: 'http://localhost:3500',
-};
-
-const filters = {
-	all: () => true,
-
-	active: ({ data }) => !data.completed,
-
-	completed: ({ data }) => data.completed,
-};
-
-const filterTodosProps = {
-	value: { data: {}},
-	filterTodo: '/filterTodo/',
-	todos: '/todoClient/data/todos/data/',
-	name: 'filterTodos',
-	fn: ({ filterTodo, todos }) =>
-		({ data: filter(todos, filters[filterTodo]) }),
 };
 
 const AddTodo = () => <Fragment>
@@ -78,7 +60,6 @@ const Todos = () =>
 			<Transformation { ...createTodoProps }/>
 			<Checkbox { ...toggleAllProps }/>
 			<Branch { ...branchProps }/>
-			<Transformation { ...filterTodosProps }/>
 			<TodosDisplay/>
 			<FilterBar/>
 		</Section>
