@@ -10,10 +10,22 @@ import TodosDisplay from './TodosDisplay';
 import AddButton from './AddButton';
 import FilterBar from './FilterBar';
 import EditButton from './EditButton';
+import updateAllEntity from './updateAllEntity';
 
 const docProps = { initialState };
 
-const toggleAllProps = { value: '/toggleAll/' };
+const toggleAllProps = {
+	value: '/toggleAll/',
+	onChange: [
+		{ to: '/' },
+		{
+			action: 'updateAll',
+			entity: 'todos',
+			to: '/todoClient/',
+			data: './',
+		},
+	],
+};
 
 const todoInputProps = { value: '/todo/' };
 
@@ -21,6 +33,7 @@ const restClientProps = {
 	value: { data: { todos: { data: {}}}},
 	name: 'todoClient',
 	base: 'http://localhost:3500',
+	action: { updateAll: updateAllEntity },
 };
 
 const AddTodo = () => <Fragment>
