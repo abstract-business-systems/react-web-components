@@ -12,6 +12,7 @@ import FilterBar from './FilterBar';
 import EditButton from './EditButton';
 import deleteAllEntity from './deleteAllEntity';
 import updateAllEntity from './updateAllEntity';
+import ClearCompleted from './ClearCompleted';
 
 const docProps = { initialState };
 
@@ -79,6 +80,7 @@ const Todos = () =>
 			<Branch { ...branchProps }/>
 			<TodosDisplay/>
 			<FilterBar/>
+			<ClearCompleted/>
 		</Section>
 	</Document>;
 
