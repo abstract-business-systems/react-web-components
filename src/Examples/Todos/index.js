@@ -6,13 +6,15 @@ import {
 	Input, RESTClient, Transformation,
 } from '../../components/WithState';
 import Section from '../../components/Section';
-import TodosDisplay from './TodosDisplay';
+import TodosDisplay, { filters } from './TodosDisplay';
 import AddButton from './AddButton';
 import FilterBar from './FilterBar';
 import EditButton from './EditButton';
 import deleteAllEntity from './deleteAllEntity';
 import updateAllEntity from './updateAllEntity';
 import ClearCompleted from './ClearCompleted';
+import { falsy } from '@laufire/utils/predicates';
+import { filter, length } from '@laufire/utils/collection';
 
 const docProps = { initialState };
 
@@ -71,11 +73,18 @@ const createTodoProps = {
 	}),
 };
 
+const isToggleAllProps = {
+	data: '/filterTodos/data/',
+	onChange: { path: '/toggleAll/' },
+	fn: ({ data = {}}) => falsy(length(filter(data, filters.active))),
+};
+
 const Todos = () =>
 	<Document { ...docProps }>
 		<Section { ...{ label: 'Todos', name: 'todos' } }>
 			<RESTClient { ...restClientProps }/>
 			<Transformation { ...createTodoProps }/>
+			<Transformation { ...isToggleAllProps }/>
 			<Checkbox { ...toggleAllProps }/>
 			<Branch { ...branchProps }/>
 			<TodosDisplay/>
