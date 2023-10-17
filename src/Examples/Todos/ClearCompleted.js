@@ -1,7 +1,11 @@
-import React from 'react';
-import { Button } from '../../components/WithState';
+import React, { Fragment } from 'react';
+import { Button, Transformation } from '../../components/WithState';
+import { falsy } from '@laufire/utils/predicates';
+import { filter, length } from '@laufire/utils/collection';
+import { filters } from './TodosDisplay';
 
 const clearCompletedProps = {
+	disabled: '/clearCompleted/',
 	onClick: {
 		action: 'deleteAll',
 		entity: 'todos',
@@ -10,7 +14,17 @@ const clearCompletedProps = {
 	},
 };
 
+const isDisableProps = {
+	value: true,
+	name: 'clearCompleted',
+	data: '/filterTodos/data/',
+	fn: ({ data }) => falsy(length(filter(data, filters.completed))),
+};
+
 const ClearCompleted = () =>
-	<Button { ...clearCompletedProps }>ClearCompleted</Button>;
+	<Fragment>
+		<Transformation { ...isDisableProps }/>
+		<Button { ...clearCompletedProps }>ClearCompleted</Button>
+	</Fragment>;
 
 export default ClearCompleted;
