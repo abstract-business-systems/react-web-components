@@ -3,6 +3,7 @@ import Section from '../Section';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { unique } from '@laufire/utils/predicates';
 import {
+	clone,
 	keys,
 	length,
 	merge,
@@ -54,7 +55,7 @@ const genPatch = ({ data, path, meta }) => {
 		const value = result(preState, parent)
 			|| ensureParent({ preState, parent, leaf });
 
-		value[leaf] = data;
+		value[leaf] = clone(data);
 		value.meta = meta || value.meta;
 
 		return { ...preState };
