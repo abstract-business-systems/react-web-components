@@ -34,11 +34,16 @@ const deleteEntity = async ({ base, entity, data, sendMessage, to }) => {
 	sendUpdateMessage({ data, path, sendMessage });
 
 	try {
-		await axios.delete(`${ base }/${ entity }/${ data.data.id }`);
+		const response = await axios.delete(`${ base }/${ entity }/${ data.data.id }`);
+
 		sendDeleteMessage({ data, path, sendMessage });
+
+		return response;
 	}
 	catch (error) {
 		sendErrorMessage({ error, path, sendMessage });
+
+		return error;
 	}
 };
 

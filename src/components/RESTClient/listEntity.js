@@ -20,26 +20,38 @@ const listData = (data) =>
 		}, { data: {}}
 	);
 
+const sendListMessage = ({ sendMessage, response, path }) => {
+	sendMessage({
+		data: listData(response.data),
+		path: path,
+		action: 'list',
+		entity: 'state',
+	});
+};
+
+const sendErrorMessage = ({ sendMessage, error, path }) => {
+	sendMessage({
+		data: { meta: { error }},
+		path: path,
+		action: 'update',
+		entity: 'state',
+	});
+};
+
 const listEntities = async ({ base, entity, sendMessage, to }) => {
 	const path = `${ to }data/${ entity }/`;
 
 	try {
 		const response = await axios(`${ base }/${ entity }`);
 
-		sendMessage({
-			data: listData(response.data),
-			path: path,
-			action: 'list',
-			entity: 'state',
-		});
+		sendListMessage({ sendMessage, response, path });
+
+		return response;
 	}
 	catch (error) {
-		sendMessage({
-			data: { meta: { error }},
-			path: path,
-			action: 'update',
-			entity: 'state',
-		});
+		sendErrorMessage({ sendMessage, error, path });
+
+		return error;
 	}
 };
 

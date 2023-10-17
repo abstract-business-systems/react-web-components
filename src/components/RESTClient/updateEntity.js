@@ -41,9 +41,13 @@ const updateEntity = async ({ base, entity, data, sendMessage, to }) => {
 		);
 
 		sendUpdatedMessage({ ...response, path, sendMessage });
+
+		return response;
 	}
 	catch (error) {
 		sendErrorMessage({ error, sendMessage, path });
+
+		return error;
 	}
 };
 

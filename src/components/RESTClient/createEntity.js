@@ -39,9 +39,13 @@ const createEntity = async ({ base, entity, data, sendMessage, to }) => {
 		);
 
 		sendUpdateMessage({ ...response, path, sendMessage, id });
+
+		return response;
 	}
 	catch (error) {
 		sendErrorMessage({ error, path, sendMessage, id });
+
+		return error;
 	}
 };
 
