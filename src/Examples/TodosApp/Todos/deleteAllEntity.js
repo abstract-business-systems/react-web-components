@@ -1,5 +1,5 @@
 import { filter, map } from '@laufire/utils/collection';
-import deleteEntity from '../../components/RESTClient/deleteEntity';
+import deleteEntity from '../../../components/RESTClient/deleteEntity';
 import { filters } from './TodosDisplay';
 
 const deleteAllEntity = (props) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '../../components/WithContext';
+import { Button } from '../../../components/WithContext';
 
 const deleteProps = {
 	onClick: {

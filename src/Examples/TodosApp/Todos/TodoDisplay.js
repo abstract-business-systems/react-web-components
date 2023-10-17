@@ -1,6 +1,6 @@
 import React from 'react';
-import ListItem from '../../components/List/ListItem';
-import { Checkbox, Display } from '../../components/WithState';
+import ListItem from '../../../components/List/ListItem';
+import { Checkbox, Display } from '../../../components/WithState';
 import { Box } from '@mui/material';
 import DeleteButton from './DeleteButton';
 
