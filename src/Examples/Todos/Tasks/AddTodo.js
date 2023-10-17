@@ -9,12 +9,6 @@ const addProps = {
 			to: '/todoClient/',
 			data: './',
 		},
-		{
-			action: 'delete',
-			entity: 'tasks',
-			to: '/taskClient/',
-			data: './',
-		},
 	],
 };
 
