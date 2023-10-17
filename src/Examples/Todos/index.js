@@ -15,6 +15,8 @@ import updateAllEntity from './updateAllEntity';
 import ClearCompleted from './ClearCompleted';
 import { falsy } from '@laufire/utils/predicates';
 import { filter, length } from '@laufire/utils/collection';
+import { Box } from '@mui/material';
+import Tasks from './Tasks';
 
 const docProps = { initialState };
 
@@ -82,14 +84,19 @@ const isToggleAllProps = {
 const Todos = () =>
 	<Document { ...docProps }>
 		<Section { ...{ label: 'Todos', name: 'todos' } }>
-			<RESTClient { ...restClientProps }/>
-			<Transformation { ...createTodoProps }/>
-			<Transformation { ...isToggleAllProps }/>
-			<Checkbox { ...toggleAllProps }/>
-			<Branch { ...branchProps }/>
-			<TodosDisplay/>
-			<FilterBar/>
-			<ClearCompleted/>
+			<Box display="flex">
+				<Box>
+					<RESTClient { ...restClientProps }/>
+					<Transformation { ...createTodoProps }/>
+					<Transformation { ...isToggleAllProps }/>
+					<Checkbox { ...toggleAllProps }/>
+					<Branch { ...branchProps }/>
+					<TodosDisplay/>
+					<FilterBar/>
+					<ClearCompleted/>
+				</Box>
+				<Tasks/>
+			</Box>
 		</Section>
 	</Document>;
 
