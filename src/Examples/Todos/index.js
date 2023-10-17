@@ -17,6 +17,7 @@ import { falsy } from '@laufire/utils/predicates';
 import { filter, length } from '@laufire/utils/collection';
 import { Box } from '@mui/material';
 import Tasks from './Tasks';
+import moveTaskToTodo from './Tasks/moveTaskToTodo';
 
 const docProps = { initialState };
 
@@ -42,6 +43,7 @@ const restClientProps = {
 	actions: {
 		deleteAll: deleteAllEntity,
 		updateAll: updateAllEntity,
+		moveTaskToTodo: moveTaskToTodo,
 	},
 };
 
