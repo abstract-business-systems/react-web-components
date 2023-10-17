@@ -7,7 +7,7 @@ import deleteEntity from './deleteEntity';
 import createEntity from './createEntity';
 import updateEntity from './updateEntity';
 
-const getActions = ({ action, ...args }) => ({
+const getActions = ({ action = {}, ...args }) => ({
 	...map(action, (fn) => (props) => fn({ ...props, ...args })),
 
 	list: (props) => listEntity({ ...props, ...args }),
