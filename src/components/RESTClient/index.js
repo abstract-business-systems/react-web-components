@@ -19,6 +19,12 @@ const getActions = ({ actions = {}, ...args }) => ({
 	delete: (props) => deleteEntity({ ...props, ...args }),
 });
 
+const getReceiverData = (args) => ({ action, ...rest }) => {
+	const actions = getActions(args);
+
+	return actions[action]({ action, actions, ...rest });
+};
+
 const BaseComponent = (args) => {
 	const { sendMessage, valuePath } = args;
 
@@ -27,8 +33,7 @@ const BaseComponent = (args) => {
 			path: `${ valuePath }`,
 			entity: 'receiver',
 			deferred: true,
-			data: ({ action, ...rest }) =>
-				getActions(args)[action]({ action, ...rest }),
+			data: getReceiverData(args),
 		});
 
 		sendMessage({
