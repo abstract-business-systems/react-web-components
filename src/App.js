@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.scss';
-import Todos from './Examples/Todos';
+import TodosApp from './Examples/TodosApp';
 
 const App = () => <div className="App">
-	<Todos/>
+	<TodosApp/>
 </div>;
 
 export default App;

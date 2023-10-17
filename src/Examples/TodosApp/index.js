@@ -83,7 +83,7 @@ const isToggleAllProps = {
 	fn: ({ data = {}}) => falsy(length(filter(data, filters.active))),
 };
 
-const Todos = () =>
+const TodosApp = () =>
 	<Document { ...docProps }>
 		<Section { ...{ label: 'Todos', name: 'todos' } }>
 			<Box display="flex">
@@ -102,4 +102,4 @@ const Todos = () =>
 		</Section>
 	</Document>;
 
-export default Todos;
+export default TodosApp;
