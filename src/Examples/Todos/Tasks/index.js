@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import React from 'react';
 import { RESTClient } from '../../../components/WithState';
+import TasksDisplay from './TasksDisplay';
 
 const restClientProps = {
 	value: { data: { tasks: { data: {}}}},
@@ -12,6 +13,7 @@ const Tasks = () =>
 	<Box>
 		<Box textAlign="center">Tasks</Box>
 		<RESTClient { ...restClientProps }/>
+		<TasksDisplay/>
 	</Box>;
 
 export default Tasks;
