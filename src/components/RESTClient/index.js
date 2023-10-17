@@ -1,5 +1,5 @@
-import React from 'react';
-import { map } from '@laufire/utils/collection';
+import React, { useRef } from 'react';
+import { map, omit } from '@laufire/utils/collection';
 import GlobalContext from '../Document/GlobalContext';
 import useBeforeLoad from '../hook/useBeforeLoad';
 import listEntity from './listEntity';
@@ -7,17 +7,22 @@ import deleteEntity from './deleteEntity';
 import createEntity from './createEntity';
 import updateEntity from './updateEntity';
 
-const getActions = ({ actions = {}, ...args }) => ({
-	...map(actions, (fn) => (props) => fn({ ...props, ...args })),
+const getActions = (args) => {
+	const filteredArgs = omit(args, 'actions');
 
-	list: (props) => listEntity({ ...props, ...args }),
+	return {
+		...map(args.current.actions || {}, (fn) => (props) =>
+			fn({ ...props, ...filteredArgs })),
 
-	create: (props) => createEntity({ ...props, ...args }),
+		list: (props) => listEntity({ ...props, ...filteredArgs }),
 
-	patch: (props) => updateEntity({ ...props, ...args }),
+		create: (props) => createEntity({ ...props, ...filteredArgs }),
 
-	delete: (props) => deleteEntity({ ...props, ...args }),
-});
+		patch: (props) => updateEntity({ ...props, ...filteredArgs }),
+
+		delete: (props) => deleteEntity({ ...props, ...filteredArgs }),
+	};
+};
 
 const getReceiverData = (args) => ({ action, ...rest }) => {
 	const actions = getActions(args);
@@ -25,16 +30,23 @@ const getReceiverData = (args) => ({ action, ...rest }) => {
 	return actions[action]({ action, actions, ...rest });
 };
 
+const sendReceiverMessage = ({ sendMessage, valuePath, ref }) => {
+	sendMessage({
+		path: valuePath,
+		entity: 'receiver',
+		deferred: true,
+		data: getReceiverData(ref),
+	});
+};
+
 const BaseComponent = (args) => {
 	const { sendMessage, valuePath } = args;
+	const ref = useRef({});
+
+	ref.current = args;
 
 	useBeforeLoad(() => {
-		sendMessage({
-			path: `${ valuePath }`,
-			entity: 'receiver',
-			deferred: true,
-			data: getReceiverData(args),
-		});
+		sendReceiverMessage({ sendMessage, valuePath, ref });
 
 		sendMessage({
 			path: `${ valuePath }meta/`,

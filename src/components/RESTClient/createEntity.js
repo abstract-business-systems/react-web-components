@@ -27,7 +27,10 @@ const sendErrorMessage = ({ error, sendMessage, path, id }) => {
 	});
 };
 
-const createEntity = async ({ base, entity, data, sendMessage, to }) => {
+const createEntity = async ({
+	current: { base, sendMessage },
+	entity, data, to,
+}) => {
 	const path = `${ to }data/${ entity }/data/`;
 	const { id } = sendCreateMessage({ data, path, sendMessage });
 

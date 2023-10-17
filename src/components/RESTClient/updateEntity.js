@@ -28,7 +28,10 @@ const sendErrorMessage = ({ error, sendMessage, path }) => {
 	});
 };
 
-const updateEntity = async ({ base, entity, data, sendMessage, to }) => {
+const updateEntity = async ({
+	current: { base, sendMessage },
+	entity, data, to,
+}) => {
 	const path = `${ to }data/${ entity }/data/${ data.id }`;
 
 	sendUpdateMessage({ data, path, sendMessage });

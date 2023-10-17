@@ -38,7 +38,7 @@ const sendErrorMessage = ({ sendMessage, error, path }) => {
 	});
 };
 
-const listEntities = async ({ base, entity, sendMessage, to }) => {
+const listEntities = async ({ current: { base, sendMessage }, entity, to }) => {
 	const path = `${ to }data/${ entity }/`;
 
 	try {
