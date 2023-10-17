@@ -39,7 +39,7 @@ const restClientProps = {
 	value: { data: { todos: { data: {}}}},
 	name: 'todoClient',
 	base: 'http://localhost:3500',
-	action: {
+	actions: {
 		deleteAll: deleteAllEntity,
 		updateAll: updateAllEntity,
 	},
