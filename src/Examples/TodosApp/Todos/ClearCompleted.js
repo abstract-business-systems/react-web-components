@@ -7,7 +7,7 @@ import { filters } from './FilterTodosTransform';
 const clearCompletedProps = {
 	disabled: '/clearCompleted/',
 	onClick: {
-		action: 'deleteAll',
+		action: 'deleteClearCompleted',
 		entity: 'todos',
 		to: '/todoClient/',
 		data: '/filterTodos/data/',

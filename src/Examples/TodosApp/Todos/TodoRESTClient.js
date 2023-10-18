@@ -1,6 +1,6 @@
 import React from 'react';
 import { RESTClient } from '../../../components/WithState';
-import deleteAllEntity from './deleteAllEntity';
+import deleteClearCompleted from './deleteClearCompleted';
 import updateAllEntity from './updateAllEntity';
 import moveTaskToTodo from '../Tasks/moveTaskToTodo';
 
@@ -9,7 +9,7 @@ const restClientProps = {
 	name: 'todoClient',
 	base: 'http://localhost:3500',
 	actions: {
-		deleteAll: deleteAllEntity,
+		deleteClearCompleted: deleteClearCompleted,
 		updateAll: updateAllEntity,
 		moveTaskToTodo: moveTaskToTodo,
 	},
