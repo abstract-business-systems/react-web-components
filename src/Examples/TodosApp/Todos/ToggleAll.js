@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Checkbox, Transformation } from '../../../components/WithState';
 import { falsy } from '@laufire/utils/predicates';
 import { filter, length } from '@laufire/utils/collection';
-import { filters } from './TodosDisplay';
+import { filters } from './FilterTodosTransform';
 
 const toggleAllProps = {
 	value: '/toggleAll/',

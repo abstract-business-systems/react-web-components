@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import { List, Transformation } from '../../../components/WithState';
+import { List } from '../../../components/WithState';
 import TodoDisplay from './TodoDisplay';
-import { filter } from '@laufire/utils/collection';
+import FilterTodosTransform from './FilterTodosTransform';
 
 const listProps = {
 	value: '/filterTodos/',
@@ -15,26 +15,9 @@ const listProps = {
 	],
 };
 
-export const filters = {
-	all: () => true,
-
-	active: ({ data }) => !data.completed,
-
-	completed: ({ data }) => data.completed,
-};
-
-const filterTodosProps = {
-	value: { data: {}},
-	filterTodo: '/filterTodo/',
-	data: '/todoClient/data/todos/data/',
-	name: 'filterTodos',
-	fn: ({ filterTodo, data }) =>
-		({ data: filter(data, filters[filterTodo]) }),
-};
-
 const TodosDisplay = () =>
 	<Fragment>
-		<Transformation { ...filterTodosProps }/>
+		<FilterTodosTransform/>
 		<List { ...listProps }/>
 	</Fragment>;
 
