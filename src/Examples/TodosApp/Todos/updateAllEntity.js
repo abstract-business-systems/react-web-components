@@ -1,5 +1,4 @@
 import { map } from '@laufire/utils/collection';
-import updateEntity from '../../../components/RESTClient/updateEntity';
 
 const updateAllEntity = (props) => {
 	map(props.current.value.data.todos.data, (value) => {
@@ -8,7 +7,7 @@ const updateAllEntity = (props) => {
 			data: { ...value.data, completed: props.data },
 		};
 
-		updateEntity({ ...props, data });
+		props.actions.patch({ ...props, data });
 	});
 };
 
