@@ -1,6 +1,6 @@
 import { map } from '@laufire/utils/collection';
 
-const updateAllEntity = (props) => {
+const toggleTodos = (props) => {
 	map(props.current.value.data.todos.data, (value) => {
 		const data = {
 			...value,
@@ -11,4 +11,4 @@ const updateAllEntity = (props) => {
 	});
 };
 
-export default updateAllEntity;
+export default toggleTodos;

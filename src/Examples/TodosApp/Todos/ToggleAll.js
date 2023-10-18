@@ -7,7 +7,7 @@ const toggleAllProps = {
 	onChange: [
 		{ to: '/' },
 		{
-			action: 'updateAll',
+			action: 'toggleTodos',
 			entity: 'todos',
 			to: '/todoClient/',
 			data: './',
