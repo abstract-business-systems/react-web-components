@@ -7,25 +7,25 @@ import deleteEntity from './deleteEntity';
 import createEntity from './createEntity';
 import updateEntity from './updateEntity';
 
-const getActions = (args) => {
-	const filteredArgs = omit(args, 'actions');
+const getActions = (ref) => {
+	const filteredRef = omit(ref, 'actions');
 
 	return {
-		...map(args.current.actions || {}, (fn) => (props) =>
-			fn({ ...props, ...filteredArgs })),
+		...map(ref.current.actions || {}, (fn) => (props) =>
+			fn({ ...props, ...filteredRef })),
 
-		list: (props) => listEntity({ ...props, ...filteredArgs }),
+		list: (props) => listEntity({ ...props, ...filteredRef }),
 
-		create: (props) => createEntity({ ...props, ...filteredArgs }),
+		create: (props) => createEntity({ ...props, ...filteredRef }),
 
-		patch: (props) => updateEntity({ ...props, ...filteredArgs }),
+		patch: (props) => updateEntity({ ...props, ...filteredRef }),
 
-		delete: (props) => deleteEntity({ ...props, ...filteredArgs }),
+		delete: (props) => deleteEntity({ ...props, ...filteredRef }),
 	};
 };
 
-const getReceiverData = (args) => ({ action, ...rest }) => {
-	const actions = getActions(args);
+const getReceiverData = (ref) => ({ action, ...rest }) => {
+	const actions = getActions(ref);
 
 	return actions[action]({ action, actions, ...rest });
 };
