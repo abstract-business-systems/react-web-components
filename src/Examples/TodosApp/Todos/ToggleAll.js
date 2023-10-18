@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react';
-import { Checkbox, Transformation } from '../../../components/WithState';
-import { falsy } from '@laufire/utils/predicates';
-import { filter, length } from '@laufire/utils/collection';
-import { filters } from './FilterTodosTransform';
+import { Checkbox } from '../../../components/WithState';
+import ToggleAllTransform from './ToggleAllTransform';
 
 const toggleAllProps = {
 	value: '/toggleAll/',
@@ -17,15 +15,9 @@ const toggleAllProps = {
 	],
 };
 
-const isToggleAllProps = {
-	data: '/filterTodos/data/',
-	onChange: { path: '/toggleAll/' },
-	fn: ({ data = {}}) => falsy(length(filter(data, filters.active))),
-};
-
 const ToggleAll = () =>
 	<Fragment>
-		<Transformation { ...isToggleAllProps }/>
+		<ToggleAllTransform/>
 		<Checkbox { ...toggleAllProps }/>
 	</Fragment>;
 
