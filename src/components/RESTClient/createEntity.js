@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const sendCreateMessage = ({ data, path, sendMessage }) =>
 	sendMessage({
-		data: merge({ data }, { meta: { status: 'synced' }}),
+		data: merge({ data }, { meta: { status: 'syncing' }}),
 		path: path,
 		action: 'create',
 		entity: 'state',
