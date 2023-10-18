@@ -7,11 +7,13 @@ import ToggleAll from './ToggleAll';
 import TodoRESTClient from './TodoRESTClient';
 import CreateTodoTransform from './CreateTodoTransform';
 import InputPanel from './InputPanel';
+import Header from './Header';
 
 const Todos = () =>
 	<Box>
 		<TodoRESTClient/>
 		<CreateTodoTransform/>
+		<Header/>
 		<ToggleAll/>
 		<InputPanel/>
 		<TodosDisplay/>
