@@ -1,68 +1,22 @@
-import React, { useRef } from 'react';
-import { map, omit } from '@laufire/utils/collection';
-import GlobalContext from '../Document/GlobalContext';
-import useBeforeLoad from '../hook/useBeforeLoad';
-import listEntity from './listEntity';
-import deleteEntity from './deleteEntity';
+import React from 'react';
+import { merge } from '@laufire/utils/collection';
+import listEntities from './listEntity';
 import createEntity from './createEntity';
 import updateEntity from './updateEntity';
+import deleteEntity from './deleteEntity';
+import Services from '../Services';
 
-const getActions = (ref) => {
-	const filteredRef = omit(ref, 'actions');
+const actions = {
+	list: listEntities,
 
-	return {
-		...map(ref.current.actions || {}, (fn) => (props) =>
-			fn({ ...props, ...filteredRef })),
+	create: createEntity,
 
-		list: (props) => listEntity({ ...props, ...filteredRef }),
+	patch: updateEntity,
 
-		create: (props) => createEntity({ ...props, ...filteredRef }),
-
-		patch: (props) => updateEntity({ ...props, ...filteredRef }),
-
-		delete: (props) => deleteEntity({ ...props, ...filteredRef }),
-	};
+	delete: deleteEntity,
 };
 
-const getReceiverData = (ref) => ({ action, ...rest }) => {
-	const actions = getActions(ref);
-
-	return actions[action]({ action, actions, ...rest });
-};
-
-const sendReceiverMessage = ({ sendMessage, valuePath, ref }) => {
-	sendMessage({
-		path: valuePath,
-		entity: 'receiver',
-		deferred: true,
-		data: getReceiverData(ref),
-	});
-};
-
-const BaseComponent = (args) => {
-	const { sendMessage, valuePath } = args;
-	const ref = useRef({});
-
-	ref.current = args;
-
-	useBeforeLoad(() => {
-		sendReceiverMessage({ sendMessage, valuePath, ref });
-
-		sendMessage({
-			path: `${ valuePath }meta/`,
-			entity: 'state',
-			action: 'patch',
-			deferred: true,
-			data: {},
-		});
-	}, []);
-
-	return null;
-};
-
-const RESTClient = (props) => <GlobalContext.Consumer>
-	{ (context) =>
-		<BaseComponent { ...{ ...context, ...props } }/> }
-</GlobalContext.Consumer>;
+const RESTClient = ({ ...props }) =>
+	<Services { ...merge(props, { actions }) }/>;
 
 export default RESTClient;
