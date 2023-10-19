@@ -1,8 +1,10 @@
-import React from 'react';
-import { Button } from '../../../components/WithState';
+import React, { Fragment } from 'react';
+import { Button, Transformation } from '../../../components/WithState';
+import { falsy } from '@laufire/utils/predicates';
 
 const addProps = {
 	value: '/transformTodo/',
+	disabled: '/isAddTodo/',
 	onClick: [
 		{
 			action: 'create',
@@ -17,7 +19,18 @@ const addProps = {
 	],
 };
 
+const isAddTodoProps = {
+	name: 'isAddTodo',
+	value: true,
+	data: '/todo/',
+	onChange: { path: '/isAddTodo/' },
+	fn: ({ data }) => falsy(data),
+};
+
 const AddButton = () =>
-	<Button { ...addProps }>Add</Button>;
+	<Fragment>
+		<Transformation { ...isAddTodoProps }/>
+		<Button { ...addProps }>Add</Button>
+	</Fragment>;
 
 export default AddButton;
