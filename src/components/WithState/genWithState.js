@@ -46,14 +46,14 @@ const processSendMessage = ({
 
 const handelOnLoad = ({
 	props: { name, value: data }, path,
-	onLoad, context,
+	onLoad, context, onChange, onClick,
 }) => {
 	const props = { path, context, data };
 
 	name && processSendMessage({
 		...props,
 		deferred: true,
-		events: { },
+		events: { ...onChange, ...onClick, ...onLoad },
 	});
 
 	onLoad && processSendMessage({ ...props, events: onLoad, deferred: true });
@@ -84,7 +84,7 @@ const WithState = ({
 	const path = resolve(valuePath, getResolvePath(props));
 
 	useBeforeLoad(() => {
-		handelOnLoad({ context, props, path, onLoad });
+		handelOnLoad({ context, props, path, onLoad, onChange, onClick });
 	}, []);
 
 	const onTrigger = useTrigger({ context, path, onClick, onChange, trigger });
