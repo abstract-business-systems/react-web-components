@@ -1,8 +1,8 @@
 import React from 'react';
 import ListItem from '../../../components/List/ListItem';
 import { Checkbox, Display } from '../../../components/WithState';
-import { Box } from '@mui/material';
 import DeleteButton from './DeleteButton';
+import { Grid } from '@mui/material';
 
 const toggleProps = {
 	value: './data/completed/',
@@ -29,11 +29,15 @@ const displayProps = {
 };
 
 const TodoDisplay = (props) => <ListItem { ...props }>
-	<Box display="flex" alignItems="center">
-		<Checkbox { ...toggleProps }/>
-		<Display { ...displayProps }/>
-		<DeleteButton/>
-	</Box>
+	<Grid
+		container={ true }
+		justifyContent="center"
+		alignItems="center"
+	>
+		<Grid item={ true } xs={ 1 }><Checkbox { ...toggleProps }/></Grid>
+		<Grid item={ true } xs={ 4 }><Display { ...displayProps }/></Grid>
+		<Grid item={ true } xs={ 2 }><DeleteButton/></Grid>
+	</Grid>
 </ListItem>;
 
 export default TodoDisplay;
