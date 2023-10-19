@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '../../../components/WithState';
+import { Grid } from '@mui/material';
 
 const addProps = {
 	onClick: [
@@ -13,6 +14,8 @@ const addProps = {
 };
 
 const AddTodo = () =>
-	<Button { ...addProps }>+</Button>;
+	<Grid item={ true } xs={ 2 }>
+		<Button { ...addProps }>+</Button>
+	</Grid>;
 
 export default AddTodo;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '../../../components/WithContext';
+import { Grid } from '@mui/material';
 
 const deleteProps = {
 	onClick: {
@@ -10,6 +11,8 @@ const deleteProps = {
 };
 
 const DeleteButton = () =>
-	<Button { ...deleteProps }>Delete</Button>;
+	<Grid item={ true } xs={ 2 }>
+		<Button { ...deleteProps }>Delete</Button>
+	</Grid>;
 
 export default DeleteButton;

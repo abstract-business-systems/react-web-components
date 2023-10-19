@@ -1,18 +1,20 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Grid } from '@mui/material';
 import ListItem from '../../../components/List/ListItem';
-import { Display } from '../../../components/WithState';
 import DeleteButton from './DeleteButton';
 import AddTodo from './AddTodo';
-
-const displayProps = { value: './data/text/' };
+import TextDisplay from './TextDisplay';
 
 const TaskDisplay = (props) => <ListItem { ...props }>
-	<Box display="flex" alignItems="center">
+	<Grid
+		container={ true }
+		justifyContent="center"
+		alignItems="center"
+	>
 		<AddTodo/>
-		<Display { ...displayProps }/>
+		<TextDisplay/>
 		<DeleteButton/>
-	</Box>
+	</Grid>
 </ListItem>;
 
 export default TaskDisplay;
