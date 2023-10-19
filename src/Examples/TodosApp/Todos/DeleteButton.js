@@ -1,11 +1,12 @@
 import React from 'react';
-import { Button } from '../../../components/WithContext';
+import { Button } from '../../../components/WithState';
 
 const deleteProps = {
 	onClick: {
 		action: 'delete',
 		entity: 'todos',
 		to: '/todoClient/',
+		data: './',
 	},
 };
 
