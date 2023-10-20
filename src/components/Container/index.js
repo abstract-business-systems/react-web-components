@@ -13,7 +13,6 @@ import { isDefined } from '@laufire/utils/reflection';
 
 const getArgs = ({ className, ...args }) => ({
 	...args, tabIndex: '-1',
-	style: { height: '1000px', overflow: 'auto' },
 	className: clsx('absContainer', className),
 });
 
@@ -48,6 +47,8 @@ const handleChange = ({ onChange, ...rest }) =>
 
 const addEventListeners = (props) => {
 	const { element } = props;
+
+	handleChange(props);
 
 	window.addEventListener('resize', () => handleChange(props));
 	element.addEventListener('scroll', () => handleChange(props));
