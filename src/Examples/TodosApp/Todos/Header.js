@@ -1,7 +1,7 @@
-import { Box } from '@mui/material';
 import React from 'react';
+import Typography from '../../../components/Typography';
 
 const Header = () =>
-	<Box textAlign="center">Todos</Box>;
+	<Typography variant="h4" textAlign="center">Todos</Typography>;
 
 export default Header;
