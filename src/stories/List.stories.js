@@ -13,7 +13,13 @@ const Template = (args) => <ListComponent { ...args }/>;
 
 export const List = Template.bind({});
 
+const data = [
+	{ data: 'a', id: 1 },
+	{ data: 'b', id: 2 },
+	{ data: 'c', id: 3 },
+];
+
 List.args = {
-	value: ['1', '2', '3', '4'],
-	Component: ({ data }) => <Box>{ data.original }</Box>,
+	value: { data },
+	Component: ({ data: text }) => <Box>{ text }</Box>,
 };
