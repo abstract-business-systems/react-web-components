@@ -70,6 +70,9 @@ dependencies:
   react-scripts:
     specifier: 5.0.1
     version: 5.0.1(eslint@8.48.0)(react@18.2.0)(sass@1.66.1)(webpack-cli@5.1.4)
+  react-speech-kit:
+    specifier: ^3.0.1
+    version: 3.0.1(prop-types@15.8.1)(react@18.2.0)
   react-table:
     specifier: ^7.8.0
     version: 7.8.0(react@18.2.0)
@@ -13390,6 +13393,16 @@ packages:
       - webpack-cli
       - webpack-hot-middleware
       - webpack-plugin-serve
+
+  /react-speech-kit@3.0.1(prop-types@15.8.1)(react@18.2.0):
+    resolution: {integrity: sha512-MXNOciISanhmnxpHJkBOev3M3NPDpW1T7nTc/eGw5pO9cXpoUccRxZkmr/IlpTPbPEneDNeTmbwri/YweyctZg==}
+    peerDependencies:
+      prop-types: ^15.7.2
+      react: ^16.8.0
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
 
   /react-style-singleton@2.2.1(react@18.2.0):
     resolution: {integrity: sha512-ZWj0fHEMyWkHzKYUr2Bs/4zU6XLmq9HsgBURm7g5pAVfyn49DgUiNgY2d4lXRlYSiCif9YBGpQleewkcqddc7g==}
