@@ -12,10 +12,6 @@ const Orientation = ({ children, lockOrientation = 'portrait' }) => {
 
 	return <div { ...{ style } } className="orientation">
 		{ children }
-		angle: { orientation.angle }
-		type: { orientation.type }
-		width: { size.width }
-		height: { size.height }
 	</div>;
 };
 
