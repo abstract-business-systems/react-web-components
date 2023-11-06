@@ -1,19 +1,28 @@
+const landscapePortraitProps = {
+	transformOrigin: 'right top',
+	top: '100%',
+	right: 0,
+};
+
+const getSize = (props) => ({
+	width: props.size.height,
+	height: props.size.width,
+});
+
 const getPortrait = {
 	'landscape-primary': (props) => ({
 		transform: 'rotate(-90deg)',
 		transformOrigin: 'left bottom',
 		left: '100%',
 		bottom: 0,
-		width: props.size.height,
-		height: props.size.width,
+		...getSize(props),
 	}),
 	'landscape-secondary': (props) => ({
 		transform: 'rotate(90deg)',
 		transformOrigin: 'right top',
 		top: '100%',
 		right: 0,
-		width: props.size.height,
-		height: props.size.width,
+		...getSize(props),
 	}),
 	'portrait-primary': () => ({}),
 	'portrait-secondary': (props) => ({
@@ -30,19 +39,13 @@ const getLandscape = {
 	'landscape-secondary': () => ({}),
 	'portrait-primary': (props) => ({
 		transform: 'rotate(90deg)',
-		transformOrigin: 'right top',
-		top: '100%',
-		right: 0,
-		width: props.size.height,
-		height: props.size.width,
+		...landscapePortraitProps,
+		...getSize(props),
 	}),
 	'portrait-secondary': (props) => ({
 		transform: 'rotate(90deg)',
-		transformOrigin: 'right top',
-		top: '100%',
-		right: '0%',
-		width: props.size.height,
-		height: props.size.width,
+		...landscapePortraitProps,
+		...getSize(props),
 	}),
 };
 
