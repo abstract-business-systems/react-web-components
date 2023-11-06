@@ -8,7 +8,7 @@ const getPortrait = {
 		height: props.size.width,
 	}),
 	'landscape-secondary': (props) => ({
-		transform: 'rotate(-270deg)',
+		transform: 'rotate(90deg)',
 		transformOrigin: 'right top',
 		top: '100%',
 		right: 0,
