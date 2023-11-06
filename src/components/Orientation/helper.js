@@ -1,3 +1,5 @@
+import { merge } from '@laufire/utils/collection';
+
 const landscapePortraitProps = {
 	transformOrigin: 'right top',
 	top: '100%',
@@ -34,24 +36,52 @@ const getPortrait = {
 	}),
 };
 
+const LandscapePortrait = {
+	'landscape-primary': {
+		'portrait-primary': (props) => ({
+			transform: 'rotate(90deg)',
+			...landscapePortraitProps,
+			...getSize(props),
+		}),
+		'portrait-secondary': (props) => ({
+			transform: 'rotate(-90deg)',
+			...getSize(props),
+			transformOrigin: 'right bottom',
+			bottom: '100%',
+			right: 0,
+		}),
+	},
+	'landscape-secondary': {
+		'portrait-primary': (props) => ({
+			transform: 'rotate(-90deg)',
+			...getSize(props),
+			transformOrigin: 'left top',
+			top: '100%',
+			left: '0%',
+			with: '100vh',
+			height: '100vw',
+		}),
+		'portrait-secondary': (props) => ({
+			transform: 'rotate(90deg)',
+			...landscapePortraitProps,
+			...getSize(props),
+		}),
+	},
+};
+
 const getLandscape = {
 	'landscape-primary': () => ({}),
 	'landscape-secondary': () => ({}),
-	'portrait-primary': (props) => ({
-		transform: 'rotate(90deg)',
-		...landscapePortraitProps,
-		...getSize(props),
-	}),
-	'portrait-secondary': (props) => ({
-		transform: 'rotate(90deg)',
-		...landscapePortraitProps,
-		...getSize(props),
-	}),
 };
 
 const lockOrientations = {
 	portrait: (props) => getPortrait[props.orientation.type](props),
-	landscape: (props) => getLandscape[props.orientation.type](props),
+	landscape: (props) => {
+		merge(getLandscape, LandscapePortrait[props.type]);
+
+		return getLandscape[props.orientation.type]
+		&& getLandscape[props.orientation.type](props);
+	},
 };
 
 const helper = {
