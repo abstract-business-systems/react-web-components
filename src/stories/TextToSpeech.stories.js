@@ -12,4 +12,7 @@ const Template = (args) => <ReactTextToSpeech { ...args }/>;
 
 export const TextToSpeech = Template.bind({});
 
-TextToSpeech.args = {	value: 'hello' };
+TextToSpeech.args = {
+	value: 'hello',
+	style: { background: 'red' },
+};

@@ -1,15 +1,17 @@
 import React from 'react';
 import { useSpeechSynthesis } from 'react-speech-kit';
-import IconButton from '../IconButton/index';
+import buildEvent from '../common/helper/buildEvent';
 
-const TextToSpeech = ({ value = 'Hello' }) => {
+const TextToSpeech = ({
+	value = 'Hello',
+	...rest
+}) => {
 	const { speak } = useSpeechSynthesis();
 
 	return (
-		<IconButton { ...{
-			icon: 'VolumeUp',
-			onClick: () => speak({ text: value }),
-			color: 'primary',
+		<button { ...{
+			onClick: () => buildEvent({ value: speak({ text: value }) }),
+			...rest,
 		} }
 		/>
 	);
