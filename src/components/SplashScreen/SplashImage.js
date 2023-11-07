@@ -4,7 +4,7 @@ const SplashImage = ({ imgSrc }) =>
 	<img
 		alt="SplashScreen"
 		src={ imgSrc }
-		style={ { width: '90vw' } }
+		style={ { width: '100%' } }
 	/>;
 
 export default SplashImage;

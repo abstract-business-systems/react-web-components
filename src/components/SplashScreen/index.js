@@ -13,7 +13,7 @@ const SplashScreen = (context) => {
 				display: 'flex',
 				justifyContent: 'center',
 				alignItems: 'center',
-				height: '100vh',
+				height: '100dvh',
 				backgroundColor: backgroundColor,
 				color: textColor,
 			} }
