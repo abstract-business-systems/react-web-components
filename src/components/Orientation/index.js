@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { useOrientation } from '@uidotdev/usehooks';
-import { useWindowSize } from 'usehooks-ts';
 import helper from './helper';
 
 const Orientation = ({ children, lockOrientation = 'portrait' }) => {
 	const orientation = useOrientation();
-	const size = useWindowSize();
 
 	const [type, setType] = useState('');
 
@@ -15,7 +13,7 @@ const Orientation = ({ children, lockOrientation = 'portrait' }) => {
 			&& setType(orientation.type);
 	}, [orientation.type]);
 
-	const style = helper.getStyle({ size, orientation, lockOrientation, type });
+	const style = helper.getStyle({ orientation, lockOrientation, type });
 
 	return <div { ...{ style } } className="orientation">
 		{ children }

@@ -6,81 +6,81 @@ const landscapePortraitProps = {
 	right: 0,
 };
 
-const getSize = (props) => ({
-	width: props.size.height,
-	height: props.size.width,
-});
+const getSize = {
+	width: '100dvh',
+	height: '100dvw',
+};
 
 const getPortrait = {
-	'landscape-primary': (props) => ({
+	'landscape-primary': {
 		transform: 'rotate(-90deg)',
 		transformOrigin: 'left bottom',
 		left: '100%',
 		bottom: 0,
-		...getSize(props),
-	}),
-	'landscape-secondary': (props) => ({
+		...getSize,
+	},
+	'landscape-secondary': {
 		transform: 'rotate(90deg)',
 		transformOrigin: 'right top',
 		top: '100%',
 		right: 0,
-		...getSize(props),
-	}),
-	'portrait-primary': () => ({}),
-	'portrait-secondary': (props) => ({
+		...getSize,
+	},
+	'portrait-primary': {},
+	'portrait-secondary': {
 		transform: 'rotate(-180deg)',
 		transformOrigin: 'left bottom',
 		left: '100%',
 		bottom: '100%',
-		...props.size,
-	}),
+		width: '100dvw',
+		height: '100dvh',
+	},
 };
 
 const LandscapePortrait = {
 	'landscape-primary': {
-		'portrait-primary': (props) => ({
+		'portrait-primary': {
 			transform: 'rotate(90deg)',
 			...landscapePortraitProps,
-			...getSize(props),
-		}),
-		'portrait-secondary': (props) => ({
+			...getSize,
+		},
+		'portrait-secondary': {
 			transform: 'rotate(-90deg)',
-			...getSize(props),
+			...getSize,
 			transformOrigin: 'right bottom',
 			bottom: '100%',
 			right: 0,
-		}),
+		},
 	},
 	'landscape-secondary': {
-		'portrait-primary': (props) => ({
+		'portrait-primary': {
 			transform: 'rotate(-90deg)',
-			...getSize(props),
+			...getSize,
 			transformOrigin: 'left top',
 			top: '100%',
 			left: '0%',
-			with: '100vh',
-			height: '100vw',
-		}),
-		'portrait-secondary': (props) => ({
+		},
+		'portrait-secondary': {
 			transform: 'rotate(90deg)',
 			...landscapePortraitProps,
-			...getSize(props),
-		}),
+			...getSize,
+		},
 	},
 };
 
 const getLandscape = {
-	'landscape-primary': () => ({}),
-	'landscape-secondary': () => ({}),
+	'landscape-primary': {},
+	'landscape-secondary': {},
 };
 
 const lockOrientations = {
-	portrait: (props) => getPortrait[props.orientation.type](props),
+	portrait: (props) => getPortrait[props.orientation.type],
 	landscape: (props) => {
-		merge(getLandscape, LandscapePortrait[props.type]);
+		const mergedLandscape = merge(
+			{}, getLandscape, LandscapePortrait[props.type]
+		);
 
-		return getLandscape[props.orientation.type]
-		&& getLandscape[props.orientation.type](props);
+		return mergedLandscape[props.orientation.type];
 	},
 };
 
