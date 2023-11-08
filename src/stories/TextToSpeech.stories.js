@@ -4,6 +4,8 @@ import ReactTextToSpeech from '../components/TextToSpeech/index.js';
 const component = {
 	title: 'Inputs/TextToSpeech',
 	component: ReactTextToSpeech,
+	argTypes: { voice: { type: 'number' }},
+	args: { voice: 4 },
 };
 
 export default component;
