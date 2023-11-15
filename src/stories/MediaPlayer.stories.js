@@ -15,6 +15,7 @@ const component = {
 			options: [
 				'playing',
 				'paused',
+				'stopped',
 			],
 		},
 		mode: {
@@ -45,7 +46,7 @@ const component = {
 			options: ['audio', 'video'],
 		},
 	},
-	args: { type: 'video' },
+	args: { type: 'audio' },
 };
 
 export default component;
@@ -66,8 +67,9 @@ const Template = ({ type, onChange, ...props }) => {
 export const MediaPlayer = Template.bind({});
 
 MediaPlayer.args = {
-	status: 'unknown',
-	mode: 'light',
+	status: 'playing',
+	mode: 'normal',
+	seekToTime: 30,
 	loop: false,
 	controls: true,
 	volume: 0.5,
