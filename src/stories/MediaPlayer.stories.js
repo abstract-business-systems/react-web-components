@@ -69,7 +69,7 @@ export const MediaPlayer = Template.bind({});
 MediaPlayer.args = {
 	status: 'playing',
 	mode: 'normal',
-	seekToTime: 30,
+	seekToTime: 0,
 	loop: false,
 	controls: true,
 	volume: 0.5,

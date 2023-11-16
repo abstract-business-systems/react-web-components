@@ -7,7 +7,6 @@ import buildEvent from '../common/helper/buildEvent';
 const events = {
 	onReady: { status: 'ready' },
 	onPlay: { status: 'playing' },
-	onPause: { status: 'paused' },
 	onBuffer: { status: 'buffering' },
 	onBufferEnd: { status: 'playing' },
 	onError: { status: 'error' },
@@ -30,14 +29,19 @@ const progress = ({ playedSeconds, loadedSeconds }) => ({
 	loaded: loadedSeconds,
 });
 
-const getEvents = (
-	playerRef, patchValue, value
-) => ({
+const getEvents = ({
+	playerRef, patchValue,
+	value: { seekToTime = 0, played },
+}) => ({
 	onStart: () => {
-		handleSeek(value.seekToTime, playerRef);
+		handleSeek(seekToTime, playerRef);
 		patchValue({ status: 'playing' });
 	},
-	onSeek: () => patchValue({ played: value.played }),
+	onPause: () => {
+		handleSeek(seekToTime, playerRef);
+		patchValue({ status: 'paused' });
+	},
+	onSeek: () => patchValue({ played }),
 	onProgress: (seconds) => patchValue(progress(seconds)),
 	onDuration: (duration) => patchValue({ duration }),
 	onPlaybackRateChange: (speed) =>
@@ -47,20 +51,17 @@ const getEvents = (
 const ReactMediaPlayer = (props) => {
 	const {
 		playerProps: { type = 'video', ...playerProps }, playerEvents,
-		patchValue, stopped, value, style, ...rest
+		patchValue, value, style, ...rest
 	} = props;
-	const url = stopped ? null : playerProps.url;
 	const playerRef = useRef(null);
 
 	return (
 		<ReactPlayer	{ ...{
-			...{ ...playerProps, url },
+			...playerProps,
 			...playerEvents,
 			ref: playerRef,
 			style: { ...style, ...displayStyle[type](playerProps) },
-			...getEvents(
-				playerRef, patchValue, value
-			),
+			...getEvents({ playerRef, patchValue, value }),
 			...rest,
 		} }
 		/>);
@@ -71,7 +72,6 @@ const MediaPlayer = ({ onChange = nothing, value: initialValue }) => {
 	const playerProps = omit(rest, { loaded: 'loaded' });
 	const light = mode === 'light';
 	const playing = status === 'playing';
-	const stopped = status === 'stopped';
 	const [value, setValue] = useState(initialValue);
 
 	const patchValue = (data) => {
@@ -84,7 +84,7 @@ const MediaPlayer = ({ onChange = nothing, value: initialValue }) => {
 		() => patchValue(eventData));
 
 	const props = {
-		playerProps, light, stopped, playing,
+		playerProps, light, playing,
 		playerEvents, patchValue, value,
 	};
 

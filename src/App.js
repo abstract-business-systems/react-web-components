@@ -1,17 +1,10 @@
 import React from 'react';
-import MediaPlayer from './components/MediaPlayer';
+import TodosApp from './Examples/TodosApp';
 
 // eslint-disable-next-line max-lines-per-function
 const App = () =>
 	<div className="App">
-		<MediaPlayer
-			{ ...{
-				value: {
-					url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-					style: { width: '100%', height: '100%' },
-				},
-			} }
-		/>
+		<TodosApp/>
 	</div>;
 
 export default App;
